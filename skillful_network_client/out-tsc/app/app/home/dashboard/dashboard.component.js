@@ -1,14 +1,13 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 let DashboardComponent = class DashboardComponent {
     constructor(userService) {
         this.userService = userService;
     }
     ngOnInit() {
-        this.user = this.userService.actualUser;
     }
 };
-DashboardComponent = __decorate([
+DashboardComponent = tslib_1.__decorate([
     Component({
         selector: 'app-dashboard',
         templateUrl: './dashboard.component.html',

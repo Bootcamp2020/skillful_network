@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 let UserComponent = class UserComponent {
     constructor(userService, route) {
@@ -9,7 +9,7 @@ let UserComponent = class UserComponent {
         this.userService.findById(this.route.snapshot.params.id).then(data => this.user = data);
     }
 };
-UserComponent = __decorate([
+UserComponent = tslib_1.__decorate([
     Component({
         selector: 'app-user',
         templateUrl: './user.component.html',

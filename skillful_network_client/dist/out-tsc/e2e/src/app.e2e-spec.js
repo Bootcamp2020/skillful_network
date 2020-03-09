@@ -1,4 +1,4 @@
-import { __awaiter } from "tslib";
+import * as tslib_1 from "tslib";
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 describe('workspace-project App', () => {
@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
         page.navigateTo();
         expect(page.getTitleText()).toEqual('skillful-network-client-new app is running!');
     });
-    afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
+    afterEach(() => tslib_1.__awaiter(this, void 0, void 0, function* () {
         // Assert that there are no errors emitted from the browser
         const logs = yield browser.manage().logs().get(logging.Type.BROWSER);
         expect(logs).not.toContain(jasmine.objectContaining({

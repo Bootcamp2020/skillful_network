@@ -10,7 +10,6 @@ import {ApiHelperService} from './api-helper.service';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private api: ApiHelperService) {
   }
 

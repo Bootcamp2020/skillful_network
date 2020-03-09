@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { User } from '../shared/models/user';
 let LoginComponent = class LoginComponent {
@@ -10,7 +10,8 @@ let LoginComponent = class LoginComponent {
     ngOnInit() {
     }
     login() {
-        localStorage.clear();
+        // Permet de vider le local storage
+        localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
         this.api.post({ endpoint: '/login', data: this.username })
             .then((id) => {
             console.log(id);
@@ -25,7 +26,7 @@ let LoginComponent = class LoginComponent {
         });
     }
 };
-LoginComponent = __decorate([
+LoginComponent = tslib_1.__decorate([
     Component({
         selector: 'app-login',
         templateUrl: './login.component.html',

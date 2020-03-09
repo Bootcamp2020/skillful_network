@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
 let IsLoggedGuard = class IsLoggedGuard {
     constructor(user, router) {
@@ -6,16 +6,11 @@ let IsLoggedGuard = class IsLoggedGuard {
         this.router = router;
     }
     canActivate(next, state) {
-        if (this.user.actualUser) {
-            return true;
-        }
-        else {
-            this.router.navigate(['/login']);
-            return false;
-        }
+        this.router.navigate(['/login']);
+        return false;
     }
 };
-IsLoggedGuard = __decorate([
+IsLoggedGuard = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     })

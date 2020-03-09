@@ -1,8 +1,8 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 let AppComponent = class AppComponent {
 };
-AppComponent = __decorate([
+AppComponent = tslib_1.__decorate([
     Component({
         selector: 'app-root',
         templateUrl: './app.component.html',

@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 let UsersListComponent = class UsersListComponent {
     constructor(userService) {
@@ -8,7 +8,7 @@ let UsersListComponent = class UsersListComponent {
         this.userService.findAll().then((users) => this.users = users);
     }
 };
-UsersListComponent = __decorate([
+UsersListComponent = tslib_1.__decorate([
     Component({
         selector: 'app-users-list',
         templateUrl: './users-list.component.html',

@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 let ApiHelperService = class ApiHelperService {
@@ -25,16 +25,16 @@ let ApiHelperService = class ApiHelperService {
         };
         let req = null;
         if (methodWanted === 'get') {
-            req = this.http.get(url, Object.assign(Object.assign({}, requestOptions), { observe: 'response' }));
+            req = this.http.get(url, Object.assign({}, requestOptions, { observe: 'response' }));
         }
         else if (methodWanted === 'post') {
-            req = this.http.post(url, data, Object.assign(Object.assign({}, requestOptions), { observe: 'response' }));
+            req = this.http.post(url, data, Object.assign({}, requestOptions, { observe: 'response' }));
         }
         else if (methodWanted === 'put') {
-            req = this.http.put(url, data, Object.assign(Object.assign({}, requestOptions), { observe: 'response' }));
+            req = this.http.put(url, data, Object.assign({}, requestOptions, { observe: 'response' }));
         }
         else if (methodWanted === 'delete') {
-            req = this.http.delete(url, Object.assign(Object.assign({}, requestOptions), { observe: 'response' }));
+            req = this.http.delete(url, Object.assign({}, requestOptions, { observe: 'response' }));
         }
         if (!req) {
             throw new Error(`error calling ${url} with method ${methodWanted}`);
@@ -43,7 +43,7 @@ let ApiHelperService = class ApiHelperService {
         return req.toPromise().then((res) => res.body);
     }
 };
-ApiHelperService = __decorate([
+ApiHelperService = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     })

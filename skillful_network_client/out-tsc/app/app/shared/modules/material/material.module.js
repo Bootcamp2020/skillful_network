@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ const MATERIAL_MODULES = [
 ];
 let MaterialModule = class MaterialModule {
 };
-MaterialModule = __decorate([
+MaterialModule = tslib_1.__decorate([
     NgModule({
         declarations: [],
         imports: [

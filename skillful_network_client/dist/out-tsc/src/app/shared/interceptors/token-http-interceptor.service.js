@@ -1,4 +1,4 @@
-import { __decorate } from "tslib";
+import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 let TokenHttpInterceptorService = class TokenHttpInterceptorService {
@@ -18,7 +18,7 @@ let TokenHttpInterceptorService = class TokenHttpInterceptorService {
         }));
     }
 };
-TokenHttpInterceptorService = __decorate([
+TokenHttpInterceptorService = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     })

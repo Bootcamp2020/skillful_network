@@ -1,4 +1,10 @@
-import { __decorate } from "tslib";
+/**
+ * Module principal de l'application
+ * Pour rappel, un module permet de représenter un lot de fonctionnalités. Il va référencer les composants de votre applications
+ * il aura également pour responsabilité d'appeler le composant racine (bootstrap component) qui va être à l'origine de tous les composants
+ * Ici, on parle de "AppComponent"
+ */
+import * as tslib_1 from "tslib";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +22,7 @@ import { UsersListComponent } from './home/users-list/users-list.component';
 import { TokenHttpInterceptorService } from './shared/interceptors/token-http-interceptor.service';
 let AppModule = class AppModule {
 };
-AppModule = __decorate([
+AppModule = tslib_1.__decorate([
     NgModule({
         declarations: [
             AppComponent,
