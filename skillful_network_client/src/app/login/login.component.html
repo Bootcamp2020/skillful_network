@@ -1,0 +1,16 @@
+<div class="alert alert-danger" *ngIf="error">
+  There was a problem logging in. Please try again.
+</div>
+
+<div class="container">
+  <div class="bloc-login">
+    <form (submit)="login()" fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput [(ngModel)]="username" name="Nom"/>
+      </mat-form-field>
+
+      <button type="submit" mat-button color="primary" [disabled]="!username">Connexion</button>
+    </form>
+  </div>
+</div>

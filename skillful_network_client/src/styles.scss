@@ -1,0 +1,36 @@
+/*
+Style global de l'application. Vous l'avez peut être remarqué mais lorsqu'on applique un style à un composant,
+ce style est appliqué au composant en question mais n'est pas cascadé aux enfants.
+Pour appliquer un style global, on préférera donc passer par ce fichier. Par exemple, si je veux que TOUS les boutons de
+mon application aient un background rouge, je vais ajouter ci-dessous :
+.button {
+  background-color: red;
+}
+et toute notre application sera impactée :)
+
+La logique appliquée est du SASS, en SASS, on a une logique "d'héritage" entre nos règles de style, cette écriture SASS :
+
+#toto {
+  font-weight: 1.1rem;
+
+  span {
+    color: blue;
+  }
+}
+
+est équivalent à cette écriture en CSS normal :
+
+#toto {
+  font-weight: 1.1rem;
+}
+
+#toto span {
+  color: blue;
+}
+
+L'avantage du SASS, c'est qu'on centralise les styles inhérent à des thématiques précises sous le même bloc. On considère
+cela comme un développement "plus propre" (comprenez plus lisible par un autre dev / mieux maintenable)
+*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

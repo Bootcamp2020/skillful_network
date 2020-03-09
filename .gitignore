@@ -1,0 +1,14 @@
+.idea/
+.DS_Store
+
+skillful_network_server/.idea/
+skillful_network_server/.DS_Store
+skillful_network_server/target/
+
+skillful_network_client/node_modules/
+skillful_network_client/.DS_Store
+skillful_network_client/.idea/
+
+*/**/*.iml
+
+
