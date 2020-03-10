@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
                     this.error = true;
                 } else {
                     localStorage.setItem('token', 'X'); // TODO Gérer le token
-                    this.userService.actualUser = new User({id});
+                    //this.userService.actualUser = new User({id});
                     this.router.navigate(['/home']);
                 }
             });
