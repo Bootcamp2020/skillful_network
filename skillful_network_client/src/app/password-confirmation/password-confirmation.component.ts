@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterpasswordeService } from '../registerpassworde.service';
+import { RegisterpasswordeService } from '../shared/services/registerpassworde.service';
 
 @Component({
   selector: 'app-password-confirmation',

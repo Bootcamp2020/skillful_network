@@ -13,7 +13,7 @@ export class RegisterpasswordeService {
 
   registerpassword(formdata){
     this.http
-      .post("http://localhost:5000/registerpassword", formdata) 
+      .post("", formdata) 
       .toPromise() 
       .then(data => {
         console.log(data);
