@@ -1,16 +1,20 @@
+<!--vue avec le formulaire du formControl  utilisand le ReactiveFormsModule .-->
 <div class="alert alert-danger" *ngIf="error">
   There was a problem logging in. Please try again.
 </div>
-
 <div class="container">
   <div class="bloc-login">
-    <form (submit)="login()" fxLayout="column" fxLayoutAlign="center center">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" fxLayout="column" fxLayoutAlign="center center">
+      <h2>Login</h2>
       <mat-form-field>
-        <mat-label>Nom</mat-label>
-        <input matInput [(ngModel)]="username" name="Nom"/>
+        <mat-label>E-mail</mat-label>
+        <input type = "email" matInput formControlName="email" name="Email" />
       </mat-form-field>
-
-      <button type="submit" mat-button color="primary" [disabled]="!username">Connexion</button>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" name="Password" />
+      </mat-form-field>
+      <button type="submit" mat-button color="primary" [disabled]="loginForm.invalid">Login</button>      
     </form>
   </div>
 </div>
