@@ -34,3 +34,20 @@ cela comme un développement "plus propre" (comprenez plus lisible par un autre 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container_dashboard{
+  height: 600px;
+  min-height: 300px;
+}
+.card_dashboard{
+  height: 100%;
+  margin: 10px;
+  background-color:snow;
+}
+#title, hr{
+  justify-content: center;
+  color: #5b7787;
+}
+#title_police{
+  font-size: 2rem;
+  font-style: italic;
+}
