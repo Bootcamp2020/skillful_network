@@ -21,6 +21,7 @@ import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
+import { FooterComponent } from './home/dashboard/footer/footer.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -29,7 +30,8 @@ import {TokenHttpInterceptorService} from './shared/interceptors/token-http-inte
         LoginComponent,
         DashboardComponent,
         UserComponent,
-        UsersListComponent
+        UsersListComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
