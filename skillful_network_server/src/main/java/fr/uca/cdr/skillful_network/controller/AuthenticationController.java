@@ -1,11 +1,23 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.model.services.UserService;
+
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 /**
  * Cette classe a pour rôle d'identifié les utilisateurs.
@@ -16,13 +28,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
+	
+     @Autowired
+     private UserRepository userRepository;
+     
+     @Autowired
+     private UserService userService;
 
-    /**
-     * @param login the email or the mobile number of the user
-     * @return the id of the user
-     */
-    @RequestMapping(value = "/login", method = POST)
-    public Number login(@RequestBody String login) {
-        return -1;
+    @RequestMapping(value = "/register", method = POST)
+    public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
+    	if (userService.alreadyExists(user.getEmail())) {
+    		if(userService.existingMailIsValidated(user.getEmail())== true)
+    		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    		}
+    	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
 }
