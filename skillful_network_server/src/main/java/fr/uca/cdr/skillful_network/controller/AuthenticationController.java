@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
@@ -34,18 +35,18 @@ public class AuthenticationController {
 	public ResponseEntity<User> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
 			Optional<User> userFromDB = userRepository.findByEmail(loginRequest.getEmail());
-			if (userFromDB.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			if (!userFromDB.isPresent()) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
 				String passwordFromDB = userFromDB.get().getPassword();
 				String passwordRequest = loginRequest.getPassword();
 				if (passwordRequest != null && !passwordRequest.equals(passwordFromDB)) {
-					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les 2 mots de passe ne correspondent pas");
 				} else {
 					return ResponseEntity.ok().body(userFromDB.get());
 				}
 			}
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 	}
 }
