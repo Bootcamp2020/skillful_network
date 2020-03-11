@@ -21,6 +21,7 @@ import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
+import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { FooterComponent } from './home/dashboard/footer/footer.component';
         DashboardComponent,
         UserComponent,
         UsersListComponent,
+        SimulationComponent,
         FooterComponent
     ],
     imports: [
