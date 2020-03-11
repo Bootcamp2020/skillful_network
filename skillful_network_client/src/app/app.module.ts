@@ -21,6 +21,8 @@ import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -39,7 +41,10 @@ import {TokenHttpInterceptorService} from './shared/interceptors/token-http-inte
         FormsModule, // Permet d'appliquer [(ngModel)] aux inputs
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
-        FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
+        FlexLayoutModule,
+        MatCardModule,
+        MatTabsModule,
+        // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement
