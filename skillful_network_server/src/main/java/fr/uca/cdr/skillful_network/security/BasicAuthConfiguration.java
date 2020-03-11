@@ -39,7 +39,7 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
           .authorizeRequests()
           .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()
-          .antMatchers("/home", "/login", "/token") // les pages/requêtes /home, /login et /token sont accessibles sans authentifications (pour pouvoir s'identifier).
+          .antMatchers("/home", "/login", "/token", "/login/v1") // les pages/requêtes /home, /login et /token sont accessibles sans authentifications (pour pouvoir s'identifier).
                 .permitAll()
           .anyRequest()
           .authenticated() // toutes les qutess pages/requêtes nécessite une authentification pour pouvoir y accéder.

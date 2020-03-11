@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "skillful-network-client-new"
+  "defaultProject": "skillful-network-client-new",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,30 @@
+.formulaire {
+    border-radius: 20px;
+    background: white;
+    padding: 5px;
+}
+
+.toolbar {
+    height: auto;
+}
+
+.input {
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    cursor: text;
+    font: 400 13.3333px Arial;
+}
+
+div input {
+    border: none;
+    margin-top: 2%;
+}
+
+.cursor {
+    cursor: pointer;
+}

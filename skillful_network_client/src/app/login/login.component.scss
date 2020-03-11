@@ -7,3 +7,57 @@
   border-radius: 5px;
   padding: 20px;
 }
+.connectionForm{
+  max-width: 20%;
+  min-height: 20em;
+  padding: 5rem;
+  background-color: #fff;
+  margin: 5em auto;
+}
+.mat-form-field{
+  width: 300px;
+  margin-bottom: 1.5em;
+  margin-top: 1em;
+}
+.mat-card-title{
+  margin-bottom: 1em;
+  color: grey;
+}
+.container{
+  top: 0px;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;;
+  background-color:rgb(229, 230, 232);
+}
+div.mat-tab-body-wrapper{
+  overflow: none;
+}
+button{
+  margin-top: 1.5em;
+  background-color: #FF6550;
+  color: #fff;
+}
+.logo{
+  width: 100%;
+}
+img.poleEmploi{
+  margin: 1.5rem auto;
+}
+i.material-icons{
+  color:#ff6550;
+}
+@media only screen and (max-width: 1230px) {
+  .container{
+    height: auto;
+  }
+  .connectionForm{
+    max-width: 40%;
+  }
+  .mat-card-title{
+    font-size: 16px;
+    width: 200px;
+    margin:auto;
+    padding: 2rem;
+  }
+}
