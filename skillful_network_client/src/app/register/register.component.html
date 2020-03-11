@@ -1,0 +1,32 @@
+<div class="alert alert-danger" *ngIf="error">
+    There was a problem logging in. Please try again.
+</div>
+<div *ngIf="!doDisplayCodeVerif">
+    <div class="container">
+        <div class="bloc-login">
+        <form [formGroup]='emailForm' (ngSubmit)="register()" fxLayout="column" fxLayoutAlign="center center">
+            <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            </mat-form-field>
+    
+            <button type="submit" mat-button color="primary" [disabled]="!emailForm">S'inscrire</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="doDisplayCodeVerif">
+    <div class="container">
+        <div class="bloc-login">
+        <form [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+            <mat-form-field>
+            <mat-label>Code de confirmation</mat-label>
+            <input matInput formControlName="code" />
+            </mat-form-field>
+    
+            <button type="submit" mat-button color="primary" [disabled]="!codeForm">Valider</button>
+        </form>
+        </div>
+    </div>
+</div>
