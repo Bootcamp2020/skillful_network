@@ -1,7 +1,5 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,12 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+
+
 @Entity
 public class JobOffer {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 	private String name;
 	private String company;
 	private String description;
@@ -22,12 +23,12 @@ public class JobOffer {
 	private Date dateBeg;
 	private Date dateEnd;
 	private Date dateUpload;
-	private ArrayList<String> keywords;
+	private String[] keywords;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -72,17 +73,19 @@ public class JobOffer {
 	public void setDateUpload(Date dateUpload) {
 		this.dateUpload = dateUpload;
 	}
-	public ArrayList<String> getKeywords() {
+	public String[] getKeywords() {
 		return keywords;
 	}
-	public void setKeywords(ArrayList<String> keywords) {
+	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
 	public JobOffer() {
 		super();
 	}
-	public JobOffer(int id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, ArrayList<String> keywords) {
+	
+	
+	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
+			Date dateUpload, String[] keywords) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -94,8 +97,10 @@ public class JobOffer {
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
 	}
+	
+	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, ArrayList<String> keywords) {
+			Date dateUpload, String[] keywords) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -106,7 +111,6 @@ public class JobOffer {
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
 	}
-	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload) {
 		super();

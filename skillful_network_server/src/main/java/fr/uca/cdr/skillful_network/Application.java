@@ -1,33 +1,33 @@
 package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
+import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
+import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.FileReader;
+
+
+
 @SpringBootApplication
 public class Application {
 
     // lance le serveur
     public static void main(String[] args) {
-//        SpringApplication.run(Application.class, args);
-        
-        //Test instanciation Joboffer
-        ArrayList<String> keywords = new ArrayList<String>();
-		keywords.add("kw1");
-		keywords.add("kw2");
-		keywords.add("kw3");
-		JobOffer j1 = new JobOffer("nom","entreprise","description","type",new Date("2019/05/01"),new Date("2020/12/25"),new Date("2020/01/30"),keywords);
-		System.out.println(j1.toString());
-		//Fin du test
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean
@@ -44,13 +44,32 @@ public class Application {
     
     @Bean
     CommandLineRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
-        // Ici on initialise le dépot des JobOffer avec des JobOffer codés en dur.
-        // on devrait ici charger la base de données (fichiers json dans une première version)
         return args -> {
-            for (int i = 0; i < 5; i++) {
-            	jobOfferRepository.save(new JobOffer());
-            }
-            jobOfferRepository.findAll().forEach(System.out::println);
+        	Gson gson = new Gson();
+        	String url = "src/main/resources/data/job-offers.json";
+        	JsonReader reader = new JsonReader(new FileReader(url));
+        	
+        	List<JobOffer> jobOffers = Arrays.asList(gson.fromJson(reader, JobOffer[].class));
+			jobOfferRepository.saveAll(jobOffers);
+			reader.close();
+			
+        	jobOfferRepository.findAll().forEach(System.out::println);
+        };
+    }
+        
+    @Bean
+    CommandLineRunner initTrainingRepository(TrainingRepository trainingRepository) {
+        return args -> {
+        	Gson gson = new Gson();
+        	String url = "src/main/resources/data/trainings.json";
+        	JsonReader reader = new JsonReader(new FileReader(url));
+        	
+        	List<Training> trainings = Arrays.asList(gson.fromJson(reader, Training[].class));
+			trainingRepository.saveAll(trainings);
+			reader.close();
+			
+        	trainingRepository.findAll().forEach(System.out::println);
+        	
         };
     }
 }
