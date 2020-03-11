@@ -13,7 +13,7 @@ export class IsLoggedGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.router.navigate(['/login']);
-    return false;
+    //this.router.navigate(['/login']);
+    return true;
   }
 }
