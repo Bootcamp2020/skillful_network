@@ -10,7 +10,9 @@ import { RegisterpasswordeService } from '../shared/services/registerpassworde.s
 export class PasswordConfirmationComponent implements OnInit {
   public formPost: FormGroup;
   private _passwordRegex ="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
-  hide = true;
+  // hide = true;
+  public hide1 = true;
+  public hide2 = true;
 
   constructor(private fb: FormBuilder, private registerpassword:RegisterpasswordeService ) { }
 
@@ -18,6 +20,7 @@ export class PasswordConfirmationComponent implements OnInit {
     this._buildForm();
   }
   public onSubmit() {
+    console.log("Radhwa is wonderfull");
     this.registerpassword.registerpassword(this.formPost.value); 
   }
 
@@ -25,10 +28,10 @@ export class PasswordConfirmationComponent implements OnInit {
   private _buildForm() {
     this.formPost = this.fb.group({
    
-      password: ["", [Validators.minLength(8), Validators.pattern(this._passwordRegex)]],
+      password: ["", [Validators.pattern(this._passwordRegex), Validators.required]],
 
      
-      confirmpassword: ["", Validators.pattern(this._passwordRegex)]
+      confirmpassword: ["", [Validators.pattern(this._passwordRegex),Validators.required]]
     }, {validator: this.checkPasswords });
 
   }
