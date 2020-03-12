@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.controller;
 
+
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,11 +11,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.LoginForm;
+import fr.uca.cdr.skillful_network.security.CodeGeneration;
+import fr.uca.cdr.skillful_network.security.SendMail;
+import fr.uca.cdr.skillful_network.model.services.UserService;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Cette classe a pour rÃ´le d'identifiÃ© les utilisateurs. L'authentification des
@@ -26,26 +34,46 @@ import fr.uca.cdr.skillful_network.request.LoginForm;
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
-
-	@Autowired
-	public UserRepository userRepository;
+	
+     @Autowired
+     private UserRepository userRepository;
+     
+     @Autowired
+     private UserService userService;
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<User> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
 			Optional<User> userFromDB = userRepository.findByEmail(loginRequest.getEmail());
-			if (userFromDB.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			if (!userFromDB.isPresent()) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
 				String passwordFromDB = userFromDB.get().getPassword();
 				String passwordRequest = loginRequest.getPassword();
 				if (passwordRequest != null && !passwordRequest.equals(passwordFromDB)) {
-					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les 2 mots de passe ne correspondent pas");
 				} else {
 					return ResponseEntity.ok().body(userFromDB.get());
 				}
 			}
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 	}
+
+    @RequestMapping(value = "/register", method = POST)
+    public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
+    	if (userService.alreadyExists(user.getEmail())) {
+    		if(userService.existingMailIsValidated(user.getEmail())== true) {
+    		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    		} else {
+    			Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
+    	    	userRepository.delete(oOldUser.get());	
+    	    }
+    	}
+    	String randomCode = CodeGeneration.generateCode(10);
+//    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+    	user.setPassword(randomCode);
+    	userRepository.save(user);
+    	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    }
 }

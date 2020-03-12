@@ -12,8 +12,7 @@ public class CodeGeneration {
 			int i = (int) Math.floor(Math.random() * 62); 
 			pass.append(chars.charAt(i));
 		}
-		System.out.println(pass);
+		System.out.println("Le code aleatoire : " + pass);
 		return pass.toString();
 	}
-
 }

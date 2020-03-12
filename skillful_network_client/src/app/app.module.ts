@@ -16,6 +16,7 @@ import {LoginComponent} from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './shared/modules/material/material.module';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
@@ -23,8 +24,15 @@ import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
+import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
 import { HeaderComponent } from './home/dashboard/header/header.component';
+
 import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
+
+import { ProfileComponent } from './home/dashboard/profile/profile.component';
+import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+
+
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -37,7 +45,12 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
-        CandidatureComponent
+        CandidatureComponent,
+        FilActualitesComponent,
+        HeaderComponent,
+        ProfileComponent,
+        MenuprofileComponent
+
     ],
     imports: [
         BrowserModule,
@@ -48,6 +61,7 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
+        MatFormFieldModule,
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement
