@@ -159,29 +159,30 @@ fabric.properties
 ### Angular ###
 ## Angular ##
 # compiled output
-dist/
-tmp/
-app/**/*.js
-app/**/*.js.map
+skillful_network_client/dist/
+skillful_network_client/tmp/
+skillful_network_client/app/**/*.js
+skillful_network_client/app/**/*.js.map
 
 # dependencies
-node_modules/
-bower_components/
+skillful_network_client/node_modules/
+skillful_network_client/bower_components/
 
 # misc
-.sass-cache/
-connect.lock/
-coverage/
-libpeerconnection.log/
-npm-debug.log
-testem.log
-typings/
+skillful_network_client/.sass-cache/
+skillful_network_client/connect.lock/
+skillful_network_client/coverage/
+skillful_network_client/libpeerconnection.log/
+skillful_network_client/npm-debug.log
+skillful_network_client/testem.log
+skillful_network_client/typings/
 
 # e2e
-e2e/*.js
-e2e/*.map
+skillful_network_client/e2e/*.js
+skillful_network_client/e2e/*.map
 
 #System Files
 .DS_Store/
+skillful_network_client/.DS_Store/
 
 # End of https://www.gitignore.io/api/angular
