@@ -8,7 +8,7 @@ skillful_network_server/target/
 skillful_network_client/node_modules/
 skillful_network_client/.DS_Store
 skillful_network_client/.idea/
+skillful_network_client/dist/
 
 */**/*.iml
-
-
+skillful_network_server/bin/
