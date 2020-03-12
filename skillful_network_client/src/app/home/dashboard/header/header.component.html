@@ -1,0 +1,32 @@
+<header>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-toolbar class="toolbar" color="#5b7787" fxLayout.md="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+            <div fxLayout="row " fxFlex="20 " fxLayoutAlign="space-between start ">
+                <img src="/assets/pictures/Logo.png " alt="logo " style="width: 45px; ">
+            </div>
+            <div class="menu " fxLayout="row " fxLayoutAlign="center center " fxFlex="40 ">
+                <div>
+                    <a href=" # " mat-button>Home</a>
+                </div>
+                <div>
+                    <a href="# " mat-button>Profile</a>
+                </div>
+                <div>
+                    <a href="# " mat-button>Notifications</a>
+                </div>
+                <div>
+                    <a href="# " mat-button>Log out</a>
+                </div>
+            </div>
+            <div id="searchbar " fxLayout="row " fxLayoutAlign="center center " fxflex="50 ">
+                <form action=" " class="formulaire ">
+                    <!-- <div fxLayout="row " fxFlex="10 " fxLayoutAlign="space-between end "> <input class=" bouton " type="button " value=" " /> </div> -->
+                    <div fxLayout="row ">
+                        <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
+                        <div class="input "><input (keydown)="onSearch() " placeholder="search... "> </div>
+                    </div>
+                </form>
+            </div>
+        </mat-toolbar>
+    </div>
+</header>

@@ -22,7 +22,11 @@ import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
-import { RegisterComponent } from './register/register.component';
+import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
+import { FooterComponent } from './home/dashboard/footer/footer.component';
+import { HeaderComponent } from './home/dashboard/header/header.component';
+import { ProfileComponent } from './home/dashboard/profile/profile.component';
+import { MenuprofileComponent } from './menuprofile/menuprofile.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -32,7 +36,11 @@ import { RegisterComponent } from './register/register.component';
         DashboardComponent,
         UserComponent,
         UsersListComponent,
-        RegisterComponent
+        SimulationComponent,
+        FooterComponent,
+        HeaderComponent,
+        ProfileComponent,
+        MenuprofileComponent
     ],
     imports: [
         BrowserModule,
