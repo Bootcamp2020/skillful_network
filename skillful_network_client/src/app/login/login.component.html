@@ -11,7 +11,7 @@
           <table style="width: 60%" cellspacing="10">
             <tr>
               <td>
-                <form [formGroup]="loginFormGroup" (submit)="onSubmitLogin()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+                <form [formGroup]="loginFormGroup" (submit)="login()" fxLayout="column" fxLayoutAlign="center center" novalidate>
                   <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input formControlName="emailLogin" matInput placeholder="Votre email" class="form-control">
@@ -40,7 +40,7 @@
           <table style="width: 50%" cellspacing="10">
             <tr>
               <td>
-                <form [formGroup]="inscriptionFormGroup" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+                <form *ngIf="!doDisplayCodeVerif" [formGroup]="inscriptionFormGroup" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
                   <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input formControlName="emailInscription" matInput type="email" placeholder="Entrez votre Email" >
@@ -52,6 +52,19 @@
                   </mat-form-field>
                   <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button>Envoyer</button>
                 </form>
+
+                <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                  <mat-form-field>
+                  <mat-label>Code de confirmation</mat-label>
+                  <input maxlength="10" matInput formControlName="code" />
+                  <mat-error class="form-control-feedback" *ngIf="codeForm.get('code').hasError && (codeForm.get('code').dirty || codeForm.get('code').touched) ">
+                    <span *ngIf="codeForm.get('code').hasError('required')">Code est obligatoire</span>
+                    <span *ngIf="codeForm.get('code').hasError('minlength')">Code doit avoir 10 charactères</span>
+                    
+                  </mat-error>
+                  </mat-form-field>
+                  <button type="submit" mat-raised-button [disabled]="codeForm.invalid">Valider</button>
+              </form>
               </td>
             </tr>
           </table>
