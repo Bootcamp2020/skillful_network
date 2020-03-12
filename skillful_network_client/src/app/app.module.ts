@@ -24,6 +24,7 @@ import {TokenHttpInterceptorService} from './shared/interceptors/token-http-inte
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { HeaderComponent } from './home/dashboard/header/header.component';
+import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -35,7 +36,8 @@ import { HeaderComponent } from './home/dashboard/header/header.component';
         UsersListComponent,
         SimulationComponent,
         FooterComponent,
-        HeaderComponent
+        HeaderComponent,
+        CandidatureComponent
     ],
     imports: [
         BrowserModule,
