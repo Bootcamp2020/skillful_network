@@ -27,8 +27,12 @@ import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
 import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
 import { HeaderComponent } from './home/dashboard/header/header.component';
+
+import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
+
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+
 
 
 @NgModule({
@@ -41,12 +45,15 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
         UsersListComponent,
         SimulationComponent,
         FooterComponent,
+        HeaderComponent,
+        CandidatureComponent,
         ChatComponent,
         FooterComponent,
         FilActualitesComponent,
         HeaderComponent,
         ProfileComponent,
         MenuprofileComponent
+
     ],
     imports: [
         BrowserModule,
