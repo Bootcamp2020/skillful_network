@@ -24,6 +24,7 @@ const routes: Routes = [
         children: HOME_ROUTES,
         // Pour accéder à cette route, Angular va appeler la méthode canActivate de "isLoggedGuard"
         // Si cette méthode renvoie true, alors le user sera autorisé à rentrer, sinon non.
+        //A commenter pour les tests
         canActivate: [IsLoggedGuard]
     }
 ];

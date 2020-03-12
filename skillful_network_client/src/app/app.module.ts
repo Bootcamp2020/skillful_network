@@ -16,6 +16,7 @@ import {LoginComponent} from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './shared/modules/material/material.module';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
@@ -24,6 +25,11 @@ import {TokenHttpInterceptorService} from './shared/interceptors/token-http-inte
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
+import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
+import { HeaderComponent } from './home/dashboard/header/header.component';
+import { ProfileComponent } from './home/dashboard/profile/profile.component';
+import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -35,7 +41,12 @@ import { ChatComponent } from './home/dashboard/chat/chat.component';
         UsersListComponent,
         SimulationComponent,
         FooterComponent,
-        ChatComponent
+        ChatComponent,
+        FooterComponent,
+        FilActualitesComponent,
+        HeaderComponent,
+        ProfileComponent,
+        MenuprofileComponent
     ],
     imports: [
         BrowserModule,
@@ -46,6 +57,7 @@ import { ChatComponent } from './home/dashboard/chat/chat.component';
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
+        MatFormFieldModule,
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement
