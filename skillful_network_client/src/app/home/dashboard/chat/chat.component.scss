@@ -1,0 +1,203 @@
+$gray: #92959E;
+.container_chat {
+  width: 90%;
+  height: 90%;
+  margin-left: 30px;
+  margin-right: 10px;
+  //overflow: auto;
+}
+
+img {
+  width: 100px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.title_chat {
+  font-size: 1.5em;
+  font-style: italic;
+}
+
+.message-data-time {
+  color: lighten($gray, 8%);
+  font-size: 1em;
+  padding-left: 6px;
+}
+
+.message_condidat {
+  background-color: #7F7F7F;
+
+}
+
+.talk-bubble_condidat {
+  margin-top: 30px;
+  margin-right: 30px;
+  margin-left: 0px;
+  margin-bottom: 30px;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: auto;
+  background-color: #E1E1E1;
+}
+
+.talk-bubble {
+  margin-top: 30px;
+  margin-right: 0px;
+  margin-left: 60px;
+  margin-bottom: 30px;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: auto;
+  background-color: #F1F1F1;
+}
+
+.round {
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+
+}
+
+.tri-right.right-in:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -20px;
+  top: 25px;
+  bottom: auto;
+  border: 12px solid;
+  border-color: transparent transparent #E1E1E1 #E1E1E1;
+}
+
+.talktext {
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
+}
+
+.tri-right.left-in:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -20px;
+  right: auto;
+  top: 25px;
+  bottom: auto;
+  border: 12px solid;
+  border-color: transparent #F1F1F1 #F1F1F1 transparent;
+}
+
+.button_chat {
+  width: 100px;
+  padding: 7px;
+  margin-bottom: 18px;
+  margin-left: 5px;
+}
+
+.container_list {
+  margin-right: 20px;
+  //width: 750px;
+  height: 500px;
+  background: #f0f0f0;
+  border-radius: 15px;
+  overflow: auto;
+
+  ::-webkit-scrollbar-thumb {
+    width: 5px;
+    background: red;
+  }
+
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+$green: #8cb09f;
+$blue: #94C2ED;
+$orange: #E38968;
+$gray: #a4afb7;
+$white: #ffffff;
+.people-list {
+  //width:260px;
+  float: left;
+
+  .search {
+    padding: 20px;
+  }
+
+  input {
+    border-radius: 3px;
+    border: none;
+    padding: 14px;
+    color: white;
+    background: #B2B3B1;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .fa-search {
+    position: relative;
+    left: -25px;
+  }
+
+  ul {
+    padding: 20px;
+    height: 770px;
+    list-style: none;
+
+    li {
+      padding-bottom: 20px;
+    }
+  }
+
+  img {
+    float: left;
+  }
+
+  .about {
+    float: left;
+    margin-top: 8px;
+  }
+
+  .about {
+    padding-left: 8px;
+  }
+
+  .status {
+    color: $gray;
+  }
+
+}
+
+.float-right {
+  float: right;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.online, .offline, .me {
+  margin-right: 3px;
+  font-size: 14px;
+}
+
+.online {
+  color: $gray;
+}
+
+.offline {
+  color: $gray;
+}
+
