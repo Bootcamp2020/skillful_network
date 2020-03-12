@@ -1,1 +1,0 @@
-{"version":3,"file":"user.js","sourceRoot":"","sources":["../../../../../../src/app/shared/models/user.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,IAAI;IAGf,YAAY,IAAS;QACnB,IAAI,CAAC,EAAE,GAAG,IAAI,CAAC,EAAE,CAAC;IACpB,CAAC;IAED,uBAAuB;IACvB,IAAI,EAAE;QACJ,OAAO,IAAI,CAAC,GAAG,CAAC;IAClB,CAAC;IAED,IAAI,EAAE,CAAC,KAAa;QAClB,IAAI,CAAC,GAAG,GAAG,KAAK,CAAC;IACnB,CAAC;CACF"}
