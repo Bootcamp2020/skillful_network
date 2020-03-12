@@ -22,6 +22,12 @@ import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
+import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
+import { FooterComponent } from './home/dashboard/footer/footer.component';
+import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
+import { HeaderComponent } from './home/dashboard/header/header.component';
+import { ProfileComponent } from './home/dashboard/profile/profile.component';
+import { MenuprofileComponent } from './menuprofile/menuprofile.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -31,7 +37,13 @@ import { PasswordConfirmationComponent } from './password-confirmation/password-
         DashboardComponent,
         UserComponent,
         UsersListComponent,
-        PasswordConfirmationComponent
+        PasswordConfirmationComponent,
+        SimulationComponent,
+        FooterComponent,
+        FilActualitesComponent,
+        HeaderComponent,
+        ProfileComponent,
+        MenuprofileComponent
     ],
     imports: [
         BrowserModule,
