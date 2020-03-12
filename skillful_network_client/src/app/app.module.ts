@@ -23,6 +23,7 @@ import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
+import { ChatComponent } from './home/dashboard/chat/chat.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -33,7 +34,8 @@ import { FooterComponent } from './home/dashboard/footer/footer.component';
         UserComponent,
         UsersListComponent,
         SimulationComponent,
-        FooterComponent
+        FooterComponent,
+        ChatComponent
     ],
     imports: [
         BrowserModule,

@@ -6,6 +6,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -13,7 +15,8 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatToolbarModule,
   MatFormFieldModule,
-  MatCardModule
+  MatCardModule,
+  MatBadgeModule
 ];
 
 @NgModule({
