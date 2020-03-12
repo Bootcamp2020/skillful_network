@@ -25,7 +25,7 @@ export class PasswordConfirmationComponent implements OnInit {
   private _buildForm() {
     this.formPost = this.fb.group({
    
-      password: ["", Validators.pattern(this._passwordRegex)],
+      password: ["", [Validators.minLength(8), Validators.pattern(this._passwordRegex)]],
 
      
       confirmpassword: ["", Validators.pattern(this._passwordRegex)]
