@@ -4,6 +4,9 @@
 skillful_network_server/.idea/
 skillful_network_server/.DS_Store
 skillful_network_server/target/
+skillful_network_server/.classpath
+skillful_network_server/.project
+skillful_network_server/.settings
 
 skillful_network_client/node_modules/
 skillful_network_client/.DS_Store
@@ -11,4 +14,48 @@ skillful_network_client/.idea/
 skillful_network_client/dist/
 
 */**/*.iml
+
+### Eclipse ###
+skillful_network_server/.metadata
 skillful_network_server/bin/
+skillful_network_server/tmp/
+skillful_network_server/*.tmp
+skillful_network_server/*.bak
+skillful_network_server/*.swp
+skillful_network_server/*~.nib
+skillful_network_server/local.properties
+skillful_network_server/.settings/
+skillful_network_server/.loadpath
+skillful_network_server/.recommenders
+
+skillful_network_server/.externalToolBuilders/
+
+skillful_network_server/*.launch
+
+skillful_network_server/*.pydevproject
+
+skillful_network_server/.cproject
+
+skillful_network_server/.factorypath
+
+skillful_network_server/.buildpath
+
+skillful_network_server/.target
+
+skillful_network_server/.tern-project
+
+skillful_network_server/.texlipse
+
+skillful_network_server/.springBeans
+
+skillful_network_server/.recommenders/
+
+skillful_network_server/.cache-main
+skillful_network_server/.scala_dependencies
+skillful_network_server/.worksheet
+
+skillful_network_server/.project
+  
+skillful_network_server/.classpath
+
+# End of https://www.gitignore.io/api/eclipse
