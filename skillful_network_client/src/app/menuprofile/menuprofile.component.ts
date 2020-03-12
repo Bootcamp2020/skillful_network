@@ -6,7 +6,7 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./menuprofile.component.scss']
 })
 export class MenuprofileComponent implements OnInit {
-  user: User=new User({id: 1,name:'Jobs',firstName:'Steve',email:'SteveJobs@gmail.com',qualification:'Ingenieur',competences:['JAVA/JEE', ' Angular',' Management'],photoProfile:'https://media1.ledevoir.com/images_galerie/nwd_97473_80652/steve-jobs.jpg'
+  user: User=new User({id: 1,name:'Jobs',firstName:'Steve',email:'SteveJobs@gmail.com',qualification:'Ingenieur',competences:['JAVA/JEE', ' Angular',' Management'],photoProfile:'https://cdn.profoto.com/cdn/053149e/contentassets/d39349344d004f9b8963df1551f24bf4/profoto-albert-watson-steve-jobs-pinned-image-original.jpg?width=2840&quality=75&format=jpg'
 });
   constructor() { }
 

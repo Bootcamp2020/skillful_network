@@ -1,10 +1,29 @@
-<div class="card my-5">
+
     <app-header></app-header>
-    <app-menuprofile></app-menuprofile> 
-<app-profile></app-profile>
-    <app-simulation>
-    </app-simulation>
+        <div class="gestComponent" fxLayout="row" >
+            <div fxFlex.gt-sm="30" fxFlex="20" class="borderProfile">
+                <app-menuprofile ></app-menuprofile>
+            </div>
+            
+            <div fxFlex.gt-sm="70" fxFlex="80" class="gestionCard">
+                <div fxLayout.gt-sm="column" class="modifCard">
+                <div fxLayout.gt-sm="row" >
+                    <app-profile class="tailleCard"></app-profile>
+                    <app-simulation class="tailleCard"></app-simulation>
+                </div >
+                <div fxLayout.gt-sm="row">
+                    <app-simulation class="tailleCard"></app-simulation>
+                    <app-profile class="tailleCard"></app-profile>
+                </div>
+                <div fxLayout.gt-sm="row" >
+                    
+                    <app-profile class="tailleCard"></app-profile>
+                    
+                </div>
+            </div>
+         </div>
+        </div>
+    <app-footer></app-footer>
    
 
     
-</div>

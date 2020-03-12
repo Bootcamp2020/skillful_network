@@ -35,8 +35,9 @@ cela comme un développement "plus propre" (comprenez plus lisible par un autre 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container_dashboard{
-  height: 600px;
+  height: 300px;
   min-height: 300px;
+  margin-bottom: 50px;
 }
 .card_dashboard{
   height: 100%;
