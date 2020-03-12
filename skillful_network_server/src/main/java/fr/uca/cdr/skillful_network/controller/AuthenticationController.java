@@ -18,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.LoginForm;
+import fr.uca.cdr.skillful_network.security.CodeGeneration;
+import fr.uca.cdr.skillful_network.security.SendMail;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -61,9 +63,17 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
     	if (userService.alreadyExists(user.getEmail())) {
-    		if(userService.existingMailIsValidated(user.getEmail())== true)
+    		if(userService.existingMailIsValidated(user.getEmail())== true) {
     		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-    		}
+    		} else {
+    			Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
+    	    	userRepository.delete(oOldUser.get());	
+    	    }
+    	}
+    	String randomCode = CodeGeneration.generateCode(10);
+//    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+    	user.setPassword(randomCode);
+    	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
 }
