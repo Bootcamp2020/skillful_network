@@ -1,26 +1,26 @@
 <header>
-    <div fxLayout="row" fxLayoutAlign="center center">
+    
         <mat-toolbar class="toolbar" color="#5b7787" fxLayout.md="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
-            <div fxLayout="row " fxFlex="20 " fxLayoutAlign="space-between start ">
+            <div  fxFlex="20 " >
                 <img src="/assets/pictures/Logo.png " alt="logo " style="width: 45px; ">
             </div>
-            <div class="menu " fxLayout="row " fxLayoutAlign="center center " fxFlex="40 ">
-                <div>
+            <div class="menu " fxLayout="row " fxLayoutAlign="center center " fxFlex="80">
+                <div fxFlex="15">
                     <a href=" # " mat-button>Home</a>
                 </div>
-                <div>
+                <div fxFlex="15">
                     <a href="# " mat-button>Profile</a>
                 </div>
-                <div>
+                <div fxFlex="20">
                     <a href="# " mat-button>Notifications</a>
                 </div>
-                <div>
+                <div fxFlex="15">
                     <a href="# " mat-button>Log out</a>
                 </div>
-            </div>
-            <div id="searchbar " fxLayout="row " fxLayoutAlign="center center " fxflex="50 ">
-                <form action=" " class="formulaire ">
-                    <!-- <div fxLayout="row " fxFlex="10 " fxLayoutAlign="space-between end "> <input class=" bouton " type="button " value=" " /> </div> -->
+           
+            
+                <form action=" " class="formulaire" fxFlex="35">
+                   
                     <div fxLayout="row ">
                         <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
                         <div class="input "><input (keydown)="onSearch() " placeholder="search... "> </div>
@@ -28,5 +28,4 @@
                 </form>
             </div>
         </mat-toolbar>
-    </div>
 </header>

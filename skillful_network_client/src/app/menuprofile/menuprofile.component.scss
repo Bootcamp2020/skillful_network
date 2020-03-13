@@ -1,25 +1,45 @@
 
 img {
     margin-top: 7px;
-    width: 150px;
-    height: 150px; 
+    width: 90%;
+    
     border: 3px solid #f5f5f5;
+    border-radius:100px;
 }
 
 .menuProfile{
   margin-left: 50px;
-  text-align: center ;
-  justify-items: center;
   
+  font-size: 3em;
+  justify-content: center;
+  padding-left: 50px;
 }
  
 .photoProfile{
-    display: flex;
+       
+        margin: auto;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        margin-top: 20px;
+       
+          display: flex;
+          justify-content: center;
+    }
     
     
-}
+
 
 .photoProfile a{
     text-decoration: none;
-    margin:auto;
+    margin-top:20px;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 100px;
+}
+
+.border-profile{
+   display: flex;
+   justify-content: center; 
 }

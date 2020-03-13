@@ -9,7 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
 
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatMenuModule} from '@angular/material/menu';
 const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
@@ -18,7 +18,8 @@ const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatCardModule,
   MatBadgeModule,
-  MatTabsModule
+  MatTabsModule,
+  MatMenuModule
 ];
 
 @NgModule({

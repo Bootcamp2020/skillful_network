@@ -1,10 +1,10 @@
-<div class="container_dashboard">
-    <mat-card class="card_dashboard mat-elevation-z8">
+<div >
+    <mat-card class="card_dashboard mat-elevation-z4">
         <mat-card-header id="title">
             <mat-card-title id="title_police">Candidature </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content fxLayout="column" fxfxLayoutAlign="space-between start">
+        <mat-card-content fxLayout="column" fxfxLayoutAlign="space-between start" class="tailleCard">
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
                 <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post._company}}</p>
                 <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.job}} </p>

@@ -1,23 +1,25 @@
-
- <div class="container_dashboard">
-  <mat-card class="card_dashboard mat-elevation-z8">
-      <mat-card-header  id="title">
-          <mat-card-title  id="title_police">Profile</mat-card-title>
-      </mat-card-header>
-      <hr>
-      <mat-card-content>
-        <ul >
+<div >
+  <mat-card class="card_dashboard mat-elevation-z4" color="#5b7787">
+    <mat-card-header id="title">
+      <mat-card-title id="title_police">Profile</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <div class="tailleCard">
+    <mat-card-content>
+     
+        <ul>
           <li> {{ user.name }} {{ user.firstName }} </li>
-          <li type="mail">  {{ user.email }}</li>
+          <li type="mail"> {{ user.email }}</li>
           <!--Idee ajouter le statuts etudiant ou demandeur d'emploi (ça permet a luniv et pole emploi d'evoir une statistique-->
-          <!-- <li> Statut : {{ user.statut }}</li> --> 
-          <li> Qualification : {{ user.qualification }}</li> 
-          <!-- <li> Statut : {{ user.statut }}</li> --> 
+          <!-- <li> Statut : {{ user.statut }}</li> -->
+          <li> Qualification : {{ user.qualification }}</li>
+          <!-- <li> Statut : {{ user.statut }}</li> -->
           <li> Competences : {{ user.competences }}</li>
-           <!--Idee ajouter les centre d'interet cela permet au recruteur de cybler les profil adequat-->
-         <!-- <li> Centre d'interet : {{ user.interest }}</li> --> 
+          <!--Idee ajouter les centre d'interet cela permet au recruteur de cybler les profil adequat-->
+          <!-- <li> Centre d'interet : {{ user.interest }}</li> -->
         </ul>
-      </mat-card-content>
+      
+    </mat-card-content>
+  </div>
   </mat-card>
-  </div>     
-
+</div>
