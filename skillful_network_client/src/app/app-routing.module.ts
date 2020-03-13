@@ -1,3 +1,4 @@
+import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 /**
  * Ce module déclare l'ensemble des routes relatives à notre projet
  */
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'password',
+        component: PasswordConfirmationComponent
     },
     {
         path: 'home',
