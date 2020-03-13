@@ -1,10 +1,26 @@
-<div class="card my-5">
-    <app-header></app-header>
-    <app-candidature></app-candidature>
-    <app-menuprofile></app-menuprofile>
-    <app-footer></app-footer>
-    <app-simulation></app-simulation>
-    <app-chat></app-chat>
-    <app-fil-actualites></app-fil-actualites>
-    <app-profile></app-profile>
+<app-header></app-header>
+
+<div class="gestComponent" fxLayout="row">
+    <div fxFlex="15" class="borderProfile">
+        <app-menuprofile></app-menuprofile>
+    </div>
+
+    <div  class="gestionCard">
+        <div fxLayout.gt-sm="column" fxFlex="85" class="modifCard">
+            <div fxLayout.gt-sm="row" fxLayout="column">
+                <app-profile fxFlex="50" ></app-profile>
+                <app-fil-actualites fxFlex="50" ></app-fil-actualites>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayout="column">
+                <div fxLayout.gt-sm="column" fxFlex="50">
+                    <app-simulation fxFlex="50"></app-simulation>
+                    <app-candidature fxFlex="50"></app-candidature>
+                </div>
+                <div fxLayout.gt-sm="row" fxFlex="50">
+                    <app-chat ></app-chat>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<app-footer></app-footer>

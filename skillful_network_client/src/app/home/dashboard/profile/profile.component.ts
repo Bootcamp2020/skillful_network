@@ -7,7 +7,7 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
- /* @Output() */ user: User=new User({id: 1,name:'Jobs',firstName:'Steve',email:'SteveJobs@gmail.com',qualification:'Ingenieur',competences:['JAVA/JEE', ' Angular',' Management'],photoProfile:'https://media1.ledevoir.com/images_galerie/nwd_97473_80652/steve-jobs.jpg'
+ /* @Output() */ user: User=new User({id: 1,name:'Jobs',firstName:'Steve',email:'SteveJobs@gmail.com',qualification:'Ingenieur',competences:['JAVA/JEE', ' Angular',' Management'],photoProfile:'https://profoto.com/fr/profoto-stories/albert-watson-steve-jobs'
 });
   //constructor() { }
  /* constructor(data: any) {
