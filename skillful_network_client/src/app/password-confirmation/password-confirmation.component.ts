@@ -31,19 +31,19 @@ export class PasswordConfirmationComponent implements OnInit {
   public onSubmit() {
     let id = this.user.id;
     let pass = this.formPost.get('password').value;
+    console.log("id: " + id + " password: " + pass);
     // On vide le localStorage
-    localStorage.removeItem('token'); // test purpose : TODO Retirer
-    this.api.put({ endpoint: '/user/' + id, data: pass })
-      .then((id: number) => {
-        if (id === -1) {
-          this.error = true;
-        } else {
-          localStorage.setItem('token', 'X'); // TODO Gérer le token
-          // this.userService.actualUser = new User({id});
-          this.router.navigate(['/home']);
-        }
-      });
-
+    // localStorage.removeItem('token'); // test purpose : TODO Retirer
+    // this.api.put({ endpoint: '/user/' + id, data: pass })
+    //   .then((id: number) => {
+    //     if (id === -1) {
+    //       this.error = true;
+    //     } else {
+    //       localStorage.setItem('token', 'X'); // TODO Gérer le token
+    //       // this.userService.actualUser = new User({id});
+    //       this.router.navigate(['/home']);
+    //     }
+    //   });
   }
 
   private _buildForm() {
@@ -54,11 +54,13 @@ export class PasswordConfirmationComponent implements OnInit {
 
   }
 
-//  On vérifie que les deux mots de passe sont identiques
+  //  On vérifie que les deux mots de passe sont identiques
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     let pass = group.get('password').value;
     let confirmPass = group.get('confirmPassword').value;
-    if (confirmPass == "") return null;
+    if (confirmPass == "") {
+      return null;
+    }
 
     return pass === confirmPass ? null : { notSame: true }
   }
