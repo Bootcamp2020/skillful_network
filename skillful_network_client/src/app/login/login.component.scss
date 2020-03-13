@@ -26,8 +26,8 @@
 .container{
   top: 0px;
   position: absolute;
-  width: 100vw;
-  height: 100vh;;
+  width: 100%;
+  min-height: 100%;
   background-color:rgb(229, 230, 232);
 }
 div.mat-tab-body-wrapper{
