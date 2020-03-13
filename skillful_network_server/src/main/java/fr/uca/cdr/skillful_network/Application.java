@@ -33,7 +33,7 @@ public class Application {
     @Bean
     CommandLineRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
-        // on devrait ici charger la base de donn�es (fichiers json dans une première version)
+        // on devrait ici charger la base de données (fichiers json dans une première version)
         return args -> {
             for (int i = 0; i < 5; i++) {
                 userRepository.save(new User());
