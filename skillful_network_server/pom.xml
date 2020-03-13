@@ -9,7 +9,14 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<name>skillful.network.server</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/danglotb/skillful_network.git</url>
+	
+	 <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <default.encoding>UTF-8</default.encoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+     </properties>
 
 	<build>
 		<plugins>
