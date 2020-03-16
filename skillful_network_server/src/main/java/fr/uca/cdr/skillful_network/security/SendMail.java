@@ -12,7 +12,7 @@ public class SendMail {
 	    boolean result = false;
 	    boolean debug = false;
 	    String serveur = "127.0.0.1"; // doit obligatoirement correspondre à celle du server local à installer sur le pc !
-	    String messageText = "Bonjour, \n \n Vous trouverez ci-dessous le code permettant de terminer votre inscription � notre site POEC.\n \n";
+	    String messageText = "Bonjour, \n \n Vous trouverez ci-dessous le code permettant de terminer votre inscription à notre site POEC.\n \n";
 	    messageText += codeAutoGen;
 	    messageText += "\n \n Cordialement";
 	    try {

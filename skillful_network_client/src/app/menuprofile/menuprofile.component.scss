@@ -1,10 +1,47 @@
-/*.menuprofil{
-    margin: 0 auto;
-    margin-top: 20px;
-} */
+
 img {
-    width: 150px;
-    height: 150px; }
- ul{
-    list-style: none;
-} 
+    margin-top: 7px;
+    width: 90%;
+    
+    border: 3px solid #f5f5f5;
+    border-radius:50%;
+}
+
+.menuProfile{
+  //margin-top: 20px;  
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2em;
+  justify-content: center;
+ padding-left: auto;
+ padding-right: auto;
+}
+ 
+.photoProfile{
+      
+        margin: auto;
+        margin-bottom: 25px;
+        border-radius: 50%;
+        margin-top: 20px;
+       
+          display: flex;
+          justify-content: center;
+    }
+    
+    
+
+
+.photoProfile a{
+    text-decoration: none;
+    margin-top:20px;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 100px;
+}
+
+.border-profile{
+   display: flex;
+   justify-content: center; 
+}
