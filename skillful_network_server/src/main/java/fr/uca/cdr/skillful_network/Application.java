@@ -10,6 +10,7 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,7 +32,7 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner initUserRepository(UserRepository userRepository) {
+    ApplicationRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
         // on devrait ici charger la base de donn�es (fichiers json dans une première version)
         return args -> {
@@ -43,7 +44,7 @@ public class Application {
     }
     
     @Bean
-    CommandLineRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
+    ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
         return args -> {
         	Gson gson = new Gson();
         	String url = "src/main/resources/data/job-offers.json";
@@ -58,7 +59,7 @@ public class Application {
     }
         
     @Bean
-    CommandLineRunner initTrainingRepository(TrainingRepository trainingRepository) {
+    ApplicationRunner initTrainingRepository(TrainingRepository trainingRepository) {
         return args -> {
         	Gson gson = new Gson();
         	String url = "src/main/resources/data/trainings.json";
