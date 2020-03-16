@@ -46,7 +46,7 @@ public class AuthenticationController {
 		if (loginRequest != null) {
 			Optional<User> userFromDB = userRepository.findByEmail(loginRequest.getEmail());
 			if (!userFromDB.isPresent()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvÃ©");
 			} else {
 				String passwordFromDB = userFromDB.get().getPassword();
 				String passwordRequest = loginRequest.getPassword();
@@ -57,7 +57,7 @@ public class AuthenticationController {
 				}
 			}
 		}
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvÃ©");
 	}
 
     @RequestMapping(value = "/register", method = POST)
@@ -71,7 +71,7 @@ public class AuthenticationController {
     	    }
     	}
     	String randomCode = CodeGeneration.generateCode(10);
-//    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
     	user.setPassword(randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);

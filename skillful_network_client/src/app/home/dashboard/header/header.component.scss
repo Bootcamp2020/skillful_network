@@ -3,9 +3,13 @@
     background: white;
     padding: 5px;
 }
-
+.toolbar a{
+    font-size: 1.0rem;  
+}
 .toolbar {
-    height: auto;
+    
+    color: #5b7787;
+    height: 100px;
 }
 
 .input {
@@ -17,6 +21,7 @@
     text-align: start;
     -webkit-appearance: textfield;
     cursor: text;
+    border: none;
     font: 400 13.3333px Arial;
 }
 
@@ -27,4 +32,7 @@ div input {
 
 .cursor {
     cursor: pointer;
+}
+header{
+    height: 100px;
 }

@@ -33,21 +33,22 @@ cela comme un développement "plus propre" (comprenez plus lisible par un autre 
 */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.container_dashboard{
-  height: 600px;
-  min-height: 300px;
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+ 
+    //margin: 5px;
+    //padding: 5px;
+
 }
 .card_dashboard{
-  height: 100%;
-  margin: 40px;
-  background-color:snow;
+  width: 100%;
+  //margin:40px 40px 60px 40px;
+  background-color:245,245,245,1;
 }
 #title, hr{
   justify-content: center;
   color: #5b7787;
 }
 #title_police{
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-style: italic;
 }

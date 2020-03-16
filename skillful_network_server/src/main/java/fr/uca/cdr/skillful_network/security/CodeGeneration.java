@@ -3,12 +3,12 @@ package fr.uca.cdr.skillful_network.security;
 public class CodeGeneration {
 
 	public static String generateCode(int length) {
-		// définition des caractères possibles
+		// dÃ©finition des caractÃ¨res possibles
 		String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-		//utilisation String builder pour limiter ressources utilisées
+		//utilisation String builder pour limiter ressources utilisÃ©es
 		StringBuilder pass = new StringBuilder();
 		for (int x = 0; x < length; x++) {
-			// tirage au sort d'un caractère et rajout au String builder
+			// tirage au sort d'un caractÃ¨re et rajout au String builder
 			int i = (int) Math.floor(Math.random() * 62); 
 			pass.append(chars.charAt(i));
 		}

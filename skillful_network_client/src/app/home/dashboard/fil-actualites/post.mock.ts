@@ -42,17 +42,5 @@ export let MOCK_POSTS: IPost[] = [
         actu: 'Pôle emploi, 1er soutien au recrutement des entreprises',
         lien: 'http://www.pole-emploi.org/accueil/actualites/infographies/pole-emploi-1er-soutien-au-recrutement-des-entreprises.html?type=article',
 
-    },
-    {
-
-        actu: 'La qualité des offres d’emploi : le vrai du faux',
-        lien: 'http://www.pole-emploi.org/accueil/actualites/infographies/la-qualite-des-offres-demploi-l.html?type=article',
-
-    },
-    {
-
-        actu: 'Mobiliser pour recruter : dans quels cas et pour quels résultats ? ',
-        lien: 'https://statistiques.pole-emploi.org/offres/offrespub/199730',
-
-    },
+    }
 ];

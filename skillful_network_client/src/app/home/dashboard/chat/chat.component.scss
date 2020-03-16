@@ -1,20 +1,19 @@
 $gray: #92959E;
 .container_chat {
-  width: 90%;
-  height: 90%;
-  margin-left: 30px;
-  margin-right: 10px;
+  margin:8px;
+  padding: 15px;
+  width: 100%;
   //overflow: auto;
 }
 
 img {
-  width: 100px;
-  height: 90px;
+  width: 80%;
+   margin-right: 30px;
   border-radius: 50%;
 }
 
 .title_chat {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-style: italic;
 }
 
@@ -36,7 +35,7 @@ img {
   margin-bottom: 30px;
   display: inline-block;
   position: relative;
-  width: 200px;
+  width: 150px;
   height: auto;
   background-color: #E1E1E1;
 }
@@ -44,7 +43,6 @@ img {
 .talk-bubble {
   margin-top: 30px;
   margin-right: 0px;
-  margin-left: 60px;
   margin-bottom: 30px;
   display: inline-block;
   position: relative;
