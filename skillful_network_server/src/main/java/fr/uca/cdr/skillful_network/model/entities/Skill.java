@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="skill")
+@Table(name="skills")
 public class Skill {
 	
 //	--------------------------------------- Attributs de la classe-------------------------------------------------------------------------
@@ -22,7 +22,7 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "skills")
 	private Set<User> userList = new HashSet<User>();
 	
 	
@@ -69,7 +69,7 @@ public class Skill {
 	}
 
 	
-//	-------------------------------------- Méthodes  -------------------------------------------------------------------------
+//	---------------------------------------------- Méthodes  -------------------------------------------------------------------------
 
 	@Override
 	public String toString() {
