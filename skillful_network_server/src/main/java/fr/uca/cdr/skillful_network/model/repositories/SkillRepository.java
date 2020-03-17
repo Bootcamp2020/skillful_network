@@ -1,6 +1,8 @@
 package fr.uca.cdr.skillful_network.model.repositories;
 
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,5 @@ public interface SkillRepository extends JpaRepository<Skill, Long>{
 	
 //	Méthodes dont nous aurons besoin :
 	
-	Skill findByName(String name);
+	Optional<Skill> findByName(String name);
 }
