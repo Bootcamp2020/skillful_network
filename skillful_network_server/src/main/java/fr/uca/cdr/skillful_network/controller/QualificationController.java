@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -15,11 +16,14 @@ public class QualificationController {
 	       
 	    }
 	 @RequestMapping(value = "/qualifications")
-	  public List<String> getQualifications(){
+	  public List<String> getQualifications(@RequestParam(name = "prefix") String prefix){
 	     List<String> qualifications = new ArrayList<>();   
 	     qualifications.add("Bac");
 	     qualifications.add("DUT");
+	     System.out.println(prefix);
 		 return qualifications;
 	  }
+	 
 
+	 
 }
