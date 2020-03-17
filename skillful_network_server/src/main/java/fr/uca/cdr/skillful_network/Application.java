@@ -31,7 +31,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-<<<<<<< Updated upstream
+
     @Bean
     ApplicationRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
@@ -85,7 +85,7 @@ public class Application {
         	
         };
     }
-=======
+
 //    @Bean
 //    CommandLineRunner initUserRepository(UserRepository userRepository) {
 //        // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
@@ -128,5 +128,5 @@ public class Application {
 //        	
 //        };
 //    }
->>>>>>> Stashed changes
+
 }
