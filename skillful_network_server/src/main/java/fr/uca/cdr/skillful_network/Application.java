@@ -31,6 +31,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+<<<<<<< Updated upstream
     @Bean
     ApplicationRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
@@ -84,4 +85,48 @@ public class Application {
         	
         };
     }
+=======
+//    @Bean
+//    CommandLineRunner initUserRepository(UserRepository userRepository) {
+//        // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
+//        // on devrait ici charger la base de données (fichiers json dans une première version)
+//        return args -> {
+//            for (int i = 0; i < 5; i++) {
+//                userRepository.save(new User());
+//            }
+//            userRepository.findAll().forEach(System.out::println);
+//        };
+//    }
+//    
+//    @Bean
+//    CommandLineRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
+//        return args -> {
+//        	Gson gson = new Gson();
+//        	String url = "src/main/resources/data/job-offers.json";
+//        	JsonReader reader = new JsonReader(new FileReader(url));
+//        	
+//        	List<JobOffer> jobOffers = Arrays.asList(gson.fromJson(reader, JobOffer[].class));
+//			jobOfferRepository.saveAll(jobOffers);
+//			reader.close();
+//			
+//        	jobOfferRepository.findAll().forEach(System.out::println);
+//        };
+//    }
+//        
+//    @Bean
+//    CommandLineRunner initTrainingRepository(TrainingRepository trainingRepository) {
+//        return args -> {
+//        	Gson gson = new Gson();
+//        	String url = "src/main/resources/data/trainings.json";
+//        	JsonReader reader = new JsonReader(new FileReader(url));
+//        	
+//        	List<Training> trainings = Arrays.asList(gson.fromJson(reader, Training[].class));
+//			trainingRepository.saveAll(trainings);
+//			reader.close();
+//			
+//        	trainingRepository.findAll().forEach(System.out::println);
+//        	
+//        };
+//    }
+>>>>>>> Stashed changes
 }
