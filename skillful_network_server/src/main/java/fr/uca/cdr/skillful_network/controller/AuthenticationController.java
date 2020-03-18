@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,7 +62,9 @@ public class AuthenticationController {
 	}
 
     @RequestMapping(value = "/register", method = POST)
+    @Profile("prod")
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
+    	System.out.println("En mode Prod");
     	if (userService.alreadyExists(user.getEmail())) {
     		if(userService.existingMailIsValidated(user.getEmail())== true) {
     		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
