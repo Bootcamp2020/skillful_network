@@ -9,11 +9,11 @@ import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public Boolean alreadyExists(String mail) {
 		Optional<User> oUser = userRepository.findByEmail(mail);
@@ -23,5 +23,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Boolean existingMailIsValidated(String mail) {
 		return userRepository.findByEmail(mail).get().isValidated();
-	} 
+	}
+
+	@Override
+	public Optional<User> getUserById(long id) {
+		return userRepository.findById(id);
+	}
+
+	@Override
+	public User saveOrUpdateUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
+
+	}
 }
