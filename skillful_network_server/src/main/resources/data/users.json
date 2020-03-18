@@ -5,7 +5,8 @@
     "lastName": "John",
     "birthDate": "Aug 23, 1970 2:31:08 AM",
     "email": "John@uca.fr",
-    "mobileNumber": "0678912345"
+    "mobileNumber": "0678912345",
+    "status":1
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "lastName": "Julie",
     "birthDate": "May 31, 1979 10:01:34 AM",
     "email": "Julie@uca.fr",
-    "mobileNumber": "0678912345"
+    "mobileNumber": "0678912345",
+    "status": 1
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "lastName": "Jennifer",
     "birthDate": "Jun 27, 1985 2:29:23 PM",
     "email": "Jennifer@uca.fr",
-    "mobileNumber": "0678912345"
+    "mobileNumber": "0678912345",
+    "status":1
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "lastName": "Helen",
     "birthDate": "Feb 4, 1980 2:54:29 PM",
     "email": "Helen@uca.fr",
-    "mobileNumber": "0678912345"
+    "mobileNumber": "0678912345",
+    "status":1
   },
   {
     "id": 5,
@@ -37,6 +41,7 @@
     "lastName": "Rachel",
     "birthDate": "Jun 14, 1982 7:13:15 AM",
     "email": "Rachel@uca.fr",
-    "mobileNumber": "0678912345"
+    "mobileNumber": "0678912345",
+    "status":2
   }
 ]

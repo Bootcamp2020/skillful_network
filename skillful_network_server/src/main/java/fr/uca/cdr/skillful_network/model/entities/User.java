@@ -29,7 +29,9 @@ public class User {
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
+	private String  status;
 	private boolean validated = false;
+	private boolean photo= false;
 	
 	public User() {
 		super();
@@ -42,7 +44,7 @@ public class User {
 		this.lastName = lastName;
 	}
     
-	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber) {
+	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber,int status, boolean photo) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -51,10 +53,28 @@ public class User {
 		this.birthDate = birthDate;
 		this.email = email.toLowerCase();
 		this.mobileNumber = mobileNumber;
+		this.status = Status.fromId(status);
+		this.photo = photo;
 		this.validated = true;
 	}
 
 	
+	public boolean isPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(boolean photo) {
+		this.photo = photo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public User(String password, String email) {
 		super();
 		this.password = password;
@@ -124,12 +144,16 @@ public class User {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [" + id + "] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", Validated="
-				+ validated + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
+				+ status + ", validated=" + validated + ", photo=" + photo + "]";
 	}
+
+	
+	
+	
 	
 }

@@ -29,8 +29,9 @@ public class Application {
     // lance le serveur
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+      
     }
-
+    
     @Bean
     ApplicationRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
