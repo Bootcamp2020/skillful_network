@@ -30,6 +30,7 @@ public class User {
 	private String email;
 	private String mobileNumber;
 	private boolean validated = false;
+	private Subscription subscription;
 	
 	public User() {
 		super();
@@ -41,7 +42,21 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	
     
+	public User(Subscription subscription) {
+		super();
+		this.subscription = subscription;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
+
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber) {
 		super();
 		this.id = id;
@@ -124,12 +139,14 @@ public class User {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [" + id + "] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", Validated="
-				+ validated + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", validated="
+				+ validated + ", subscription=" + subscription + "]";
 	}
+	
+	
 	
 }

@@ -10,6 +10,7 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,19 +32,30 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner initUserRepository(UserRepository userRepository) {
+    ApplicationRunner initUserRepository(UserRepository userRepository) {
         // Ici on initialise le dépôt des utilisateurs avec des utilisateurs codés en dur.
         // on devrait ici charger la base de données (fichiers json dans une première version)
+
         return args -> {
-            for (int i = 0; i < 5; i++) {
-                userRepository.save(new User());
-            }
+        	//String url = "src/main/resources/data/users.json";
+        	String resourceDir = this.getClass().getResource("/").getPath();
+    		String WorkingPath = resourceDir.substring(0, resourceDir.lastIndexOf("/skillful_network_server"));
+    		String url = WorkingPath + "/skillful_network_server/src/main/resources/data/users.json";
+    		System.out.println("path/users.json = " + url);
+    		JsonReader reader = new JsonReader(new FileReader(url));
+        	Gson myGgson = new Gson();
+        	List<User> users = Arrays.asList(myGgson.fromJson(reader, User[].class));
+        	for( User user : users) {
+        		user.setValidated(true);
+        	}
+        	userRepository.saveAll(users);
+			reader.close();
             userRepository.findAll().forEach(System.out::println);
         };
     }
     
     @Bean
-    CommandLineRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
+    ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
         return args -> {
         	Gson gson = new Gson();
         	String url = "src/main/resources/data/job-offers.json";
@@ -58,7 +70,7 @@ public class Application {
     }
         
     @Bean
-    CommandLineRunner initTrainingRepository(TrainingRepository trainingRepository) {
+    ApplicationRunner initTrainingRepository(TrainingRepository trainingRepository) {
         return args -> {
         	Gson gson = new Gson();
         	String url = "src/main/resources/data/trainings.json";

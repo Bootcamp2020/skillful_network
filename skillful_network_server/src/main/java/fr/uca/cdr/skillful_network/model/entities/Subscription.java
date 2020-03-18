@@ -1,9 +1,11 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.HashSet;
+
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,8 +19,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 
 
 @Entity
@@ -36,8 +36,7 @@ public class Subscription {
 			@JoinColumn(name = "user_id") })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
-	private Set<User> Users = new HashSet<>();
-	
+	private Set<User> userList;
 	
 	public Subscription() {
 		super();
@@ -48,6 +47,20 @@ public class Subscription {
 		super();
 		this.id = id;
 		this.name = name;
+	}
+	
+	public Subscription(
+			@NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
+			Set<User> userList) {
+		super();
+		this.name = name;
+		this.userList = userList;
+	}
+	public Set<User> getUserList() {
+		return userList;
+	}
+	public void setUserList(Set<User> userList) {
+		this.userList = userList;
 	}
 	public long getId() {
 		return id;
@@ -63,10 +76,11 @@ public class Subscription {
 	}
 	@Override
 	public String toString() {
-		return "Subscription [id=" + id + ", name=" + name + "]";
+		return "Subscription [id=" + id + ", name=" + name + ", userList=" + userList + "]";
 	}
 	
 	
 	
-    
+	
+
 }
