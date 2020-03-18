@@ -53,7 +53,6 @@ public class UserController {
 			if (userRequest != null) {
 				userToUpdate.setLastName(userRequest.getLastName());
 				userToUpdate.setFirstName(userRequest.getFirstName());
-				userToUpdate.setPassword(userRequest.getPassword());
 				userToUpdate.setBirthDate(userRequest.getBirthDate());
 				userToUpdate.setEmail(userRequest.getEmail());
 				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
