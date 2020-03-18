@@ -2,7 +2,7 @@
 .DS_Store
 .metadata
 .project
-
+Servers/
 skillful_network_server/.idea/
 skillful_network_server/.DS_Store
 skillful_network_server/target/
