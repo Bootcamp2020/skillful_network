@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -21,6 +22,8 @@ import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
+import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
+
 
 /**
  * Cette classe est responsable du traitement des requêtes liées aux
@@ -66,4 +69,15 @@ public class UserController {
 
 		}
 	}
+	@Transactional
+	@PutMapping(value = "/usersModifPassword/{id}")
+	public ResponseEntity<User> updateUserPassword(@PathVariable(value="id") long id, @Valid @RequestBody UserPwdUpdateForm userModifPwd){
+		
+		User userToUpdate = userService.getUserById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucun utilisateur trouvé avec l'id " + id));
+		
+		userToUpdate.setPassword(userModifPwd.getPassword());
+		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
+		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+	}
+
 }
