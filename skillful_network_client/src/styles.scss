@@ -34,10 +34,14 @@ cela comme un développement "plus propre" (comprenez plus lisible par un autre 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+ 
+    //margin: 5px;
+    //padding: 5px;
+
 }
 .card_dashboard{
-  width: 90%;
-  margin:40px 40px 60px 40px;
+  width: 100%;
+  //margin:40px 40px 60px 40px;
   background-color:245,245,245,1;
 }
 #title, hr{

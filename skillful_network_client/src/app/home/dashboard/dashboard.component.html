@@ -5,19 +5,23 @@
         <app-menuprofile></app-menuprofile>
     </div>
 
-    <div  class="gestionCard">
-        <div fxLayout.gt-sm="column" fxFlex="85" class="modifCard">
-            <div fxLayout.gt-sm="row" fxLayout="column">
-                <app-profile fxFlex="50" ></app-profile>
-                <app-fil-actualites fxFlex="50" ></app-fil-actualites>
-            </div>
-            <div fxLayout.gt-sm="row" fxLayout="column">
-                <div fxLayout.gt-sm="column" fxFlex="50">
-                    <app-simulation fxFlex="50"></app-simulation>
-                    <app-candidature fxFlex="50"></app-candidature>
+    <div class="gestionCard" fxFlexAlign="stretch">
+        <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">
+            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+                <div fxFlex="45">
+                    <app-profile></app-profile>
                 </div>
-                <div fxLayout.gt-sm="row" fxFlex="50">
-                    <app-chat ></app-chat>
+                <div fxFlex="45">
+                    <app-fil-actualites></app-fil-actualites>
+                </div>
+            </div>
+            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+                <div fxLayout.gt-sm="column" fxFlex="45">
+                    <app-simulation></app-simulation>
+                    <app-candidature></app-candidature>
+                </div>
+                <div fxLayout.gt-sm="row" fxFlex="45">
+                    <app-chat></app-chat>
                 </div>
             </div>
         </div>
