@@ -23,5 +23,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Boolean existingMailIsValidated(String mail) {
 		return userRepository.findByEmail(mail).get().isValidated();
+	}
+
+	@Override
+	public Optional<User> findByEmail(String mail) {
+		return userRepository.findByEmail(mail);
 	} 
 }
