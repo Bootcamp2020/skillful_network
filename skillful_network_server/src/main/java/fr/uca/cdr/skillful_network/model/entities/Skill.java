@@ -11,10 +11,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="skill")
+@Table(name="skills")
 public class Skill {
 	
-//	--------------------------------------- Attributs de la classe-------------------------------------------------------------------------
+//	--------------------------------------- Attributs de la classe -------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,11 +22,11 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "skillSet")
 	private Set<User> userList = new HashSet<User>();
 	
 	
-//	------------------------------------------- Constructeurs-------------------------------------------------------------------------
+//	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
 
 	public Skill() {
 		super();
@@ -69,7 +69,7 @@ public class Skill {
 	}
 
 	
-//	-------------------------------------- Méthodes  -------------------------------------------------------------------------
+//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
 	@Override
 	public String toString() {
