@@ -30,7 +30,7 @@
                       <span *ngIf="passwordControlLogin.errors.minlength">Mot de passe doit avoir 8 charactère minimum</span>
                     </mat-error>
                   </mat-form-field>
-                  <button [disabled]="loginFormGroup.invalid" type="submit" mat-raised-button>Connexion</button>
+                  <button [disabled]="loginFormGroup.invalid" type="submit" mat-raised-button color="primary">Connexion</button>
                 </form>
               </td>
             </tr>
@@ -50,7 +50,7 @@
                       <span *ngIf="emailControlInscription.errors.pattern">email non validé</span>
                     </mat-error>
                   </mat-form-field>
-                  <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button>Envoyer</button>
+                  <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button color="primary">Envoyer</button>
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
