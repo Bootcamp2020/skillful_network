@@ -68,7 +68,7 @@ public class AuthenticationController {
     		     userFDb.get().setValidated(false);
     		     userService.saveOrUpdateUser(userFDb.get());
     		     String randomCode = CodeGeneration.generateCode(10);
-    		     SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+    		     userService.sendMail(user.getEmail(), randomCode);
     		     return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     		  
     		} else {
