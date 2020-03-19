@@ -48,6 +48,45 @@ public class UserController {
     	userToUpdate.setPassword(user.getPassword());
     	User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+    }
+    
+	@GetMapping(value = "/users")
+	public List<User> getUsers() {
+		return (List<User>) this.repository.findAll();
+	}
+
+	@Transactional
+	@PutMapping(value = "/users/{id}")
+	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id, @Valid @RequestBody UserForm userRequest) {
+
+		if (userService.getUserById(id).isPresent()) {
+			User userToUpdate = userService.getUserById(id).get();
+			if (userRequest != null) {
+				userToUpdate.setLastName(userRequest.getLastName());
+				userToUpdate.setFirstName(userRequest.getFirstName());
+				userToUpdate.setBirthDate(userRequest.getBirthDate());
+				userToUpdate.setEmail(userRequest.getEmail());
+				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
+				userToUpdate.setQualificationSet(userRequest.getQualificationSet());
+				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
+				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucune données en paramètre");
+			}
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
+
+		}
+	}
+	@Transactional
+	@PutMapping(value = "/usersModifPassword/{id}")
+	public ResponseEntity<User> updateUserPassword(@PathVariable(value="id") long id, @Valid @RequestBody UserPwdUpdateForm userModifPwd){
+		
+		User userToUpdate = userService.getUserById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucun utilisateur trouvé avec l'id " + id));
+		
+		userToUpdate.setPassword(userModifPwd.getPassword());
+		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
+		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
     	
     }
 
