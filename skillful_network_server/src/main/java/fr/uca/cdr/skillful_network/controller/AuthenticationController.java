@@ -47,7 +47,6 @@ public class AuthenticationController {
 			
 			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
 			
-			
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
