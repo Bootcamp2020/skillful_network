@@ -14,6 +14,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private EmailService emailService;
+	
 	@Override
 	public Boolean alreadyExists(String mail) {
 		Optional<User> oUser = userRepository.findByEmail(mail);
@@ -39,5 +42,10 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 
+	}
+	
+	@Override
+	public void sendMail(String email , String codeAutoGen) {
+		 emailService.sendEmail(email, codeAutoGen);
 	}
 }

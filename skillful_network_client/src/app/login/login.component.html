@@ -40,7 +40,7 @@
           <table style="width: 50%" cellspacing="10">
             <tr>
               <td>
-                <form *ngIf="!doDisplayCodeVerif" [formGroup]="inscriptionFormGroup" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+                <form *ngIf="!doDisplayCodeVerif" [formGroup]="inscriptionFormGroup" #inscriptionForm="ngForm" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
                   <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input formControlName="emailInscription" matInput type="email" placeholder="Entrez votre Email" >
@@ -50,7 +50,7 @@
                       <span *ngIf="emailControlInscription.errors.pattern">email non validé</span>
                     </mat-error>
                   </mat-form-field>
-                  <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button color="primary">Envoyer</button>
+                  <button [disabled]="inscriptionFormGroup.invalid || inscriptionForm.submitted" type="submit" mat-raised-button color="primary">Envoyer</button>
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
