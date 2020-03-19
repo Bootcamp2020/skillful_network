@@ -91,7 +91,6 @@ public class AuthenticationController {
     	    }
     	}
     	String randomCode = CodeGeneration.generateCode(10);
-    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
