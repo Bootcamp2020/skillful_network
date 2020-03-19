@@ -54,6 +54,9 @@
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                   <div id="message-guide">
+                     <p> Veuillez verifier votre boite mail pour récupérer votre code de confirmation</p>
+                   </div>
                   <mat-form-field>
                   <mat-label>Code de confirmation</mat-label>
                   <input type="password" maxlength="10" matInput formControlName="code" />
