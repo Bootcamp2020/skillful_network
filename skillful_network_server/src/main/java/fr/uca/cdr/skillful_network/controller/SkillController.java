@@ -2,6 +2,8 @@ package fr.uca.cdr.skillful_network.controller;
 
 import java.util.*;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.services.SkillService;
+import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 
 @CrossOrigin("*")
 @RestController
@@ -24,6 +28,9 @@ public class SkillController {
 
 	@Autowired
 	private SkillService skillService;
+	
+	// Autocompletion init
+	AutoCompletion<Skill> completor = new AutoCompletion<>(Skill.class, "name", "userList");
 
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
@@ -72,6 +79,14 @@ public class SkillController {
 			 
 
 	}
-	
 
+	@GetMapping(value = "/candidates")
+	public List<Skill>  getAutoCompletionByMatch(@Valid @RequestBody(required=false) String pMatch) {
+		// Get subscriptions list
+		List<Skill> skills = skillService.getAll();
+		
+		// looking for completion candidates
+		List<Skill> candidates = completor.findCandidates(skills, pMatch);
+		return candidates;
+	}
 }
