@@ -47,6 +47,18 @@ img.poleEmploi{
 i.material-icons{
   color:#ff6550;
 }
+.motDePasseOublieLink{
+  font-size: 11px;
+  color: blue;   
+  position: absolute;
+  top:15em;
+  right:1em;
+}
+ .motDePasseOublieLink:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1230px) {
  
   .connectionForm{
@@ -60,5 +72,5 @@ i.material-icons{
   }
   .mat-card{
     width: 300px;
-  }
+  } 
 }
