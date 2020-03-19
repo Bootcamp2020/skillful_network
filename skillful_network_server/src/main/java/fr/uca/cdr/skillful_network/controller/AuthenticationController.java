@@ -64,7 +64,6 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = POST)
     @Profile("prod")
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
-    	System.out.println("En mode Prod");
     	if (userService.alreadyExists(user.getEmail())) {
     		if(userService.existingMailIsValidated(user.getEmail())== true) {
     		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
@@ -76,6 +75,23 @@ public class AuthenticationController {
     	String randomCode = CodeGeneration.generateCode(10);
     	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
     	user.setPassword(randomCode);
+    	userRepository.save(user);
+    	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    }
+    
+    @RequestMapping(value = "/register", method = POST)
+    @Profile("dev")
+    public ResponseEntity<?> ifFirstConnectionDev(@Valid @RequestBody User user) {
+    	if (userService.alreadyExists(user.getEmail())) {
+    		if(userService.existingMailIsValidated(user.getEmail())== true) {
+    		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    		} else {
+    			Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
+    	    	userRepository.delete(oOldUser.get());	
+    	    }
+    	}
+    	String randomCode = CodeGeneration.generateCode(10);
+    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
