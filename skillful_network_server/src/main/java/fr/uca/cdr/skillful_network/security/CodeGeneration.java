@@ -34,6 +34,7 @@ public class CodeGeneration {
 					// le mot de passe devient null lors isAfter est true
 					pass = null;
 				}
+				
 
 				for (int x = 0; x < length; x++) {
 					// tirage au sort d'un caract�re et rajout au String builder
