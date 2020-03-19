@@ -57,15 +57,31 @@
                    <div id="message-guide">
                      <p> Veuillez verifier votre boite mail pour récupérer votre code de confirmation</p>
                    </div>
+                    <!-- TOOLTIP renvoi code confirmation-->
+
+                    <span #tooltip="matTooltip"
+                          matTooltip="Votre nouveau code de confirmation a bien été envoyé "
+                          matTooltipClass="custom-tooltip-blue"
+                          matTooltipHideDelay="500"
+                          matTooltipPosition="above"
+                          matTooltipShowDelay="300">
+                    </span>
+
+                    <!--FIN TOOLTIP-->
                   <mat-form-field>
                   <mat-label>Code de confirmation</mat-label>
                   <input type="password" maxlength="10" matInput formControlName="code" />
                   <mat-error class="form-control-feedback" *ngIf="codeForm.get('code').hasError && (codeForm.get('code').dirty || codeForm.get('code').touched) ">
                     <span *ngIf="codeForm.get('code').hasError('required')">Code est obligatoire</span>
                     <span *ngIf="codeForm.get('code').hasError('minlength')">Code doit avoir 10 charactères</span>
-                    
+
                   </mat-error>
                   </mat-form-field>
+                    <!-- bouton de renvoi de code de confirmation -->
+
+                    <button (click)="newCode();tooltip.show()" class="button-code-return" mat-button>Recevoir à
+                        nouveau un code de confirmation
+                    </button>
                   <button type="submit" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
               </form>
               </td>
