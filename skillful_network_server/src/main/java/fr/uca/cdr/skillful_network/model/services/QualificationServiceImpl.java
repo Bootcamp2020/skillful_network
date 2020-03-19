@@ -12,22 +12,19 @@ import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
 
 @Service(value = "QualificationService")
-public class QualificationServiceImpl implements QualificationService{
+public class QualificationServiceImpl implements QualificationService {
 	@Autowired
 	private QualificationRepository qualificationrepository;
 
-	
 	@Override
-	public List<Qualification> getAllQualifications(){
-	  return qualificationrepository.findAll();    
+	public List<Qualification> getAllQualifications() {
+		return qualificationrepository.findAll();
 	}
-	
+
 	@Override
 	public List<Qualification> getQualificationByPrefix(String prefix) {
-		
+
 		return qualificationrepository.search(prefix);
 	}
 
-	
-	
 }

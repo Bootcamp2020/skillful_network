@@ -30,15 +30,10 @@ public class Qualification {
 	@Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters")
 	private String name;
 
-//	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
-//	@JoinTable(name = "qualification_users", joinColumns = {
-//			@JoinColumn(name = "qualification_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-	
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
 	@JsonIgnore
-	private Set<User> userList = new HashSet<User>();
-	
+	private Set<User> userSet = new HashSet<User>();
+
 //	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
 
 	public Qualification() {
@@ -65,10 +60,10 @@ public class Qualification {
 		super();
 		this.id = id;
 		this.name = name;
-		this.userList = userList;
+		this.userSet = userList;
 
 	}
-	
+
 //	------------------------------------------ Getters et Setters -------------------------------------------------------------------------
 
 	public long getId() {
@@ -76,11 +71,11 @@ public class Qualification {
 	}
 
 	public Set<User> getUserList() {
-		return userList;
+		return userSet;
 	}
 
 	public void setUserList(Set<User> userList) {
-		this.userList = userList;
+		this.userSet = userList;
 	}
 
 	public void setId(Long id) {
@@ -94,12 +89,12 @@ public class Qualification {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 //	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
 	@Override
 	public String toString() {
-		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userList + "]";
+		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userSet + "]";
 	}
 
 }

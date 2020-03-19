@@ -14,29 +14,23 @@ import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.QualificationService;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 public class QualificationController {
-	
-	@Autowired
-    private final QualificationService qualificationservice;
-	
-	 public QualificationController(QualificationService qualificationservice){
-		this.qualificationservice = qualificationservice;
-	       
-	    }
-	 
-	 @RequestMapping(value = "/qualifications")
-	  public List<Qualification> getQualifications(@RequestParam(name = "prefix", required = false) String prefix){
-		 if(prefix == null) {
-			return qualificationservice.getAllQualifications();
-		 }else {
-			 return qualificationservice.getQualificationByPrefix(prefix);
-		 }
-	
-	  }
-	 
 
-	 
+	@Autowired
+	private final QualificationService qualificationservice;
+
+	public QualificationController(QualificationService qualificationservice) {
+		this.qualificationservice = qualificationservice;
+	}
+
+	@RequestMapping(value = "/qualifications")
+	public List<Qualification> getQualifications(@RequestParam(name = "prefix", required = false) String prefix) {
+		if (prefix == null) {
+			return qualificationservice.getAllQualifications();
+		} else {
+			return qualificationservice.getQualificationByPrefix(prefix);
+		}
+	}
 }
