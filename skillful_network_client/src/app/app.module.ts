@@ -33,7 +33,7 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
 
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
-import {MatTooltipModule} from "@angular/material/tooltip";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
