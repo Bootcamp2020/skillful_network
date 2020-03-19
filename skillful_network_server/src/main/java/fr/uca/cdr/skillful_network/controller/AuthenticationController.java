@@ -19,7 +19,6 @@ import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.SendMail;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -60,7 +59,7 @@ public class AuthenticationController {
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 	}
 
-    @RequestMapping(value = "/register", method = POST)
+	@RequestMapping(value = "/register", method = POST)
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
     	if (userService.alreadyExists(user.getEmail())) {
     		if(userService.existingMailIsValidated(user.getEmail())== true) {
@@ -71,7 +70,8 @@ public class AuthenticationController {
     	    }
     	}
     	String randomCode = CodeGeneration.generateCode(10);
-    	SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+        // Send Message!
+    	userService.sendMail(user.getEmail(), randomCode);
     	user.setPassword(randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);

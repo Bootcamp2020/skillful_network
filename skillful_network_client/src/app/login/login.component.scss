@@ -71,3 +71,13 @@ i.material-icons{
     max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
   }
 }
+#message-guide{
+  background-color: #0480a2;
+  border-radius: 5px 5px 5px 5px;
+  padding-top: 10px;
+  margin-top: 5px;
+}
+#message-guide p{
+  color: white;
+  text-align: center;
+}
