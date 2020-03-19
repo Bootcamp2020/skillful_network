@@ -1,17 +1,7 @@
 package fr.uca.cdr.skillful_network.controller;
 
-import fr.uca.cdr.skillful_network.model.entities.User;
-import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
-import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.SendMail;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -26,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
-
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
+import fr.uca.cdr.skillful_network.request.SkillsForm;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
 
@@ -70,6 +59,7 @@ public class UserController {
 				userToUpdate.setBirthDate(userRequest.getBirthDate());
 				userToUpdate.setEmail(userRequest.getEmail());
 				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
+				userToUpdate.setSkills(userRequest.getSkills());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {
@@ -77,18 +67,16 @@ public class UserController {
 			}
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-
 		}
 	}
 	@Transactional
 	@PutMapping(value = "/usersModifPassword/{id}")
 	public ResponseEntity<User> updateUserPassword(@PathVariable(value="id") long id, @Valid @RequestBody UserPwdUpdateForm userModifPwd){
-		
 		User userToUpdate = userService.getUserById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucun utilisateur trouvé avec l'id " + id));
-		
 		userToUpdate.setPassword(userModifPwd.getPassword());
 		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}
+	
 
 }
