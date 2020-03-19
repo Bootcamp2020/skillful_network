@@ -6,6 +6,7 @@ export class User {
   private _name: string;
   private _firstName: string; 
   private _email: string;
+  private _statut:string;
   private _qualification: string; 
   private _competences: string[];
   private _photoProfile: string;
@@ -16,6 +17,7 @@ export class User {
     this.name=data.name;
     this.firstName=data.firstName;
     this.email=data.email;
+    this.statut=data.statut;
     this.qualification=data.qualification;
     /*this.statut=data.statut*/
     this.competences=data.competences;
@@ -47,6 +49,13 @@ export class User {
   }
   public set email(value: string) {
     this._email = value;
+  }
+
+  public get statut(): string {
+    return this._statut;
+  }
+  public set statut(value: string) {
+    this._statut = value;
   }
 
   public get qualification(): string {
