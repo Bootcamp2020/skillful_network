@@ -1,3 +1,21 @@
+header{
+    display: grid;
+    grid-template-columns: 50px 60px 1fr 270px 0;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #f5f5f5;
+}
+.recherche{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+
+
+.boutonMenu{
+    display: none;
+}
 .formulaire {
     border-radius: 20px;
     background: white;
@@ -11,8 +29,15 @@
     color: #5b7787;
     height: 100px;
 }
+.logoHeader{
+    width: 60px;
+}
+.menu{
+
+}
 
 .input {
+
     text-rendering: auto;
     letter-spacing: normal;
     word-spacing: normal;
@@ -23,6 +48,9 @@
     cursor: text;
     border: none;
     font: 400 13.3333px Arial;
+}
+.recherche form{
+    margin-right: 60px;
 }
 
 div input {
@@ -35,4 +63,38 @@ div input {
 }
 header{
     height: 100px;
+}
+@media screen and (max-width: 770px){
+    .boutonMenu{
+        display: block;
+        color: #5b7787;
+    }
+    mat-toolbar a{
+        display: none;
+    }
+}
+@media (min-width: 591px) and (max-width: 900px){
+header{
+    display: grid;
+    grid-template-columns: 50px 60px 0.7fr 130px 0px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #f5f5f5;
+}
+}
+@media screen and (max-width: 590px){
+header{
+    display: grid;
+    grid-template-columns: 50px 60px 0.7fr 180px 150px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #f5f5f5;
+}
+}
+
+@media screen and (min-width: 952px) {
+    .positionToolbar {
+        display: flex;
+        justify-content: end !important;
+    }
 }
