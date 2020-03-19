@@ -1,15 +1,19 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -32,6 +36,12 @@ public class User {
 	private String  status;
 	private boolean validated = false;
 	private boolean photo= false;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    private Set<Skill> skillSet = new HashSet<>();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Qualification> qualificationSet = new HashSet<>();
 	
 	public User() {
 		super();

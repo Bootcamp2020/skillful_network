@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Qualification {
+//	--------------------------------------- Attributs de la classe -------------------------------------------------------------------------
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +30,16 @@ public class Qualification {
 	@Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters")
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "qualification_users", joinColumns = {
-			@JoinColumn(name = "qualification_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
+//	@JoinTable(name = "qualification_users", joinColumns = {
+//			@JoinColumn(name = "qualification_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
 	@JsonIgnore
-	private Set<User> userList;
+	private Set<User> userList = new HashSet<User>();
+	
+//	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
 
 	public Qualification() {
 		super();
@@ -63,6 +68,8 @@ public class Qualification {
 		this.userList = userList;
 
 	}
+	
+//	------------------------------------------ Getters et Setters -------------------------------------------------------------------------
 
 	public long getId() {
 		return id;
@@ -87,6 +94,8 @@ public class Qualification {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
 	@Override
 	public String toString() {
