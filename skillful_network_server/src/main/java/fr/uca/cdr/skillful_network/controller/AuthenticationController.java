@@ -64,7 +64,14 @@ public class AuthenticationController {
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
     	if (userService.alreadyExists(user.getEmail())) {
     		if(userService.existingMailIsValidated(user.getEmail())== true) {
-    		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    			 Optional<User> userFDb= userRepository.findByEmail(user.getEmail());
+    		     userFDb.get().setPassword(null);
+    		     userFDb.get().setValidated(false);
+    		     userService.saveOrUpdateUser(userFDb.get());
+    		     String randomCode = CodeGeneration.generateCode(10);
+    		     SendMail.envoyerMailSMTP(user.getEmail(), randomCode);
+    		     return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    		  
     		} else {
     			Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
     	    	userRepository.delete(oOldUser.get());	
