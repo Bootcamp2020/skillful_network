@@ -22,6 +22,7 @@
 .mat-card-title{
   margin-bottom: 1em;
   color: grey;
+  padding: 2rem;
 }
 .container{
   top: 0px;
@@ -41,7 +42,8 @@ button{
 .logo{
   width: 100%;
 }
-img.poleEmploi{
+img.logoUniversite{
+  max-width: 99%;
   margin: 1.5rem auto;
 }
 i.material-icons{
@@ -54,11 +56,18 @@ i.material-icons{
   }
   .mat-card-title{
     font-size: 20px;
-    min-width: 200px;
+    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobile (iphone5)
     margin:auto;
     padding: 2rem;
   }
   .mat-card{
     width: 300px;
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+  .mat-form-field {
+    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
   }
 }
