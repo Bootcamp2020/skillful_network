@@ -24,7 +24,7 @@ public class User {
 			@Size(min = 8, message = "password must be at least 8 characters") String password,
 			@PastOrPresent Date birthDate,
 			@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet) {
+			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -37,6 +37,7 @@ public class User {
 		this.validated = validated;
 		this.photo = photo;
 		this.skillSet = skillSet;
+		this.qualificationSet = qualificationSet;
 	}
 
 	@Id
@@ -59,13 +60,26 @@ public class User {
 	private boolean photo= false;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Skill>skillSet = new HashSet<Skill>();
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
+	
 	public Set<Skill> getSkillSet() {
 		return skillSet;
+	}
+	
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
 	}
 
 	public void setSkillSet(Set<Skill> skillSet) {
 		this.skillSet = skillSet;
 	}
+
+	public void setQualificationSet(Set<Qualification> qualificationSet) {
+		this.qualificationSet = qualificationSet;
+	}
+
 
 	public User() {
 		super();
@@ -182,7 +196,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
-				+ status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + "]";
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + "]";
+
 	}
 }
