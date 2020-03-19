@@ -46,8 +46,9 @@ public class User {
     @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
     private String firstName;
     @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+
 	private String lastName;
-    @Size(min = 8, message = "password must be at least 8 characters")
+	@Size(min = 8, message = "password must be at least 8 characters")
 	private String password;
 	@PastOrPresent
 	private Date birthDate;
@@ -55,8 +56,9 @@ public class User {
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
-	private String  status;
+	private String status;
 	private boolean validated = false;
+
 	private boolean photo= false;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Skill>skillSet = new HashSet<Skill>();
@@ -80,19 +82,19 @@ public class User {
 		this.qualificationSet = qualificationSet;
 	}
 
-
 	public User() {
 		super();
 	}
-	
+
 	public User(long id, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-    
-	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber,int status, boolean photo) {
+
+	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
+			String mobileNumber, int status, boolean photo) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -106,7 +108,6 @@ public class User {
 		this.validated = true;
 	}
 
-	
 	public boolean isPhoto() {
 		return photo;
 	}
@@ -152,7 +153,7 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -197,6 +198,5 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
 				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + "]";
-
 	}
 }
