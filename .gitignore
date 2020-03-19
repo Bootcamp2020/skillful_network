@@ -2,7 +2,7 @@
 .DS_Store
 .metadata
 .project
-
+Servers/
 skillful_network_server/.idea/
 skillful_network_server/.DS_Store
 skillful_network_server/target/
@@ -186,3 +186,4 @@ skillful_network_client/e2e/*.map
 skillful_network_client/.DS_Store/
 
 # End of https://www.gitignore.io/api/angular
+skillful_network_server/.sts4-cache/classpath-data.json
