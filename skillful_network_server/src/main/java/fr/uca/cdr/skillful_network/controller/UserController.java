@@ -1,5 +1,4 @@
 package fr.uca.cdr.skillful_network.controller;
-
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
-import fr.uca.cdr.skillful_network.request.SkillsForm;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
 
@@ -59,7 +57,7 @@ public class UserController {
 				userToUpdate.setBirthDate(userRequest.getBirthDate());
 				userToUpdate.setEmail(userRequest.getEmail());
 				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
-				userToUpdate.setSkills(userRequest.getSkills());
+				userToUpdate.setSkillSet(userRequest.getSkills());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {
