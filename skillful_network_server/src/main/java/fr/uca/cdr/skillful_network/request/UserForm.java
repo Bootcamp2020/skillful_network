@@ -1,11 +1,15 @@
 package fr.uca.cdr.skillful_network.request;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
+import fr.uca.cdr.skillful_network.model.entities.Skill;
 
 public class UserForm {
 
@@ -19,7 +23,9 @@ public class UserForm {
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
-
+	private Set<Skill>skillSet = new HashSet<Skill>();
+	
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -58,6 +64,14 @@ public class UserForm {
 
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+
+	public Set<Skill> getSkillSet() {
+		return skillSet;
+	}
+
+	public void setSkillSet(Set<Skill> skillSet) {
+		this.skillSet = skillSet;
 	}
 
 }

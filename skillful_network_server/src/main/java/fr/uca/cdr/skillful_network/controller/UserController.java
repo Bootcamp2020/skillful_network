@@ -69,6 +69,7 @@ public class UserController {
 				userToUpdate.setBirthDate(userRequest.getBirthDate());
 				userToUpdate.setEmail(userRequest.getEmail());
 				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
+				userToUpdate.setSkillSet(userRequest.getSkillSet());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {

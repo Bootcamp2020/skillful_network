@@ -1,5 +1,9 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,34 +15,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 public class User {
-
-    public User(long id,
-			@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
-			@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
-			@Size(min = 8, message = "password must be at least 8 characters") String password,
-			@PastOrPresent Date birthDate,
-			@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.birthDate = birthDate;
-		this.email = email;
-		this.mobileNumber = mobileNumber;
-		this.status = status;
-		this.validated = validated;
-		this.photo = photo;
-		this.skillSet = skillSet;
-		this.qualificationSet = qualificationSet;
-	}
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +44,28 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
 	
+	public User(long id,
+				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
+				@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
+				@Size(min = 8, message = "password must be at least 8 characters") String password,
+				@PastOrPresent Date birthDate,
+				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
+				String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet) {
+			super();
+			this.id = id;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.password = password;
+			this.birthDate = birthDate;
+			this.email = email;
+			this.mobileNumber = mobileNumber;
+			this.status = status;
+			this.validated = validated;
+			this.photo = photo;
+			this.skillSet = skillSet;
+			this.qualificationSet = qualificationSet;
+		}
+
 	public Set<Skill> getSkillSet() {
 		return skillSet;
 	}
