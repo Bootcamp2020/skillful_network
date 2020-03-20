@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="skills")
 public class Skill {
@@ -18,6 +20,7 @@ public class Skill {
 	private String name;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "skillSet")
+	@JsonIgnore
 	private Set<User> userList = new HashSet<User>();
 	
 	
