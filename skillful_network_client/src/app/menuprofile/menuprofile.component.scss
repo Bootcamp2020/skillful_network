@@ -47,10 +47,11 @@ img {
    justify-content: center; 
 }
 @media screen and (max-width: 961px){
-  .divIcons{
+  .divIcons, a{
     display: block;
     margin: auto;
     margin-bottom: 30px;
+    text-decoration: none;
   }
   .photoProfile, .lienProfile{
     display: none;

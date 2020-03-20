@@ -7,10 +7,10 @@
             dehaze
         </i></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Accueil</button>
-            <button mat-menu-item>Profil</button>
-            <button mat-menu-item>Notifications</button>
-            <button mat-menu-item>Déconnexion</button>
+            <a mat-menu-item [routerLink]="['/home']" >Accueil</a>
+            <a mat-menu-item [routerLink]="['/home']">Profil</a>
+            <a mat-menu-item [routerLink]="['/home']">Notifications</a>
+            <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
         </mat-menu>
     </div>
         <div>
