@@ -57,20 +57,20 @@
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                  <!-- TOOLTIP renvoi code confirmation-->
+                  <span #tooltip="matTooltip"
+                        matTooltip="Votre nouveau code de confirmation a bien été envoyé "
+                        matTooltipClass="custom-tooltip-blue"
+                        matTooltipHideDelay="500"
+                        matTooltipPosition="above"
+                        matTooltipShowDelay="300">
+                    </span>
+                  <!--FIN TOOLTIP-->
                    <div id="message-guide">
                      <p> Veuillez verifier votre boite mail pour récupérer votre code de confirmation</p>
+
                    </div>
-                    <!-- TOOLTIP renvoi code confirmation-->
 
-                    <span #tooltip="matTooltip"
-                          matTooltip="Votre nouveau code de confirmation a bien été envoyé "
-                          matTooltipClass="custom-tooltip-blue"
-                          matTooltipHideDelay="500"
-                          matTooltipPosition="above"
-                          matTooltipShowDelay="300">
-                    </span>
-
-                    <!--FIN TOOLTIP-->
                   <mat-form-field>
                   <mat-label>Code de confirmation</mat-label>
                   <input type="password" maxlength="10" matInput formControlName="code" />
