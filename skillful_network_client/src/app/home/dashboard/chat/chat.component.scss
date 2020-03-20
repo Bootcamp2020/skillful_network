@@ -2,10 +2,17 @@ $gray: #92959E;
 .container_chat {
   margin:8px;
   padding: 15px;
-  width: 100%;
+  width: 90%;
   //overflow: auto;
 }
-
+.card_dashboard{
+  padding-left: auto;
+   margin: auto; 
+  justify-content: center;
+  height: 95%;
+  margin-bottom: 10px; 
+  }
+ 
 img {
   width: 80%;
    margin-right: 30px;

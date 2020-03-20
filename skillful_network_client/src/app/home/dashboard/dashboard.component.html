@@ -7,20 +7,24 @@
 
     <div class="gestionCard" fxFlexAlign="stretch">
         <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">
-            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-                <div fxFlex="45">
+            <div style="width: 100%; " fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start end">
+                <div fxFlex="45" fxFlexFill="100">
                     <app-profile></app-profile>
                 </div>
-                <div fxFlex="45">
+                <div fxFlex="45" fxLayoutAlign="space-around start end" fxFlexFill="100">
                     <app-fil-actualites></app-fil-actualites>
                 </div>
             </div>
-            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-                <div fxLayout.gt-sm="column" fxFlex="45">
-                    <app-simulation></app-simulation>
-                    <app-candidature></app-candidature>
+            <div  style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start end">
+                <div fxLayout.gt-sm="column" fxFlex="45" fxFlexFill="100">
+                    <div fxFlex="50">
+                        <app-simulation></app-simulation>
+                    </div>
+                    <div fxFlex="50">
+                        <app-candidature></app-candidature>
+                    </div>
                 </div>
-                <div fxLayout.gt-sm="row" fxFlex="45">
+                <div fxLayout.gt-sm="row" fxFlex="45" fxFlexFill="100">
                     <app-chat></app-chat>
                 </div>
             </div>

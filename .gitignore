@@ -55,7 +55,7 @@ skillful_network_server/.recommenders/
 skillful_network_server/.cache-main
 skillful_network_server/.scala_dependencies
 skillful_network_server/.worksheet
-
+#skillful_network_server/WebContent
 # End of https://www.gitignore.io/api/eclipse
 
 

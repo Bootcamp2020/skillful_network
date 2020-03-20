@@ -1,7 +1,16 @@
 .margePactu{
   margin-bottom: 0;
 }
-.card_dashboard{
+/*.card_dashboard{
   padding: 0;
   margin-bottom: 40px;
-}
+  height: 90%
+}*/
+.card_dashboard{
+  padding: 0;
+  padding-left: auto;
+   margin: auto; 
+  justify-content: center;
+  height: 90%;
+  margin-bottom: 25px;
+  }
