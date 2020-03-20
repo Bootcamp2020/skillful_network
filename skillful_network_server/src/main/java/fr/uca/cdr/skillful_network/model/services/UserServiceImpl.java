@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
 	public void sendMail(String email , String codeAutoGen) {
 		 emailService.sendEmail(email, codeAutoGen);
 	}
+	
+	@Override
+	public Optional<User> findByEmail(String mail) {
+		return userRepository.findByEmail(mail);
+	} 
 }

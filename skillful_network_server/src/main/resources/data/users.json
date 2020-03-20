@@ -7,16 +7,7 @@
 		"email": "John@uca.fr",
 		"mobileNumber": "0678912345",
 		"status": 1,
-		"skillSet": [
-			{
-				"id": 1,
-				"name": "Application Web"
-			},
-			{
-				"id": 2,
-				"name": "Javascript"
-			}
-		],
+		"skillSet": [],
 		"qualificationSet": []
 	},
 	{
@@ -27,12 +18,7 @@
 		"email": "Julie@uca.fr",
 		"mobileNumber": "0678912345",
 		"status": 1,
-		"skillSet": [
-			{
-				"id": 1,
-				"name": "Application Web"
-			}
-		],
+		"skillSet": [],
 		"qualificationSet": []
 	},
 	{
@@ -43,12 +29,7 @@
 		"email": "Jennifer@uca.fr",
 		"mobileNumber": "0678912345",
 		"status": 1,
-		"skillSet": [
-			{
-				"id": 5,
-				"name": "Java"
-			}
-		],
+		"skillSet": [],
 		"qualificationSet": []
 	},
 	{
