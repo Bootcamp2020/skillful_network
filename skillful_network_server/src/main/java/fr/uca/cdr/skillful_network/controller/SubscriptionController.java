@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.model.entities.Skill;
+import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,9 @@ public class SubscriptionController {
 
 	@Autowired
 	private SubscriptionService subscriptionService;
+
+	// Autocompletion init
+	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
 
 	@GetMapping("/subscriptions")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
@@ -72,4 +77,13 @@ public class SubscriptionController {
 		subscriptionService.deleteSubscription(id);
 	}
 
+	@GetMapping(value = "/subscriptions/candidates")
+	public List<Subscription>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+		// Get subscriptions list
+		List<Subscription> subscriptions = subscriptionService.getAllSubscription();
+
+		// looking for completion candidates
+		List<Subscription> candidates = completor.findCandidates(subscriptions, pMatch);
+		return candidates;
+	}
 }

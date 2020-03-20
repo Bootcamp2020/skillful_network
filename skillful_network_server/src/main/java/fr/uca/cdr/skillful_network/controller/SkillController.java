@@ -34,21 +34,21 @@ public class SkillController {
 
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
-		List<Skill> listSkill = this.skillService.getAll();
+		List<Skill> listSkill = this.skillService.getAllSkills();
 		return new ResponseEntity<List<Skill>>(listSkill, HttpStatus.OK);
 	}
 
 // 
 //	@GetMapping(value = "/{id}")
 //	public ResponseEntity<Skill> getSkillById(@PathVariable(value = "id") Long id) {
-//		Skill skillFromDb = this.skillService.getById(id).orElseThrow(
+//		Skill skillFromDb = this.skillService.getSkillById(id).orElseThrow(
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
 
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
-		Skill skillFromDb = this.skillService.getByName(name)
+		Skill skillFromDb = this.skillService.getSkillByName(name)
 				.orElseThrow(
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucune compétence trouvée avec le nom " + name)
 					);
@@ -57,7 +57,7 @@ public class SkillController {
 
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySkill(@PathVariable(value = "id") Long id) {
-		Set<User> listUser = this.skillService.getById(id)
+		Set<User> listUser = this.skillService.getSkillById(id)
 				.map((skill) -> {
 					return skill.getUserList();})
 				.orElseThrow(
@@ -70,7 +70,7 @@ public class SkillController {
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
 		
-			List<String> listSkill = this.skillService.search(keyword)
+			List<String> listSkill = this.skillService.searchSkill(keyword)
 					.orElseThrow(
 						() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun matching avec le keyword : "+keyword)
 					);
@@ -84,7 +84,7 @@ public class SkillController {
 	@GetMapping(value = "/candidates")
 	public List<Skill>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
 		// Get subscriptions list
-		List<Skill> skills = skillService.getAll();
+		List<Skill> skills = skillService.getAllSkills();
 		
 		// looking for completion candidates
 		List<Skill> candidates = completor.findCandidates(skills, pMatch);
