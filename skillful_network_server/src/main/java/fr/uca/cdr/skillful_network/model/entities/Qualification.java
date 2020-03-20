@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "qualifications")
 public class Qualification {
 	
-	
 //	--------------------------------------- Attributs de la classe -------------------------------------------------------------------------
 
 	@Id
@@ -34,16 +33,10 @@ public class Qualification {
 
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
 	@JsonIgnore
-	private Set<User> userList = new HashSet<User>();
-
+	private Set<User> userSet = new HashSet<User>();
 	
 //	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
 
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name);
-	}
 
 	public Qualification() {
 		super();
@@ -65,23 +58,21 @@ public class Qualification {
 	}
 
 
-	public Qualification(long id, Set<User> userList,
+	public Qualification(long id, Set<User> userSet,
 			@NotNull(message = "Qualification name cannot be null") @Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters") String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.userList = userList;
+		this.userSet = userSet;
 
 	}
-	
-	
-//	------------------------------------------ Getter et Setter -------------------------------------------------------------------------
 
+//	------------------------------------------ Getters et Setters -------------------------------------------------------------------------
 
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -94,21 +85,25 @@ public class Qualification {
 		this.name = name;
 	}
 
-	public Set<User> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(Set<User> userList) {
-		this.userList = userList;
+	public Set<User> getUserSet() {
+		return userSet;
 	}
 	
-
-//	----------------------------------------------  MÃ©thodes  -------------------------------------------------------------------------
+	public void setUserSet(Set<User> userSet) {
+		this.userSet = userSet;
+	}
+	
+//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 	
 	
 	@Override
 	public String toString() {
-		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userList + "]";
+		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userSet + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
 	}
 
 }
