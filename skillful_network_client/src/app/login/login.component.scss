@@ -22,6 +22,7 @@
 .mat-card-title{
   margin-bottom: 1em;
   color: grey;
+  padding: 2rem;
 }
 .container{
   top: 0px;
@@ -41,12 +42,57 @@ button{
 .logo{
   width: 100%;
 }
-img.poleEmploi{
+img.logoUniversite{
+  max-width: 99%;
   margin: 1.5rem auto;
 }
 i.material-icons{
   color:#ff6550;
 }
+/* Boutons et tooltip renvoi newcode*/
+.button-code-return {
+  margin-top: 1.2em;
+  text-decoration: underline dotted;
+  background-color: rgba(168, 168, 168, 0);
+  color: #3f4eb5;
+}
+
+.button-code-return:hover {
+  margin-top: 1.2em;
+  background-color: rgba(158, 158, 158, 0.2);
+  color: #3f4eb5;
+}
+
+::ng-deep .custom-tooltip-blue {
+  opacity: 0.8;
+  /*position: absolute;*/
+  font-size: 14px;
+  max-width: unset !important;
+  text-align: center;
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+  background: #3f4eb5;
+  padding: 20px;
+  transform: translateX(-20%) scale(0.8);
+  transition: transform 2s ease-in-out;
+  transform-origin: top;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 2px;
+  color: white;
+  font-weight: bold;
+}
+.motDePasseOublieLink{
+  font-size: 11px;
+  color: blue;   
+  position: absolute;
+  top:15em;
+  right:1em;
+}
+ .motDePasseOublieLink:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* fin boutons tooltips*/
 @media only screen and (max-width: 1230px) {
  
   .connectionForm{
@@ -54,11 +100,45 @@ i.material-icons{
   }
   .mat-card-title{
     font-size: 20px;
-    min-width: 200px;
+    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobile (iphone5)
     margin:auto;
     padding: 2rem;
   }
   .mat-card{
     width: 300px;
+  } 
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+  .mat-form-field {
+    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
   }
+  ::ng-deep .custom-tooltip-blue {
+    opacity: 0.8;
+    font-size: 10px;
+    max-width: unset !important;
+    text-align: center;
+    display: block;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    background: #3f4eb5;
+    padding: 10px;
+    transform: translateX(-20%) scale(0.8);
+    transition: transform 2s ease-in-out;
+    transform-origin: top;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+  }
+}
+#message-guide{
+  background-color: #0480a2;
+  border-radius: 5px 5px 5px 5px;
+  padding-top: 10px;
+  margin-top: 5px;
+}
+#message-guide p{
+  color: white;
+  text-align: center;
 }

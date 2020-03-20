@@ -3,7 +3,6 @@ package fr.uca.cdr.skillful_network.controller;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.SendMail;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +69,7 @@ public class UserController {
 				userToUpdate.setBirthDate(userRequest.getBirthDate());
 				userToUpdate.setEmail(userRequest.getEmail());
 				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
+				userToUpdate.setSkillSet(userRequest.getSkillSet());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {

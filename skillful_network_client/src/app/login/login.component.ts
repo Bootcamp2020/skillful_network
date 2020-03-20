@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   public email: string;
   public error: boolean;
   public password: string;
+  public position: number;
 
   // Variable de type Regex pour la validation d'un email (def email)
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -52,6 +53,7 @@ export class LoginComponent implements OnInit {
     this.buildFormInscription();
     this.buildFormLogin();
     this.codeFormBuild();
+    
   }
   login() {
     console.log(this.loginFormGroup.value);
@@ -154,5 +156,8 @@ export class LoginComponent implements OnInit {
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
+// creation d'un nouveau code de confirmation
+  newCode() {
 
+  }
 }

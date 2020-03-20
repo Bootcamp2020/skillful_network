@@ -1,43 +1,52 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "qualifications")
 public class Qualification {
+	
+//	--------------------------------------- Attributs de la classe -------------------------------------------------------------------------
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(name = "name", nullable = false)
 	@NotNull(message = "Qualification name cannot be null")
 	@Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters")
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "qualification_users", joinColumns = {
-			@JoinColumn(name = "qualification_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
 	@JsonIgnore
-	private Set<User> userList;
+	private Set<User> userSet = new HashSet<User>();
+	
+//	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
+
 
 	public Qualification() {
 		super();
+	}
+	
+	public Qualification(
+			@NotNull(message = "Qualification name cannot be null") @Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters") String name) {
+		super();
+		this.name = name;
+
 	}
 
 	public Qualification(long id,
@@ -48,38 +57,26 @@ public class Qualification {
 
 	}
 
-	public Qualification(
-			@NotNull(message = "Qualification name cannot be null") @Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters") String name) {
-		super();
-		this.name = name;
 
-	}
-
-	public Qualification(long id, Set<User> userList,
+	public Qualification(long id, Set<User> userSet,
 			@NotNull(message = "Qualification name cannot be null") @Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters") String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.userList = userList;
+		this.userSet = userSet;
 
 	}
+
+//	------------------------------------------ Getters et Setters -------------------------------------------------------------------------
 
 	public long getId() {
 		return id;
 	}
 
-	public Set<User> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(Set<User> userList) {
-		this.userList = userList;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -88,9 +85,25 @@ public class Qualification {
 		this.name = name;
 	}
 
+	public Set<User> getUserSet() {
+		return userSet;
+	}
+	
+	public void setUserSet(Set<User> userSet) {
+		this.userSet = userSet;
+	}
+	
+//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
+	
+	
 	@Override
 	public String toString() {
-		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userList + "]";
+		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userSet + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
 	}
 
 }

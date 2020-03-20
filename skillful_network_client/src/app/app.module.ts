@@ -33,6 +33,8 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
 
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { MatTooltipModule } from "@angular/material/tooltip";
+
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -52,7 +54,7 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
         FilActualitesComponent,
         HeaderComponent,
         ProfileComponent,
-        MenuprofileComponent
+        MenuprofileComponent,
 
     ],
     imports: [
@@ -64,7 +66,9 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
+
         MatFormFieldModule,
+        MatTooltipModule,
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement

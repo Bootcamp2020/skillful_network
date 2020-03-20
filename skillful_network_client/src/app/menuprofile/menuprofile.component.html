@@ -1,15 +1,32 @@
 <div class="menuprofile">
     
-    <div class="photoProfile" fxLayout="column">
+    <div class="lienProfile"  fxLayout="column">
         <div class="photoProfile">
             <img [src]="user.photoProfile">
         </div>
-        <p><a href="https://www.google.com/" target="_blank">Profil</a></p>
-     
-        <p><a href="https://www.google.com/" target="_blank">Candidatures</a></p>
-        <p><a href="https://www.google.com/" target="_blank">Offres d'emploi</a></p>
-        <p><a href="https://www.google.com/" target="_blank">Offres de formation</a></p>
-        <p><a href="https://www.google.com/" target="_blank">Contact</a></p>
+        <p><a class="lienProfile" href="https://www.google.com/" target="_blank">Profil</a></p>
+        <p><a class="lienProfile" href="https://www.google.com/" target="_blank">Candidatures</a></p>
+        <p><a class="lienProfile" href="https://www.google.com/" target="_blank">Offres d'emploi</a></p>
+        <p><a class="lienProfile" href="https://www.google.com/" target="_blank">Offres de formation</a></p>
+        <p><a class="lienProfile" href="https://www.google.com/" target="_blank">Contact</a></p>
     </div>
+
     
+</div>
+<div class="divIcons" fxLayout="column">
+    <i class="divIcons material-icons iconsProfile" matTooltip="Profil" matTooltipPosition="right">
+        account_circle
+    </i>
+    <i class="divIcons material-icons iconsProfile" matTooltip="Candidature" matTooltipPosition="right">
+        create
+    </i>
+    <i class="divIcons material-icons iconsProfile" matTooltip="Offres d'emploi" matTooltipPosition="right">
+        file_copy
+    </i>
+    <i class="divIcons material-icons iconsProfile" matTooltip="Offres de formation" matTooltipPosition="right">
+        menu_book
+    </i>
+    <i class="divIcons material-icons iconsProfile" matTooltip="Contact" matTooltipPosition="right">
+        mail
+    </i>
 </div>

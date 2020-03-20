@@ -1,30 +1,9 @@
-<app-header></app-header>
-
-<div class="gestComponent" fxLayout="row">
-    <div fxFlex="15" class="borderProfile">
-        <app-menuprofile></app-menuprofile>
+    <div class="affichageDesk">
+        <div class="zone zone1"><app-profile></app-profile> </div>
+        <div class="zone zone2"><app-fil-actualites></app-fil-actualites> </div>
+        <div class="zone zone3"><app-simulation></app-simulation> </div>
+        <div class="zone zone4"><app-candidature></app-candidature> </div>
+        <div class="zone zone5"><app-chat></app-chat> </div>
     </div>
 
-    <div class="gestionCard" fxFlexAlign="stretch">
-        <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">
-            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-                <div fxFlex="45">
-                    <app-profile></app-profile>
-                </div>
-                <div fxFlex="45">
-                    <app-fil-actualites></app-fil-actualites>
-                </div>
-            </div>
-            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-                <div fxLayout.gt-sm="column" fxFlex="45">
-                    <app-simulation></app-simulation>
-                    <app-candidature></app-candidature>
-                </div>
-                <div fxLayout.gt-sm="row" fxFlex="45">
-                    <app-chat></app-chat>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<app-footer></app-footer>
+
