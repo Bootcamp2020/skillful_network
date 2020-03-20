@@ -1,9 +1,12 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +25,7 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "skillSet")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "skillSet")
 	private Set<User> userList = new HashSet<User>();
 	
 	
