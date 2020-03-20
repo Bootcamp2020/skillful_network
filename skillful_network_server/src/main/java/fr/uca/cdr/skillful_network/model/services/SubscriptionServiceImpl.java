@@ -1,11 +1,10 @@
 package fr.uca.cdr.skillful_network.model.services;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.apache.commons.collections4.IteratorUtils;
 
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
@@ -17,24 +16,26 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	private SubscriptionRepository subscriptionRepository;
 
 	@Override
-	public Collection<Subscription> getAllSubscription() {
-		return IteratorUtils.toList(subscriptionRepository.findAll().iterator());
-
+	public List<Subscription> getAllSubscription() {
+		return this.subscriptionRepository.findAll();
 	}
 
 	@Override
-	public Subscription getSubscriptionById(Long id) {
-		return subscriptionRepository.getOne(id);
+	public Optional<Subscription> getSubscriptionById(Long id) {
+		return this.subscriptionRepository.findById(id);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	public Optional<Subscription> getSubscriptionByName(String name) {
+		return this.subscriptionRepository.findByName(name);
+	}
+
+	@Override
 	public Subscription saveOrUpdateSubscription(Subscription subscription) {
 		return subscriptionRepository.save(subscription);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void deleteSubscription(Long id) {
 		subscriptionRepository.deleteById(id);
 

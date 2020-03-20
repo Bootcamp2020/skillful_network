@@ -10,13 +10,13 @@
 
 	<name>skillful.network.server</name>
 	<url>https://github.com/danglotb/skillful_network.git</url>
-	
-	 <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <default.encoding>UTF-8</default.encoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-     </properties>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<default.encoding>UTF-8</default.encoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
 	<build>
 		<plugins>
@@ -53,7 +53,7 @@
 			<version>2.2.4.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
@@ -108,5 +108,9 @@
 			<version>1.18.12</version>
 		</dependency>
 	</dependencies>
+<!-- 	<filter> -->
+<!-- 		<filter-name>SpringOpenEntityManagerInViewFilter</filter-name> -->
+<!-- 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class> -->
+<!-- 	</filter> -->
 
 </project>

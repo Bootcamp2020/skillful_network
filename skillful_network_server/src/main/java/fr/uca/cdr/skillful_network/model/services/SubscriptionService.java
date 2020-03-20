@@ -1,21 +1,20 @@
 package fr.uca.cdr.skillful_network.model.services;
 
-
-import java.util.Collection;
-
+import java.util.List;
+import java.util.Optional;
 
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 
-
 public interface SubscriptionService {
-	
-	Collection<Subscription> getAllSubscription();
-	
-	Subscription getSubscriptionById(Long id);
+
+	List<Subscription> getAllSubscription();
+
+	Optional<Subscription> getSubscriptionById(Long id);
+
+	Optional<Subscription> getSubscriptionByName(String name);
 
 	Subscription saveOrUpdateSubscription(Subscription subscription);
 
 	void deleteSubscription(Long id);
-
 
 }

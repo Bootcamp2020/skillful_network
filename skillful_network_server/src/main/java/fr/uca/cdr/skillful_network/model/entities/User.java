@@ -1,27 +1,30 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-    private String firstName;
-    @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+	private String firstName;
+	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 	private String lastName;
-    @Size(min = 8, message = "password must be at least 8 characters")
+	@Size(min = 8, message = "password must be at least 8 characters")
 	private String password;
 	@PastOrPresent
 	private Date birthDate;
@@ -30,52 +33,47 @@ public class User {
 	private String email;
 	private String mobileNumber;
 	private boolean validated = false;
-	private Subscription subscription;
 	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
+
+	
+
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
+	}
+
+	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
+		this.subscriptionSet = subscriptionSet;
+	}
+
 	public User() {
 		super();
 	}
-	
+
 	public User(long id, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+
 	
-    
-	public User(Subscription subscription) {
-		super();
-		this.subscription = subscription;
-	}
 
-	public Subscription getSubscription() {
-		return subscription;
-	}
-
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
-	}
-
-	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber) {
+	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber, boolean validated, Set<Subscription> subscriptionSet) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.birthDate = birthDate;
-		this.email = email.toLowerCase();
+		this.email = email;
 		this.mobileNumber = mobileNumber;
-		this.validated = true;
+		this.validated = validated;
+		this.subscriptionSet = subscriptionSet;
 	}
 
 	
-	public User(String password, String email) {
-		super();
-		this.password = password;
-		this.email = email;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -99,7 +97,7 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -144,9 +142,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
 				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", validated="
-				+ validated + ", subscription=" + subscription + "]";
+				+ validated + ", subscriptionSet=" + subscriptionSet + "]";
 	}
-	
-	
-	
+
 }
