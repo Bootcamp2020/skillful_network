@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
+import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
 import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
@@ -62,6 +64,15 @@ public class Application {
 		return args -> {
 			if (SkillRepository.findAll().isEmpty()) {
 				new JSONLoader<>("src/main/resources/data/skills.json", Skill[].class, SkillRepository).load();
+			}
+		};
+	}
+	
+	@Bean
+	ApplicationRunner initQualificationRepository(QualificationRepository QualificationRepository) {
+		return args -> {
+			if (QualificationRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/qualifications.json", Qualification[].class, QualificationRepository).load();
 			}
 		};
 	}
