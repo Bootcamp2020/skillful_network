@@ -13,6 +13,8 @@ import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.Subscription;
+import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
@@ -67,12 +69,24 @@ public class Application {
 			}
 		};
 	}
-	
+
 	@Bean
 	ApplicationRunner initQualificationRepository(QualificationRepository QualificationRepository) {
 		return args -> {
 			if (QualificationRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/qualifications.json", Qualification[].class, QualificationRepository).load();
+				new JSONLoader<>("src/main/resources/data/qualifications.json", Qualification[].class,
+						QualificationRepository).load();
+			}
+		};
+	}
+
+	@Bean
+	ApplicationRunner initSubscriptionRepository(SubscriptionRepository subscriptionRepository) {
+		return args -> {
+			if (subscriptionRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/subscriptions.json", Subscription[].class,
+						subscriptionRepository).load();
+
 			}
 		};
 	}

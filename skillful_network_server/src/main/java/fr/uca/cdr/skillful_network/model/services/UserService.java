@@ -19,4 +19,12 @@ public interface UserService {
 	
 	void sendMail(String mail , String code);
 
+      
+      /**
+       * Il retourne le user s'il le trouve par son adresse email
+       * @param String 
+       * @return optional user
+       */
+      Optional<User> findByEmail(String mail);
+      
 }
