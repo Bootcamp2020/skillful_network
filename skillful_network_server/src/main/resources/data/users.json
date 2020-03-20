@@ -8,7 +8,8 @@
 		"mobileNumber": "0678912345",
 		"status": 1,
 		"skillSet": [],
-		"qualificationSet": []
+		"qualificationSet": [],
+		"subscriptionSet": []
 	},
 	{
 		"id": 2,
@@ -19,7 +20,8 @@
 		"mobileNumber": "0678912345",
 		"status": 1,
 		"skillSet": [],
-		"qualificationSet": []
+		"qualificationSet": [],
+		"subscriptionSet": []
 	},
 	{
 		"id": 3,
@@ -30,7 +32,8 @@
 		"mobileNumber": "0678912345",
 		"status": 1,
 		"skillSet": [],
-		"qualificationSet": []
+		"qualificationSet": [],
+		"subscriptionSet": []
 	},
 	{
 		"id": 4,
@@ -41,7 +44,8 @@
 		"mobileNumber": "0678912345",
 		"status": 1,
 		"skillSet": [],
-		"qualificationSet": []
+		"qualificationSet": [],
+		"subscriptionSet": []
 	},
 	{
 		"id": 5,
@@ -52,6 +56,7 @@
 		"mobileNumber": "0678912345",
 		"status": 2,
 		"skillSet": [],
-		"qualificationSet": []
+		"qualificationSet": [],
+		"subscriptionSet": []
 	}
 ]
