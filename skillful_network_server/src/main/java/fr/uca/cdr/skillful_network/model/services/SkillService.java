@@ -7,9 +7,9 @@ import fr.uca.cdr.skillful_network.model.entities.Skill;
 
 public interface SkillService {
 	
-	Optional<List<String>> search(String keyword);
-	Optional<Skill> getByName(String name);
-	Optional<Skill> getById(Long id);
-	List<Skill> getAll();
+	Optional<List<String>> searchSkill(String keyword);
+	Optional<Skill> getSkillByName(String name);
+	Optional<Skill> getSkillById(Long id);
+	List<Skill> getAllSkills();
 
 }

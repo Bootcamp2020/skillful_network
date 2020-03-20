@@ -16,25 +16,25 @@ public class SkillServiceImpl implements SkillService{
 	private SkillRepository skillRepository;
 	
 	@Override
-	public Optional<List<String>> search(String keyword) {
+	public Optional<List<String>> searchSkill(String keyword) {
 		
 		return this.skillRepository.search(keyword);
 	}
 
 	@Override
-	public Optional<Skill> getByName(String name) {
+	public Optional<Skill> getSkillByName(String name) {
 		// TODO Auto-generated method stub
 		return this.skillRepository.findByName(name);
 	}
 
 	@Override
-	public Optional<Skill> getById(Long id) {
+	public Optional<Skill> getSkillById(Long id) {
 		// TODO Auto-generated method stub
 		return this.skillRepository.findById(id);
 	}
 
 	@Override
-	public List<Skill> getAll() {
+	public List<Skill> getAllSkills() {
 		// TODO Auto-generated method stub
 		return this.skillRepository.findAll();
 	}
