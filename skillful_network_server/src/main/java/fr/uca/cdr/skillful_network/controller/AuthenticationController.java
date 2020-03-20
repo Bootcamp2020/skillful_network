@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,6 +42,10 @@ public class AuthenticationController {
      
      @Autowired
      private UserService userService;
+     
+     @Value("${spring.profiles.active}")
+     private String activeProfil;
+     
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<User> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -77,10 +84,14 @@ public class AuthenticationController {
     	    }
     	}
     	String randomCode = CodeGeneration.generateCode(10);
-        // Send Message!
-    	userService.sendMail(user.getEmail(), randomCode);
+
+    	if (activeProfil.contains("prod")) {
+    		// Send Message!
+    		userService.sendMail(user.getEmail(), randomCode);
+    	}
     	user.setPassword(randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
+    
 }
