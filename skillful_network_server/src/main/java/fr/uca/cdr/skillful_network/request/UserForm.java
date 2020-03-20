@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 
 public class UserForm {
@@ -24,6 +25,7 @@ public class UserForm {
 	private String email;
 	private String mobileNumber;
 	private Set<Skill>skillSet = new HashSet<Skill>();
+	private Set<Qualification> qualificationSet;
 	
 	
 	public String getFirstName() {
@@ -72,6 +74,14 @@ public class UserForm {
 
 	public void setSkillSet(Set<Skill> skillSet) {
 		this.skillSet = skillSet;
+	}
+
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
+	}
+
+	public void setQualificationSet(Set<Qualification> qualificationSet) {
+		this.qualificationSet = qualificationSet;
 	}
 
 }

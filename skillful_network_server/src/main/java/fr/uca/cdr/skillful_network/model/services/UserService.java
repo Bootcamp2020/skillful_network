@@ -21,4 +21,12 @@ public interface UserService {
 	Boolean createRepoImage();
     Boolean updateImage();
 
+      
+      /**
+       * Il retourne le user s'il le trouve par son adresse email
+       * @param String 
+       * @return optional user
+       */
+      Optional<User> findByEmail(String mail);
+      
 }

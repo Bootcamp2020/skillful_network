@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,11 +39,18 @@ public class User {
 	private boolean validated = false;
 
 	private boolean photo= false;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill>skillSet = new HashSet<Skill>();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
+
+	
+
+	
 	
 	public User(long id,
 				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
@@ -50,7 +58,7 @@ public class User {
 				@Size(min = 8, message = "password must be at least 8 characters") String password,
 				@PastOrPresent Date birthDate,
 				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-				String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet) {
+				String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -64,8 +72,10 @@ public class User {
 			this.photo = photo;
 			this.skillSet = skillSet;
 			this.qualificationSet = qualificationSet;
+			this.subscriptionSet = subscriptionSet;
 		}
 
+	
 	public Set<Skill> getSkillSet() {
 		return skillSet;
 	}
@@ -80,6 +90,14 @@ public class User {
 
 	public void setQualificationSet(Set<Qualification> qualificationSet) {
 		this.qualificationSet = qualificationSet;
+	}
+	
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
+	}
+
+	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
+		this.subscriptionSet = subscriptionSet;
 	}
 
 	public User() {
@@ -197,6 +215,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + "]";
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet + "]";
 	}
 }

@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 	public void sendMail(String email , String codeAutoGen) {
 		 emailService.sendEmail(email, codeAutoGen);
 	}
+
 	@Override
 	public Boolean createRepoImage() {
 		String dossier1 = "WebContent/images";
@@ -67,4 +68,11 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
+
+	
+	@Override
+	public Optional<User> findByEmail(String mail) {
+		return userRepository.findByEmail(mail);
+	} 
+
 }
