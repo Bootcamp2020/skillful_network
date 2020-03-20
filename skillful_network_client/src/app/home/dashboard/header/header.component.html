@@ -7,10 +7,10 @@
             dehaze
         </i></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Accueil</button>
-            <button mat-menu-item>Profil</button>
-            <button mat-menu-item>Notifications</button>
-            <button mat-menu-item>Déconnexion</button>
+            <a mat-menu-item [routerLink]="['/home']" >Accueil</a>
+            <a mat-menu-item [routerLink]="['/home']">Profil</a>
+            <a mat-menu-item [routerLink]="['/home']">Notifications</a>
+            <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
         </mat-menu>
     </div>
         <div>
@@ -18,16 +18,16 @@
                 <div class="menu"  >
                     <div class="menuDisp" fxLayout="row " fxLayoutAlign="center center ">
                         <div>
-                            <a href=" # " mat-button>Accueil</a>
+                            <a [routerLink]="['/home']" mat-button>Accueil</a>
                         </div>
                         <div>
-                            <a href="# " mat-button>Profil</a>
+                            <a [routerLink]="['/home']" mat-button>Profil</a>
                         </div>
                         <div>
-                            <a href="# " mat-button>Notifications</a>
+                            <a [routerLink]="['/home']" mat-button>Notifications</a>
                         </div>
                         <div>
-                            <a href="# " mat-button>Déconnexion</a>
+                            <a [routerLink]="['/home']" mat-button>Déconnexion</a>
                         </div>
                     </div>
                 </div>
