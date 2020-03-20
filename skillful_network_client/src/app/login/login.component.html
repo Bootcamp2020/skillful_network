@@ -82,7 +82,7 @@
                   </mat-form-field>
                     <!-- bouton de renvoi de code de confirmation -->
 
-                    <button (click)="newCode();tooltip.show()" class="button-code-return" mat-button>Recevoir à
+                    <button type="button" (click)="register();tooltip.show()" class="button-code-return" mat-button>Recevoir à
                         nouveau un code de confirmation
                     </button>
                   <button type="submit" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
