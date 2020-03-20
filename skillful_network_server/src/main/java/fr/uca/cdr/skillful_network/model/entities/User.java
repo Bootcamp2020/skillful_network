@@ -30,7 +30,7 @@ public class User {
 	private String email;
 	private String mobileNumber;
 	private boolean validated = false;
-	
+	private boolean photo = false;
 	public User() {
 		super();
 	}
@@ -42,7 +42,7 @@ public class User {
 		this.lastName = lastName;
 	}
     
-	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber) {
+	public User(long id, String firstName, String lastName, String password, Date birthDate, String email, String mobileNumber, boolean photo) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -52,6 +52,7 @@ public class User {
 		this.email = email.toLowerCase();
 		this.mobileNumber = mobileNumber;
 		this.validated = true;
+		this.photo = photo;
 	}
 
 	
@@ -124,12 +125,20 @@ public class User {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-	
+	public boolean isPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(boolean photo) {
+		this.photo = photo;
+	}
 	@Override
 	public String toString() {
 		return "User [" + id + "] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
 				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", Validated="
-				+ validated + "]";
+				+ validated +  ", photo=" + photo +"]";
 	}
+
+	
 	
 }
