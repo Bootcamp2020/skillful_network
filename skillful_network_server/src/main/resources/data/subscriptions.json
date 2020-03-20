@@ -1,80 +1,27 @@
 [
-	{
-		"id": 1,
-		"name": "Application Web",
-		"userList": [
-					
-		    {
-				"id": 1, 
- 				"firstName": "John",
- 				"lastName": "John", 
-				"birthDate": "Aug 23, 1970 2:31:08 AM", 
-				"email": "John@uca.fr", 
-				"mobileNumber": "0678912345", 
-				"status": 1 
-        
-			}
-		]
-	},
-	{
-		"id": 2,
-		"name": "Javascript",
-		"userList": [
-			{
-				"id": 2,
-				"firstName": "Julie",
-				"lastName": "Julie",
-				"birthDate": "May 31, 1979 10:01:34 AM",
-				"email": "Julie@uca.fr",
-				"mobileNumber": "0678912345",
-				"status": 1
-			}
-		]
-	},
-	
-	{
-		"id": 3,
-		"name": "Angular",
-		"userList": [
-		{
-    "id": 3,
-    "firstName": "Jennifer",
-    "lastName": "Jennifer",
-    "birthDate": "Jun 27, 1985 2:29:23 PM",
-    "email": "Jennifer@uca.fr",
-    "mobileNumber": "0678912345",
-    "status": 1
-    }
- ]
- 
-	},
-	{
-		"id": 4,
-		"name": "Spring",
-		"userList": [
-		{
+  {
+    "id": 1,
+    "name": "Application Web",
+    "userList": [ ]
+  },
+  {
     "id": 2,
-    "firstName": "Julie",
-    "lastName": "Julie",
-    "birthDate": "May 31, 1979 10:01:34 AM",
-    "email": "Julie@uca.fr",
-    "mobileNumber": "0678912345"
+    "name": "Javascript",
+    "userList": [ ]
+  },
+  {
+    "id": 3,
+    "name": "Angular",
+    "userList": [ ]
+  },
+  {
+    "id": 4,
+    "name": "Spring",
+    "userList": [ ]
+  },
+  {
+    "id": 5,
+    "name": "Java",
+    "userList": [ ]
   }
- ]
-	},
-	{
-		"id": 5,
-		"name": "Java",
-		"userList": [
-			{
-				"id": 3,
-				"firstName": "Jennifer",
-				"lastName": "Jennifer",
-				"birthDate": "Jun 27, 1985 2:29:23 PM",
-				"email": "Jennifer@uca.fr",
-				"mobileNumber": "0678912345",
-				"status": 1
-			}
-		]
-	}
 ]
