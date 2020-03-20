@@ -79,10 +79,13 @@ public class SkillController {
 			 
 
 	}
-	
 
 	@GetMapping(value = "/candidates")
+<<<<<<< HEAD
 	public List<Skill>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+=======
+	public List<Skill>  getAutoCompletionByMatch(@Valid @RequestBody(required=false) String pMatch) {
+>>>>>>> cc9276b18335f6d0cfecb45252880fbed1a7969d
 		// Get subscriptions list
 		List<Skill> skills = skillService.getAll();
 		
