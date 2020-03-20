@@ -31,6 +31,11 @@ import { HeaderComponent } from './home/dashboard/header/header.component';
 import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
+import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
+import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
+import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
+import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 
 
@@ -50,9 +55,13 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         ChatComponent,
         FooterComponent,
         FilActualitesComponent,
-        HeaderComponent,
         ProfileComponent,
         MenuprofileComponent,
+        ProfileConfComponent,
+        UserConfComponent,
+        SkillConfComponent,
+        QualifConfComponent,
+        SubscriptConfComponent
 
     ],
     imports: [

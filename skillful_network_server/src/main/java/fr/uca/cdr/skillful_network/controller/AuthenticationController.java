@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,11 +42,17 @@ public class AuthenticationController {
      
      @Autowired
      private UserService userService;
+     
+     @Value("${spring.profiles.active}")
+     private String activeProfil;
+     
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<User> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
-			Optional<User> userFromDB = userRepository.findByEmail(loginRequest.getEmail());
+			
+			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
+			
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
@@ -63,17 +72,28 @@ public class AuthenticationController {
     public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
     	if (userService.alreadyExists(user.getEmail())) {
     		if(userService.existingMailIsValidated(user.getEmail())== true) {
-    		     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    			 Optional<User> userFDb= userRepository.findByEmail(user.getEmail());
+    		     userFDb.get().setPassword(null);
+    		     userFDb.get().setValidated(false);
+    		     userService.saveOrUpdateUser(userFDb.get());
+    		     String randomCode = CodeGeneration.generateCode(10);
+    		     userService.sendMail(user.getEmail(), randomCode);
+    		     return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    		  
     		} else {
     			Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
     	    	userRepository.delete(oOldUser.get());	
     	    }
     	}
     	String randomCode = CodeGeneration.generateCode(10);
-        // Send Message!
-    	userService.sendMail(user.getEmail(), randomCode);
+
+    	if (activeProfil.contains("prod")) {
+    		// Send Message!
+    		userService.sendMail(user.getEmail(), randomCode);
+    	}
     	user.setPassword(randomCode);
     	userRepository.save(user);
     	return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
+    
 }

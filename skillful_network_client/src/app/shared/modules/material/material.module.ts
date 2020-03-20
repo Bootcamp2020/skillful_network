@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
@@ -21,8 +22,8 @@ const MATERIAL_MODULES = [
   MatBadgeModule,
   MatTabsModule,
   MatMenuModule,
+  MatChipsModule,
   MatTooltipModule,
-
 ];
 
 @NgModule({

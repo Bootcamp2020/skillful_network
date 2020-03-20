@@ -6,7 +6,7 @@
       <mat-card-title fxLayoutAlign="center center">Connexion&nbsp;<i class="material-icons">
         perm_identity
       </i></mat-card-title>
-      <mat-tab-group dynamicHeight fxLayout="column" fxLayoutAlign="center center">
+      <mat-tab-group dynamicHeight fxLayout="column" fxLayoutAlign="center center" [(selectedIndex)]="position">
         <mat-tab label="Connexion">
           <table style="width: 60%" cellspacing="10">
             <tr>
@@ -30,6 +30,9 @@
                       <span *ngIf="passwordControlLogin.errors.minlength">Mot de passe doit avoir 8 charactère minimum</span>
                     </mat-error>
                   </mat-form-field>
+                  <div>
+                    <a class="motDePasseOublieLink" (click)="position=1"  > Mot de passe oublié?</a>
+                  </div>
                   <button [disabled]="loginFormGroup.invalid" type="submit" mat-raised-button color="primary">Connexion</button>
                 </form>
               </td>
@@ -54,20 +57,20 @@
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                  <!-- TOOLTIP renvoi code confirmation-->
+                  <span #tooltip="matTooltip"
+                        matTooltip="Votre nouveau code de confirmation a bien été envoyé "
+                        matTooltipClass="custom-tooltip-blue"
+                        matTooltipHideDelay="500"
+                        matTooltipPosition="above"
+                        matTooltipShowDelay="300">
+                    </span>
+                  <!--FIN TOOLTIP-->
                    <div id="message-guide">
                      <p> Veuillez verifier votre boite mail pour récupérer votre code de confirmation</p>
+
                    </div>
-                    <!-- TOOLTIP renvoi code confirmation-->
 
-                    <span #tooltip="matTooltip"
-                          matTooltip="Votre nouveau code de confirmation a bien été envoyé "
-                          matTooltipClass="custom-tooltip-blue"
-                          matTooltipHideDelay="500"
-                          matTooltipPosition="above"
-                          matTooltipShowDelay="300">
-                    </span>
-
-                    <!--FIN TOOLTIP-->
                   <mat-form-field>
                   <mat-label>Code de confirmation</mat-label>
                   <input type="password" maxlength="10" matInput formControlName="code" />
@@ -84,10 +87,10 @@
                     </button>
                   <button type="submit" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
               </form>
-              </td>
-            </tr>
-          </table>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
+            </td>
+          </tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </div>
