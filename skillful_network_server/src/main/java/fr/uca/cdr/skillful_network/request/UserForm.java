@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
+import fr.uca.cdr.skillful_network.model.entities.Subscription;
 
 public class UserForm {
 
@@ -26,7 +27,7 @@ public class UserForm {
 	private String mobileNumber;
 	private Set<Skill>skillSet = new HashSet<Skill>();
 	private Set<Qualification> qualificationSet;
-	
+	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 	
 	public String getFirstName() {
 		return firstName;
@@ -84,4 +85,14 @@ public class UserForm {
 		this.qualificationSet = qualificationSet;
 	}
 
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
+	}
+
+	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
+		this.subscriptionSet = subscriptionSet;
+	}
+
+	
+	
 }
