@@ -4,9 +4,9 @@ sudo: required
 
 jdk: openjdk8
 
-install:
-  - cd skillful_network_server
-  - mvn test -DskipTests
+env:
+  - SCRIPT=travis-backend.sh
+  - SCRIPT=travis-frontend.sh
 
 script:
-  - mvn test
+  - ./.travis/$SCRIPT
