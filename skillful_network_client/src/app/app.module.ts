@@ -33,6 +33,11 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
 
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
+import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
+import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
+import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
+import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -50,9 +55,13 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
         ChatComponent,
         FooterComponent,
         FilActualitesComponent,
-        HeaderComponent,
         ProfileComponent,
-        MenuprofileComponent
+        MenuprofileComponent,
+        ProfileConfComponent,
+        UserConfComponent,
+        SkillConfComponent,
+        QualifConfComponent,
+        SubscriptConfComponent
 
     ],
     imports: [
