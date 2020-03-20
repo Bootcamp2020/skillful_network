@@ -5,8 +5,13 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -90,6 +96,16 @@ public class UserController {
 		userToUpdate.setPassword(userModifPwd.getPassword());
 		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
+			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
+	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
+		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
+		convertFile.createNewFile();
+		FileOutputStream fout = new FileOutputStream(convertFile);
+		fout.write(image.getBytes());
+		fout.close();
+		return "File is upload successfully";
 	}
 
 }
