@@ -5,21 +5,14 @@
 		"userList": [
 					
 		    {
-/* 				"id": 1, */
-/* 				"firstName": "John", */
-/* 				"lastName": "John", */
-/* 				"birthDate": "Aug 23, 1970 2:31:08 AM", */
-/* 				"email": "John@uca.fr", */
-/* 				"mobileNumber": "0678912345", */
-/* 				"status": 1 */
-        "id": 1,
-        "firstName": "John",
-        "lastName": "John",
-        "password": null,
-        "birthDate": "1970-08-23T01:31:08.000+0000",
-        "email": "John@uca.fr",
-        "mobileNumber": "0678912345",
-        "validated": false
+				"id": 1, 
+				"firstName": "John", 
+ 				"lastName": "John", 
+				"birthDate": "Aug 23, 1970 2:31:08 AM", 
+				"email": "John@uca.fr",
+				"mobileNumber": "0678912345", 
+ 				"status": 1 
+       
 			}
 		]
 	},
