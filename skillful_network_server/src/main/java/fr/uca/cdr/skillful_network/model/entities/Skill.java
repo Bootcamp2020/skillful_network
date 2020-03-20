@@ -1,9 +1,12 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,10 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="skill")
+@Table(name="skills")
 public class Skill {
 	
-//	--------------------------------------- Attributs de la classe-------------------------------------------------------------------------
+//	--------------------------------------- Attributs de la classe -------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,11 +25,11 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "skillSet")
 	private Set<User> userList = new HashSet<User>();
 	
 	
-//	------------------------------------------- Constructeurs-------------------------------------------------------------------------
+//	-------------------------------------------- Constructeurs -------------------------------------------------------------------------
 
 	public Skill() {
 		super();
@@ -69,7 +72,7 @@ public class Skill {
 	}
 
 	
-//	-------------------------------------- Méthodes  -------------------------------------------------------------------------
+//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
 	@Override
 	public String toString() {

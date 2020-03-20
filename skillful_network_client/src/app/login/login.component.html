@@ -1,12 +1,12 @@
 <div class="container">
     <mat-card class="connectionForm">
       <div class="logo">
-        <img fxLayoutAlign="center center" class="poleEmploi" src="assets/images/logo-pole.png" alt="logo pôle emploi">
+        <img fxLayoutAlign="center center" class="logoUniversite" src="assets/pictures/logo_universite_300x76.png" alt="logo université">
       </div>
-      <mat-card-title fxLayoutAlign="center center">Connexion Candidat&nbsp;<i class="material-icons">
+      <mat-card-title fxLayoutAlign="center center">Connexion&nbsp;<i class="material-icons">
         perm_identity
       </i></mat-card-title>
-      <mat-tab-group dynamicHeight fxLayout="column" fxLayoutAlign="center center">
+      <mat-tab-group dynamicHeight fxLayout="column" fxLayoutAlign="center center" [(selectedIndex)]="position">
         <mat-tab label="Connexion">
           <table style="width: 60%" cellspacing="10">
             <tr>
@@ -23,13 +23,16 @@
                   </mat-form-field>
                   <mat-form-field>
                     <mat-label>Mot de passe</mat-label>
-                    <input formControlName="password" matInput  placeholder="Votre mot de passe" class="form-control" >
+                    <input type="password" formControlName="password" matInput  placeholder="Votre mot de passe" class="form-control" >
                     <mat-icon matSuffix>lock</mat-icon>
                     <mat-error class="form-control-feedback" *ngIf="passwordControlLogin.errors && (passwordControlLogin.dirty || passwordControlLogin.touched)">
                       <span *ngIf="passwordControlLogin.errors.required">Mot de passe est obligatoire</span>
                       <span *ngIf="passwordControlLogin.errors.minlength">Mot de passe doit avoir 8 charactère minimum</span>
                     </mat-error>
                   </mat-form-field>
+                  <div>
+                    <a class="motDePasseOublieLink" (click)="position=1"  > Mot de passe oublié?</a>
+                  </div>
                   <button [disabled]="loginFormGroup.invalid" type="submit" mat-raised-button color="primary">Connexion</button>
                 </form>
               </td>
@@ -40,7 +43,7 @@
           <table style="width: 50%" cellspacing="10">
             <tr>
               <td>
-                <form *ngIf="!doDisplayCodeVerif" [formGroup]="inscriptionFormGroup" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+                <form *ngIf="!doDisplayCodeVerif" [formGroup]="inscriptionFormGroup" #inscriptionForm="ngForm" (submit)="register()" fxLayout="column" fxLayoutAlign="center center" novalidate>
                   <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input formControlName="emailInscription" matInput type="email" placeholder="Entrez votre Email" >
@@ -50,25 +53,44 @@
                       <span *ngIf="emailControlInscription.errors.pattern">email non validé</span>
                     </mat-error>
                   </mat-form-field>
-                  <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button color="primary">Envoyer</button>
+                  <button [disabled]="inscriptionFormGroup.invalid || inscriptionForm.submitted" type="submit" mat-raised-button color="primary">Envoyer</button>
                 </form>
 
                 <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                  <!-- TOOLTIP renvoi code confirmation-->
+                  <span #tooltip="matTooltip"
+                        matTooltip="Votre nouveau code de confirmation a bien été envoyé "
+                        matTooltipClass="custom-tooltip-blue"
+                        matTooltipHideDelay="500"
+                        matTooltipPosition="above"
+                        matTooltipShowDelay="300">
+                    </span>
+                  <!--FIN TOOLTIP-->
+                   <div id="message-guide">
+                     <p> Veuillez verifier votre boite mail pour récupérer votre code de confirmation</p>
+
+                   </div>
+
                   <mat-form-field>
                   <mat-label>Code de confirmation</mat-label>
-                  <input maxlength="10" matInput formControlName="code" />
+                  <input type="password" maxlength="10" matInput formControlName="code" />
                   <mat-error class="form-control-feedback" *ngIf="codeForm.get('code').hasError && (codeForm.get('code').dirty || codeForm.get('code').touched) ">
                     <span *ngIf="codeForm.get('code').hasError('required')">Code est obligatoire</span>
                     <span *ngIf="codeForm.get('code').hasError('minlength')">Code doit avoir 10 charactères</span>
-                    
+
                   </mat-error>
                   </mat-form-field>
-                  <button type="submit" mat-raised-button [disabled]="codeForm.invalid">Valider</button>
+                    <!-- bouton de renvoi de code de confirmation -->
+
+                    <button (click)="newCode();tooltip.show()" class="button-code-return" mat-button>Recevoir à
+                        nouveau un code de confirmation
+                    </button>
+                  <button type="submit" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
               </form>
-              </td>
-            </tr>
-          </table>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
+            </td>
+          </tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </div>

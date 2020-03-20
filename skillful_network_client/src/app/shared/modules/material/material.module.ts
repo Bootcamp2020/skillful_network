@@ -11,6 +11,7 @@ import {MatChipsModule} from '@angular/material/chips';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
 const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
@@ -21,7 +22,8 @@ const MATERIAL_MODULES = [
   MatBadgeModule,
   MatTabsModule,
   MatMenuModule,
-  MatChipsModule
+  MatChipsModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

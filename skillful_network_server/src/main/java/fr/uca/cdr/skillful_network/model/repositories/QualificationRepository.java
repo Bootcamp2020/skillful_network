@@ -1,6 +1,5 @@
 package fr.uca.cdr.skillful_network.model.repositories;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -9,17 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 
+
 @Repository
-public interface SkillRepository extends JpaRepository<Skill, Long>{
+public interface QualificationRepository extends JpaRepository<Qualification, Long>{
 	
-//	Méthodes dont nous aurons besoin :
+//	Méthode pour chercher une qualification en utilisant le prefix(auto-complete)
 	
-//	Méthode pour l'auto-complétion
-	@Query(value="select name from skills where name like %:keyword%", nativeQuery = true)
-	Optional<List<String>> search(@Param("keyword")String keyword);
-	
-//	Méthode pour chercher une compétence par son nom
-	Optional<Skill> findByName(String name);
+	@Query(value="select * from qualification where name like %:prefix%", nativeQuery = true)
+	List<Qualification> search(@Param("prefix")String prefix);
 }
