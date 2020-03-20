@@ -50,7 +50,9 @@ public class AuthenticationController {
 	@PostMapping(value = "/login")
 	public ResponseEntity<User> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
-			Optional<User> userFromDB = userRepository.findByEmail(loginRequest.getEmail());
+			
+			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
+			
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
