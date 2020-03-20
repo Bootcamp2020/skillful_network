@@ -156,8 +156,5 @@ export class LoginComponent implements OnInit {
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
-// creation d'un nouveau code de confirmation
-  newCode() {
 
-  }
-}
+};
