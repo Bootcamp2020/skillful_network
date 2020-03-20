@@ -8,6 +8,7 @@ env:
 
 install:
   - npm install npm@latest -g
+  - npm fund
 
 script:
   - ./.travis/$SCRIPT
