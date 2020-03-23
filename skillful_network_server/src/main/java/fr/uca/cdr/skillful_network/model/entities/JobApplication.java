@@ -1,5 +1,7 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -16,33 +18,32 @@ public class JobApplication {
 
     @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "joboffer_id")
+    @JsonIgnore
     private JobOffer jobOffer;
     private ApplicationStatus status;
     private Date submitDate;
-    private Date AcceptDate;
 
     public JobApplication() { super(); }
 
-    public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate, Date acceptDate) {
+    public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
         super();
         this.user = user;
         this.jobOffer = jobOffer;
         this.status = status;
         this.submitDate = submitDate;
-        AcceptDate = acceptDate;
     }
 
-    public JobApplication(Long id, User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate, Date acceptDate) {
+    public JobApplication(Long id, User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
         super();
         this.id = id;
         this.user = user;
         this.jobOffer = jobOffer;
         this.status = status;
         this.submitDate = submitDate;
-        AcceptDate = acceptDate;
     }
 
     public Long getId() {
@@ -83,14 +84,6 @@ public class JobApplication {
 
     public void setSubmitDate(Date submitDate) {
         this.submitDate = submitDate;
-    }
-
-    public Date getAcceptDate() {
-        return AcceptDate;
-    }
-
-    public void setAcceptDate(Date acceptDate) {
-        AcceptDate = acceptDate;
     }
 
     @Override
