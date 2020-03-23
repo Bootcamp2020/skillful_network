@@ -24,7 +24,11 @@ public class JobOffer {
 	private Date dateEnd;
 	private Date dateUpload;
 	private String[] keywords;
-	
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private Set<JobApplication> jobAplicationSets = new HashSet<>();
+
 	public Long getId() {
 		return id;
 	}
@@ -79,15 +83,11 @@ public class JobOffer {
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
+
 	public JobOffer() {
 		super();
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
-	private Set<JobApplication> jobAplicationSets = new HashSet<>();
-	
-	
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Set<JobApplication> jobAplicationSets) {
 		super();
