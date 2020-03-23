@@ -1,13 +1,13 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-
+import javax.persistence.*;
 
 
 @Entity
@@ -82,10 +82,14 @@ public class JobOffer {
 	public JobOffer() {
 		super();
 	}
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private Set<JobApplication> jobAplicationSets = new HashSet<>();
 	
 	
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobAplicationSets) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -96,11 +100,12 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
+		this.jobAplicationSets = jobAplicationSets;
 	}
 	
 	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobAplicationSets) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -110,9 +115,10 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
+		this.jobAplicationSets = jobAplicationSets;
 	}
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload) {
+			Date dateUpload, Set<JobApplication> jobAplicationSets) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -121,12 +127,14 @@ public class JobOffer {
 		this.dateBeg = dateBeg;
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
+		this.jobAplicationSets = jobAplicationSets;
 	}
 	@Override
 	public String toString() {
-		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
+		return "JobOffer [" + id + "] name=" + name + ", company=" + company + ", description=" + description
 				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
-				+ ", keywords=" + keywords + "]";
+				+ ", keywords=" + keywords +
+				", jobAplicationSets=" + jobAplicationSets;
 	}
 	
 	

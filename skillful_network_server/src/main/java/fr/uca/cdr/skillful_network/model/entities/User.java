@@ -1,16 +1,13 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -48,17 +45,19 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
-	
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private Set<JobApplication> jobAplicationSets = new HashSet<>();
 
-	
-	
 	public User(long id,
 				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
 				@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
 				@Size(min = 8, message = "password must be at least 8 characters") String password,
 				@PastOrPresent Date birthDate,
 				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-				String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet) {
+				String mobileNumber, String status, boolean validated, boolean photo,
+				Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
+				Set<JobApplication> jobAplicationSets) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -73,6 +72,7 @@ public class User {
 			this.skillSet = skillSet;
 			this.qualificationSet = qualificationSet;
 			this.subscriptionSet = subscriptionSet;
+			this.jobAplicationSets = jobAplicationSets;
 		}
 
 	
@@ -214,7 +214,14 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet + "]";
+		return "User [id=" + id +
+				", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
+				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
+				", status=" + status + ", validated=" + validated +
+				", photo=" + photo + ", " +
+				"skillSet=" + skillSet +
+				", qualificationSet=" + qualificationSet +
+				", subscriptionSet=" + subscriptionSet + "]" +
+				", jobAplicationSets=" + jobAplicationSets + "]";
 	}
 }

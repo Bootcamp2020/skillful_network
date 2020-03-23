@@ -14,10 +14,10 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id")
     private User user;
-//    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "joboffer_id")
     private JobOffer jobOffer;
     private ApplicationStatus status;
