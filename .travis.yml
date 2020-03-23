@@ -1,12 +1,18 @@
-language: java
-
-sudo: required
+language: node_js
 
 jdk: openjdk8
+node_js:
+  - "12"
+
+cache:
+  directories:
+    - $HOME/.m2
+env:
+  - SCRIPT=travis-backend.sh
+  - SCRIPT=travis-frontend.sh
 
 install:
-  - cd skillful_network_server
-  - mvn test -DskipTests
+  - npm install npm@latest @angular/cli -g
 
 script:
-  - mvn test
+  - ./.travis/$SCRIPT

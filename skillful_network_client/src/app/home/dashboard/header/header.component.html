@@ -1,31 +1,47 @@
 <header>
-    
-        <mat-toolbar class="toolbar" color="#5b7787" fxLayout.md="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
-            <div  fxFlex="10 " >
-                <img src="/assets/pictures/Logo.png " alt="logo " style="width: 45px; ">
-            </div>
-            <div class="menu " fxLayout="row " fxLayoutAlign="center center " fxFlex="90">
-                <div fxFlex="15">
-                    <a href=" # " mat-button>Accueil</a>
-                </div>
-                <div fxFlex="15">
-                    <a href="# " mat-button>Profil</a>
-                </div>
-                <div fxFlex="20">
-                    <a href="# " mat-button>Notifications</a>
-                </div>
-                <div fxFlex="20">
-                    <a href="# " mat-button>Déconnexion</a>
-                </div>
-           
-            
-                <form action=" " class="formulaire" fxFlex="30">
-                   
-                    <div fxLayout="row ">
-                        <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
-                        <div class="input "><input (keydown)="onSearch() " placeholder="Recherche... "> </div>
+    <div   class="logoHeader recherche" >
+        <a [routerLink]="['/home']"><img src="/assets/pictures/Logo.png " alt="logo " style="width: 45px; "></a>
+    </div>
+    <div class="recherche">
+        <button mat-button [matMenuTriggerFor]="menu" class="boutonMenu"><i class="material-icons" >
+            dehaze
+        </i></button>
+        <mat-menu #menu="matMenu">
+            <a mat-menu-item [routerLink]="['/home']" >Accueil</a>
+            <a mat-menu-item [routerLink]="['/home/profile']">Profil</a>
+            <a mat-menu-item [routerLink]="['/home']">Notifications</a>
+            <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
+        </mat-menu>
+    </div>
+        <div>
+            <mat-toolbar class="toolbar positionToolbar" color="#5b7787" fxLayout.md="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                <div class="menu"  >
+                    <div class="menuDisp" fxLayout="row " fxLayoutAlign="center center ">
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Accueil</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home/profile']" mat-button>Profil</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Notifications</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Déconnexion</a>
+                        </div>
                     </div>
-                </form>
-            </div>
-        </mat-toolbar>
+                </div>
+            </mat-toolbar>
+        </div>
+    <div class="recherche">
+        <div >
+            <form action=" " class="formulaire" >
+                <div fxLayout="row " >
+                    <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
+                    <div class="input "><input (keydown)="onSearch() " placeholder="Recherche... "> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div></div>
 </header>

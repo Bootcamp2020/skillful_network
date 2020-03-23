@@ -1,14 +1,11 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="skills")
@@ -22,7 +19,8 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "skillSet")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "skillSet")
+	@JsonIgnore
 	private Set<User> userList = new HashSet<User>();
 	
 	

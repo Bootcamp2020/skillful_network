@@ -49,6 +49,48 @@ img.logoUniversite{
 i.material-icons{
   color:#ff6550;
 }
+/* Boutons et tooltip renvoi newcode*/
+.button-code-return {
+  margin-top: 1.2em;
+  text-decoration: underline dotted;
+  background-color: rgba(168, 168, 168, 0);
+  color: #0000ff;
+}
+
+.button-code-return:hover {
+  margin-top: 1.2em;
+  background-color: rgba(158, 158, 158, 0.2);
+  color: #0000ff;
+}
+
+::ng-deep .custom-tooltip-blue {
+  font-size: 15px;
+  max-width: unset !important;
+  text-align: center;
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  background: #1a7ea2;
+  padding: 20px;
+  transform: translateX(-20%) scale(0.5);
+  transition: transform 4s ease-in-out;
+  transform-origin: top;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 2px;
+  color: white;
+ }
+
+.motDePasseOublieLink{
+  font-size: 11px;
+  color: blue;
+  position: absolute;
+  top:15em;
+  right:1em;
+}
+ .motDePasseOublieLink:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* fin boutons tooltips*/
 @media only screen and (max-width: 1230px) {
  
   .connectionForm{
@@ -69,6 +111,21 @@ i.material-icons{
 
   .mat-form-field {
     max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
+  }
+  ::ng-deep .custom-tooltip-blue {
+    font-size: 11px;
+    max-width: unset !important;
+    text-align: center;
+    display: block;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    background: #1a7ea2;
+    padding: 10px;
+    transform: translateX(-20%) scale(0.5);
+    transition: transform 4s ease-in-out;
+    transform-origin: top;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 2px;
+    color: white;
   }
 }
 #message-guide{
