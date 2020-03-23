@@ -27,7 +27,7 @@ public class JobOffer {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
-	private Set<JobApplication> jobAplicationSets = new HashSet<>();
+	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -83,15 +83,15 @@ public class JobOffer {
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
-	public Set<JobApplication> getJobAplicationSets() { return jobAplicationSets; }
-	public void setJobAplicationSets(Set<JobApplication> jobAplicationSets) { this.jobAplicationSets = jobAplicationSets; }
+	public Set<JobApplication> getJobApplicationSet() { return jobApplicationSet; }
+	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) { this.jobApplicationSet = jobApplicationSet; }
 
 	public JobOffer() {
 		super();
 	}
 
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords, Set<JobApplication> jobAplicationSets) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -102,12 +102,12 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
-		this.jobAplicationSets = jobAplicationSets;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	
 	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords, Set<JobApplication> jobAplicationSets) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -117,10 +117,10 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
-		this.jobAplicationSets = jobAplicationSets;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, Set<JobApplication> jobAplicationSets) {
+			Date dateUpload, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -129,13 +129,13 @@ public class JobOffer {
 		this.dateBeg = dateBeg;
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
-		this.jobAplicationSets = jobAplicationSets;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	@Override
 	public String toString() {
 		return "JobOffer [" + id + "] name=" + name + ", company=" + company + ", description=" + description
 				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
 				+ ", keywords=" + keywords +
-				", jobAplicationSets=" + jobAplicationSets;
+				", jobApplicationSets=" + jobApplicationSet;
 	}
 }
