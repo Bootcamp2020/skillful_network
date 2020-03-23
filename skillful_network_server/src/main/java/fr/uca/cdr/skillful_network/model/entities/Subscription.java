@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Subscription {
 	@Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters")
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "subscriptionSet")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "subscriptionSet")
 	@JsonIgnore
 	private Set<User> userList = new HashSet<User>();
 
