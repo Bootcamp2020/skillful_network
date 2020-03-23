@@ -11,8 +11,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -57,16 +55,18 @@ public class UserController {
 		this.repository = repository;
 	}
 
-	@GetMapping(value = "users/{page}")
-	public ResponseEntity<Page<User>> getU(@PathVariable(value = "page") int pageNumber) {
-		int pageIndex = pageNumber - 1;
-		if(pageNumber <= 0) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucune liste d'utilisateur avec cette page");
-		}
-		else {
-		Pageable pageable = PageRequest.of(pageIndex, 10);
-		Page<User> listUserByPage = userService.getUsersByPage(pageable);
-		return new ResponseEntity<>(listUserByPage, HttpStatus.OK);
+	public List<User> getUsers() {
+		return (List<User>) this.repository.findAll();
+	}
+
+	@GetMapping(value = "/users")
+	public ResponseEntity<Page<User>> getUsersPerPage(@RequestParam("nbr") int nbr, @RequestParam("page") int page)
+			throws Exception {
+		try {
+			Page<User> listUserByPage = userService.getPageOfEntities(nbr, page);
+			return new ResponseEntity<>(listUserByPage, HttpStatus.OK);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
 

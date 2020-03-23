@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Override
 	public Boolean alreadyExists(String mail) {
 		Optional<User> oUser = userRepository.findByEmail(mail);
@@ -46,10 +47,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 
 	}
-	
+
 	@Override
-	public void sendMail(String email , String codeAutoGen) {
-		 emailService.sendEmail(email, codeAutoGen);
+	public void sendMail(String email, String codeAutoGen) {
+		emailService.sendEmail(email, codeAutoGen);
 	}
 
 	@Override
@@ -60,26 +61,40 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
+
 	@Override
 	public Boolean updateImage() {
 		String photoprofiljpg = "WebContent/images/iconeprofildefaut.jpg";
 		String photoprofiljpeg = "WebContent/images/iconeprofildefaut.jepg";
-		if (!new File(photoprofiljpg).exists() || !new File(photoprofiljpg).exists() ) {
+		if (!new File(photoprofiljpg).exists() || !new File(photoprofiljpg).exists()) {
 			new File(photoprofiljpg).mkdirs();
 			new File(photoprofiljpeg).mkdirs();
 		}
 		return true;
 	}
 
-	
 	@Override
 	public Optional<User> findByEmail(String mail) {
 		return userRepository.findByEmail(mail);
 	}
 
 	@Override
-	public Page<User> getUsersByPage(Pageable pageable) {
-		return userRepository.findAll(pageable);
-	} 
+	public Page<User> getPageOfEntities(int objPerPage, int pageIndex) {
+		return userRepository.findAll(requestPage(objPerPage, pageIndex));
+	}
+
+	@Override
+	public Pageable requestPage(int objPerPage, int pageIndex) {
+		
+		if (pageIndex > 0) {
+			pageIndex -= 1;
+		} else if (pageIndex == 0) {
+			pageIndex += 1;
+		} else {
+			pageIndex = 0;
+		}
+		Pageable pageable = PageRequest.of(pageIndex, objPerPage);
+		return pageable;
+	}
 
 }

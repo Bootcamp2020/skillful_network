@@ -17,18 +17,22 @@ public interface UserService {
 	User saveOrUpdateUser(User user);
 
 	void deleteUser(Long id);
-	
-	void sendMail(String mail , String code);
-	Boolean createRepoImage();
-    Boolean updateImage();
 
-      
-      /**
-       * Il retourne le user s'il le trouve par son adresse email
-       * @param String 
-       * @return optional user
-       */
-      Optional<User> findByEmail(String mail);
-      
-      Page<User> getUsersByPage(Pageable pageable);
+	void sendMail(String mail, String code);
+
+	Boolean createRepoImage();
+
+	Boolean updateImage();
+
+	/**
+	 * Il retourne le user s'il le trouve par son adresse email
+	 * 
+	 * @param String
+	 * @return optional user
+	 */
+	Optional<User> findByEmail(String mail);
+
+	Page<User> getPageOfEntities(int objPerPage, int pageIndex);
+
+	Pageable requestPage(int objPerPage, int pageIndex);
 }
