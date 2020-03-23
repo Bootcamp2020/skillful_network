@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -73,6 +75,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<User> findByEmail(String mail) {
 		return userRepository.findByEmail(mail);
+	}
+
+	@Override
+	public Page<User> getUsersByPage(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	} 
 
 }
