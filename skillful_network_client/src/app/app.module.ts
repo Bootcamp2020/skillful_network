@@ -33,6 +33,8 @@ import { CandidatureComponent } from './home/dashboard/candidature/candidature.c
 
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { BottomSheetOverviewExample } from './bottom-sheet-overview-example/bottom-sheet-overview-example';
+
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -52,7 +54,8 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
         FilActualitesComponent,
         HeaderComponent,
         ProfileComponent,
-        MenuprofileComponent
+        MenuprofileComponent,
+        BottomSheetOverviewExample
 
     ],
     imports: [
