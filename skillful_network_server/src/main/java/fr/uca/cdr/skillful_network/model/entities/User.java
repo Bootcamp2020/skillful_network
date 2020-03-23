@@ -47,7 +47,7 @@ public class User {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
-	private Set<JobApplication> jobAplicationSets = new HashSet<>();
+	private Set<JobApplication> jobApplicationSets = new HashSet<>();
 
 	public User(long id,
 				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
@@ -57,7 +57,7 @@ public class User {
 				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 				String mobileNumber, String status, boolean validated, boolean photo,
 				Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-				Set<JobApplication> jobAplicationSets) {
+				Set<JobApplication> jobApplicationSets) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -72,7 +72,7 @@ public class User {
 			this.skillSet = skillSet;
 			this.qualificationSet = qualificationSet;
 			this.subscriptionSet = subscriptionSet;
-			this.jobAplicationSets = jobAplicationSets;
+			this.jobApplicationSets = jobApplicationSets;
 		}
 
 	
@@ -212,6 +212,14 @@ public class User {
 		this.mobileNumber = mobileNumber;
 	}
 
+	public Set<JobApplication> getJobApplicationSets() {
+		return jobApplicationSets;
+	}
+
+	public void setJobApplicationSets(Set<JobApplication> jobApplicationSets) {
+		this.jobApplicationSets = jobApplicationSets;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id +
@@ -222,6 +230,6 @@ public class User {
 				"skillSet=" + skillSet +
 				", qualificationSet=" + qualificationSet +
 				", subscriptionSet=" + subscriptionSet + "]" +
-				", jobAplicationSets=" + jobAplicationSets + "]";
+				", jobAplicationSets=" + jobApplicationSets + "]";
 	}
 }

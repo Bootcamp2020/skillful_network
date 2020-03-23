@@ -83,6 +83,8 @@ public class JobOffer {
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
+	public Set<JobApplication> getJobAplicationSets() { return jobAplicationSets; }
+	public void setJobAplicationSets(Set<JobApplication> jobAplicationSets) { this.jobAplicationSets = jobAplicationSets; }
 
 	public JobOffer() {
 		super();
@@ -136,17 +138,4 @@ public class JobOffer {
 				+ ", keywords=" + keywords +
 				", jobAplicationSets=" + jobAplicationSets;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
 }
