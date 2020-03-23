@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Qualification {
 	@Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters")
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "qualificationSet")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "qualificationSet")
 	@JsonIgnore
 	private Set<User> userSet = new HashSet<User>();
 	
@@ -93,7 +94,7 @@ public class Qualification {
 		this.userSet = userSet;
 	}
 	
-//	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
+//	----------------------------------------------  Mï¿½thodes  -------------------------------------------------------------------------
 	
 	
 	@Override
