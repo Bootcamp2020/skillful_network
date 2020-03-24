@@ -1,39 +1,37 @@
 [
-	{
-		"id": 1,
-		"name": "Bac",
-		"userSet": []
-	},
-	{
-		"id": 2,
-		"name": "BTS",
-		"userSet": []
-	},
-	{
-		"id": 3,
-		"name": "DUT",
-		"userSet": []
-	},
-	{
-		"id": 4,
-		"name": "Licence",
-		"userSet": []
-	},
-	{
-		"id": 5,
-		"name": "Master",
-		"userSet": []
-	},
-	{
-		"id": 6,
-		"name": "Ingénieur",
-		"userSet": []
-	},
-	{
-		"id": 7,
-		"name": "Doctorat",
-		"userSet": []
-	}
-	
-	
+  {
+    "id": 1,
+    "name": "Bac",
+    "userSet": []
+  },
+  {
+    "id": 2,
+    "name": "BTS",
+    "userSet": []
+  },
+  {
+    "id": 3,
+    "name": "DUT",
+    "userSet": []
+  },
+  {
+    "id": 4,
+    "name": "Licence",
+    "userSet": []
+  },
+  {
+    "id": 5,
+    "name": "Master",
+    "userSet": []
+  },
+  {
+    "id": 6,
+    "name": "Ingï¿½nieur",
+    "userSet": []
+  },
+  {
+    "id": 7,
+    "name": "Doctorat",
+    "userSet": []
+  }
 ]
