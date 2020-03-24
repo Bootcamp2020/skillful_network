@@ -1,7 +1,8 @@
 package fr.uca.cdr.skillful_network.controller;
 
 import fr.uca.cdr.skillful_network.model.entities.JobApplication;
-import fr.uca.cdr.skillful_network.model.entities.Subscription;
+import fr.uca.cdr.skillful_network.model.entities.JobOffer;
+import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.services.JobApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -32,6 +32,20 @@ public class JobApplicationController {
         JobApplication jobApplications = jobApplicationService.getJobApplicationById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvé avec l'id : " + id));
         return new ResponseEntity<JobApplication>(jobApplications, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/user")
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
+        User user = jobApplicationService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun user trouvé avec l'id  de candidature : " + id));
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/joboffer")
+    public ResponseEntity<JobOffer> getJobOfferById(@PathVariable(value = "id") Long id) {
+        JobOffer jobOffer = jobApplicationService.getJobOfferById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun user trouvé avec l'id  de candidature : " + id));
+        return new ResponseEntity<JobOffer>(jobOffer, HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/{userId}")

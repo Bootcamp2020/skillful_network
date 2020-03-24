@@ -1,7 +1,6 @@
 package fr.uca.cdr.skillful_network.model.repositories;
 
 import fr.uca.cdr.skillful_network.model.entities.JobApplication;
-import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
