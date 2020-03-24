@@ -10,6 +10,7 @@ export class User {
   private _qualification: string; 
   private _competences: string[];
   private _photoProfile: string;
+  private _careerGoal: string;
   /*private _statut:string;*/
    /*private _interest:string;*/
   constructor(data: any) {
@@ -23,6 +24,7 @@ export class User {
     this.competences=data.competences;
    /* this.interest=data.interest;*/
     this.photoProfile=data.photoProfile;
+    this.careerGoal=data.careerGoal;
   } 
 
   /* GETTERS & SETTERS */
@@ -75,6 +77,12 @@ export class User {
   }
   public set photoProfile(value: string) {
     this._photoProfile = value;
+  }
+  public get careerGoal(): string {
+    return this._careerGoal;
+  }
+  public set careerGoal(value: string) {
+    this._careerGoal = value;
   }
   /*user: User=new User(1,'Albert','Einstein','Palberteinstein@gmail.com','PhD','JAVA/JEE,ANgular'); */
 
