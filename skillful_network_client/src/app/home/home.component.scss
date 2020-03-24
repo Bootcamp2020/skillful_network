@@ -3,11 +3,49 @@
   margin: auto;
 
   .menu-element {
-    width: 150px;
+    //width: 150px;
     margin: 0 20px;
 
     mat-icon {
       margin-right: 10px;
     }
+  }
+}
+.borderProfile{
+  border-right: 3px solid #f5f5f5;
+
+  background-color:#5b7787;
+  justify-content: center;
+}
+.profil .card_dashboard{
+  padding-left: auto;
+  margin: auto;
+
+  justify-content: center;
+
+}
+
+ul{
+  list-style: none;
+}
+.photoProfile{
+  display: flex;
+  justify-content: center;
+
+
+}
+img {
+
+  width: auto;
+  height: 70px;
+  border: 3px solid #5b7787;
+  border-radius:50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (min-width: 961px){
+  .photoProfile{
+    display: none;
+
   }
 }

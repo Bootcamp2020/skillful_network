@@ -1,0 +1,47 @@
+<header>
+    <div   class="logoHeader recherche" >
+        <a [routerLink]="['/home']"><img src="/assets/pictures/Logo.png " alt="logo " style="width: 45px; "></a>
+    </div>
+    <div class="recherche">
+        <button mat-button [matMenuTriggerFor]="menu" class="boutonMenu"><i class="material-icons" >
+            dehaze
+        </i></button>
+        <mat-menu #menu="matMenu">
+            <a mat-menu-item [routerLink]="['/home']" >Accueil</a>
+            <a mat-menu-item [routerLink]="['/home/profile']">Profil</a>
+            <a mat-menu-item [routerLink]="['/home']">Notifications</a>
+            <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
+        </mat-menu>
+    </div>
+        <div>
+            <mat-toolbar class="toolbar positionToolbar" color="#5b7787" fxLayout.md="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                <div class="menu"  >
+                    <div class="menuDisp" fxLayout="row " fxLayoutAlign="center center ">
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Accueil</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home/profile']" mat-button>Profil</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Notifications</a>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/home']" mat-button>Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </mat-toolbar>
+        </div>
+    <div class="recherche">
+        <div >
+            <form action=" " class="formulaire" >
+                <div fxLayout="row " >
+                    <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
+                    <div class="input "><input (keydown)="onSearch() " placeholder="Recherche... "> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div></div>
+</header>

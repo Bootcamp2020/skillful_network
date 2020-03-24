@@ -1,3 +1,4 @@
+import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 /**
  * Ce module déclare l'ensemble des routes relatives à notre projet
  */
@@ -19,11 +20,16 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'password',
+        component: PasswordConfirmationComponent
+    },
+    {
         path: 'home',
         component: HomeComponent,
         children: HOME_ROUTES,
         // Pour accéder à cette route, Angular va appeler la méthode canActivate de "isLoggedGuard"
         // Si cette méthode renvoie true, alors le user sera autorisé à rentrer, sinon non.
+        //A commenter pour les tests
         canActivate: [IsLoggedGuard]
     }
 ];

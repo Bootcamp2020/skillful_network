@@ -1,4 +1,25 @@
-<mat-toolbar color="primary">
+<app-header></app-header>
+<div class="gestComponent" fxLayout="row">
+    <div fxFlex="15" class="borderProfile">
+        <app-menuprofile></app-menuprofile>
+    </div>
+    <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <mat-toolbar color="primary">
   <mat-toolbar-row fxLayout="row" fxLayoutAlign="center center">
     <span>Plateforme de recrutement et de formations</span>
   </mat-toolbar-row>
@@ -21,6 +42,5 @@
       </button>
     </div>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar>-->
 
-<router-outlet></router-outlet>
