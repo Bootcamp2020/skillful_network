@@ -32,7 +32,7 @@ public class Application {
 
 	}
 
-	@Bean
+	/*@Bean
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -90,6 +90,9 @@ public class Application {
 
 			}
 		};
+<<<<<<< HEAD
+	}*/
+=======
 	}
 
 //	@Bean
@@ -107,4 +110,5 @@ public class Application {
 //			}
 //		};
 //	}
+>>>>>>> e47f9e08a08524eaca17c07b86edb8252ff7f750
 }

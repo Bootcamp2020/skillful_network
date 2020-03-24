@@ -11,9 +11,9 @@ export class CandidaturesComponent implements OnInit {
 
   public listCandidature: Candidature[];
   @Input() public company: string;
-  @Input() public status: String;
-  @Input() public details: String;
-  @Input() public job: String;
+  @Input() public status: string;
+  @Input() public details: string;
+  @Input() public job: string;
 
 
 
@@ -25,6 +25,6 @@ export class CandidaturesComponent implements OnInit {
     this.listCandidature = [];
     MOCK_CANDIDATURE.forEach((condidature: IPost) => {
       this.listCandidature.push(new Candidature(condidature));
-    });  
+    });
   }
 }

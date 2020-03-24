@@ -36,13 +36,12 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
-import { MatTooltipModule } from "@angular/material/tooltip";
-import { UserProfilComponent } from './home/user-profil/user-profil.component';
-import { SubscriptComponent } from './home/user-profil/subscript/subscript.component';
-import { QualificationsComponent } from './home/user-profil/qualifications/qualifications.component';
-import { CandidaturesComponent } from './home/user-profil/candidatures/candidatures.component';
-import { SkillsComponent } from './home/user-profil/skills/skills.component';
-
+import { DetailsUserComponent } from './home/user/details-user/details-user.component';
+import { SubscriptComponent } from './home/user/subscript/subscript.component';
+import { QualificationsComponent } from './home/user/qualifications/qualifications.component';
+import { CandidaturesComponent } from './home/user/candidatures/candidatures.component';
+import { SkillsComponent } from './home/user/skills/skills.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -69,13 +68,11 @@ import { SkillsComponent } from './home/user-profil/skills/skills.component';
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent,
-        UserProfilComponent,
+        DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
         CandidaturesComponent,
-        SkillsComponent,
-        
-       
+        SkillsComponent
 
     ],
     imports: [
@@ -87,7 +84,6 @@ import { SkillsComponent } from './home/user-profil/skills/skills.component';
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-
         MatFormFieldModule,
         MatTooltipModule,
     ],
