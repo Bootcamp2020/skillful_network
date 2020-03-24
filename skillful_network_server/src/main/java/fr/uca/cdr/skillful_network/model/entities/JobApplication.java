@@ -17,11 +17,11 @@ public class JobApplication {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "joboffer_id")
+    @JoinColumn(name = "job_offer_id")
     @JsonIgnore
     private JobOffer jobOffer;
     private ApplicationStatus status;

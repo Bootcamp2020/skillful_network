@@ -45,8 +45,9 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
+//	@OneToMany(mappedBy = "id", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true, fetch = FetchType.EAGER)
+//	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
 	public User(long id,
