@@ -80,17 +80,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> getPageOfEntities(int objPerPage, int pageIndex) {
-		PageTool pageTool = new PageTool();
-		pageTool.setPage(pageIndex);
-		pageTool.setNumberOfEntities(objPerPage);
-		if (pageTool.requestPage() == null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "la page index en paramètre est non valide");
-		} else {
-			return userRepository.findAll(pageTool.requestPage().get());
-
-		}
-
+	public Page<User> getPageOfEntities(PageTool pageTool) {	
+			return userRepository.findAll(pageTool.requestPage());
 	}
 
 }

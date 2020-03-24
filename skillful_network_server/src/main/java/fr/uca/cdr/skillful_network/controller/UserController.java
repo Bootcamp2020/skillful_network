@@ -35,6 +35,7 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
+import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
  * Cette classe est responsable du traitement des requêtes liées aux
@@ -55,16 +56,17 @@ public class UserController {
 		this.repository = repository;
 	}
 
+	@GetMapping(value = "/users")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
 	}
 
-	@GetMapping(value = "/users")
-	public ResponseEntity<Page<User>> getUsersPerPage(@RequestParam("nbr") int nbr, @RequestParam("page") int page){
-		try {
-			Page<User> listUserByPage = userService.getPageOfEntities(nbr, page);
-			return new ResponseEntity<>(listUserByPage, HttpStatus.OK);
-		} catch (Exception e) {
+	@GetMapping(value = "/users/")
+	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
+		if (pageTool != null) {
+			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
+			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
+		} else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}

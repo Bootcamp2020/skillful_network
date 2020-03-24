@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface UserService {
 	Boolean alreadyExists(String mail);
@@ -31,5 +32,5 @@ public interface UserService {
 	 */
 	Optional<User> findByEmail(String mail);
 
-	Page<User> getPageOfEntities(int objPerPage, int pageIndex);
+	Page<User> getPageOfEntities(PageTool pageTool);
 }

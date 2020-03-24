@@ -1,50 +1,61 @@
 package fr.uca.cdr.skillful_network.tools;
 
-import java.util.Optional;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 public class PageTool {
-
-	private int numberOfEntities;
-	private int pageIndex;
+	
+	@NotNull(message ="le nombre d''entité doit être une donnée valide")
+	@PositiveOrZero(message ="le nombre de d'entité doit être supérieur ou égale à zéro")
+	private Integer size;
+	@NotNull(message ="le nombre de pages doit être une donnée valide")
+	@Positive(message ="le nombre de pages  doit être supérieur ou égale à zéro")
+	private Integer page;
+	final static int DEFAULT_NBR_ENTITIES = 10;
+	final static int DEFAULT_NBR_PAGES = 0;
 
 	public PageTool() {
 	}
 
-	public PageTool(int numberOfEntities, int page) {
-		super();
-		this.numberOfEntities = numberOfEntities;
-		this.pageIndex = page;
+	public PageTool(int size, int page) {
+		this.size = size;
+		this.page = page;
 	}
 
-	public int getNumberOfEntities() {
-		return numberOfEntities;
+	public int getSize() {
+		return size;
 	}
 
-	public void setNumberOfEntities(int numberOfEntities) {
-		this.numberOfEntities = numberOfEntities;
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public int getPage() {
-		return pageIndex;
+		return page;
 	}
 
 	public void setPage(int page) {
-		this.pageIndex = page;
+		this.page = page;
 	}
 
-	public Optional<Pageable> requestPage() {
+	public Pageable requestPage() {
 		Pageable pageable;
-		if (pageIndex > 0) {
-			pageable = PageRequest.of(pageIndex - 1, numberOfEntities);
-		} else if (pageIndex == 0) {
-			pageable = PageRequest.of(0, numberOfEntities);
-		} else {
-			pageable = null;
+		Integer.reverse(size);
+		Integer.reverse(page);
+		
+		if (size <= 0) {
+			size = DEFAULT_NBR_ENTITIES;
 		}
-		return pageable.toOptional();
+		if (page > 0) {
+			pageable = PageRequest.of(page - 1, size);
+		} else {
+			pageable = PageRequest.of(DEFAULT_NBR_PAGES, size);
+		}
+		return pageable;
 	}
-	
+
 }
