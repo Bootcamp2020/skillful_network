@@ -1,35 +1,40 @@
 import { MatLine } from '@angular/material/core';
 
 export class User {
+
   /* Ajouter les attribut pour creer le component User profil*/
-  private _id: string;
+  private _id: number;
   private _name: string;
-  private _firstName: string; 
+  private _firstName: string;
   private _email: string;
-  private _statut:string;
-  private _qualification: string; 
+  private _birthDate: string;
+  private _statut: string;
+  private _mobile: string;
+  private _qualification: string;
   private _competences: string[];
   private _photoProfile: string;
   /*private _statut:string;*/
    /*private _interest:string;*/
   constructor(data: any) {
     this.id = data.id;
-    this.name=data.name;
-    this.firstName=data.firstName;
-    this.email=data.email;
-    this.statut=data.statut;
-    this.qualification=data.qualification;
-    /*this.statut=data.statut*/
-    this.competences=data.competences;
-   /* this.interest=data.interest;*/
-    this.photoProfile=data.photoProfile;
-  } 
+    this.name = data.name;
+    this.firstName = data.firstName;
+    this.email = data.email;
+    this.statut = data.statut;
+    this.qualification = data.qualification;
+    this.statut = data.statut;
+    this.mobile = data.mobile;
+    this.birthDate = data.birthDate;
+    this.competences = data.competences;
+    /*this.interest=data.interest;*/
+    this.photoProfile = data.photoProfile;
+  }
 
   /* GETTERS & SETTERS */
-  public get id(): string {
+  public get id(): number {
     return this._id;
   }
-  public set id(value: string) {
+  public set id(value: number) {
     this._id = value;
   }
   public get name(): string {
@@ -76,6 +81,19 @@ export class User {
   public set photoProfile(value: string) {
     this._photoProfile = value;
   }
-  /*user: User=new User(1,'Albert','Einstein','Palberteinstein@gmail.com','PhD','JAVA/JEE,ANgular'); */
+  get birthDate(): string {
+    return this._birthDate;
+  }
+
+  set birthDate(value: string) {
+    this._birthDate = value;
+  }
+  get mobile(): string {
+    return this._mobile;
+  }
+
+  set mobile(value: string) {
+    this._mobile = value;
+  }
 
 }

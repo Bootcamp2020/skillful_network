@@ -37,6 +37,7 @@ import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.co
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         UserConfComponent,
         SkillConfComponent,
         QualifConfComponent,
-        SubscriptConfComponent
+        SubscriptConfComponent,
+        DetailsUserComponent
 
     ],
     imports: [

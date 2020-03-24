@@ -19,6 +19,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.findById(this.route.snapshot.params.id).then(data => this.user = data);
+    //this.userService.findById(this.route.snapshot.params.id).then(data => this.user = data);
   }
 }
