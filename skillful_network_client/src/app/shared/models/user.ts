@@ -2,7 +2,7 @@ import { MatLine } from '@angular/material/core';
 
 export class User {
   /* Ajouter les attribut pour creer le component User profil*/
-  private _id: string;
+  private _id: number;
   private _name: string;
   private _firstName: string; 
   private _email: string;
@@ -26,10 +26,10 @@ export class User {
   } 
 
   /* GETTERS & SETTERS */
-  public get id(): string {
+  public get id(): number {
     return this._id;
   }
-  public set id(value: string) {
+  public set id(value: number) {
     this._id = value;
   }
   public get name(): string {

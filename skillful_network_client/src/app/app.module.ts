@@ -37,6 +37,13 @@ import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.co
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { UserProfilComponent } from './home/user-profil/user-profil.component';
+import { SubscriptComponent } from './home/user-profil/subscript/subscript.component';
+import { QualificationsComponent } from './home/user-profil/qualifications/qualifications.component';
+import { CandidaturesComponent } from './home/user-profil/candidatures/candidatures.component';
+import { SkillsComponent } from './home/user-profil/skills/skills.component';
+
+
 
 
 @NgModule({
@@ -61,7 +68,14 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         UserConfComponent,
         SkillConfComponent,
         QualifConfComponent,
-        SubscriptConfComponent
+        SubscriptConfComponent,
+        UserProfilComponent,
+        SubscriptComponent,
+        QualificationsComponent,
+        CandidaturesComponent,
+        SkillsComponent,
+        
+       
 
     ],
     imports: [
