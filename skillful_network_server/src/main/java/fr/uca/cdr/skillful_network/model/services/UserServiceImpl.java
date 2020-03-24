@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.tools.PageTool;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -80,21 +81,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Page<User> getPageOfEntities(int objPerPage, int pageIndex) {
-		return userRepository.findAll(requestPage(objPerPage, pageIndex));
-	}
-
-	@Override
-	public Pageable requestPage(int objPerPage, int pageIndex) {
-		
-		if (pageIndex > 0) {
-			pageIndex -= 1;
-		} else if (pageIndex == 0) {
-			pageIndex += 1;
+		PageTool pageTool = new PageTool();
+		pageTool.setPage(pageIndex);
+		pageTool.setNumberOfEntities(objPerPage);
+		if (pageTool.requestPage() == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "la page index en paramètre est non valide");
 		} else {
-			pageIndex = 0;
+			return userRepository.findAll(pageTool.requestPage().get());
+
 		}
-		Pageable pageable = PageRequest.of(pageIndex, objPerPage);
-		return pageable;
+
 	}
 
 }

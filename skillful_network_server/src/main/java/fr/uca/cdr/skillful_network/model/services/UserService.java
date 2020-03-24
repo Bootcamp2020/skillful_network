@@ -3,7 +3,6 @@ package fr.uca.cdr.skillful_network.model.services;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 
@@ -33,6 +32,4 @@ public interface UserService {
 	Optional<User> findByEmail(String mail);
 
 	Page<User> getPageOfEntities(int objPerPage, int pageIndex);
-
-	Pageable requestPage(int objPerPage, int pageIndex);
 }

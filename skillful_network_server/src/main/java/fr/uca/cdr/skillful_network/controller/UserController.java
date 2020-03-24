@@ -60,8 +60,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/users")
-	public ResponseEntity<Page<User>> getUsersPerPage(@RequestParam("nbr") int nbr, @RequestParam("page") int page)
-			throws Exception {
+	public ResponseEntity<Page<User>> getUsersPerPage(@RequestParam("nbr") int nbr, @RequestParam("page") int page){
 		try {
 			Page<User> listUserByPage = userService.getPageOfEntities(nbr, page);
 			return new ResponseEntity<>(listUserByPage, HttpStatus.OK);
