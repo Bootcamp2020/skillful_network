@@ -13,8 +13,10 @@ public interface JobApplicationService {
     Optional<JobApplication> getJobApplicationById(Long id);
     Optional<User> getUserById(Long id);
     Optional<JobOffer> getJobOfferById(Long id);
-    Optional<List<JobApplication>> getJobApplicationsByUserId(Long id);
-    Optional<List<JobApplication>> getJobApplicationsByJobOfferId(Long id);
+    Optional<List<JobApplication>> getJobApplicationsByUserId(Long userId);
+    Optional<List<JobApplication>> getJobApplicationsByJobOfferId(Long jobOfferId);
+    Optional<User> setUserById(Long jobApplicationOfferId, Long userId);
+    Optional<JobOffer> setJobOfferById(Long jobApplicationOfferId, Long jobOfferId);
     JobApplication saveOrUpdateJobApplication(JobApplication jobApplication);
     void deleteJobApplication(Long id);
 }

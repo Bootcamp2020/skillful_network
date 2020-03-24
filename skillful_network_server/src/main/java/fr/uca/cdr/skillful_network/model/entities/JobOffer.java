@@ -25,9 +25,7 @@ public class JobOffer {
 	private Date dateUpload;
 	private String[] keywords;
 
-//	@OneToMany(mappedBy = "id", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true, fetch = FetchType.EAGER)
-//	@Fetch(FetchMode.SELECT)
-	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
 	public Long getId() {
