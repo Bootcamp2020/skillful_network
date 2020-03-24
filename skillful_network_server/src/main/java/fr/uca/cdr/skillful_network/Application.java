@@ -31,7 +31,7 @@ public class Application {
 
 	}
 
-	@Bean
+	/*@Bean
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -89,5 +89,5 @@ public class Application {
 
 			}
 		};
-	}
+	}*/
 }

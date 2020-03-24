@@ -12,10 +12,7 @@ export class UserComponent implements OnInit {
 
   public user: User;
 
-  constructor(
-    private userService: UserService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
