@@ -36,7 +36,13 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
-import { MatTooltipModule } from "@angular/material/tooltip";
+import { FormationsAssocieesComponent } from './home/offre/formations-associees/formations-associees.component';
+import { ExigencesComponent } from './home/offre/exigences/exigences.component';
+import { CandidaterComponent } from './home/offre/candidater/candidater.component';
+import {InformationsComponent} from './home/offre/informations/informations.component';
+import {OffreComponent} from './home/offre/offre.component';
+
+
 
 
 @NgModule({
@@ -61,7 +67,14 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         UserConfComponent,
         SkillConfComponent,
         QualifConfComponent,
-        SubscriptConfComponent
+        SubscriptConfComponent,
+        FormationsAssocieesComponent,
+        ExigencesComponent,
+        CandidaterComponent,
+        InformationsComponent,
+        OffreComponent,
+
+
 
     ],
     imports: [
@@ -73,9 +86,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-
-        MatFormFieldModule,
-        MatTooltipModule,
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement

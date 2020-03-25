@@ -1,0 +1,22 @@
+.boutonCandidater{
+  display:flex;
+  justify-content: center;
+}
+mat-card{
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+}
+
+mat-checkbox{
+  margin-right: 5px;
+}
+// overwrite the checkbox background
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #3f51b5 !important;
+}
+
+// overwrite the ripple overlay on hover and click
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #3f51b5 !important;
+}
