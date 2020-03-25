@@ -67,9 +67,9 @@ public class SubscriptionController {
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
 		subscriptionService.deleteSubscription(id);
 	}
-
+	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@GetMapping(value = "/subscriptions/candidates")
-	public List<Subscription>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+	public List<Subscription>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
 		// Get subscriptions list
 		List<Subscription> subscriptions = subscriptionService.getAllSubscription();
 

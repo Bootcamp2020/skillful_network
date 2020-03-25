@@ -36,12 +36,17 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
+
 import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/user/subscript/subscript.component';
 import { QualificationsComponent } from './home/user/qualifications/qualifications.component';
 import { CandidaturesComponent } from './home/user/candidatures/candidatures.component';
 import { SkillsComponent } from './home/user/skills/skills.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { FormationsAssocieesComponent } from './home/offre/formations-associees/formations-associees.component';
+import { ExigencesComponent } from './home/offre/exigences/exigences.component';
+import { CandidaterComponent } from './home/offre/candidater/candidater.component';
+import {InformationsComponent} from './home/offre/informations/informations.component';
+import {OffreComponent} from './home/offre/offre.component';
 
 
 
@@ -72,8 +77,12 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         SubscriptComponent,
         QualificationsComponent,
         CandidaturesComponent,
-        SkillsComponent
-
+        SkillsComponent,
+        FormationsAssocieesComponent,
+        ExigencesComponent,
+        CandidaterComponent,
+        InformationsComponent,
+        OffreComponent,
     ],
     imports: [
         BrowserModule,
@@ -85,8 +94,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
         MatFormFieldModule,
-        MatTooltipModule,
+        
     ],
+
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement
         // à chaque requête sortante de notre application Angular
