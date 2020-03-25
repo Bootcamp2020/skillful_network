@@ -29,6 +29,16 @@ public class JobApplication {
 
     public JobApplication() {
         super();
+        this.status = ApplicationStatus.INIT;
+        this.submitDate = new Date();
+    }
+
+    public JobApplication(User user, JobOffer jobOffer) {
+        super();
+        this.user = user;
+        this.jobOffer = jobOffer;
+        this.status = ApplicationStatus.SUBMITTED;
+        this.submitDate = new Date();
     }
 
     public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
