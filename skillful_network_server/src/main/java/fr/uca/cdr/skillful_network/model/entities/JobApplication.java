@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name = "jobApplications")
 public class JobApplication {
 
-    enum ApplicationStatus { INIT, SUBMITTED, INVESTIGATING, WAITING, PAUSED, POSTPONED, ACCEPTED, REJECTED}
+    enum ApplicationStatus {INIT, SUBMITTED, INVESTIGATING, WAITING, PAUSED, POSTPONED, ACCEPTED, REJECTED}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,9 @@ public class JobApplication {
     private ApplicationStatus status;
     private Date submitDate;
 
-    public JobApplication() { super(); }
+    public JobApplication() {
+        super();
+    }
 
     public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
         super();
@@ -38,12 +40,8 @@ public class JobApplication {
     }
 
     public JobApplication(Long id, User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
-        super();
+        this(user, jobOffer, status, submitDate);
         this.id = id;
-        this.user = user;
-        this.jobOffer = jobOffer;
-        this.status = status;
-        this.submitDate = submitDate;
     }
 
     public Long getId() {

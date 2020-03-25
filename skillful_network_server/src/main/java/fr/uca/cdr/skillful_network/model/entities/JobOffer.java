@@ -1,13 +1,9 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
 
 
 @Entity

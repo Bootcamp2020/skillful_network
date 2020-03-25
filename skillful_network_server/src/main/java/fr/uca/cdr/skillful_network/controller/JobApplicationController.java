@@ -68,14 +68,14 @@ public class JobApplicationController {
     }
 
     @PutMapping(value = "/{jobApplicationOfferId}/user/{userId}")
-    public ResponseEntity<User> setUserById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "userId")Long userId) {
+    public ResponseEntity<User> setUserById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "userId") Long userId) {
         User user = jobApplicationService.setUserById(jobApplicationOfferId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun user trouvé avec le user id : " + userId));
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{jobApplicationOfferId}/joboffer/{jobOfferId}")
-    public ResponseEntity<JobOffer> setJobOfferById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "jobOfferId")Long jobOfferId) {
+    public ResponseEntity<JobOffer> setJobOfferById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "jobOfferId") Long jobOfferId) {
         JobOffer jobOffer = jobApplicationService.setJobOfferById(jobApplicationOfferId, jobOfferId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune offre d'emploi trouvé avec le joOffer id : " + jobOfferId));
         return new ResponseEntity<JobOffer>(jobOffer, HttpStatus.OK);
