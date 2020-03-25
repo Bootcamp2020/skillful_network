@@ -40,6 +40,7 @@ public class TrainingApplication {
         this.status = ApplicationStatus.SUBMITTED;
         this.submitDate = new Date();
     }
+
     public TrainingApplication(User user, Training training, ApplicationStatus status, Date submitDate) {
         super();
         this.user = user;
