@@ -16,17 +16,19 @@ public interface UserService {
 	User saveOrUpdateUser(User user);
 
 	void deleteUser(Long id);
-	
-	void sendMail(String mail , String code);
-	Boolean createRepoImage();
-    Boolean updateImage();
 
-      
-      /**
-       * Il retourne le user s'il le trouve par son adresse email
-       * @param String 
-       * @return optional user
-       */
-      Optional<User> findByEmail(String mail);
-      
+	void sendMail(String mail, String code);
+
+	String createRepoImage();
+
+	Boolean updateImage();
+
+	/**
+	 * Il retourne le user s'il le trouve par son adresse email
+	 * 
+	 * @param String
+	 * @return optional user
+	 */
+	Optional<User> findByEmail(String mail);
+
 }
