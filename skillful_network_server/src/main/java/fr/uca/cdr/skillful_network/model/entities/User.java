@@ -1,14 +1,13 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -43,15 +42,52 @@ public class User {
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<JobApplication> jobApplicationSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
-	
+
+	public User() {
+		super();
+	}
+
+	public User(long id, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public User(String password, String email) {
+		super();
+		this.password = password;
+		this.email = email;
+	}
+
+	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
+				String mobileNumber, int status, boolean photo) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.birthDate = birthDate;
+		this.email = email.toLowerCase();
+		this.mobileNumber = mobileNumber;
+		this.status = Status.fromId(status);
+		this.photo = photo;
+		this.validated = true;
+	}
+
 	public User(long id,
 				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
 				@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
 				@Size(min = 8, message = "password must be at least 8 characters") String password,
 				@PastOrPresent Date birthDate,
 				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-				String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet) {
+				String mobileNumber, String status, boolean validated, boolean photo,
+				Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
+				Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -66,80 +102,9 @@ public class User {
 			this.skillSet = skillSet;
 			this.qualificationSet = qualificationSet;
 			this.subscriptionSet = subscriptionSet;
+			this.jobApplicationSet = jobApplicationSet;
+			this.trainingApplicationSet = trainingApplicationSet;
 		}
-
-	
-	public Set<Skill> getSkillSet() {
-		return skillSet;
-	}
-	
-	public Set<Qualification> getQualificationSet() {
-		return qualificationSet;
-	}
-
-	public void setSkillSet(Set<Skill> skillSet) {
-		this.skillSet = skillSet;
-	}
-
-	public void setQualificationSet(Set<Qualification> qualificationSet) {
-		this.qualificationSet = qualificationSet;
-	}
-	
-	public Set<Subscription> getSubscriptionSet() {
-		return subscriptionSet;
-	}
-
-	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
-		this.subscriptionSet = subscriptionSet;
-	}
-
-	public User() {
-		super();
-	}
-
-	public User(long id, String firstName, String lastName) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
-			String mobileNumber, int status, boolean photo) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.birthDate = birthDate;
-		this.email = email.toLowerCase();
-		this.mobileNumber = mobileNumber;
-		this.status = Status.fromId(status);
-		this.photo = photo;
-		this.validated = true;
-	}
-
-	public boolean isPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(boolean photo) {
-		this.photo = photo;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public User(String password, String email) {
-		super();
-		this.password = password;
-		this.email = email;
-	}
 
 	public long getId() {
 		return id;
@@ -189,14 +154,6 @@ public class User {
 		this.email = email.toLowerCase();
 	}
 
-	public boolean isValidated() {
-		return validated;
-	}
-
-	public void setValidated(boolean validated) {
-		this.validated = validated;
-	}
-
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
@@ -205,9 +162,81 @@ public class User {
 		this.mobileNumber = mobileNumber;
 	}
 
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+
+	public boolean isPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(boolean photo) {
+		this.photo = photo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Set<Skill> getSkillSet() {
+		return skillSet;
+	}
+
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
+	}
+
+	public void setSkillSet(Set<Skill> skillSet) {
+		this.skillSet = skillSet;
+	}
+
+	public void setQualificationSet(Set<Qualification> qualificationSet) {
+		this.qualificationSet = qualificationSet;
+	}
+
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
+	}
+
+	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
+		this.subscriptionSet = subscriptionSet;
+	}
+
+	public Set<JobApplication> getJobApplicationSet() {
+		return jobApplicationSet;
+	}
+
+	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) {
+		this.jobApplicationSet = jobApplicationSet;
+	}
+
+	public Set<TrainingApplication> getTrainingApplicationSet() {
+		return trainingApplicationSet;
+	}
+
+	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
+		this.trainingApplicationSet = trainingApplicationSet;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet + "]";
+		return "User [id=" + id +
+				", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
+				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
+				", status=" + status + ", validated=" + validated +
+				", photo=" + photo + ", " +
+				"skillSet=" + skillSet +
+				", qualificationSet=" + qualificationSet +
+				", subscriptionSet=" + subscriptionSet + "]" +
+				", jobApplicationSets=" + jobApplicationSet +
+				", trainingApplicationSet=" + trainingApplicationSet + "]";
 	}
 }
