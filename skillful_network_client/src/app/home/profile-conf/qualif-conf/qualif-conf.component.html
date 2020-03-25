@@ -1,22 +1,22 @@
 <div class="card_dashboard mat-elevation-z4">
     <div class='row'>
-        <mat-card >
+        <mat-card class="slop-display-container">
             <mat-card-header id="title">
                 <mat-card-title id="title_police">Qualifications </mat-card-title>
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listQualif" class="qualif">{{post.qualif}}</mat-chip>
+                <mat-chip *ngFor="let post of listQualif" class="qualif">{{post.name}}</mat-chip>
             </mat-chip-list>
         </mat-card>
     </div>
       
-    <form [formGroup]="addQualifFormGroup" (submit)="addQualif()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form [formGroup]="qualifInfoGroup" (submit)="addQualif()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column'>
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
-                    <input formControlName="newQualif" matInput placeholder="qualification" class="form-control">
+                    <input formControlName="qualifUnit" matInput placeholder="qualification" class="form-control">
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">

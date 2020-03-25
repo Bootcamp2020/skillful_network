@@ -1,22 +1,22 @@
 <div class="card_dashboard mat-elevation-z4">
     <div class='row'>
-        <mat-card >
+        <mat-card class="slop-display-container" >
             <mat-card-header id="title">
                 <mat-card-title id="title_police">Compétences </mat-card-title>
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listSkill" class="skill">{{post.skill}}</mat-chip>
+                <mat-chip *ngFor="let post of listSkill" class="skill">{{post.name}}</mat-chip>
             </mat-chip-list>
         </mat-card>
     </div>
       
-    <form [formGroup]="addSkillFormGroup" (submit)="addSkill()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form [formGroup]="skillInfoGroup" (submit)="addSkill()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column'>
                 <mat-form-field>
                     <mat-label>Nouvelle compétence</mat-label>
-                    <input formControlName="newSkill" matInput placeholder="compétence" class="form-control">
+                    <input formControlName="skillUnit" matInput placeholder="compétence" class="form-control">
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">

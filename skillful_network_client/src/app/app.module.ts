@@ -36,7 +36,10 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
-import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTooltipModule } from "@angular/material/tooltip"
+import { UserService } from './shared/services/user.service';
+import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
+
 
 
 @NgModule({
@@ -61,7 +64,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         UserConfComponent,
         SkillConfComponent,
         QualifConfComponent,
-        SubscriptConfComponent
+        SubscriptConfComponent,
+        UserlistComponent
 
     ],
     imports: [
@@ -88,8 +92,10 @@ import { MatTooltipModule } from "@angular/material/tooltip";
             useClass: TokenHttpInterceptorService,
             multi: true
         },
+        UserService
     ],
     bootstrap: [AppComponent]
+    
 })
 export class AppModule {
 }

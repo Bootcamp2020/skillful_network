@@ -1,3 +1,4 @@
+
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
@@ -9,9 +10,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatChipsModule} from '@angular/material/chips';
 
+
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
@@ -24,6 +29,8 @@ const MATERIAL_MODULES = [
   MatMenuModule,
   MatChipsModule,
   MatTooltipModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({
