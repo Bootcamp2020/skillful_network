@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -80,9 +81,9 @@ public class SkillController {
 
 	}
 	
-
+    // Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
 	@GetMapping(value = "/candidates")
-	public List<Skill>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+	public List<Skill>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
 		// Get subscriptions list
 		List<Skill> skills = skillService.getAllSkills();
 		
