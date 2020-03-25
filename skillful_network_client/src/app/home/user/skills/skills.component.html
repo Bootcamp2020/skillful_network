@@ -1,0 +1,14 @@
+<div class="card_dashboard mat-elevation-z4">
+    <div class='row'>
+        <mat-card>
+            <mat-card-header id="title">
+                <mat-card-title id="title_police">Compétences </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-chip-list>
+                <mat-chip *ngFor="let post of listSkill" class="skill">{{post.skill}}</mat-chip>
+            </mat-chip-list>
+        </mat-card>
+    </div>
+
+</div>

@@ -12,13 +12,10 @@ export class UserComponent implements OnInit {
 
   public user: User;
 
-  constructor(
-    private userService: UserService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.userService.findById(this.route.snapshot.params.id).then(data => this.user = data);
+    //this.userService.findById(this.route.snapshot.params.id).then(data => this.user = data);
   }
 }
