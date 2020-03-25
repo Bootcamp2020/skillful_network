@@ -27,7 +27,7 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 public class Application {
 
 	// lance le serveur
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
 
 	}
@@ -90,25 +90,20 @@ public class Application {
 
 			}
 		};
-<<<<<<< HEAD
-	}*/
-=======
 	}
 
-//	@Bean
-//	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
-//		return args -> {
-//			if (exerciseRepository.findAll().isEmpty()) {
-//				new JSONLoader<>(
-//						"src/main/resources/data/exercises.json",
-//						Exercise[].class,
-//						Exercise.class,
-//						exerciseRepository,
-//						new ExerciseAdapter()
-//						).load();
-//
-//			}
-//		};
-//	}
->>>>>>> e47f9e08a08524eaca17c07b86edb8252ff7f750
-}
+	@Bean
+	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
+		return args -> {
+			if (exerciseRepository.findAll().isEmpty()) {
+				new JSONLoader<>(
+						"src/main/resources/data/exercises.json",
+						Exercise[].class,
+						Exercise.class,
+						exerciseRepository,						new ExerciseAdapter()
+						).load();
+			}
+		};
+	}
+
+}*/
