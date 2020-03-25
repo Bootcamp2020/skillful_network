@@ -29,10 +29,9 @@ public class Application {
 	// lance le serveur
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-
 	}
 
-	/*@Bean
+	@Bean
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -90,9 +89,6 @@ public class Application {
 
 			}
 		};
-<<<<<<< HEAD
-	}*/
-=======
 	}
 
 //	@Bean
@@ -110,5 +106,4 @@ public class Application {
 //			}
 //		};
 //	}
->>>>>>> e47f9e08a08524eaca17c07b86edb8252ff7f750
 }
