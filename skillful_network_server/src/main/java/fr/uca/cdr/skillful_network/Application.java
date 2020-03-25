@@ -28,7 +28,6 @@ public class Application {
 
 	// lance le serveur
 	public static void main(String[] args) {
-		new MyToyClass();
 		SpringApplication.run(Application.class, args);
 	}
 
