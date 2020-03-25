@@ -4,13 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -48,9 +42,8 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
-	
-
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
 	public User(long id,
 				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
