@@ -37,6 +37,9 @@ import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.co
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -76,6 +79,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 
         MatFormFieldModule,
         MatTooltipModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatButtonModule,
     ],
     providers: [
         // Mise en place d'un intercepteur qui permettra d'appliquer le token automatiquement
