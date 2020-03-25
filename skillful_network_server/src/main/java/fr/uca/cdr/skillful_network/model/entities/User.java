@@ -13,11 +13,11 @@ import java.util.Set;
 public class User {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-    private String firstName;
-    @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+  @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+  private String firstName;
+  @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -43,7 +43,7 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-
+  
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 
@@ -62,8 +62,8 @@ public class User {
 		super();
 		this.password = password;
 		this.email = email;
-	}
-
+	}  
+  
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
 				String mobileNumber, int status, boolean photo) {
 		super();
@@ -79,32 +79,32 @@ public class User {
 		this.validated = true;
 	}
 
-	public User(long id,
-				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
-				@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
-				@Size(min = 8, message = "password must be at least 8 characters") String password,
-				@PastOrPresent Date birthDate,
-				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-				String mobileNumber, String status, boolean validated, boolean photo,
-				Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-				Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
-			super();
-			this.id = id;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.password = password;
-			this.birthDate = birthDate;
-			this.email = email;
-			this.mobileNumber = mobileNumber;
-			this.status = status;
-			this.validated = validated;
-			this.photo = photo;
-			this.skillSet = skillSet;
-			this.qualificationSet = qualificationSet;
-			this.subscriptionSet = subscriptionSet;
-			this.jobApplicationSet = jobApplicationSet;
-			this.trainingApplicationSet = trainingApplicationSet;
-		}
+  public User(long id,
+		@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
+		@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
+		@Size(min = 8, message = "password must be at least 8 characters") String password,
+		@PastOrPresent Date birthDate,
+		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
+		String mobileNumber, String status, boolean validated, boolean photo,
+		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.mobileNumber = mobileNumber;
+		this.status = status;
+		this.validated = validated;
+		this.photo = photo;
+		this.skillSet = skillSet;
+		this.qualificationSet = qualificationSet;
+		this.subscriptionSet = subscriptionSet;
+		this.jobApplicationSet = jobApplicationSet;
+    this.trainingApplicationSet = trainingApplicationSet;
+	}
 
 	public long getId() {
 		return id;
@@ -189,19 +189,19 @@ public class User {
 	public Set<Skill> getSkillSet() {
 		return skillSet;
 	}
-
-	public Set<Qualification> getQualificationSet() {
-		return qualificationSet;
-	}
-
+  
 	public void setSkillSet(Set<Skill> skillSet) {
 		this.skillSet = skillSet;
+	}
+  
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
 	}
 
 	public void setQualificationSet(Set<Qualification> qualificationSet) {
 		this.qualificationSet = qualificationSet;
 	}
-
+	
 	public Set<Subscription> getSubscriptionSet() {
 		return subscriptionSet;
 	}
@@ -233,7 +233,7 @@ public class User {
 				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
 				", status=" + status + ", validated=" + validated +
 				", photo=" + photo + ", " +
-				"skillSet=" + skillSet +
+				", skillSet=" + skillSet +
 				", qualificationSet=" + qualificationSet +
 				", subscriptionSet=" + subscriptionSet + "]" +
 				", jobApplicationSets=" + jobApplicationSet +
