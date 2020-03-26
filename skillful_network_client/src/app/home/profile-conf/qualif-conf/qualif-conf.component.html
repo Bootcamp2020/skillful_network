@@ -16,12 +16,17 @@
             <div class='column'>
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
-                    <input formControlName="qualifUnit" matInput placeholder="qualification" class="form-control">
+                    <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="qualification" class="form-control">
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
+                          {{qualif}}
+                        </mat-option>
+                      </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">
                 <button type="submit" mat-raised-button color="primary">Ajouter</button>
             </div>
         </div>
-    </form>  
+    </form>
 </div>

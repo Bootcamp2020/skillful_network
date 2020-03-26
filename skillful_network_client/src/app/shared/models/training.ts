@@ -1,7 +1,7 @@
 export class Training {
-
-
+    // tslint:disable-next-line:variable-name
     private _id: number;
+    // tslint:disable-next-line:variable-name
     private _name: string;
     private _organisation: string;
     private _description: string;

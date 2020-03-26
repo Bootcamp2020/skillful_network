@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network;
 
 import java.util.List;
 
+import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -90,4 +91,20 @@ public class Application {
 			}
 		};
 	}
+
+//	@Bean
+//	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
+//		return args -> {
+//			if (exerciseRepository.findAll().isEmpty()) {
+//				new JSONLoader<>(
+//						"src/main/resources/data/exercises.json",
+//						Exercise[].class,
+//						Exercise.class,
+//						exerciseRepository,
+//						new ExerciseAdapter()
+//						).load();
+//
+//			}
+//		};
+//	}
 }

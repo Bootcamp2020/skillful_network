@@ -16,7 +16,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
@@ -30,7 +31,9 @@ const MATERIAL_MODULES = [
   MatChipsModule,
   MatTooltipModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatCheckboxModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({

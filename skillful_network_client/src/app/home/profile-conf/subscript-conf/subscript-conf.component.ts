@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscript } from 'src/app/shared/models/subscript';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-subscript-conf',
@@ -14,12 +17,12 @@ export class SubscriptConfComponent implements OnInit {
 
   titleAlert: string = 'This field is required';
   post: any = '';
-
+  subscripts:string[];
   public listSubscript: Subscript[];
   public subscript: string;
   
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder ,private service : UserService) {
 
   }
 
@@ -27,7 +30,21 @@ export class SubscriptConfComponent implements OnInit {
     this.listSubscript =  this.userSubscriptList;
     this.subscriptInfoGroup.value['subscriptionSet'] = this.listSubscript;
     console.log(this.subscriptInfoGroup);  
+    
+    this.subscriptInfoGroup.valueChanges.subscribe(data=>{
+      this.subscripts = []
+      if (data.subscriptUnit.length >1){
+        this.service.findByContain("subscriptions",data.subscriptUnit).then(
+          datas=>{
+            for(let id in datas)
+            this.subscripts.push(datas[id].name)  
+          }
+        )
+      }
+    })
   }
+
+  myControl = new FormControl()
 
   addSubscript() {
     this.listSubscript.push(new Subscript(this.subscriptInfoGroup.value['subscriptUnit']));

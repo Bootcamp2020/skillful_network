@@ -6,6 +6,7 @@ import { Subscript } from '../models/subscript';
 import {ApiHelperService} from './api-helper.service';
 import { Injectable } from '@angular/core';
 //import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import {MOCK_USERS} from '../models/mock.users';
 
 //const optionRequete = {
 //  headers: new HttpHeaders({
@@ -43,23 +44,24 @@ export class UserService {
   private subscript6 = new Subscript('Elle');
   
 
-  private userLogged = new User(
-    12,
-    'Jacques',
-    'Uzzi',
-    'passwordtpo',
-    new Date("2016-01-17T08:44:29+0100"),
-    'email@gmail.com',
-    '0123456789',
-    '',
-    true,
-    false,
-    [this.skill0,this.skill1,this.skill2,this.skill3,this.skill4,this.skill5,this.skill6],
-    [this.qualif0,this.qualif1,this.qualif2,this.qualif3,this.qualif4,this.qualif5,this.qualif6],
-    [this.subscript0,this.subscript1,this.subscript2,this.subscript3,this.subscript4,this.subscript5,this.subscript6],
-    ''
-  );
- 
+  private userLogged = new User({
+    id: 12,
+    firstName:'Jacques',
+    lastName: 'Uzzi',
+    password: 'passwordtpo',
+    birthDate: new Date("2016-01-17T08:44:29+0100"),
+    email: 'email@gmail.com',
+    mobileNumber: '0123456789',
+    status: '',
+    validated: true,
+    photo: false,
+    skillSet: [this.skill0,this.skill1,this.skill2,this.skill3,this.skill4,this.skill5,this.skill6],
+    qualificationSet : [this.qualif0,this.qualif1,this.qualif2,this.qualif3,this.qualif4,this.qualif5,this.qualif6],
+    subscriptionSet : [this.subscript0,this.subscript1,this.subscript2,this.subscript3,this.subscript4,this.subscript5,this.subscript6],
+    photoProfile: '',
+    careerGoal: ''  
+  });
+    
   userLoggedSubject = new Subject<User>();
 
   emitUsers() {
@@ -79,11 +81,20 @@ export class UserService {
   }
 
   // la suite est héritée de l'ancien service => tout du vide !
+  public users: User[];
   constructor(private api: ApiHelperService) {
+    this.users = [];
+    MOCK_USERS.forEach((user) => {
+      this.users.push(new User(user));
+    });
+  }
+  
+  public findByContain(option:String ,contain: String): Promise<Skill>{
+    return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})
   }
 
-  public findById(id: string): Promise<User> {
-    return null;
+  public findById(id: number): User {
+    return this.users[id];
   }
 
   public findCurrentlyAuthenticatedUser(): Promise<User> {
