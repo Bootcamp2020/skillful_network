@@ -47,6 +47,7 @@ import { ExigencesComponent } from './home/offre/exigences/exigences.component';
 import { CandidaterComponent } from './home/offre/candidater/candidater.component';
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
+import { FormationListComponent } from './home/formation-list/formation-list.component';
 
 
 
@@ -83,6 +84,7 @@ import {OffreComponent} from './home/offre/offre.component';
         CandidaterComponent,
         InformationsComponent,
         OffreComponent,
+        FormationListComponent,
     ],
     imports: [
         BrowserModule,

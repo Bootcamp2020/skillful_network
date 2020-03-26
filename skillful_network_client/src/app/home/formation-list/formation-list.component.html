@@ -1,0 +1,191 @@
+
+
+<div class="formation-list-container">
+
+    <mat-card>
+  
+      <mat-card-header id="title">
+  
+        <mat-card-title id="title_police">Offres de formation</mat-card-title>
+  
+      </mat-card-header>
+  
+      <hr>
+  
+      <mat-card-content>
+  
+  ​
+  
+        <div fxLayoutAlign="center center">
+  
+          <div class="mat-elevation-z3 table-container">
+  
+            <table mat-table [dataSource]="dataSource" matSort>
+  
+  ​
+  
+              <!-- Nom Column -->
+  
+              <ng-container matColumnDef="nom">
+  
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+  
+                <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+  
+              </ng-container>
+  
+  ​
+  
+              <!-- Organisme Column -->
+  
+              <ng-container matColumnDef="organisme">
+  
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Organisme</th>
+  
+                <td mat-cell *matCellDef="let element"> {{element.organisme}} </td>
+  
+              </ng-container>
+  
+  ​
+  
+  ​
+  
+  ​
+  
+              <!-- Commence Column -->
+  
+              <ng-container matColumnDef="commence">
+  
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Commence</th>
+  
+                <td mat-cell *matCellDef="let element"> {{element.commence | date: 'dd-MM-yyyy' }} </td>
+  
+              </ng-container>
+  
+  ​
+  
+              <!-- Mise en ligne Column -->
+  
+              <ng-container matColumnDef="mise_en_ligne">
+  
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mise en ligne</th>
+  
+                <td mat-cell *matCellDef="let element"> {{element.mise_en_ligne| date: 'dd-MM-yyyy'}} </td>
+  
+              </ng-container>
+  
+  ​
+  
+              <!-- Plus d'info Column -->
+  
+              <ng-container matColumnDef="plus_info">
+  
+                <th mat-header-cell *matHeaderCellDef> Détails</th>
+  
+                <td mat-cell *matCellDef="let element"> <a href="#" title="Plus d'info">Détails</a> </td>
+  
+                <!--<span class="material-icons btnIcon">zoom_in</span>-->
+  
+              </ng-container>
+  
+  ​
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+            </table>
+  
+  ​
+  
+            <mat-paginator [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>
+  
+          </div>
+  
+        </div>
+  
+  ​
+  
+      </mat-card-content>
+  
+    </mat-card>
+  
+  </div>
+  
+  ​
+  
+  <!--<br><br><br>
+  
+    <div fxLayoutAlign="center center">
+  
+      <div class="mat-elevation-z8" style="width: 60%">
+  
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+    
+  
+          
+  
+          <ng-container matColumnDef="id">
+  
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+  
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+  
+          </ng-container>
+  
+    
+  
+       
+  
+          <ng-container matColumnDef="progress">
+  
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+  
+            <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+  
+          </ng-container>
+  
+    
+  
+       
+  
+          <ng-container matColumnDef="name">
+  
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+  
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+  
+          </ng-container>
+  
+    
+  
+      
+  
+          <ng-container matColumnDef="color">
+  
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+  
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+  
+          </ng-container>
+  
+    
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+  
+          </tr>
+  
+        </table>
+  
+    
+  
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  
+      </div>
+  
+    </div>-->
+  
+  
