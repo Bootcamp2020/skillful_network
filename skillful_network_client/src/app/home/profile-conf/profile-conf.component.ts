@@ -36,6 +36,7 @@ export class ProfileConfComponent {
         'birthDate': [this.userLogged.birthDate, Validators.required],
         'email': [this.userLogged.email, [Validators.required, Validators.email]],
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
+        'careergoal': [null, Validators.required]
       }),
       
       formSkillInfos: this.formBuilder.group({
