@@ -29,9 +29,6 @@ public class SkillController {
 
 	@Autowired
 	private SkillService skillService;
-	
-	// Autocompletion init
-	AutoCompletion<Skill> completor = new AutoCompletion<>(Skill.class, "name", "userList");
 
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
@@ -65,7 +62,6 @@ public class SkillController {
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 		
 		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
-
 	}
 	
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
@@ -76,19 +72,10 @@ public class SkillController {
 						() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun matching avec le keyword : "+keyword)
 					);
 			return new ResponseEntity<List<String>>(listSkill, HttpStatus.OK);
-		 
-			 
-
 	}
-	
-    // Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
+
 	@GetMapping(value = "/candidates")
-	public List<Skill>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
-		// Get subscriptions list
-		List<Skill> skills = skillService.getAllSkills();
-		
-		// looking for completion candidates
-		List<Skill> candidates = completor.findCandidates(skills, pMatch);
-		return candidates;
+	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+		return new ResponseEntity<List<Skill>>(skillService.getSkillsByMatch(match), HttpStatus.OK);
 	}
 }

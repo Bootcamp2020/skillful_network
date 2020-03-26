@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,9 +29,6 @@ public class QualificationController {
 	@Autowired
 	private final QualificationService qualificationservice;
 
-	// Autocompletion init
-	AutoCompletion<Qualification> completor = new AutoCompletion<>(Qualification.class, "name", "userSet");
-	
 	public QualificationController(QualificationService qualificationservice) {
 		this.qualificationservice = qualificationservice;
 	}
@@ -44,12 +43,7 @@ public class QualificationController {
 	}
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@GetMapping(value = "/qualifications/candidates")
-	public List<Qualification>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
-		// Get subscriptions list
-		List<Qualification> qualifications = qualificationservice.getAllQualifications();
-		
-		// looking for completion candidates
-		List<Qualification> candidates = completor.findCandidates(qualifications, pMatch);
-		return candidates;
+	public ResponseEntity<List<Qualification>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+		return new ResponseEntity<List<Qualification>>(qualificationservice.getQualificationsByMatch(match), HttpStatus.OK);
 	}
 }

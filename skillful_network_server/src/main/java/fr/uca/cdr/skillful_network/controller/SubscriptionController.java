@@ -24,9 +24,6 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
-	// Autocompletion init
-	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
-
 	@GetMapping("/subscriptions")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
 		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
@@ -69,12 +66,7 @@ public class SubscriptionController {
 	}
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@GetMapping(value = "/subscriptions/candidates")
-	public List<Subscription>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
-		// Get subscriptions list
-		List<Subscription> subscriptions = subscriptionService.getAllSubscription();
-
-		// looking for completion candidates
-		List<Subscription> candidates = completor.findCandidates(subscriptions, pMatch);
-		return candidates;
+	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+		return new ResponseEntity<List<Subscription>>(subscriptionService.getSubscriptionsByMatch(match), HttpStatus.OK);
 	}
 }

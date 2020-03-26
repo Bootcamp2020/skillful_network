@@ -11,5 +11,5 @@ public interface SkillService {
 	Optional<Skill> getSkillByName(String name);
 	Optional<Skill> getSkillById(Long id);
 	List<Skill> getAllSkills();
-
+    List<Skill> getSkillsByMatch(String match);
 }
