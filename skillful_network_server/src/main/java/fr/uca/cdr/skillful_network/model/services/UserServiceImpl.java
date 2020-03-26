@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean createRepoImage() {
-		String dossier1 = "WebContent/images";
+	public String createRepoImage() {
+		String dossier1 = "WebContent/images/";
 		if (!new File(dossier1).exists()) {
 			new File(dossier1).mkdirs();
 		}
-		return true;
+		return dossier1;
 	}
 
 	@Override
@@ -79,9 +79,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(mail);
 	}
 
+
 	@Override
 	public Page<User> getPageOfEntities(PageTool pageTool) {	
 			return userRepository.findAll(pageTool.requestPage());
 	}
+
 
 }
