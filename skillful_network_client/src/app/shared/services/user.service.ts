@@ -1,3 +1,4 @@
+
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
 import { Skill } from '../models/skill';
@@ -16,7 +17,6 @@ import {MOCK_USERS} from '../models/mock.users';
 
 @Injectable()
 export class UserService {
-
   //private usersUrl: string;
 
   private skill0 = new Skill('Flater le mamout');
@@ -81,16 +81,14 @@ export class UserService {
   }
 
   // la suite est héritée de l'ancien service => tout du vide !
+
   public users: User[];
+
   constructor(private api: ApiHelperService) {
     this.users = [];
     MOCK_USERS.forEach((user) => {
       this.users.push(new User(user));
     });
-  }
-  
-  public findByContain(option:String ,contain: String): Promise<Skill>{
-    return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})
   }
 
   public findById(id: number): User {
@@ -101,10 +99,26 @@ export class UserService {
     return null;
   }
 
-  public findAll(): Promise<User[]> {
-    return null;
+  public findAll(): Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      this.api.get({ endpoint: '/users' })
+        .then(
+          res => { 
+            resolve(res);
+          },
+          msg => { 
+            reject(msg);
+            }
+        ).catch((error) => {
+        });
+    });
+    return promise;
   }
 
+  public findByContain(option:String ,contain: String): Promise<Skill>{	
+    return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})	
+  }
+  
   public disconnect() {
 
   }

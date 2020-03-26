@@ -11,11 +11,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.data.repository.CrudRepository;
-
 import org.springframework.data.domain.Page;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +37,6 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
-
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -58,7 +53,6 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
-	
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
@@ -74,6 +68,17 @@ public class UserController {
 		if (pageTool != null) {
 			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
 			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
+		} else {
+			System.out.println(pageTool);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
+		}
+	}
+
+	@GetMapping(value = "/users/search")
+	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool, @RequestParam(name = "keyword", required = false) String keyword) {
+		if (pageTool != null && keyword != null) {
+			Page<User> listUsersSeachByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
+			return new ResponseEntity<Page<User>>(listUsersSeachByPage, HttpStatus.OK);
 		} else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
@@ -137,7 +142,7 @@ public class UserController {
 		fout.close();
 		return "File is upload successfully" + image.getOriginalFilename();
 	}
-	
+
 	@GetMapping(value = "/usersbyId/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable Long id) {
 
@@ -265,16 +270,7 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-
-//	@GetMapping(value = "users/{id}/skills")
-//	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
-//		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
-//			return user.getSkillSet();
-//		}).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-//		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
-//	}
-
+  
 	@GetMapping(value = "users/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
