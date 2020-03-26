@@ -21,7 +21,7 @@ export class PasswordConfirmationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private api: ApiHelperService, private UserService: UserService, private router: Router) {
     const random = Math.floor(Math.random() * (100));
-    this.user = new User({ id: random });
+    this.user = new User( random );
   }
 
   ngOnInit(): void {

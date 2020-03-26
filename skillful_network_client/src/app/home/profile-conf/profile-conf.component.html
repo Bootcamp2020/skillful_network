@@ -5,53 +5,53 @@
             <mat-card-title fxLayoutAlign="center center" id="montitre">Profil</mat-card-title>
         </mat-card-header>
 
-
-        <!-- ligne 1 -->
-        <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-            <!-- colon 1 -->
-            <div fxFlex="45">
-                <!-- bloc 1 -->
-                <app-user-conf></app-user-conf>
+         <!-- ligne 0 debug
+         <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+            <app-userlist></app-userlist>
+        </div>-->
+        <form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
+            <!-- ligne 1 -->
+            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+                <!-- colon 1 -->
+                <div fxFlex="45">
+                    <!-- bloc 1 -->
+                    <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
+                </div>
+                <!-- colon 2 -->
+                <div fxFlex="45">
+                    <!-- bloc 2 -->
+                    <app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf>
+                </div>
             </div>
-            <!-- colon 2 -->
-            <div fxFlex="45">
-                <!-- bloc 2 -->
-                <app-skill-conf></app-skill-conf>
+            <!-- ligne 2 -->
+            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+                <!-- colon 1 -->
+                <div fxLayout.gt-sm="column" fxFlex="45">
+                    <!-- bloc 3 -->
+                    <app-qualif-conf [qualifInfoGroup]="parentGroup.get('formQualInfos')" [userQualList]="userLogged.qualificationSet"></app-qualif-conf>
+                </div>
+                <!-- colon 2 -->
+                <div fxLayout.gt-sm="column" fxFlex="45">
+                    <!-- bloc 5 -->
+                    <app-candidature></app-candidature>
+                </div>
             </div>
-        </div>
-        <!-- ligne 2 -->
-        <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-            <!-- colon 1 -->
-            <div fxLayout.gt-sm="column" fxFlex="45">
-                <!-- bloc 3 -->
-                <app-qualif-conf></app-qualif-conf>
-            </div>
-            <!-- colon 2 -->
-            <div fxLayout.gt-sm="column" fxFlex="45">
-                <!-- bloc 5 -->
-                <app-candidature></app-candidature>
-            </div>
-        </div>
-        <!-- ligne 3 -->
-        <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-            <!-- colon 1 -->
-            <div fxLayout.gt-sm="column" fxFlex="65">
-                <app-subscript-conf></app-subscript-conf>
-            </div>
-            <!-- colon 2 -->
-            <div fxLayout.gt-sm="column" fxFlex="25">
-                <form (submit)="updateUser()" (reset)="reGetUser()" fxLayout="column" fxLayoutAlign="center center"
-                    novalidate>
-
+            <!-- ligne 3 -->
+            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
+                <!-- colon 1 -->
+                <div fxLayout.gt-sm="column" fxFlex="65">
+                    <app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf>
+                </div>
+                <!-- colon 2 -->
+                <div fxLayout.gt-sm="column" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" novalidate>
                     <div id="btn_send" fxFlex="30">
                         <button type="submit" mat-raised-button color="primary">Sauvegarder</button>
                     </div>
                     <div id="btn_cancel" fxFlex="30">
                         <button type="reset" mat-raised-button color="primary">Annuler</button>
                     </div>
-
-                </form>
+                </div>
             </div>
-        </div>
+        </form>    
     </div>
 </div>

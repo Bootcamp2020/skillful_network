@@ -36,6 +36,8 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
+import { UserService } from './shared/services/user.service';
+import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
 
 import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/user/subscript/subscript.component';
@@ -47,6 +49,7 @@ import { ExigencesComponent } from './home/offre/exigences/exigences.component';
 import { CandidaterComponent } from './home/offre/candidater/candidater.component';
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
+import { FormationListComponent } from './home/formation-list/formation-list.component';
 
 
 
@@ -73,6 +76,7 @@ import {OffreComponent} from './home/offre/offre.component';
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent,
+        UserlistComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
@@ -83,6 +87,7 @@ import {OffreComponent} from './home/offre/offre.component';
         CandidaterComponent,
         InformationsComponent,
         OffreComponent,
+        FormationListComponent,
     ],
     imports: [
         BrowserModule,
@@ -108,8 +113,10 @@ import {OffreComponent} from './home/offre/offre.component';
             useClass: TokenHttpInterceptorService,
             multi: true
         },
+        UserService
     ],
     bootstrap: [AppComponent]
+    
 })
 export class AppModule {
 }
