@@ -46,7 +46,7 @@ export class JobOfferListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor( public cs: CandidatureService) { }
+  constructor(public cs: CandidatureService) { }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;

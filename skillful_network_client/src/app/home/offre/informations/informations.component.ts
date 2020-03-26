@@ -11,15 +11,11 @@ export class InformationsComponent implements OnInit {
   @Input() public entreprise: string;
   @Input() public description: string;
   @Input() public motsCles: string;
-  public listPosts: Post[];
+  @Input() public post : Post;
+
   constructor() { }
 
   ngOnInit(): void {
-    this.listPosts = [];
-
-    MOCK_OFFRE.forEach((post) => {
-      this.listPosts.push(new Post(post));
-    });
   }
 
 }

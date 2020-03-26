@@ -11,6 +11,7 @@ export class CandidatureService {
   constructor() { }
 
   verifierCandidature(idJobOffer, listCandidature:IPost[] ): boolean{
+    
     for(let i in listCandidature){
       if(listCandidature[i].job.id  === idJobOffer){
         return true;
@@ -19,7 +20,7 @@ export class CandidatureService {
     return false;
   }
 
-  getCandidatureByJobOfferId(idJobOffer, listCandidature:IPost[]): IPost{
+  recupererCandidature(idJobOffer, listCandidature:IPost[]): IPost{
     for(let i in listCandidature){
       if(listCandidature[i].job.id  === idJobOffer){
         return listCandidature[i];
