@@ -1,6 +1,7 @@
 
 import { Candidature } from './../models/candidature';
 import { Injectable } from '@angular/core';
+import { IPost } from '../models/mock.candidature';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class CandidatureService {
   constructor() { }
 
-  verifierCandidature(idJobOffer, listCandidature:Candidature[] ): boolean{
+  verifierCandidature(idJobOffer, listCandidature:IPost[] ): boolean{
     for(let i in listCandidature){
       if(listCandidature[i].job.id  === idJobOffer){
         return true;
@@ -18,7 +19,7 @@ export class CandidatureService {
     return false;
   }
 
-  getCandidatureByJobOfferId(idJobOffer, listCandidature:Candidature[]): Candidature{
+  getCandidatureByJobOfferId(idJobOffer, listCandidature:IPost[]): IPost{
     for(let i in listCandidature){
       if(listCandidature[i].job.id  === idJobOffer){
         return listCandidature[i];

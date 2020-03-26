@@ -1,26 +1,29 @@
 import { IPost } from './mock.candidature';
+import { JobOffer } from './job-offer';
+import { IJobOffer } from './mock.job-offers';
 
 export class Candidature {
 
-    private _id: String;
+    private _id: number;
     private _company: String;
-    private _job: String;
+    private _job: IJobOffer;
     private _status: String;
     private _details: String;
   
    
 
     constructor(data: IPost) {
+        this.id = data.id;
         this.company = data.company;
         this.job = data.job;
         this.status = data.status;
-        this._details = data.details;
+        this.details = data.details;
       }
     
-    public get id_1(): String {
+    public get id(): number {
         return this._id;
     }
-    public set id_1(value: String) {
+    public set id(value: number) {
         this._id = value;
     }
     public get company(): String {
@@ -29,10 +32,10 @@ export class Candidature {
     public set company(value: String) {
         this._company = value;
     }
-    public get job(): String {
+    public get job(): IJobOffer {
         return this._job;
     }
-    public set job(value: String) {
+    public set job(value: IJobOffer) {
         this._job = value;
     }
     public get status(): String {
