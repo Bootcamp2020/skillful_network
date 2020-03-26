@@ -11,11 +11,13 @@ import {MOCK_OFFRE} from './offre.mock';
 export class OffreComponent implements OnInit {
   @Input() public status: string;
   @Input() public titreOffre: string;
+  public jobOfferId : number;
   public listPosts: Post[];
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params.id;
+    this.jobOfferId = id;
     console.log(id);
     this.listPosts = [];
 
