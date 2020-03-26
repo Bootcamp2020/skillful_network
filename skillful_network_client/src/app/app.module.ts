@@ -51,6 +51,9 @@ import { CandidaterComponent } from './home/offre/candidater/candidater.componen
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
 import { FormationListComponent } from './home/formation-list/formation-list.component';
+import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
 
 
 
@@ -91,7 +94,9 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         InformationsComponent,
         OffreComponent,
         FormationListComponent,
+        JobOfferListComponent,
         ],
+
     imports: [
         BrowserModule,
         AppRoutingModule, // Toutes nos routes sont définies dans ce module
@@ -101,8 +106,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatFormFieldModule,
-        
+        MatFormFieldModule
     ],
 
     providers: [
@@ -116,6 +120,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
             useClass: TokenHttpInterceptorService,
             multi: true
         },
+        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() },
         UserService
     ],
     bootstrap: [AppComponent]
