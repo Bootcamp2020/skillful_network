@@ -8,29 +8,15 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "jobApplications")
-public class JobApplication {
+public class JobApplication extends Application{
 
-    enum ApplicationStatus {INIT, SUBMITTED, INVESTIGATING, WAITING, PAUSED, POSTPONED, ACCEPTED, REJECTED}
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_offer_id")
     @JsonIgnore
     private JobOffer jobOffer;
-    private ApplicationStatus status;
-    private Date submitDate;
 
     public JobApplication() {
         super();
-        this.status = ApplicationStatus.INIT;
-        this.submitDate = new Date();
     }
 
     public JobApplication(User user, JobOffer jobOffer) {
@@ -38,36 +24,16 @@ public class JobApplication {
         this.user = user;
         this.jobOffer = jobOffer;
         this.status = ApplicationStatus.SUBMITTED;
-        this.submitDate = new Date();
     }
 
     public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
-        super();
-        this.user = user;
+        super(user, status, submitDate);
         this.jobOffer = jobOffer;
-        this.status = status;
-        this.submitDate = submitDate;
     }
 
     public JobApplication(Long id, User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
-        this(user, jobOffer, status, submitDate);
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        super(id, user, status, submitDate);
+        this.jobOffer = jobOffer;
     }
 
     public JobOffer getJobOffer() {
@@ -78,22 +44,6 @@ public class JobApplication {
         this.jobOffer = jobOffer;
     }
 
-    public ApplicationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ApplicationStatus status) {
-        this.status = status;
-    }
-
-    public Date getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, user, jobOffer);
@@ -101,11 +51,7 @@ public class JobApplication {
 
     @Override
     public String toString() {
-        return "JobApplication{" +
-                "id=" + id +
-                ", user=" + user.getFirstName() + " " + user.getLastName() +
-                ", jobOffer=" + jobOffer.getCompany() + "/" + jobOffer.getName() +
-                ", status=" + status +
-                '}';
+        return super.toString() +
+            ", jobOffer=" + jobOffer.getCompany() + "/" + jobOffer.getName();
     }
 }
