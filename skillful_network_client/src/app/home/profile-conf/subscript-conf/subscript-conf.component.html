@@ -16,7 +16,12 @@
             <div class='column' fxFlex="40">
                 <mat-form-field>
                     <mat-label>Nouvel abonnement</mat-label>
-                    <input formControlName="newSubscript" matInput placeholder="abonnement" class="form-control">
+                    <input formControlName="newSubscript"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
+                          {{subscript}}
+                        </mat-option>
+                      </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="20">

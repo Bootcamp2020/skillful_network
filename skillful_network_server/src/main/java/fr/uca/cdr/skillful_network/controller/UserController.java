@@ -11,7 +11,11 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.repository.CrudRepository;
+
+import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +42,8 @@ import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
 
+import fr.uca.cdr.skillful_network.tools.PageTool;
+
 /**
  * Cette classe est responsable du traitement des requêtes liées aux
  * utilisateurs comme /users.
@@ -52,7 +58,7 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
-	private UserRepository userRepository;
+	
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
@@ -61,6 +67,16 @@ public class UserController {
 	@GetMapping(value = "/users")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
+	}
+
+	@GetMapping(value = "/users/")
+	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
+		if (pageTool != null) {
+			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
+			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
+		}
 	}
 
 	@Transactional
@@ -120,6 +136,18 @@ public class UserController {
 		fout.write(image.getBytes());
 		fout.close();
 		return "File is upload successfully" + image.getOriginalFilename();
+	}
+	
+	@GetMapping(value = "/usersbyId/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable Long id) {
+
+		Optional<User> user = userService.getUserById(id);
+		if (!user.isPresent()) {
+
+			throw new ResourceNotFoundException("User not found with id : " + id);
+
+		}
+		return ResponseEntity.ok().body(user.get());
 	}
 
 //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
@@ -229,6 +257,7 @@ public class UserController {
 			userToUpdate.setSkillSet(listSkill);
 			this.userService.saveOrUpdateUser(userToUpdate);
 			return new ResponseEntity<Skill>(skillToAdd, HttpStatus.OK);
+
 		}
 //			Dans le cas contraire on renvoie une exception
 		else {
@@ -238,7 +267,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "users/{id}/skills")
-	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
 			return user.getSkillSet();
 		}).orElseThrow(
@@ -246,17 +275,13 @@ public class UserController {
 		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/usersbyId/{id}")
-	public ResponseEntity<User> getUserById1(@PathVariable Long id) {
-
-		Optional<User> user = userService.getUserById(id);
-		if (!user.isPresent()) {
-
-			throw new ResourceNotFoundException("User not found with id : " + id);
-		}
-
-		return ResponseEntity.ok().body(user.get());
-
+	@GetMapping(value = "users/{id}/skills")
+	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
+		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
+			return user.getSkillSet();
+		}).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 	}
 
 }

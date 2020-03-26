@@ -4,10 +4,14 @@ import java.io.File;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.tools.PageTool;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -74,5 +78,12 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> findByEmail(String mail) {
 		return userRepository.findByEmail(mail);
 	}
+
+
+	@Override
+	public Page<User> getPageOfEntities(PageTool pageTool) {	
+			return userRepository.findAll(pageTool.requestPage());
+	}
+
 
 }
