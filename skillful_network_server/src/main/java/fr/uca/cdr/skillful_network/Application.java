@@ -31,6 +31,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 
 	}
+}
 
 	/*@Bean
 	ApplicationRunner initUserRepository(UserRepository userRepository) {

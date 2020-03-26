@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
+import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.SkillService;
@@ -219,7 +221,7 @@ public class UserController {
 			}
 		}
 		
-		@GetMapping(value = "users/{id}/skills")
+		@GetMapping(value = "/users/{id}/skills")
 		public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
 			Set<Skill> listSkills = this.userService.getUserById(id)
 					.map((user) -> {
@@ -228,5 +230,22 @@ public class UserController {
 						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 			return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 		}
-
+		@GetMapping(value = "/users/{id}/Qualifications")
+		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
+			Set<Qualification> listQualifications = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getQualificationSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
+		}
+		@GetMapping(value = "/users/{id}/Subscription")
+		public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
+			Set<Subscription> listSubscription = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getSubscriptionSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
+		}
 }

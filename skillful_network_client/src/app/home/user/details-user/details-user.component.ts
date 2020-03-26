@@ -22,7 +22,7 @@ export class DetailsUserComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.user = this.userService.findById(this.route.snapshot.params.id);
+    this.user = this.userService.findById(this.route.snapshot.params.id - 1);
   }
 
 }
