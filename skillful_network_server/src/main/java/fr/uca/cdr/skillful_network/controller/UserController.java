@@ -4,13 +4,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.repository.CrudRepository;
+
 import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
@@ -35,6 +41,7 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
+
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -51,6 +58,7 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
+	
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
@@ -111,15 +119,35 @@ public class UserController {
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/testCreationRepo")
+	public ResponseEntity<Boolean> testCreationRepo() {
+		this.userService.createRepoImage();
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
 			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
 	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
+
 		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
 		convertFile.createNewFile();
 		FileOutputStream fout = new FileOutputStream(convertFile);
 		fout.write(image.getBytes());
 		fout.close();
-		return "File is upload successfully";
+		return "File is upload successfully" + image.getOriginalFilename();
+	}
+	
+	@GetMapping(value = "/usersbyId/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable Long id) {
+
+		Optional<User> user = userService.getUserById(id);
+		if (!user.isPresent()) {
+
+			throw new ResourceNotFoundException("User not found with id : " + id);
+
+		}
+		return ResponseEntity.ok().body(user.get());
 	}
 
 //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
@@ -229,6 +257,7 @@ public class UserController {
 			userToUpdate.setSkillSet(listSkill);
 			this.userService.saveOrUpdateUser(userToUpdate);
 			return new ResponseEntity<Skill>(skillToAdd, HttpStatus.OK);
+
 		}
 //			Dans le cas contraire on renvoie une exception
 		else {
@@ -236,6 +265,15 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
+
+//	@GetMapping(value = "users/{id}/skills")
+//	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
+//		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
+//			return user.getSkillSet();
+//		}).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+//		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
+//	}
 
 	@GetMapping(value = "users/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {

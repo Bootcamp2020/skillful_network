@@ -20,7 +20,9 @@ public interface UserService {
 
 	void sendMail(String mail, String code);
 
-	Boolean createRepoImage();
+
+	String createRepoImage();
+
 
 	Boolean updateImage();
 
@@ -32,5 +34,7 @@ public interface UserService {
 	 */
 	Optional<User> findByEmail(String mail);
 
+
 	Page<User> getPageOfEntities(PageTool pageTool);
+
 }

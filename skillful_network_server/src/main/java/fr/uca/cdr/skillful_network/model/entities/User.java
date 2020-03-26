@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,11 +14,11 @@ import java.util.Set;
 public class User {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-    private String firstName;
-    @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+  @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+  private String firstName;
+  @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -43,57 +44,13 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-
-	public User(long id,
-				@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
-				@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
-				@Size(min = 8, message = "password must be at least 8 characters") String password,
-				@PastOrPresent Date birthDate,
-				@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-				String mobileNumber, String status, boolean validated, boolean photo,
-				Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-				Set<JobApplication> jobApplicationSet) {
-			super();
-			this.id = id;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.password = password;
-			this.birthDate = birthDate;
-			this.email = email;
-			this.mobileNumber = mobileNumber;
-			this.status = status;
-			this.validated = validated;
-			this.photo = photo;
-			this.skillSet = skillSet;
-			this.qualificationSet = qualificationSet;
-			this.subscriptionSet = subscriptionSet;
-			this.jobApplicationSet = jobApplicationSet;
-		}
-
+  
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
-	public Set<Skill> getSkillSet() {
-		return skillSet;
-	}
-	
-	public Set<Qualification> getQualificationSet() {
-		return qualificationSet;
-	}
-
-	public void setSkillSet(Set<Skill> skillSet) {
-		this.skillSet = skillSet;
-	}
-
-	public void setQualificationSet(Set<Qualification> qualificationSet) {
-		this.qualificationSet = qualificationSet;
-	}
-	
-	public Set<Subscription> getSubscriptionSet() {
-		return subscriptionSet;
-	}
-
-	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
-		this.subscriptionSet = subscriptionSet;
-	}
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 		super();
@@ -106,8 +63,14 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public User(String password, String email) {
+		super();
+		this.password = password;
+		this.email = email;
+	}  
+  
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
-			String mobileNumber, int status, boolean photo) {
+				String mobileNumber, int status, boolean photo) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -121,26 +84,32 @@ public class User {
 		this.validated = true;
 	}
 
-	public boolean isPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(boolean photo) {
-		this.photo = photo;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public User(String password, String email) {
+  public User(long id,
+		@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
+		@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
+		@Size(min = 8, message = "password must be at least 8 characters") String password,
+		@PastOrPresent Date birthDate,
+		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
+		String mobileNumber, String status, boolean validated, boolean photo,
+		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
+		this.birthDate = birthDate;
 		this.email = email;
+		this.mobileNumber = mobileNumber;
+		this.status = status;
+		this.validated = validated;
+		this.photo = photo;
+		this.skillSet = skillSet;
+		this.qualificationSet = qualificationSet;
+		this.subscriptionSet = subscriptionSet;
+		this.jobApplicationSet = jobApplicationSet;
+	    this.trainingApplicationSet = trainingApplicationSet;
+	    this.roles = roles;
 	}
 
 	public long getId() {
@@ -191,6 +160,14 @@ public class User {
 		this.email = email.toLowerCase();
 	}
 
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
 	public boolean isValidated() {
 		return validated;
 	}
@@ -199,12 +176,44 @@ public class User {
 		this.validated = validated;
 	}
 
-	public String getMobileNumber() {
-		return mobileNumber;
+	public boolean isPhoto() {
+		return photo;
 	}
 
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
+	public void setPhoto(boolean photo) {
+		this.photo = photo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Set<Skill> getSkillSet() {
+		return skillSet;
+	}
+  
+	public void setSkillSet(Set<Skill> skillSet) {
+		this.skillSet = skillSet;
+	}
+  
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
+	}
+
+	public void setQualificationSet(Set<Qualification> qualificationSet) {
+		this.qualificationSet = qualificationSet;
+	}
+	
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
+	}
+
+	public void setSubscriptionSet(Set<Subscription> subscriptionSet) {
+		this.subscriptionSet = subscriptionSet;
 	}
 
 	public Set<JobApplication> getJobApplicationSet() {
@@ -215,16 +224,32 @@ public class User {
 		this.jobApplicationSet = jobApplicationSet;
 	}
 
+	public Set<TrainingApplication> getTrainingApplicationSet() {
+		return trainingApplicationSet;
+	}
+
+	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
+		this.trainingApplicationSet = trainingApplicationSet;
+	}
+	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id +
-				", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
-				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
-				", status=" + status + ", validated=" + validated +
-				", photo=" + photo + ", " +
-				"skillSet=" + skillSet +
-				", qualificationSet=" + qualificationSet +
-				", subscriptionSet=" + subscriptionSet + "]" +
-				", jobApplicationSets=" + jobApplicationSet + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
+				+ status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet
+				+ ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet
+				+ ", jobApplicationSet=" + jobApplicationSet + ", trainingApplicationSet=" + trainingApplicationSet
+				+ ", roles=" + roles + "]";
 	}
+
+	
 }

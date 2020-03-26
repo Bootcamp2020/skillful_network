@@ -17,7 +17,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
+​
 const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
@@ -33,7 +39,12 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatCheckboxModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatSortModule,
+  MatInputModule,
+  FlexLayoutModule,
 ];
 
 @NgModule({
