@@ -5,9 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
@@ -79,11 +78,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(mail);
 	}
 
-
 	@Override
-	public Page<User> getPageOfEntities(PageTool pageTool) {	
-			return userRepository.findAll(pageTool.requestPage());
+	public Page<User> getPageOfEntities(PageTool pageTool) {
+		return userRepository.findAll(pageTool.requestPage());
 	}
 
+	@Override
+	public Page<User> searchUsersByKeyword(Pageable pageable, String keyword) {
+		return userRepository.findByLastNameOrFirstNameContaining(keyword, pageable);
+	}
 
 }
