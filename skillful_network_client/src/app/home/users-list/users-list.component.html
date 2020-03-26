@@ -20,5 +20,18 @@
       </tr>
       </tbody>
     </table>
+    <div class="recherche">
+      <div >
+        <button mat-button [matMenuTriggerFor]="menu" class="boutonMenu"><i class="material-icons" >
+          dehaze
+      </i></button>
+          <form action=" " class="formulaire" >
+              <div fxLayout="row " >
+                  <mat-icon (click)="onSearch()" class="cursor">search</mat-icon>
+                  <div class="input "><input (keydown)="onSearch() " placeholder="Recherche... "> </div>
+              </div>
+          </form>
+      </div>
+    </div>
   </div>
 </div>
