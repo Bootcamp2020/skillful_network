@@ -26,7 +26,9 @@ export class UserConfComponent {
       'firstname': [null, Validators.required],
       'birthdate': [null, Validators.required],
       'email': [null, Validators.required],
-      'phone': [null, Validators.required]
+      'phone': [null, Validators.required],
+      'careergoal': [null, Validators.required]
+
     });
   }
 }
