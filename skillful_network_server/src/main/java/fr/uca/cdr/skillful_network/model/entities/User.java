@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +47,10 @@ public class User {
   
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 		super();
@@ -87,7 +92,7 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -103,7 +108,8 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-    this.trainingApplicationSet = trainingApplicationSet;
+	    this.trainingApplicationSet = trainingApplicationSet;
+	    this.roles = roles;
 	}
 
 	public long getId() {
@@ -225,18 +231,25 @@ public class User {
 	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
 		this.trainingApplicationSet = trainingApplicationSet;
 	}
+	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id +
-				", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
-				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
-				", status=" + status + ", validated=" + validated +
-				", photo=" + photo + ", " +
-				", skillSet=" + skillSet +
-				", qualificationSet=" + qualificationSet +
-				", subscriptionSet=" + subscriptionSet + "]" +
-				", jobApplicationSets=" + jobApplicationSet +
-				", trainingApplicationSet=" + trainingApplicationSet + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
+				+ status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet
+				+ ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet
+				+ ", jobApplicationSet=" + jobApplicationSet + ", trainingApplicationSet=" + trainingApplicationSet
+				+ ", roles=" + roles + "]";
 	}
+
+	
 }
