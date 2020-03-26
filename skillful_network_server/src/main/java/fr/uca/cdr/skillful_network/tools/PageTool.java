@@ -73,8 +73,8 @@ public class PageTool {
 		Pageable pageable;
 		Integer.reverse(size);
 		Integer.reverse(page);
-	
-		if (size == 0) {
+
+		if (size <= 0) {
 			size = DEFAULT_NBR_ENTITIES;
 		}
 		if (page > 0) {
@@ -103,7 +103,7 @@ public class PageTool {
 
 	@Override
 	public String toString() {
-		return "PageTool [size=" + size + ", page=" + page + ", criteriaSort=" + "]";
+		return "PageTool [size=" + size + ", page=" + page + ", field=" + field + ", sortOrder=" + sortOrder + "]";
 	}
 
 }
