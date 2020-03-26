@@ -29,11 +29,10 @@ public class Application {
 	// lance le serveur
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
-
 	}
-}
 
-	/*@Bean
+
+	@Bean
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -93,18 +92,23 @@ public class Application {
 		};
 	}
 
-	@Bean
-	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
-		return args -> {
-			if (exerciseRepository.findAll().isEmpty()) {
-				new JSONLoader<>(
-						"src/main/resources/data/exercises.json",
-						Exercise[].class,
-						Exercise.class,
-						exerciseRepository,						new ExerciseAdapter()
-						).load();
-			}
-		};
+
 	}
 
-}*/
+//	@Bean
+//	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
+//		return args -> {
+//			if (exerciseRepository.findAll().isEmpty()) {
+//				new JSONLoader<>(
+//						"src/main/resources/data/exercises.json",
+//						Exercise[].class,
+//						Exercise.class,
+//						exerciseRepository,
+//						new ExerciseAdapter()
+//						).load();
+//
+//			}
+//		};
+//	}
+
+

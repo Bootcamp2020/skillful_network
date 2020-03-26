@@ -1,13 +1,9 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -24,7 +20,10 @@ public class JobOffer {
 	private Date dateEnd;
 	private Date dateUpload;
 	private String[] keywords;
-	
+
+	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<JobApplication> jobApplicationSet = new HashSet<>();
+
 	public Long getId() {
 		return id;
 	}
@@ -79,13 +78,15 @@ public class JobOffer {
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
+	public Set<JobApplication> getJobApplicationSet() { return jobApplicationSet; }
+	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) { this.jobApplicationSet = jobApplicationSet; }
+
 	public JobOffer() {
 		super();
 	}
-	
-	
+
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -96,11 +97,12 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	
 	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords) {
+			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -110,9 +112,10 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload) {
+			Date dateUpload, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -121,24 +124,13 @@ public class JobOffer {
 		this.dateBeg = dateBeg;
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
+		this.jobApplicationSet = jobApplicationSet;
 	}
 	@Override
 	public String toString() {
-		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
+		return "JobOffer [" + id + "] name=" + name + ", company=" + company + ", description=" + description
 				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
-				+ ", keywords=" + keywords + "]";
+				+ ", keywords=" + keywords +
+				", jobApplicationSets=" + jobApplicationSet;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
 }
