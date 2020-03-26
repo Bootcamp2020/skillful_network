@@ -23,6 +23,7 @@ import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
+import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
@@ -39,6 +40,7 @@ import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subsc
 import { MatTooltipModule } from "@angular/material/tooltip";
 
 
+
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
         AppComponent,
@@ -48,6 +50,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         UserComponent,
         UsersListComponent,
         PasswordConfirmationComponent,
+        PasswordForgottenComponent,
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
@@ -62,6 +65,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent
+        
 
     ],
     imports: [
