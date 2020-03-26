@@ -23,6 +23,7 @@ import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
+import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
@@ -53,6 +54,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
 
 
 
+
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
         AppComponent,
@@ -62,6 +64,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         UserComponent,
         UsersListComponent,
         PasswordConfirmationComponent,
+        PasswordForgottenComponent,
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
@@ -88,7 +91,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         InformationsComponent,
         OffreComponent,
         FormationListComponent,
-    ],
+        ],
     imports: [
         BrowserModule,
         AppRoutingModule, // Toutes nos routes sont définies dans ce module
