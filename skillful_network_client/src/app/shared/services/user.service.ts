@@ -59,7 +59,7 @@ export class UserService {
     qualificationSet : [this.qualif0,this.qualif1,this.qualif2,this.qualif3,this.qualif4,this.qualif5,this.qualif6],
     subscriptionSet : [this.subscript0,this.subscript1,this.subscript2,this.subscript3,this.subscript4,this.subscript5,this.subscript6],
     photoProfile: '',
-    careerGoal: ''  
+    careerGoal: 'Développeur Java Fullstack'  
   });
     
   userLoggedSubject = new Subject<User>();
@@ -77,6 +77,7 @@ export class UserService {
     this.userLogged.skillSet = user.skillSet;
     this.userLogged.qualificationSet = user.qualificationSet;
     this.userLogged.subscriptionSet = user.subscriptionSet;
+    this.userLogged.careerGoal = user.careerGoal;
     this.emitUsers();
   }
 

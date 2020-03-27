@@ -18,6 +18,8 @@ export class DetailsUserComponent implements OnInit {
   @Input() public birthDate: string;
   @Input() public status: string;
   @Input() public urlImage: string;
+  @Input() public careerGoal: string;
+
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
