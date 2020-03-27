@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import fr.uca.cdr.skillful_network.jwt.JwtProvider;
 import fr.uca.cdr.skillful_network.jwt.response.JwtResponse;
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -73,9 +76,7 @@ public class AuthenticationController {
 					// On génère un token en fonction de l'id, l'email et le password de l'utilisateur
  					String jwt = jwtProv.generateJwtToken(idFromDB, emailFromDB, passwordFromDB);
  					System.out.println("jwt dans AuthController : "+jwt);
- 					// Pour enlever le b' contenu devant le token et le ' de la fin
- 					jwt = jwt.substring(2,jwt.length()-1);
- 					System.out.println("jwt substring : "+jwt);
+ 					
  					
  					// On retourne une jwt response qui contient le token et l'utilisateur
  	 				return ResponseEntity.ok(new JwtResponse(jwt, userFromDB.get()));
@@ -133,5 +134,24 @@ public class AuthenticationController {
 		user.setPassword(randomCode);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+	}
+	
+	@PostMapping(value = "/whoami")
+	public ResponseEntity<?> whoAmI(@RequestBody String frontToken) throws JsonMappingException, JsonProcessingException{
+		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
+		if (!(jwtProv.validateToken(decryptResponse))) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
+		}
+		else {
+			User userFromJson = jwtProv.getUserfromJson(decryptResponse);
+			User userFromDb = userService.getUserById(userFromJson.getId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
+			if(!(userFromDb.getEmail().equals(userFromDb.getEmail()) && userFromDb.getPassword().equals(userFromDb.getPassword()))) {
+				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
+			}
+			else {
+				return new ResponseEntity<String>("Le token et les informations utilisateurs sont valides", HttpStatus.OK );
+			}
+		}
 	}
 }
