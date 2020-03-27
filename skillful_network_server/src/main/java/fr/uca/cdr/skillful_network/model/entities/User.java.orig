@@ -108,13 +108,13 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-
-
+<<<<<<< HEAD
+		this.trainingApplicationSet = trainingApplicationSet;
 		this.roles = roles;
-
+=======
 	    this.trainingApplicationSet = trainingApplicationSet;
 	    
-
+>>>>>>> feature/vb_preAuthorize
 	}
 
 	public long getId() {

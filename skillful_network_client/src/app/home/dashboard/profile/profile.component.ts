@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     qualification:'Ingenieur',
     competences:['JAVA/JEE', ' Angular',' Management'],
     photoProfile:'https://cdn.profoto.com/cdn/053149e/contentassets/d39349344d004f9b8963df1551f24bf4/profoto-albert-watson-steve-jobs-pinned-image-original.jpg?width=2840&quality=75&format=jpg',
-    careerGoal: '"Développeur full-stack orienté project management, je cherche un poste de Tech Lead dans le secteur de la finance."'
+    careerGoal: ''
 
 });
   constructor() { }
