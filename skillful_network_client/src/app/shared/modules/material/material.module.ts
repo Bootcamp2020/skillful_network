@@ -4,11 +4,9 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -19,7 +17,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 ​
 const MATERIAL_MODULES = [
@@ -41,8 +42,9 @@ const MATERIAL_MODULES = [
   MatPaginatorModule,
   MatTableModule,
   MatSortModule,
-  MatInputModule,
   MatListModule,
+  FlexLayoutModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({
