@@ -5,9 +5,11 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "taining")
 public class Training {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,7 +145,10 @@ public class Training {
 				+ ", dateUpload=" + dateUpload + ", durationHours=" + durationHours + ", prerequisites="
 				+ Arrays.toString(prerequisites) + ", keywords=" + Arrays.toString(keywords) + "]";
 	}
-
+	 @Override
+	    public int hashCode() {
+	        return Objects.hash(id, name, organisation);
+	    }
 	
 
 }

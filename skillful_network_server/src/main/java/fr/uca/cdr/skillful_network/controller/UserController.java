@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,9 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
+import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.SkillService;
@@ -251,33 +251,59 @@ public class UserController {
 	public ResponseEntity<Skill> setSkillbyId(@PathVariable(value = "userId") Long id,
 			@PathVariable(value = "skillId") Long skillId) {
 
-//			On vérifie que l'utilisateur existe bien
+        //On vérifie que l'utilisateur existe bien
 		User userToUpdate = this.userService.getUserById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
 
-//			On vérifie que la compétence existe bien
+       //On vérifie que la compétence existe bien
 		Skill skillToAdd = this.skillService.getSkillById(skillId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune competence trouvee avec l'id : " + skillId));
 
-//			On récupère le liste de compétences de l'utilisateur
+        //	On récupère le liste de compétences de l'utilisateur
 		Set<Skill> listSkill = userToUpdate.getSkillSet();
 
-//	      	Si la compétence à ajouter n'est pas dans la liste de compétences de l'utilisateur, alors on le mets à jours 
+       //Si la compétence à ajouter n'est pas dans la liste de compétences de l'utilisateur, alors on le mets à jours 
 		if (!(listSkill.contains(skillToAdd))) {
 			listSkill.add(skillToAdd);
 			userToUpdate.setSkillSet(listSkill);
 			this.userService.saveOrUpdateUser(userToUpdate);
 			return new ResponseEntity<Skill>(skillToAdd, HttpStatus.OK);
-
 		}
-//			Dans le cas contraire on renvoie une exception
+			//Dans le cas contraire on renvoie une exception
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-
+		@GetMapping(value = "/users/{id}/skills")
+		public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
+			Set<Skill> listSkills = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getSkillSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
+		}
+		@GetMapping(value = "/users/{id}/Qualifications")
+		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
+			Set<Qualification> listQualifications = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getQualificationSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
+		}
+		@GetMapping(value = "/users/{id}/Subscription")
+		public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
+			Set<Subscription> listSubscription = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getSubscriptionSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
+		}
+		
 //	@GetMapping(value = "users/{id}/skills")
 //	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
 //		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
@@ -288,7 +314,7 @@ public class UserController {
 //	}
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "users/{id}/skills")
-	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
 			return user.getSkillSet();
 		}).orElseThrow(
