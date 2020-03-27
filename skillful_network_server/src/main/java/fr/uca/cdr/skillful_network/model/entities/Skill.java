@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -69,10 +70,18 @@ public class Skill {
 	
 //	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
-	@Override
-	public String toString() {
-		return "Skill [id=" + id + ", name=" + name + ", userList=" + userList + "]";
-	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
+	//@Override
+	//public String toString() {
+	//	return "Skill [id=" + id + ", name=" + name + ", userList=" + userList + ", getId()=" + getId() + ", getName()="
+		//		+ getName() + ", getUserList()=" + getUserList() + ", hashCode()=" + hashCode() + ", getClass()="
+		//		+ getClass() + ", toString()=" + super.toString() + "]";
+	//}
+
 	
 }

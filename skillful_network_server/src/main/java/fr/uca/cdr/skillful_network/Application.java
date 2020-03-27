@@ -32,6 +32,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+
 	@Bean
 	@Profile("dev")
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
@@ -98,6 +99,12 @@ public class Application {
 		};
 	}
 
+<<<<<<< HEAD
+=======
+
+}
+
+>>>>>>> feature/aab/linkBackFrontDisplayUser
 //	@Bean
 //	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
 //		return args -> {
@@ -113,5 +120,9 @@ public class Application {
 //			}
 //		};
 //	}
+<<<<<<< HEAD
 }
+=======
+
+>>>>>>> feature/aab/linkBackFrontDisplayUser
 
