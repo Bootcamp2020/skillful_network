@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   public password: string;
   
 
-  // Variable de type Regex pour la validation d'un email (def email)
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
 
   // Définitions des FormControl et FormGroup pour les 2 formulaires : Inscription et Login
@@ -53,14 +52,14 @@ export class LoginComponent implements OnInit {
     this.buildFormInscription();
     this.buildFormLogin();
     this.codeFormBuild();
-    
+
   }
   login() {
     console.log(this.loginFormGroup.value);
-    //if (this.loginFormGroup.invalid) {
+    // if (this.loginFormGroup.invalid) {
     //  return;
-    //}        
-    //Verification que l'email corresponde au bon password
+    // }
+    // Verification que l'email corresponde au bon password
     let verifCode = false;
     // On parcourt notre "base²"
     DATA_TAB.forEach((email) => {
@@ -78,7 +77,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', 'X'); // TODO Gérer le token
       this.router.navigate(['../home']);
     }
-    //  Code initial du component 
+    //  Code initial du component
     // Permet de vider le local storage
     // localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
     // this.api.post({endpoint: '/login', data: this.email, this.password})
@@ -96,10 +95,11 @@ export class LoginComponent implements OnInit {
 
   register() {
     // Permet de vider le local storage
+    // tslint:disable-next-line:max-line-length
     localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
     console.log(this.inscriptionFormGroup.value.emailInscription);
     // variable qui va permettre la vérification de l'email
-    let verifEmail = false;
+    const verifEmail = false;
 
     // Commenté en attendant la liaison avec le back
     this.api.post({ endpoint: '/register', data: { email: this.inscriptionFormGroup.value.emailInscription } })
@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
       }).catch((error) => {
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
         this.doDisplayCodeVerif = true;
-      })
+      });
     /* Reset form. */
     // this.buildFormInscription();
   }
@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
     console.log(this.codeForm.value.code);
     console.log(this.inscriptionFormGroup.value.emailInscription);
     // variable qui va permettre la vérification du code
-    let verifCode = false;
+    const verifCode = false;
 
     // Commenté en attendant la liaison avec le back
     this.api.post({ endpoint: '/login', data: { password: this.codeForm.value.code, email: this.inscriptionFormGroup.value.emailInscription } })
@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
       }).catch((error) => {
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
         this.doDisplayCodeVerif = true;
-      })
+      });
   }
 
   // Création du formulaire inscription avec un seul champ email
@@ -158,4 +158,4 @@ export class LoginComponent implements OnInit {
     });
   }
 
-};
+}

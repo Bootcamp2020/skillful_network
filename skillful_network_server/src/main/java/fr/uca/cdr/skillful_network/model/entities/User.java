@@ -31,7 +31,7 @@ public class User {
 	private String mobileNumber;
 	private String status;
 	private boolean validated = false;
-
+    private String careerGoal;
 	private boolean photo= false;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill>skillSet = new HashSet<Skill>();
@@ -70,7 +70,7 @@ public class User {
 	}  
   
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
-				String mobileNumber, int status, boolean photo) {
+				String mobileNumber, int status, boolean photo, String careerGoal) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -82,6 +82,7 @@ public class User {
 		this.status = Status.fromId(status);
 		this.photo = photo;
 		this.validated = true;
+		this.careerGoal = careerGoal;
 	}
 
   public User(long id,
@@ -92,7 +93,7 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -108,13 +109,8 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-
-
+		this.trainingApplicationSet = trainingApplicationSet;
 		this.roles = roles;
-
-	    this.trainingApplicationSet = trainingApplicationSet;
-	    
-
 	}
 
 	public long getId() {
@@ -179,6 +175,16 @@ public class User {
 
 	public void setValidated(boolean validated) {
 		this.validated = validated;
+	}
+	 
+	
+
+	public String getCareerGoal() {
+		return careerGoal;
+	}
+
+	public void setCareerGoal(String careerGoal) {
+		this.careerGoal = careerGoal;
 	}
 
 	public boolean isPhoto() {
@@ -251,7 +257,7 @@ public class User {
 				"] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
 				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
 				", status=" + status + ", validated=" + validated +
-				", photo=" + photo + ", " +
+				", careerGoal=" + careerGoal +", photo=" + photo + ", " +
 				", skillSet=" + skillSet +
 				", qualificationSet=" + qualificationSet +
 				", subscriptionSet=" + subscriptionSet +
