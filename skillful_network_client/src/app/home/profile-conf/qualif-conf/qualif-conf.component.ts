@@ -20,6 +20,7 @@ export class QualifConfComponent implements OnInit {
   qualifs:string[];
   public listQualif: Qualif[];
   public qualif: string;
+  isLoading:boolean;
   
 
   constructor(private formBuilder: FormBuilder , private service : UserService) {
@@ -29,14 +30,17 @@ export class QualifConfComponent implements OnInit {
   ngOnInit(): void {
     this.listQualif =  this.userQualList;
     this.qualifInfoGroup.value['qualificationSet'] = this.listQualif;
-    console.log(this.qualifInfoGroup);  
     this.qualifInfoGroup.valueChanges.subscribe(data=>{
+      this.isLoading=false;
       this.qualifs = []
       if (data.qualifUnit.length >1){
+        this.isLoading=true;
         this.service.findByContain("qualifications",data.qualifUnit).then(
           datas=>{
-            for(let id in datas)
+            for(let id in datas){
             this.qualifs.push(datas[id].name)  
+            }
+            this.isLoading = false;
           }
         )
       }
