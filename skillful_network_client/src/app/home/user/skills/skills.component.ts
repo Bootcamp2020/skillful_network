@@ -17,7 +17,7 @@ export class SkillsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-this.route.snapshot.params;
+     const {id} =this.route.snapshot.params;
     console.log(id);
     this.api.get({endpoint: `/users/${id}/skills`})
         .then(data => this.listSkill = data)
