@@ -1,0 +1,16 @@
+<div class="card_dashboard mat-elevation-z4">
+    <mat-card >
+        <mat-card-header  id="title">
+            <mat-card-title  id="title_police">Formations Associées</mat-card-title>
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <div *ngFor="let post of listPosts">
+                <p>{{post.titreOffre}}</p>
+                <P>Pré-requis: {{post.presRequis}}</P>
+                <p>Compétence en fin de formation: {{post.competence}}</p>
+                <P>Durée: {{post.duree}} heure(s)</P>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

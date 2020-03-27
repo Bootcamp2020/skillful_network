@@ -1,22 +1,27 @@
 <div class="card_dashboard mat-elevation-z4">
     <div class='row'>
-        <mat-card >
+        <mat-card class="slop-display-container" >
             <mat-card-header id="title">
                 <mat-card-title id="title_police">Abonnements </mat-card-title>
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listSubscript" class="subscript">{{post.subscript}}</mat-chip>
+                <mat-chip *ngFor="let post of listSubscript" class="subscript">{{post.name}}</mat-chip>
             </mat-chip-list>
         </mat-card>
     </div>
       
-    <form [formGroup]="addSubscriptFormGroup" (submit)="addSubscript()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form [formGroup]="subscriptInfoGroup" (submit)="addSubscript()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column' fxFlex="40">
                 <mat-form-field>
                     <mat-label>Nouvel abonnement</mat-label>
-                    <input formControlName="newSubscript" matInput placeholder="abonnement" class="form-control">
+                    <input formControlName="subscriptUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
+                          {{subscript}}
+                        </mat-option>
+                      </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="20">

@@ -21,7 +21,7 @@ export class SubscriptComponent implements OnInit {
   ngOnInit(): void {
     this.listSubscript = [];
     MOCK_SUBSCRIPT.forEach((subscriptu: IPost) => {
-      this.listSubscript.push(new Subscript(subscriptu));
+      this.listSubscript.push(new Subscript(subscriptu.toString()));
     });
   }
 }

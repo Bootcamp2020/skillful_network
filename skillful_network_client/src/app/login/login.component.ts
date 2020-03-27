@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   public email: string;
   public error: boolean;
   public password: string;
-  public position: number;
+  
 
   // Variable de type Regex pour la validation d'un email (def email)
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -104,6 +104,7 @@ export class LoginComponent implements OnInit {
     // Commenté en attendant la liaison avec le back
     this.api.post({ endpoint: '/register', data: { email: this.inscriptionFormGroup.value.emailInscription } })
       .then(() => {
+        
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
       }).catch((error) => {
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
@@ -121,7 +122,7 @@ export class LoginComponent implements OnInit {
     let verifCode = false;
 
     // Commenté en attendant la liaison avec le back
-    this.api.post({ endpoint: '/login', data: { code: this.codeForm.value.code, email: this.inscriptionFormGroup.value.emailInscription } })
+    this.api.post({ endpoint: '/login', data: { password: this.codeForm.value.code, email: this.inscriptionFormGroup.value.emailInscription } })
       .then(() => {
         this.router.navigate(['./home']);
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet

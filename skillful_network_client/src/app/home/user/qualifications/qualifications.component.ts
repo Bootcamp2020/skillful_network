@@ -24,7 +24,7 @@ export class QualificationsComponent implements OnInit {
    
     this.listQualif = [];
     MOCK_QUALIF.forEach((qualifu: IPost) => {
-      this.listQualif.push(new Qualif(qualifu));
+      this.listQualif.push(new Qualif(qualifu.toString()));
     });  
   }
 

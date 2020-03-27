@@ -42,9 +42,9 @@ public class QualificationController {
 			return qualificationservice.getQualificationByPrefix(prefix);
 		}
 	}
-	
+	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@GetMapping(value = "/qualifications/candidates")
-	public List<Qualification>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+	public List<Qualification>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
 		// Get subscriptions list
 		List<Qualification> qualifications = qualificationservice.getAllQualifications();
 		
