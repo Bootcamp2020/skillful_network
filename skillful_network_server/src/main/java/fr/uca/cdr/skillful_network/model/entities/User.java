@@ -14,11 +14,11 @@ import java.util.Set;
 public class User {
 
 	@Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-  @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-  private String firstName;
-  @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+	private String firstName;
+	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -108,8 +108,8 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-	    this.trainingApplicationSet = trainingApplicationSet;
-	    this.roles = roles;
+		this.trainingApplicationSet = trainingApplicationSet;
+		this.roles = roles;
 	}
 
 	public long getId() {
@@ -231,8 +231,7 @@ public class User {
 	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
 		this.trainingApplicationSet = trainingApplicationSet;
 	}
-	
-
+    
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -243,13 +242,16 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
-				+ status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet
-				+ ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet
-				+ ", jobApplicationSet=" + jobApplicationSet + ", trainingApplicationSet=" + trainingApplicationSet
-				+ ", roles=" + roles + "]";
+		return "User [" + id +
+				"] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
+				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
+				", status=" + status + ", validated=" + validated +
+				", photo=" + photo + ", " +
+				", skillSet=" + skillSet +
+				", qualificationSet=" + qualificationSet +
+				", subscriptionSet=" + subscriptionSet +
+				", jobApplicationSets=" + jobApplicationSet +
+				", trainingApplicationSet=" + trainingApplicationSet +
+				", roles=" + roles + "]";
 	}
-
-	
 }
