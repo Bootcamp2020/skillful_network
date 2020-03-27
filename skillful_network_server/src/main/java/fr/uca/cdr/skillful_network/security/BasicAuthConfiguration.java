@@ -39,7 +39,7 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
           .authorizeRequests()
           .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()
-          .antMatchers("/home", "/login", "/token", "/login/v1" , "/register","/upload","/skills/*" , "/qualifications/*","/subscriptions/*","/usersbyId/{id}","/users", "/users/{id}/skills","/users/{userId}/skills/{skillId}","/users/{id}/Qualifications","/users/{id}/Subscription", "/applications/jobs", "/applications/jobs/{id}/joboffer","/applications/jobs/bonjour") // les pages/requêtes /home, /login et /token sont accessibles sans authentifications (pour pouvoir s'identifier).
+          .antMatchers("/home", "/login", "/token", "/login/v1" , "/register","/upload","/skills/*" , "/qualifications/*","/subscriptions/*","/usersbyId/{id}","/users", "/users/{id}/skills","/users/{userId}/skills/{skillId}","/users/{id}/Qualifications","/users/{id}/Subscription", "/applications/jobs", "/applications/jobs/{id}/joboffer","/applications/jobs/bonjour","/users/**") // les pages/requêtes /home, /login et /token sont accessibles sans authentifications (pour pouvoir s'identifier).
 
                 .permitAll()
           .anyRequest()
