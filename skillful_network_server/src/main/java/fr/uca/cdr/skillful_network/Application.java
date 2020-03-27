@@ -99,12 +99,11 @@ public class Application {
 		};
 	}
 
-<<<<<<< HEAD
-=======
 
-}
 
->>>>>>> feature/aab/linkBackFrontDisplayUser
+
+
+
 //	@Bean
 //	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
 //		return args -> {
@@ -120,9 +119,5 @@ public class Application {
 //			}
 //		};
 //	}
-<<<<<<< HEAD
 }
-=======
-
->>>>>>> feature/aab/linkBackFrontDisplayUser
 
