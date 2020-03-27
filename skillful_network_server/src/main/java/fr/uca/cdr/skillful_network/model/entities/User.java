@@ -92,7 +92,7 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -109,7 +109,7 @@ public class User {
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
 	    this.trainingApplicationSet = trainingApplicationSet;
-	    this.roles = roles;
+	    
 	}
 
 	public long getId() {

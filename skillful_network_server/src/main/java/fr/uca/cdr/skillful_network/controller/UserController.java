@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,12 +64,14 @@ public class UserController {
 	public UserController(UserRepository repository) {
 		this.repository = repository;
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/users")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/users/")
 	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {
@@ -78,7 +81,7 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
-
+	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@PutMapping(value = "/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
@@ -105,7 +108,8 @@ public class UserController {
 
 		}
 	}
-
+	
+	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@PutMapping(value = "/usersModifPassword/{id}")
 	public ResponseEntity<User> updateUserPassword(@PathVariable(value = "id") long id,
@@ -125,7 +129,8 @@ public class UserController {
 
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
 			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
 	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
@@ -138,6 +143,7 @@ public class UserController {
 		return "File is upload successfully" + image.getOriginalFilename();
 	}
 	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable Long id) {
 
@@ -174,7 +180,7 @@ public class UserController {
 //			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : "+skillId+" n'est pas dans la liste de compétences de l'utilisateur avec l'id : "+userId);
 //		}
 //	}
-
+	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/users/{userId}/skills/{skillName}")
 	public ResponseEntity<Skill> getOneSkillByNameByUser(@PathVariable(value = "userId") Long userId,
 			@PathVariable(value = "skillName") String skillName) {
@@ -189,7 +195,7 @@ public class UserController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune compétence trouvée avec le nom : " + skillName));
 
-//		On récupère le liste de compétences de l'utilisateur
+//		On récupère la liste de compétences de l'utilisateur
 		Set<Skill> userSkills = userFromDb.getSkillSet();
 
 //		Si la compétence de la bdd est contenue dans la liste de l'utilisateur, on la renvoie
@@ -202,7 +208,7 @@ public class UserController {
 					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + userId);
 		}
 	}
-
+	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@DeleteMapping("/users/{userId}/skills/{skillId}")
 	public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "userId") Long id,
@@ -233,7 +239,8 @@ public class UserController {
 					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-
+	
+	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@PostMapping("/users/{userId}/skills/{skillId}")
 	public ResponseEntity<Skill> setSkillbyId(@PathVariable(value = "userId") Long id,
@@ -274,7 +281,7 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
-
+	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "users/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
