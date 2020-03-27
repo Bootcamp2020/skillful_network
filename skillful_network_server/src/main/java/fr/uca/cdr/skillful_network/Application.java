@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
@@ -33,6 +34,7 @@ public class Application {
 
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -44,6 +46,7 @@ public class Application {
 	}
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
 		return args -> {
 			if (jobOfferRepository.findAll().isEmpty()) {
@@ -54,6 +57,7 @@ public class Application {
 	}
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initTrainingRepository(TrainingRepository trainingRepository) {
 		return args -> {
 			if (trainingRepository.findAll().isEmpty()) {
@@ -63,6 +67,7 @@ public class Application {
 	}
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initSkillRepository(SkillRepository SkillRepository) {
 		return args -> {
 			if (SkillRepository.findAll().isEmpty()) {
@@ -72,6 +77,7 @@ public class Application {
 	}
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initQualificationRepository(QualificationRepository QualificationRepository) {
 		return args -> {
 			if (QualificationRepository.findAll().isEmpty()) {
@@ -82,6 +88,7 @@ public class Application {
 	}
 
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initSubscriptionRepository(SubscriptionRepository subscriptionRepository) {
 		return args -> {
 			if (subscriptionRepository.findAll().isEmpty()) {

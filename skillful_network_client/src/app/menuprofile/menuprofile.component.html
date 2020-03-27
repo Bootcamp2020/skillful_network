@@ -7,20 +7,25 @@
         <p><a [routerLink]="['/home/profile']" class="lienProfile" href="https://www.google.com/">Profil</a></p>
         <p><a [routerLink]="['/home']" class="lienProfile" href="https://www.google.com/">Candidatures</a></p>
         <p><a [routerLink]="['/home/users-list']" class="lienProfile" href="https://www.google.com/">Utilisateurs</a></p>
-        <p><a [routerLink]="['/home/offre/1']" class="lienProfile" href="https://www.google.com/">Offres d'emploi</a></p>
-        <p><a [routerLink]="['/home/offre/1']" class="lienProfile" href="https://www.google.com/">Offres de formation</a></p>
+        <p><a [routerLink]="['/home/job-offer-list']" class="lienProfile" href="https://www.google.com/">Offres d'emploi</a></p>
+        <p><a [routerLink]="['/home/formation-list']" class="lienProfile" href="https://www.google.com/">Offres de formation</a></p>
         <p><a [routerLink]="['/home']" class="lienProfile" href="https://www.google.com/">Contact</a></p>
     </div>
 </div>
 <div class="divIcons" fxLayout="column">
+    <a [routerLink]="['/home/profile']"><i class="divIcons material-icons iconsProfile" matTooltip="Profil" matTooltipPosition="right">
+        account_circle
+    </i></a>
+    <a [routerLink]="['/home']"><i class="divIcons material-icons iconsProfile" matTooltip="Candidature" matTooltipPosition="right">
+        create
+    </i></a>
     <a [routerLink]="['/home/users-list']"><i class="divIcons material-icons iconsProfile" matTooltip="Utilisateurs" matTooltipPosition="right">
         settings_ethernet
     </i></a>
-    <a [routerLink]="['/home']"><i class="divIcons material-icons iconsProfile" matTooltip="Offres d'emploi" matTooltipPosition="right">
-        </i></a>
-    <a [routerLink]="['/home/offre/1']"><i class="divIcons material-icons iconsProfile" matTooltip="Offres d'emploi" matTooltipPosition="right">
+    <a [routerLink]="['/home/job-offer-list']"><i class="divIcons material-icons iconsProfile" matTooltip="Offres d'emploi" matTooltipPosition="right">
+        file_copy
     </i></a>
-    <a [routerLink]="['/home/offre/1']"><i class="divIcons material-icons iconsProfile" matTooltip="Offres de formation" matTooltipPosition="right">
+    <a [routerLink]="['/home/formation-list']"><i class="divIcons material-icons iconsProfile" matTooltip="Offres de formation" matTooltipPosition="right">
         menu_book
     </i></a>
     <a [routerLink]="['/']"><i class="divIcons material-icons iconsProfile" matTooltip="Contact" matTooltipPosition="right">

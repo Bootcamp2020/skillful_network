@@ -15,6 +15,7 @@ export class SubscriptComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const {id} = this.route.snapshot.params;
     console.log(id);
     // @ts-ignore

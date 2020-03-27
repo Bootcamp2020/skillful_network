@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.model.services;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.tools.PageTool;
@@ -20,9 +21,7 @@ public interface UserService {
 
 	void sendMail(String mail, String code);
 
-
 	String createRepoImage();
-
 
 	Boolean updateImage();
 
@@ -34,7 +33,8 @@ public interface UserService {
 	 */
 	Optional<User> findByEmail(String mail);
 
-
 	Page<User> getPageOfEntities(PageTool pageTool);
+
+	Page<User> searchUsersByKeyword(Pageable pageable, String keyword);
 
 }

@@ -1,24 +1,34 @@
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Date de Naissance</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>
-          <a [routerLink]="['/user', user.id]" class="btn btn-info">{{ user.id }}</a>
-        </td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.birthDate }}</td>
-      </tr>
-      </tbody>
-    </table>
+<div class ="userTable" class = "mat-elevation-z8">
+  <div id="title">
+          <h1 id="title_police">Liste des utilisateurs</h1>
   </div>
+    <hr> 
+
+  <table mat-table  #table [dataSource]="dataSource" >
+
+          <!-- Name Column -->
+
+      <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef> Prénom </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="birthDate">
+          <mat-header-cell *matHeaderCellDef> Date de naissance </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.birthDate | date}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+          <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+          <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user-list/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
+</table>
 </div>

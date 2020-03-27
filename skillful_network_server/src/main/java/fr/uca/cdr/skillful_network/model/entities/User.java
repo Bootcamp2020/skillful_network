@@ -5,12 +5,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +30,7 @@ public class User {
     @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
     private String firstName;
     @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -48,6 +53,17 @@ public class User {
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//,mappedBy="SubstrictionsSihem")//, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<JobApplication> jobApplicationSet = new HashSet<>();
+  
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+	private Set<Role> roles = new HashSet<>();
+
 
 	public User() {
 		super();
@@ -121,6 +137,17 @@ public class User {
 		super();
 		this.password = password;
 		this.email = email;
+		this.mobileNumber = mobileNumber;
+		this.status = status;
+		this.validated = validated;
+		this.photo = photo;
+		this.skillSet = skillSet;
+		this.qualificationSet = qualificationSet;
+		this.subscriptionSet = subscriptionSet;
+		this.jobApplicationSet = jobApplicationSet;
+		this.roles = roles;
+	    this.trainingApplicationSet = trainingApplicationSet;
+
 	}
 
 	public long getId() {
@@ -186,17 +213,30 @@ public class User {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status=" + status + ", validated=" + validated + ", photo=" + photo + ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + ", subscriptionSet=" + subscriptionSet + "]";
+    
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	@Override
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public int hashCode() {
 		return Objects.hash(id, lastName);
+	}
+	public String toString() {
+		return "User [" + id +
+				"] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
+				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
+				", status=" + status + ", validated=" + validated +
+				", photo=" + photo + ", " +
+				", skillSet=" + skillSet +
+				", qualificationSet=" + qualificationSet +
+				", subscriptionSet=" + subscriptionSet +
+				", jobApplicationSets=" + jobApplicationSet +
+				", trainingApplicationSet=" + trainingApplicationSet +
+				", roles=" + roles + "]";
 	}
 
 }
@@ -450,3 +490,4 @@ public class User {
 //				", trainingApplicationSet=" + trainingApplicationSet + "]";
 //	}
 //}
+

@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
     styleUrls: ['./details-user.component.scss']
 })
 export class DetailsUserComponent implements OnInit {
+
     public user: User;
     public statusUser: string;
     public loading:boolean;

@@ -1,36 +1,49 @@
-import { MatLine } from '@angular/material/core';
+import { LoginComponent } from 'src/app/login/login.component';
+import { Skill } from './skill';
+import { Qualif } from './qualif';
+import { Subscript } from './subscript';
+import { Subscription } from 'rxjs';
 
 export class User {
-
-  /* Ajouter les attribut pour creer le component User profil*/
   private _id: number;
-  private _name: string;
   private _firstName: string;
+  private _lastName: string;
+  private _password: string;
   private _email: string;
   private _birthDate: string;
-  private _status: string;
-  private _mobileNumber: string;
   private _qualification: string;
   private _competences: string[];
+  private _mobileNumber: string;
+  private _status: string;
+  private _validated: boolean;
+  private _photo: boolean;
+  private _skillSet: Skill[];
+  private _qualificationSet : Qualif[];
+  private _subscriptionSet : Subscript[];
   private _photoProfile: string;
+
   private _careerGoal: string;
-   /*private _interest:string;*/
   constructor(data: any) {
     this.id = data.id;
-    this.name = data.name;
     this.firstName = data.firstName;
+
     this.email = data.email;
     this.status = data.status;
-    this.qualification = data.qualification;
-    this.mobileNumber = data.mobile;
-    this.birthDate = data.birthDate;
-    this.competences = data.competences;
-    /*this.interest=data.interest;*/
+    this._qualification = data.qualification;
+    this.lastName = data.lastName;
+    this.password = data.password;
+    this._birthDate = data.birthDate;
+    this.email = data.email;
+    this._mobileNumber = data.mobileNumber;
+    this.status = data.status;
+    this.validated = data.validated;
+    this.photo = data.photo;
+    this.skillSet = data.skillSet;
+    this.qualificationSet = data.qualificationSet;
+    this.subscriptionSet = data.subscriptionSet;
     this.photoProfile = data.photoProfile;
     this.careerGoal = data.careerGoal;
   }
-
-
   /* GETTERS & SETTERS */
   public get id(): number {
     return this._id;
@@ -38,25 +51,36 @@ export class User {
   public set id(value: number) {
     this._id = value;
   }
-  public get name(): string {
-    return this._name;
-  }
-  public set name(value: string) {
-    this._name = value;
-  }
   public get firstName(): string {
     return this._firstName;
   }
   public set firstName(value: string) {
     this._firstName = value;
   }
+  public get lastName(): string {
+    return this._lastName;
+  }
+  public set lastName(value: string) {
+    this._lastName = value;
+  }
+  public get password(): string {
+    return this._password;
+  }
+  public set password(value: string) {
+    this._password = value;
+  }
+ /* get birthDate(): Date {
+    return this._birthDate;
+  }
+  set birthDate(value: Date) {
+    this._birthDate = value;
+  }*/
   public get email(): string {
     return this._email;
   }
   public set email(value: string) {
     this._email = value;
   }
-
   public get status(): string {
     return this._status;
   }
@@ -64,17 +88,43 @@ export class User {
     this._status = value;
   }
 
-  public get qualification(): string {
-    return this._qualification;
+    public get mobileNumber(): string {
+    return this._mobileNumber;
   }
-  public set qualification(value: string) {
-    this._qualification = value;
+  public set mobileNumber(value: string) {
+    this._mobileNumber = value;
+
   }
-  public get competences(): string[] {
-    return this._competences;
+  public get validated(): boolean {
+    return this._validated;
   }
-  public set competences(value: string[]) {
-    this._competences = value;
+  public set validated(value: boolean) {
+    this._validated = value;
+  }
+  public get photo(): boolean {
+    return this._photo;
+  }
+  public set photo(value: boolean) {
+    this._photo = value;
+  }
+  public get skillSet(): Skill[] {
+    return this._skillSet;
+  }
+  public set skillSet(value: Skill[]) {
+    this._skillSet = value;
+  }
+
+  public get qualificationSet(): Qualif[] {
+    return this._qualificationSet;
+  }
+  public set qualificationSet(value: Qualif[]) {
+    this._qualificationSet = value;
+  }
+  public get subscriptionSet(): Subscript[] {
+    return this._subscriptionSet;
+  }
+  public set subscriptionSet(value: Subscript[]) {
+    this._subscriptionSet = value;
   }
   public get photoProfile(): string {
     return this._photoProfile;
@@ -82,27 +132,10 @@ export class User {
   public set photoProfile(value: string) {
     this._photoProfile = value;
   }
-  get birthDate(): string {
-    return this._birthDate;
-  }
-
-  set birthDate(value: string) {
-    this._birthDate = value;
-  }
-  get mobileNumber(): string {
-    return this._mobileNumber;
-  }
-
-  set mobileNumber(value: string) {
-    this._mobileNumber = value;
-  }
-
   public get careerGoal(): string {
     return this._careerGoal;
   }
   public set careerGoal(value: string) {
     this._careerGoal = value;
   }
-
-
 }

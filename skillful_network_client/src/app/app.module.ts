@@ -23,6 +23,7 @@ import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
+import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
@@ -36,6 +37,8 @@ import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.compo
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
 import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
 import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
+import { UserService } from './shared/services/user.service';
+import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
 
 import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/user/subscript/subscript.component';
@@ -47,6 +50,11 @@ import { ExigencesComponent } from './home/offre/exigences/exigences.component';
 import { CandidaterComponent } from './home/offre/candidater/candidater.component';
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
+import { FormationListComponent } from './home/formation-list/formation-list.component';
+import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
+
 
 
 
@@ -59,6 +67,7 @@ import {OffreComponent} from './home/offre/offre.component';
         UserComponent,
         UsersListComponent,
         PasswordConfirmationComponent,
+        PasswordForgottenComponent,
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
@@ -73,6 +82,7 @@ import {OffreComponent} from './home/offre/offre.component';
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent,
+        UserlistComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
@@ -83,7 +93,10 @@ import {OffreComponent} from './home/offre/offre.component';
         CandidaterComponent,
         InformationsComponent,
         OffreComponent,
-    ],
+        FormationListComponent,
+        JobOfferListComponent,
+        ],
+
     imports: [
         BrowserModule,
         AppRoutingModule, // Toutes nos routes sont définies dans ce module
@@ -93,8 +106,7 @@ import {OffreComponent} from './home/offre/offre.component';
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatFormFieldModule,
-        
+        MatFormFieldModule
     ],
 
     providers: [
@@ -108,8 +120,11 @@ import {OffreComponent} from './home/offre/offre.component';
             useClass: TokenHttpInterceptorService,
             multi: true
         },
+        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() },
+        UserService
     ],
     bootstrap: [AppComponent]
+    
 })
 export class AppModule {
 }

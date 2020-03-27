@@ -16,6 +16,7 @@ export class QualificationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const {id} = this.route.snapshot.params;
     console.log(id);
     // @ts-ignore
@@ -24,6 +25,7 @@ export class QualificationsComponent implements OnInit {
         .catch((error) => {
           console.log('cet utilisateur n\'existe pas');
         });
+
   }
 
 }

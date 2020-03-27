@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
-
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-users-list',
@@ -14,7 +14,12 @@ export class UsersListComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
+  displayedColumns = ['firstName', 'lastName','birthDate', 'details'];
+  dataSource;
+  
   ngOnInit() {
-    this.userService.findAll().then((users: User[]) => this.users = users);
+    this.userService.findAll().then(res => {
+      this.dataSource = new MatTableDataSource<User>(res);
+    });
   }
 }
