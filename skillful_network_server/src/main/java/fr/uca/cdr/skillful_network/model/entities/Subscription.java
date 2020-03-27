@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Subscription {
 	private Long id;
 	@NotNull(message = "Subscription name cannot be null")
 	@Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters")
+	@Column(name="name", nullable=false)
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "subscriptionSet")
@@ -81,9 +83,14 @@ public class Subscription {
 
 //	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 
+	//@Override
+	//public String toString() {
+	//	return "Subscription [id=" + id + ", name=" + name + ", userList=" + userList + "]";
+	//}
+	
 	@Override
-	public String toString() {
-		return "Subscription [id=" + id + ", name=" + name + ", userList=" + userList + "]";
+	public int hashCode() {
+		return Objects.hash(id, name);
 	}
 
 }

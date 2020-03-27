@@ -9,8 +9,10 @@ export class User {
   private _firstName: string;
   private _lastName: string;
   private _password: string;
-  private _birthDate: Date;
   private _email: string;
+  private _birthDate: string;
+  private _qualification: string;
+  private _competences: string[];
   private _mobileNumber: string;
   private _status: string;
   private _validated: boolean;
@@ -19,16 +21,20 @@ export class User {
   private _qualificationSet : Qualif[];
   private _subscriptionSet : Subscript[];
   private _photoProfile: string;
-  private _careerGoal: string;  
 
+  private _careerGoal: string;
   constructor(data: any) {
     this.id = data.id;
     this.firstName = data.firstName;
+
+    this.email = data.email;
+    this.status = data.status;
+    this._qualification = data.qualification;
     this.lastName = data.lastName;
     this.password = data.password;
-    this.birthDate = data.birthDate;
+    this._birthDate = data.birthDate;
     this.email = data.email;
-    this.mobileNumber = data.mobileNumber;
+    this._mobileNumber = data.mobileNumber;
     this.status = data.status;
     this.validated = data.validated;
     this.photo = data.photo;
@@ -38,9 +44,6 @@ export class User {
     this.photoProfile = data.photoProfile;
     this.careerGoal = data.careerGoal;
   }
-
-  
-
   /* GETTERS & SETTERS */
   public get id(): number {
     return this._id;
@@ -66,29 +69,31 @@ export class User {
   public set password(value: string) {
     this._password = value;
   }
-  get birthDate(): Date {
+ /* get birthDate(): Date {
     return this._birthDate;
   }
   set birthDate(value: Date) {
     this._birthDate = value;
-  }
+  }*/
   public get email(): string {
     return this._email;
   }
   public set email(value: string) {
     this._email = value;
   }
-  get mobileNumber(): string {
-    return this._mobileNumber;
-  }
-  set mobileNumber(value: string) {
-    this._mobileNumber = value;
-  }
   public get status(): string {
     return this._status;
   }
   public set status(value: string) {
     this._status = value;
+  }
+
+    public get mobileNumber(): string {
+    return this._mobileNumber;
+  }
+  public set mobileNumber(value: string) {
+    this._mobileNumber = value;
+
   }
   public get validated(): boolean {
     return this._validated;
@@ -108,6 +113,7 @@ export class User {
   public set skillSet(value: Skill[]) {
     this._skillSet = value;
   }
+
   public get qualificationSet(): Qualif[] {
     return this._qualificationSet;
   }
