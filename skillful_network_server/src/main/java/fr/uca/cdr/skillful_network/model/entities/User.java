@@ -51,6 +51,17 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private CodeTemporaire codeTemporaire;
+
+	public CodeTemporaire getCodeTemporaire() {
+		return codeTemporaire;
+	}
+
+	public void setCodeTemporaire(CodeTemporaire codeTemporaire) {
+		this.codeTemporaire = codeTemporaire;
+	}
 
 	public User() {
 		super();
@@ -92,7 +103,7 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -108,13 +119,8 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-
-
+		this.trainingApplicationSet = trainingApplicationSet;
 		this.roles = roles;
-
-	    this.trainingApplicationSet = trainingApplicationSet;
-	    
-
 	}
 
 	public long getId() {

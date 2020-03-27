@@ -1,9 +1,6 @@
 package fr.uca.cdr.skillful_network.controller;
 
-
-
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 
 import java.util.Optional;
 
@@ -22,8 +19,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.jwt.JwtProvider;
 import fr.uca.cdr.skillful_network.jwt.response.JwtResponse;
+import fr.uca.cdr.skillful_network.model.entities.CodeTemporaire;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.repositories.CodeTemporaireRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.model.services.CodeTemporaireService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
@@ -39,20 +39,21 @@ import fr.uca.cdr.skillful_network.security.CodeGeneration;
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
 
-	
-     @Autowired
-     private UserRepository userRepository;
-     
-     @Autowired
-     private UserService userService;
-     
-     @Value("${spring.profiles.active}")
-     private String activeProfil;
-     
-     @Autowired
- 	 private JwtProvider jwtProv;
-     
-     
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private CodeTemporaireService codeTemporaireService;
+
+	@Value("${spring.profiles.active}")
+	private String activeProfil;
+
+	@Autowired
+	private JwtProvider jwtProv;
+
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
@@ -63,22 +64,28 @@ public class AuthenticationController {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
 				Long idFromDB = userFromDB.get().getId();
- 				String emailFromDB= userFromDB.get().getEmail();
+				String emailFromDB = userFromDB.get().getEmail();
 				String passwordFromDB = userFromDB.get().getPassword();
-				String passwordRequest = loginRequest.getPassword();
-				if (passwordRequest != null && !passwordRequest.equals(passwordFromDB)) {
+				CodeTemporaire codeTempo = userFromDB.get().getCodeTemporaire();
+				String codeTempoFromDB = codeTempo.getCodeTempo();
+				String codeTempoRequest = loginRequest.getPassword();
+				
+				final ResponseEntity<String> result = codeTemporaireService.testValidite(codeTempoFromDB);
+				
+				if (codeTempoRequest != null && !codeTempoRequest.equals(result)) {
 					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 							"Les 2 mots de passe ne correspondent pas");
 				} else {
-					// On génère un token en fonction de l'id, l'email et le password de l'utilisateur
- 					String jwt = jwtProv.generateJwtToken(idFromDB, emailFromDB, passwordFromDB);
- 					System.out.println("jwt dans AuthController : "+jwt);
- 					// Pour enlever le b' contenu devant le token et le ' de la fin
- 					jwt = jwt.substring(2,jwt.length()-1);
- 					System.out.println("jwt substring : "+jwt);
- 					
- 					// On retourne une jwt response qui contient le token et l'utilisateur
- 	 				return ResponseEntity.ok(new JwtResponse(jwt, userFromDB.get()));
+					// On génère un token en fonction de l'id, l'email et le password de
+					// l'utilisateur
+					String jwt = jwtProv.generateJwtToken(idFromDB, emailFromDB, passwordFromDB);
+					System.out.println("jwt dans AuthController : " + jwt);
+					// Pour enlever le b' contenu devant le token et le ' de la fin
+					jwt = jwt.substring(2, jwt.length() - 1);
+					System.out.println("jwt substring : " + jwt);
+
+					// On retourne une jwt response qui contient le token et l'utilisateur
+					return ResponseEntity.ok(new JwtResponse(jwt, userFromDB.get()));
 				}
 			}
 		}
@@ -86,7 +93,7 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/register", method = POST)
-	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
+	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user, @Valid @RequestBody CodeTemporaire codeTempo) {
 		if (userService.alreadyExists(user.getEmail())) {
 			if (userService.existingMailIsValidated(user.getEmail()) == true) {
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
@@ -97,11 +104,12 @@ public class AuthenticationController {
 			}
 		}
 		String randomCode = CodeGeneration.generateCode(10);
-        if (activeProfil.contains("prod")) {
+		if (activeProfil.contains("prod")) {
 			// Send Message!
 			userService.sendMail(user.getEmail(), randomCode);
 		}
-		user.setPassword(randomCode);
+		codeTempo.setCodeTempo(randomCode);
+		user.setCodeTemporaire(codeTempo);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
@@ -134,4 +142,6 @@ public class AuthenticationController {
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
+
+	
 }
