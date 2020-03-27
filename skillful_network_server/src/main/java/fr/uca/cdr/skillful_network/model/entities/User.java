@@ -14,11 +14,11 @@ import java.util.Set;
 public class User {
 
 	@Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-  @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-  private String firstName;
-  @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+	private String firstName;
+	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -92,7 +92,6 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
 		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
 		this.id = id;
