@@ -21,71 +21,104 @@ public class TrainingApplicationController {
     @Autowired
     private TrainingApplicationService trainingApplicationService;
 
+    // #########################################################################
+    // Get methods
+    // #########################################################################
+
+    // Provide all applications
     @GetMapping(value = "")
     public ResponseEntity<List<TrainingApplication>> getAllTrainingApplications() {
-        List<TrainingApplication> jobApplications = trainingApplicationService.getAllTrainingApplications();
-        return new ResponseEntity<List<TrainingApplication>>(jobApplications, HttpStatus.OK);
+        List<TrainingApplication> applications = trainingApplicationService.getAllTrainingApplications();
+        return new ResponseEntity<List<TrainingApplication>>(applications, HttpStatus.OK);
     }
 
+    // Provide application by its id
     @GetMapping(value = "/{id}")
     public ResponseEntity<TrainingApplication> getTrainingApplicationById(@PathVariable(value = "id") Long id) {
-        TrainingApplication trainingApplications = trainingApplicationService.getTrainingApplicationById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvé avec l'id : " + id));
-        return new ResponseEntity<TrainingApplication>(trainingApplications, HttpStatus.OK);
+        TrainingApplication application = trainingApplicationService.getTrainingApplicationById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id : " + id));
+        return new ResponseEntity<TrainingApplication>(application, HttpStatus.OK);
     }
 
+    // Provide user of an application by its id
     @GetMapping(value = "/{id}/user")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         User user = trainingApplicationService.getUserById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun user trouvé avec l'id  de candidature : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id de candidature : " + id));
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    // Provide training of an application by its id
     @GetMapping(value = "/{id}/training")
     public ResponseEntity<Training> getTrainingById(@PathVariable(value = "id") Long id) {
         Training training = trainingApplicationService.getTrainingById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune offre d'emploi trouvée avec l'id  de candidature : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune formation trouvée avec l'id de candidature : " + id));
         return new ResponseEntity<Training>(training, HttpStatus.OK);
     }
 
+    // Provide all applications for a user by his id
     @GetMapping(value = "/user/{userId}")
     public ResponseEntity<List<TrainingApplication>> getTrainingApplicationByUser(@PathVariable(value = "userId") Long userId) {
-        List<TrainingApplication> jobApplications = trainingApplicationService.getTrainingApplicationsByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucunes candidatures trouvés avec le user id : " + userId));
-        return new ResponseEntity<List<TrainingApplication>>(jobApplications, HttpStatus.OK);
+        List<TrainingApplication> applications = trainingApplicationService.getTrainingApplicationsByUserId(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id d'utilisateur : " + userId));
+        return new ResponseEntity<List<TrainingApplication>>(applications, HttpStatus.OK);
     }
 
+    // Provide all applications for a training by its id
     @GetMapping(value = "/training/{trainingId}")
     public ResponseEntity<List<TrainingApplication>> getTrainingApplicationByTraining(@PathVariable(value = "trainingId") Long trainingId) {
-        List<TrainingApplication> jobApplications = trainingApplicationService.getTrainingApplicationsByTrainingId(trainingId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucunes candidatures trouvés avec le joOffer id : " + trainingId));
-        return new ResponseEntity<List<TrainingApplication>>(jobApplications, HttpStatus.OK);
+        List<TrainingApplication> applications = trainingApplicationService.getTrainingApplicationsByTrainingId(trainingId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id de formation : " + trainingId));
+        return new ResponseEntity<List<TrainingApplication>>(applications, HttpStatus.OK);
     }
 
+    // #########################################################################
+    // Post methods
+    // #########################################################################
+
+    // Create a new application
     @PostMapping(value = "")
-    public TrainingApplication saveTrainingApplication(@Valid @RequestBody TrainingApplication jobApplication) {
-        return trainingApplicationService.saveOrUpdateTrainingApplication(jobApplication);
+    public TrainingApplication saveTrainingApplication(@Valid @RequestBody TrainingApplication application) {
+        return trainingApplicationService.saveOrUpdateTrainingApplication(application);
     }
 
-    @PutMapping(value = "/{jobApplicationOfferId}/user/{userId}")
-    public ResponseEntity<User> setUserById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "userId") Long userId) {
-        User user = trainingApplicationService.setUserById(jobApplicationOfferId, userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun user trouvé avec le user id : " + userId));
+    // Create a new application with a user and a training
+    @PostMapping(value = "/user/{userId}/training/{trainingId}")
+    public TrainingApplication saveTrainingApplication(@PathVariable(value = "userId") Long userId, @PathVariable(value = "trainingId") Long trainingId) {
+        return trainingApplicationService.saveTrainingApplicationById(userId, trainingId);
+    }
+
+    // #########################################################################
+    // Put methods
+    // #########################################################################
+
+    // Update an application
+    @PutMapping(value = "")
+    public TrainingApplication updateTrainingApplicationn(@Valid @RequestBody TrainingApplication application) {
+        return trainingApplicationService.saveOrUpdateTrainingApplication(application);
+    }
+
+    // Set application's associated user by their ids
+    @PutMapping(value = "/{id}/user/{userId}")
+    public ResponseEntity<User> setUserById(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
+        User user = trainingApplicationService.setUserById(id, userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id : " + userId));
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{jobApplicationOfferId}/training/{trainingId}")
-    public ResponseEntity<Training> setTrainingById(@PathVariable(value = "jobApplicationOfferId") Long jobApplicationOfferId, @PathVariable(value = "trainingId") Long trainingId) {
-        Training training = trainingApplicationService.setTrainingById(jobApplicationOfferId, trainingId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune offre d'emploi trouvé avec le joOffer id : " + trainingId));
+    // Set application's associated training by their ids
+    @PutMapping(value = "/{id}/training/{trainingId}")
+    public ResponseEntity<Training> setTrainingById(@PathVariable(value = "id") Long id, @PathVariable(value = "trainingId") Long trainingId) {
+        Training training = trainingApplicationService.setTrainingById(id, trainingId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune formation trouvée avec l'id : " + trainingId));
         return new ResponseEntity<Training>(training, HttpStatus.OK);
     }
 
-    @PutMapping(value = "")
-    public TrainingApplication updateTrainingApplicationn(@Valid @RequestBody TrainingApplication jobApplication) {
-        return trainingApplicationService.saveOrUpdateTrainingApplication(jobApplication);
-    }
+    // #########################################################################
+    // Delete methods
+    // #########################################################################
 
+    // Delete an application
     @DeleteMapping(value = "/{id}")
     public void deleteTrainingApplication(@PathVariable(value = "id") Long id) {
         trainingApplicationService.deleteTrainingApplication(id);
