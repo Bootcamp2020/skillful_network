@@ -277,15 +277,7 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-		@GetMapping(value = "/users/{id}/skills")
-		public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
-			Set<Skill> listSkills = this.userService.getUserById(id)
-					.map((user) -> {
-						return user.getSkillSet();})
-					.orElseThrow(
-						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-			return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
-		}
+		
 		@GetMapping(value = "/users/{id}/Qualifications")
 		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
 			Set<Qualification> listQualifications = this.userService.getUserById(id)
