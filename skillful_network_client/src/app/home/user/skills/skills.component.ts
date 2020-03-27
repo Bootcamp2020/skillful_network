@@ -24,7 +24,7 @@ export class SkillsComponent implements OnInit {
     
     this.listSkill = [];
     MOCK_SKILL.forEach((skillu: IPost) => {
-      this.listSkill.push(new Skill(skillu));
+      this.listSkill.push(new Skill(skillu.toString()));
     });  
   }
 

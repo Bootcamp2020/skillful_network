@@ -7,24 +7,27 @@
     <table style="width: 100%;" cellspacing="10">
       <tr>
         <td>
-          <form [formGroup]="formGroup" fxLayout="column" fxLayoutAlign="center center" novalidate>
+          <form [formGroup]="userInfoGroup" fxLayout="column" fxLayoutAlign="center center" novalidate >
 
             <mat-form-field class="tabelement">
               <mat-label>Nom</mat-label>
-              <input formControlName="lastname" matInput placeholder="Votre nom" class="form-control">
+              <input formControlName="lastName" matInput placeholder="Votre nom" class="form-control">
               <mat-icon matSuffix>account_box</mat-icon>
             </mat-form-field>
 
             <mat-form-field class="tabelement">
               <mat-label>Prénom</mat-label>
-              <input formControlName="firstname" matInput placeholder="Votre prénom" class="form-control">
+              <input formControlName="firstName" matInput placeholder="Votre prénom" class="form-control">
               <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>
 
             <mat-form-field class="tabelement">
               <mat-label>Date de Naissance</mat-label>
-              <input formControlName="birthdate" matInput placeholder="Votre date de naissance" class="form-control">
+              <input [matDatepicker]="myDatepicker" formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
+              <mat-datepicker #myDatepicker></mat-datepicker>
               <mat-icon matSuffix>calendar_today</mat-icon>
+              <!--<input formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
+              -->
             </mat-form-field>
 
             <mat-form-field class="tabelement">
@@ -35,8 +38,14 @@
 
             <mat-form-field class="tabelement">
               <mat-label>Mobile</mat-label>
-              <input formControlName="phone" matInput placeholder="Votre numéro de portable" class="form-control">
+              <input formControlName="mobileNumber" matInput placeholder="Votre numéro de portable" class="form-control">
               <mat-icon matSuffix>local_phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="tabelement">
+              <mat-label>Objectif de carrière</mat-label>
+              <textarea formControlName="careerGoal" matInput placeholder="Votre objectif de carrière" class="form-control"></textarea>
+              <mat-icon matSuffix>business_center</mat-icon>
             </mat-form-field>
 
           </form>

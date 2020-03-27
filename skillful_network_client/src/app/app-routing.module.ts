@@ -6,6 +6,7 @@ import { PasswordConfirmationComponent } from './password-confirmation/password-
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
+import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import {HomeComponent} from './home/home.component';
 import {HOME_ROUTES} from './home/home.routes';
 import {IsLoggedGuard} from './shared/guards/is-logged.guard';
@@ -22,6 +23,10 @@ const routes: Routes = [
     {
         path: 'password',
         component: PasswordConfirmationComponent
+    },
+    {
+        path:'passwordForgotten',
+        component:PasswordForgottenComponent
     },
     {
         path: 'home',

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +34,8 @@ public class QualificationController {
 	public QualificationController(QualificationService qualificationservice) {
 		this.qualificationservice = qualificationservice;
 	}
-
-	@RequestMapping(value = "/qualifications")
+	@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/qualifications")
 	public List<Qualification> getQualifications(@RequestParam(name = "prefix", required = false) String prefix) {
 		if (prefix == null) {
 			return qualificationservice.getAllQualifications();
@@ -42,9 +43,10 @@ public class QualificationController {
 			return qualificationservice.getQualificationByPrefix(prefix);
 		}
 	}
-	
+	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/qualifications/candidates")
-	public List<Qualification>  getAutoCompletionByMatch(@RequestBody(required=false) String pMatch) {
+	public List<Qualification>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
 		// Get subscriptions list
 		List<Qualification> qualifications = qualificationservice.getAllQualifications();
 		
