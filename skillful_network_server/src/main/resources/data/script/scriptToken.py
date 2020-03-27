@@ -2,9 +2,9 @@
 VOIR https://pyjwt.readthedocs.io/en/latest/
 pip install pyjwt
 
-python ./monScriptToken.py encrypt 12 son.email@gmail.com sonPrenom sonNom 
-    avec argument n°1 = encrypt, argument n°2 = 12 (id), etc...
-python ./monScriptToken.py decrypt eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.....
+python ./scriptToken.py encrypt 12 son.email@gmail.com xxxxx 
+    avec argument n°1 = encrypt, argument n°2 = 12 (id), (email), (password)
+python ./scriptToken.py decrypt eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.....
     avec argument n°1 = decrypt, argument n°2 = token
 
 legnede des erreurs de retour:
@@ -13,11 +13,13 @@ legnede des erreurs de retour:
 -3 => pas de token
 -4 => token invalide
 -5 => temps de validite du token expire
+-6 => id ou email ou password manquant(s)
 '''
 
 import jwt
 import sys
 from datetime import datetime, timedelta
+import json
 
 key = 'aPa53eU6N' #cle au choix
 
@@ -25,19 +27,19 @@ answer ='' #retour du script python
 
 try:
     sys.argv[1] 
-
     # si argument n°1 = encrypt ou decrypt
     if sys.argv[1] == 'encrypt':
-        # on cree le code en fonction des arguments
-        code = ''
-        for valeur in sys.argv[2:]:
-            code += str(valeur)+' '
-        message = {
-            'name': code,
-            'exp': datetime.utcnow()+timedelta(seconds=60) # duree du token 60 secondes
-        }
-        token = jwt.encode(message, key, algorithm='HS384')
-        answer = token    
+        try:
+            message = {
+                'id': sys.argv[2],
+                'email': sys.argv[3],
+                'password': sys.argv[4],
+                'exp': datetime.utcnow()+timedelta(hours=3) # duree du token 3 heures
+            }
+            token = jwt.encode(message, key, algorithm='HS384')
+            answer = token
+        except:
+            answer = -6    
     elif sys.argv[1] == 'decrypt':
         try:
             sys.argv[2] # egal token
@@ -55,6 +57,12 @@ try:
 except IndexError:
     answer = -1
 
-print(answer)
-
+if type(answer) == int: # erreur / probleme
+    print(answer)
+elif type(answer) == bytes: # token sans b
+    answerSansB = answer.decode('utf8')
+    print(answerSansB)
+elif type(answer) == dict: # dictionnaire sans exp et en JSON
+    del answer['exp']
+    print(json.dumps(answer))
 
