@@ -28,9 +28,10 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 public class Application {
 
 	// lance le serveur
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
 	}
+
 
 	@Bean
 	@Profile("dev")
@@ -98,6 +99,12 @@ public class Application {
 		};
 	}
 
+<<<<<<< HEAD
+=======
+
+}
+
+>>>>>>> feature/aab/linkBackFrontDisplayUser
 //	@Bean
 //	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
 //		return args -> {
@@ -113,4 +120,9 @@ public class Application {
 //			}
 //		};
 //	}
+<<<<<<< HEAD
 }
+=======
+
+>>>>>>> feature/aab/linkBackFrontDisplayUser
+

@@ -1,12 +1,12 @@
 
+import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { ApiHelperService } from './api-helper.service';
+
 import { Subject } from 'rxjs';
 import { Skill } from '../models/skill';
 import { Qualif } from '../models/qualif';
 import { Subscript } from '../models/subscript';
-import {ApiHelperService} from './api-helper.service';
-import { Injectable } from '@angular/core';
-//import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import {MOCK_USERS} from '../models/mock.users';
 
 //const optionRequete = {
@@ -17,7 +17,7 @@ import {MOCK_USERS} from '../models/mock.users';
 
 @Injectable()
 export class UserService {
-  //private usersUrl: string;
+  
 
   private skill0 = new Skill('Flater le mamout');
   private skill1 = new Skill('Peigner la girafe');
@@ -42,9 +42,7 @@ export class UserService {
   private subscript4 = new Subscript('Pif Gadget');
   private subscript5 = new Subscript('Charlie Hebdo');
   private subscript6 = new Subscript('Elle');
-  
-
-  private userLogged = new User({
+  public userLogged = new User({
     id: 12,
     firstName:'Jacques',
     lastName: 'Uzzi',
@@ -58,11 +56,13 @@ export class UserService {
     skillSet: [this.skill0,this.skill1,this.skill2,this.skill3,this.skill4,this.skill5,this.skill6],
     qualificationSet : [this.qualif0,this.qualif1,this.qualif2,this.qualif3,this.qualif4,this.qualif5,this.qualif6],
     subscriptionSet : [this.subscript0,this.subscript1,this.subscript2,this.subscript3,this.subscript4,this.subscript5,this.subscript6],
-    photoProfile: '',
-    careerGoal: ''  
+    photoProfile: 'https://cdn.profoto.com/cdn/053149e/contentassets/d39349344d004f9b8963df1551f24bf4/profoto-albert-watson-steve-jobs-pinned-image-original.jpg?width=2840&quality=75&format=jpg',
+    careerGoal: 'Développeur Java Fullstack'  
   });
-    
+
   userLoggedSubject = new Subject<User>();
+  // la suite est héritée de l'ancien service => tout du vide !
+  public users: User[];
 
   emitUsers() {
     this.userLoggedSubject.next(this.userLogged);
@@ -77,12 +77,10 @@ export class UserService {
     this.userLogged.skillSet = user.skillSet;
     this.userLogged.qualificationSet = user.qualificationSet;
     this.userLogged.subscriptionSet = user.subscriptionSet;
+    this.userLogged.careerGoal = user.careerGoal;
     this.emitUsers();
   }
 
-  // la suite est héritée de l'ancien service => tout du vide !
-
-  public users: User[];
 
   constructor(private api: ApiHelperService) {
     this.users = [];

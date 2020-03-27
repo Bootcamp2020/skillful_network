@@ -1,8 +1,13 @@
 <div class="menuprofile">
+
+    
     
     <div class="lienProfile"  fxLayout="column">
-        <div class="photoProfile">
-            <img [src]="user.photoProfile">
+        <div class="photoProfile container">
+            <img [src]="userService.userLogged.photoProfile" alt="Avatar" class="image" />
+            <div class="middle">
+                <div class="text" cursor="none" (click)="openModalProfile()" ><strong><i>Mise à jour </i></strong> </div>
+            </div>
         </div>
         <p><a [routerLink]="['/home/profile']" class="lienProfile" href="https://www.google.com/">Profil</a></p>
         <p><a [routerLink]="['/home']" class="lienProfile" href="https://www.google.com/">Candidatures</a></p>
