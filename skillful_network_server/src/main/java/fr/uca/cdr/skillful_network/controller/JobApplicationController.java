@@ -26,6 +26,7 @@ public class JobApplicationController {
         List<JobApplication> jobApplications = jobApplicationService.getAllJobApplications();
         return new ResponseEntity<List<JobApplication>>(jobApplications, HttpStatus.OK);
     }
+   
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<JobApplication> getAllJobApplicationsById(@PathVariable(value = "id") Long id) {
@@ -43,7 +44,7 @@ public class JobApplicationController {
 
     @GetMapping(value = "/{id}/joboffer")
     public ResponseEntity<JobOffer> getJobOfferById(@PathVariable(value = "id") Long id) {
-        JobOffer jobOffer = jobApplicationService.getJobOfferById(id)
+        JobOffer jobOffer =jobApplicationService.getJobOfferById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune offre d'emploi trouvée avec l'id  de candidature : " + id));
         return new ResponseEntity<JobOffer>(jobOffer, HttpStatus.OK);
     }

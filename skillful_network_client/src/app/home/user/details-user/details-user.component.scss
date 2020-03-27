@@ -16,7 +16,7 @@ mat-card{
 }
 ul{
   list-style: none;
-  line-height: 1.6;
+  line-height: 1.8;
   padding: 10px;
 }
 li{
@@ -36,9 +36,8 @@ img {
   //margin-right: auto;
   margin: auto;
 }
-@media screen and (min-width: 961px){
-  /*.photoProfile{
-    display: none;
-
-  }*/
+@media screen and (max-width: 817px){
+  li{
+    font-size: 1.1em;
+  }
 }

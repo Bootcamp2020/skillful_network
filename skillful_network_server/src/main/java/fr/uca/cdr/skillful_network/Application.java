@@ -93,7 +93,7 @@ public class Application {
 	}
 
 
-	}
+}
 
 //	@Bean
 //	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {

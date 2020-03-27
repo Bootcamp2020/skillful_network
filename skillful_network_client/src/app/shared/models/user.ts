@@ -8,8 +8,8 @@ export class User {
   private _firstName: string;
   private _email: string;
   private _birthDate: string;
-  private _statut: string;
-  private _mobile: string;
+  private _status: string;
+  private _mobileNumber: string;
   private _qualification: string;
   private _competences: string[];
   private _photoProfile: string;
@@ -20,10 +20,9 @@ export class User {
     this.name = data.name;
     this.firstName = data.firstName;
     this.email = data.email;
-    this.statut = data.statut;
+    this.status = data.status;
     this.qualification = data.qualification;
-    this.statut = data.statut;
-    this.mobile = data.mobile;
+    this.mobileNumber = data.mobile;
     this.birthDate = data.birthDate;
     this.competences = data.competences;
     /*this.interest=data.interest;*/
@@ -58,11 +57,11 @@ export class User {
     this._email = value;
   }
 
-  public get statut(): string {
-    return this._statut;
+  public get status(): string {
+    return this._status;
   }
-  public set statut(value: string) {
-    this._statut = value;
+  public set status(value: string) {
+    this._status = value;
   }
 
   public get qualification(): string {
@@ -90,12 +89,12 @@ export class User {
   set birthDate(value: string) {
     this._birthDate = value;
   }
-  get mobile(): string {
-    return this._mobile;
+  get mobileNumber(): string {
+    return this._mobileNumber;
   }
 
-  set mobile(value: string) {
-    this._mobile = value;
+  set mobileNumber(value: string) {
+    this._mobileNumber = value;
   }
 
   public get careerGoal(): string {

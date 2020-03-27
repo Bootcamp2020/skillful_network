@@ -98,7 +98,7 @@ i.material-icons{
   }
   .mat-card-title{
     font-size: 20px;
-    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobile (iphone5)
+    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobileNumber (iphone5)
     margin:auto;
     padding: 2rem;
   }
@@ -110,7 +110,7 @@ i.material-icons{
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
   .mat-form-field {
-    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
+    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobileNumber (iphone5)
   }
   ::ng-deep .custom-tooltip-blue {
     font-size: 11px;

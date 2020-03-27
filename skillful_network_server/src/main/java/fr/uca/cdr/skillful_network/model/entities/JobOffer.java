@@ -3,10 +3,12 @@ package fr.uca.cdr.skillful_network.model.entities;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
 @Entity
+@Table(name="job_offer")
 public class JobOffer {
 
 	@Id
@@ -133,4 +135,12 @@ public class JobOffer {
 				+ ", keywords=" + keywords +
 				", jobApplicationSets=" + jobApplicationSet;
 	}
+	
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
 }
