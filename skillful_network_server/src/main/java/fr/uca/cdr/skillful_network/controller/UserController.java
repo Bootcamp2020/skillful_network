@@ -103,6 +103,7 @@ public class UserController {
 				userToUpdate.setSkillSet(userRequest.getSkillSet());
 				userToUpdate.setQualificationSet(userRequest.getQualificationSet());
 				userToUpdate.setSubscriptionSet(userRequest.getSubscriptionSet());
+				userToUpdate.setCareerGoal(userRequest.getCareerGoal());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {
