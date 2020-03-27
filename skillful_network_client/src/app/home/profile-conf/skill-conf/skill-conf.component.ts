@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MOCK_SKILL, IPost } from 'src/app/shared/models/mock.skill';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Skill } from 'src/app/shared/models/skill';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-skill-conf',
@@ -10,34 +10,42 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 
 export class SkillConfComponent implements OnInit {
+  @Input() skillInfoGroup : FormGroup; 
+  @Input() userSkilList : Skill[]; 
 
-  addSkillFormGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-
+  skills:string[];
   public listSkill: Skill[];
-  @Input() public skill: string;
+  public skill: string;
+  
 
-  constructor(private formBuilder: FormBuilder) {
-
-  }
+  constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
-    this.createForm();
-    this.listSkill = [];
-    MOCK_SKILL.forEach((skillu: IPost) => {
-      this.listSkill.push(new Skill(skillu));
-    });  
+    this.listSkill =  this.userSkilList;
+    this.skillInfoGroup.value['skillSet'] = this.listSkill;
+    console.log(this.skillInfoGroup);  
+   
+
+    this.skillInfoGroup.valueChanges.subscribe(data=>{
+      this.skills = []
+      if (data.skillUnit.length >1){
+        this.service.findByContain("skills",data.skillUnit).then(
+            datas=>{
+              for(let id in datas)
+              this.skills.push(datas[id].name)  
+            }
+        )
+      }
+    })
   }
 
-  createForm() {
-    this.addSkillFormGroup = this.formBuilder.group({
-      'newSkill': [null, Validators.required]
-    });
-  }
+  myControl = new FormControl()
 
   addSkill() {
-    this.listSkill.push(new Skill({skill: this.addSkillFormGroup.value['newSkill']}));
+    this.listSkill.push(new Skill(this.skillInfoGroup.value['skillUnit']));
+    this.skillInfoGroup.value['skillSet'] = this.listSkill;
   }
 }
 

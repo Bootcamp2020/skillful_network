@@ -1,7 +1,7 @@
 <div>
 
     <mat-nav-list>
-        <img [src]="userService.user.photoProfile" alt="Avatar" class="image" height="300" />
+        <img *ngIf=profilPicture [src]="profilPicture" alt="Avatar" class="image" height="300" />
         <span mat-line><strong><i>Importer une photo</i></strong> </span><br>
         <input type="file"  (change)="onSelectFile($event)">
         
@@ -9,7 +9,7 @@
 
     <div mat-dialog-actions>
         <button mat-button (click)="onNoClick()">Annuler</button>
-        <button mat-button [mat-dialog-close]="data.user.photoProfile" cdkFocusInitial>Valider</button>
+        <button mat-button (click)="onValidate()" >Valider</button>
     </div>
     
 </div>

@@ -11,18 +11,19 @@ import { UserService } from '../shared/services/user.service';
     styleUrls: ['./menuprofile.component.scss']
 })
 export class MenuprofileComponent implements OnInit {
+    
+    user: User=new User({
+    id: 1,
+    firstName:'Steeve',
+    lastName: 'Jobs',
+    email: 'SteveJobs@gmail.com',
+    mobileNumber: '0123456789',
+    status: 'Etudiant',
+    validated: true,
+    photo: true,
+    photoProfile: 'https://cdn.profoto.com/cdn/053149e/contentassets/d39349344d004f9b8963df1551f24bf4/profoto-albert-watson-steve-jobs-pinned-image-original.jpg?width=2840&quality=75&format=jpg',
+  });
 
-  
-    user: User = new User({
-        id: 1,
-        name: 'Jobs',
-        firstName: 'Steve',
-        email: 'SteveJobs@gmail.com',
-        statut: 'Etudiant',
-        qualification: 'Ingenieur',
-        competences: ['JAVA/JEE', ' Angular', ' Management'],
-        photoProfile: 'https://cdn.profoto.com/cdn/053149e/contentassets/d39349344d004f9b8963df1551f24bf4/profoto-albert-watson-steve-jobs-pinned-image-original.jpg?width=2840&quality=75&format=jpg'
-    });
 
     constructor(public dialog: MatDialog, public userService: UserService) {
     }
@@ -36,7 +37,7 @@ export class MenuprofileComponent implements OnInit {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         console.log(event.target)
-        this.userService.user.photoProfile = event.target.result;
+        this.userService.userLogged.photoProfile = event.target.result;
       }
     }
   }
@@ -45,7 +46,7 @@ export class MenuprofileComponent implements OnInit {
     const dialogRef = this.dialog.open(BottomSheetOverviewExample, {
       width: '25%',
       height: '70%',
-      data: { user: this.userService.user.photoProfile }
+      data: { user: this.userService.userLogged.photoProfile }
     });
 
    

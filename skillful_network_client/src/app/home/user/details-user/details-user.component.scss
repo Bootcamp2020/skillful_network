@@ -1,0 +1,42 @@
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.detail{
+  margin: auto;
+}
+ul{
+  list-style: none;
+  line-height: 1.6;
+  padding: 10px;
+}
+li{
+  font-size: 1.3em;
+}
+.photoProfile{
+  display: flex;
+  justify-content: center;
+}
+img {
+
+  width: auto;
+  height: 200px;
+  border: 3px solid #5b7787;
+  border-radius:25%;
+  //margin-left: auto;
+  //margin-right: auto;
+  margin: auto;
+}
+@media screen and (min-width: 961px){
+  /*.photoProfile{
+    display: none;
+
+  }*/
+}

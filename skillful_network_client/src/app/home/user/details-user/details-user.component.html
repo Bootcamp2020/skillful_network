@@ -1,0 +1,28 @@
+<div class="container_dashboard">
+    <div  class="card_dashboard mat-elevation-z4">
+        <mat-card>
+            <mat-card-header id="title">
+                <mat-card-title id="title_police">Profil</mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <div class="parent">
+                    <div class="photoProfile">
+                        <img [src]="user.photoProfile">
+                    </div>
+                    <div class="detail">
+                        <ul>
+                            <li> Nom : {{this.user.lastName}} </li>
+                            <li> Prénom : {{this.user.firstName}} </li>
+                            <li> Date de Naissance : {{this.user.birthDate}} </li>
+                            <li> Email : {{this.user.email}}</li>
+                            <li> Numéro de téléphone : {{this.user.mobileNumber}}</li>
+                            <li> Statut : {{this.user.status}}</li>
+                            <li> Objectif de carrière : {{this.user.careerGoal}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

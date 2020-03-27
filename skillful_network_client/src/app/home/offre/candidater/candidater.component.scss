@@ -1,0 +1,43 @@
+.boutonCandidater{
+  display:flex;
+  justify-content: center;
+}
+mat-card{
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+}
+
+mat-checkbox{
+  margin-right: 5px;
+}
+// overwrite the checkbox background
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #3f51b5 !important;
+}
+
+// overwrite the ripple overlay on hover and click
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #3f51b5 !important;
+}
+
+::ng-deep .custom-tooltip-blue {
+  font-size: 15px;
+  max-width: unset !important;
+  text-align: center;
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  background: #1a7ea2;
+  padding: 20px;
+  transform: translateX(-20%) scale(0.5);
+  transition: transform 4s ease-in-out;
+  // transform-origin: top;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 2px;
+  color: white;
+ }
+ #popup{
+   margin-top: 350px !important;
+   margin-left: 250px  !important;
+ }
+

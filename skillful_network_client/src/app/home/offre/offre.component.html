@@ -1,0 +1,15 @@
+<div  class="divOffre">
+<h1>{{post.status}}</h1>
+<div class="zoneOffre">
+    <h1 class="ligne">{{post.titreOffre}}</h1>
+
+    <div>
+        <div class="parent">
+            <div class="zone1"> <app-informations [post]=post></app-informations></div>
+            <div class="zone2"> <app-exigences [post]=post></app-exigences></div>
+            <div class="zone3" ><app-formations-associees [post]=post ></app-formations-associees></div>
+            <div class="zone4" *ngIf="!cs.verifierCandidature(jobOfferId, listCandidature)"> <app-candidater [post]=post></app-candidater></div>
+        </div>
+    </div>
+</div>
+</div>
