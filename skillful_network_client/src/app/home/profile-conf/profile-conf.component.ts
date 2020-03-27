@@ -36,7 +36,7 @@ export class ProfileConfComponent {
         'birthDate': [this.userLogged.birthDate, Validators.required],
         'email': [this.userLogged.email, [Validators.required, Validators.email]],
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
-        'careergoal': [null, Validators.required]
+        'careerGoal': [this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)]]
       }),
       
       formSkillInfos: this.formBuilder.group({
@@ -64,6 +64,7 @@ export class ProfileConfComponent {
     this.userLogged.birthDate = formValueU['birthDate'];
     this.userLogged.email = formValueU['email'];
     this.userLogged.mobileNumber = formValueU['mobileNumber'];
+    this.userLogged.careerGoal = formValueU['careerGoal'];
     
     // partie Skill
     const formValueS = this.parentGroup.get('formSkillInfos').value;
