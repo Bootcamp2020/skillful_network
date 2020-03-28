@@ -1,6 +1,5 @@
 <div class="gestionCard" fxFlexAlign="stretch">
     <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">
-
         <mat-card-header id="title">
             <mat-card-title fxLayoutAlign="center center" id="montitre">Profil</mat-card-title>
         </mat-card-header>
@@ -8,7 +7,7 @@
          <!-- ligne 0 debug
          <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
             <app-userlist></app-userlist>
-        </div>-->
+        </div> -->
         <form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
             <!-- ligne 1 -->
             <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
@@ -45,7 +44,7 @@
                 <!-- colon 2 -->
                 <div fxLayout.gt-sm="column" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" novalidate>
                     <div id="btn_send" fxFlex="30">
-                        <button type="submit" mat-raised-button color="primary">Sauvegarder</button>
+                        <button type="submit" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
                     </div>
                     <div id="btn_cancel" fxFlex="30">
                         <button type="reset" mat-raised-button color="primary">Annuler</button>

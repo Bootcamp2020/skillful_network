@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-conf.component.scss']
 })
 export class ProfileConfComponent {
-
+  monI: number;
   userLogged: User;
   userLSubscription: Subscription;
   parentGroup: FormGroup;
@@ -36,22 +36,23 @@ export class ProfileConfComponent {
         'birthDate': [this.userLogged.birthDate, Validators.required],
         'email': [this.userLogged.email, [Validators.required, Validators.email]],
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
-        'careergoal': [null, Validators.required]
+        'careerGoal': [this.userLogged.careerGoal, Validators.minLength(2)]
       }),
       
       formSkillInfos: this.formBuilder.group({
-        'skillSet': this.userLogged.skillSet,
-        'skillUnit': ''
+        // 'skillSet': this.userLogged.skillSet,
+        'skillSet': '',
+        'skillUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formQualInfos: this.formBuilder.group({
         'qualificationSet': this.userLogged.qualificationSet,
-        'qualifUnit': ''
+        'qualifUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formSubscriptInfos: this.formBuilder.group({
         'subscriptionSet': this.userLogged.subscriptionSet,
-        'subscriptUnit': ''
+        'subscriptUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       })
     });
   }
@@ -64,18 +65,28 @@ export class ProfileConfComponent {
     this.userLogged.birthDate = formValueU['birthDate'];
     this.userLogged.email = formValueU['email'];
     this.userLogged.mobileNumber = formValueU['mobileNumber'];
+    this.userLogged.careerGoal = formValueU['careerGoal'];
     
-    // partie Skill
+    // partie Skill /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueS = this.parentGroup.get('formSkillInfos').value;
-    this.userLogged.skillSet = formValueS['skillSet'];
-
-    // partie Qualif
+    this.monI = formValueS['skillSet'].length;
+    if (this.monI > 0) { 
+      this.userLogged.skillSet = formValueS['skillSet'];
+    }
+    
+    // partie Qualif /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueQ = this.parentGroup.get('formQualInfos').value;
-    this.userLogged.qualificationSet = formValueQ['qualificationSet'];
+    this.monI = formValueQ['qualificationSet'].length;
+    if (this.monI > 0) { 
+      this.userLogged.qualificationSet = formValueQ['qualificationSet'];
+    }
 
-    // partie Skill
+    // partie Skill /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueSu = this.parentGroup.get('formSubscriptInfos').value;
-    this.userLogged.subscriptionSet = formValueSu['subscriptionSet'];
+    this.monI = formValueSu['subscriptionSet'].length;
+    if (this.monI > 0) { 
+      this.userLogged.subscriptionSet = formValueSu['subscriptionSet'];
+    }
 
     // Boom !
     this.userService.updateUser(this.userLogged);
