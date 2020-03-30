@@ -4,8 +4,9 @@ package fr.uca.cdr.skillful_network.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -22,7 +23,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.jwt.JwtProvider;
 import fr.uca.cdr.skillful_network.jwt.response.JwtResponse;
+import fr.uca.cdr.skillful_network.model.entities.Role;
+import fr.uca.cdr.skillful_network.model.entities.Rolename;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
@@ -51,6 +55,9 @@ public class AuthenticationController {
      
      @Autowired
  	 private JwtProvider jwtProv;
+     
+     @Autowired
+     private RoleRepository roleRepository;
      
      
 	@PostMapping(value = "/login")
@@ -102,6 +109,32 @@ public class AuthenticationController {
 			userService.sendMail(user.getEmail(), randomCode);
 		}
 		user.setPassword(randomCode);
+		
+		Set<String> strRoles = user.getRole();
+		Set<Role> roles= new HashSet<>();
+		
+		strRoles.forEach(selectedRole->{
+			switch (selectedRole) {
+//				case "user":
+//					Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
+//					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : User role not found"));
+//					roles.add(userRole);
+				case "organisme":
+					Role organismeRole = roleRepository.findByName(Rolename.ROLE_ORGANISME)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Organisme role not found"));
+					roles.add(organismeRole);
+				case "entreprise":
+					Role entrepriseRole = roleRepository.findByName(Rolename.ROLE_ENTREPRISE)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Entreprise role not found"));
+					roles.add(entrepriseRole);
+				default:
+					Role defaultRole = roleRepository.findByName(Rolename.ROLE_USER)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : default role not found"));
+					roles.add(defaultRole);
+			}
+		});
+		
+		user.setRoles(roles);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}

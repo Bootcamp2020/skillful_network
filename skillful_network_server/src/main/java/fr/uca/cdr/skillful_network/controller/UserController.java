@@ -59,7 +59,7 @@ public class UserController {
 		this.repository = repository;
 	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/users")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
