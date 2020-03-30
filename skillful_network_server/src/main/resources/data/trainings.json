@@ -5,9 +5,9 @@
     "organisation": "SoftTeam",
     "description": "Formation pour devenir développeur front-end. Vous aurez toutes les bases pour concevoir et maintenir les front-end des applications web.",
     "financer": "OPCO",
-    "dateBeg": "May 25, 2020, 10:01:34 AM",
-    "dateEnd": "May 25, 2020, 10:01:34 AM",
-    "dateUpload": "May 25, 2020, 10:01:34 AM",
+    "dateBeg": "May 25, 2020 10:01:34 AM",
+    "dateEnd": "May 25, 2020 10:01:34 AM",
+    "dateUpload": "May 25, 2020 10:01:34 AM",
     "durationHours": 24,
     "prerequisites": [
       "Bac"
@@ -24,9 +24,9 @@
     "organisation": "SoftTeam",
     "description": "Formation pour devenir développeur full stack. Vous aurez toutes les bases pour concevoir et maintenir des applications web de A à Z.",
     "financer": "OPCO",
-    "dateBeg": "May 25, 2021, 10:01:34 AM",
-    "dateEnd": "May 25, 2021, 10:01:34 AM",
-    "dateUpload": "May 25, 2021, 10:01:34 AM",
+    "dateBeg": "May 25, 2021 10:01:34 AM",
+    "dateEnd": "May 25, 2021 10:01:34 AM",
+    "dateUpload": "May 25, 2021 10:01:34 AM",
     "durationHours": 80,
     "prerequisites": [
       "Bac +2"
@@ -48,9 +48,9 @@
     "organisation": "SoftTeam",
     "description": "Formation sur la sécurité du web. À l’issue de cette formation, vous aurez toutes les bases nécessaires à la conception et la maintenance d’une application web sécurisée.",
     "financer": "OPCO",
-    "dateBeg": "May 25, 2020, 10:01:34 AM",
-    "dateEnd": "May 25, 2020, 10:01:34 AM",
-    "dateUpload": "May 25, 2020, 10:01:34 AM",
+    "dateBeg": "May 25, 2020 10:01:34 AM",
+    "dateEnd": "May 25, 2020 10:01:34 AM",
+    "dateUpload": "May 25, 2020 10:01:34 AM",
     "durationHours": 80,
     "prerequisites": [
       "Bac +5"
@@ -72,9 +72,9 @@
     "organisation": "Softeam",
     "description": "Formation pour devenir développeur full stack. Vous aurez toutes les bases pour concevoir et maintenir des applications web de A à Z.",
     "financer": "Region PACA",
-    "dateBeg": "Mar 19, 2020, 3:53:05 PM",
-    "dateEnd": "Mar 19, 2020, 3:53:05 PM",
-    "dateUpload": "Mar 19, 2020, 3:53:05 PM",
+    "dateBeg": "Mar 19, 2020 3:53:05 PM",
+    "dateEnd": "Mar 19, 2020 3:53:05 PM",
+    "dateUpload": "Mar 19, 2020 3:53:05 PM",
     "durationHours": 80,
     "prerequisites": [
       ""
