@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+  import { from } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -10,6 +12,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class UsersListComponent implements OnInit {
   public users: User[];
+
+  @ViewChild (MatSort) sort : MatSort;
 
   constructor(private userService: UserService) {
   }
@@ -20,6 +24,7 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.userService.findAll().then(res => {
       this.dataSource = new MatTableDataSource<User>(res);
+      this.dataSource.sort = this.sort;
     });
   }
 }
