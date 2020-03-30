@@ -45,7 +45,7 @@ export class UserService {
   private subscript6 = new Subscript('Elle');
   
 
-  private userLogged = new User({
+  public userLogged = new User({
     id: 2,
     firstName:'Jacques',
     lastName: 'Uzzi',
