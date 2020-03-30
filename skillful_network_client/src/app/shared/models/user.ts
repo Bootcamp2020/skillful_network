@@ -1,37 +1,48 @@
-import { MatLine } from '@angular/material/core';
+import { LoginComponent } from 'src/app/login/login.component';
+import { Skill } from './skill';
+import { Qualif } from './qualif';
+import { Subscript } from './subscript';
+import { Subscription } from 'rxjs';
 
 export class User {
-
-  /* Ajouter les attribut pour creer le component User profil*/
   private _id: number;
-  private _name: string;
   private _firstName: string;
+  private _lastName: string;
+  private _password: string;
   private _email: string;
-  private _birthDate: string;
-  private _statut: string;
-  private _mobile: string;
+  private _birthDate: Date;
   private _qualification: string;
   private _competences: string[];
+  private _mobileNumber: string;
+  private _status: string;
+  private _validated: boolean;
+  private _photo: boolean;
+  private _skillSet: Skill[];
+  private _qualificationSet : Qualif[];
+  private _subscriptionSet : Subscript[];
   private _photoProfile: string;
+
   private _careerGoal: string;
-   /*private _interest:string;*/
   constructor(data: any) {
-    this.id = data.id;
-    this.name = data.name;
-    this.firstName = data.firstName;
-    this.email = data.email;
-    this.statut = data.statut;
-    this.qualification = data.qualification;
-    this.statut = data.statut;
-    this.mobile = data.mobile;
-    this.birthDate = data.birthDate;
-    this.competences = data.competences;
-    /*this.interest=data.interest;*/
-    this.photoProfile = data.photoProfile;
-    this.careerGoal = data.careerGoal;
+    this._id = data.id;
+    this._firstName = data.firstName;
+    this._email = data.email;
+    this._status = data.status;
+    this._qualification = data.qualification;
+    this._lastName = data.lastName;
+    this._password = data.password;
+    this._birthDate = data.birthDate;
+    this._email = data.email;
+    this._mobileNumber = data.mobileNumber;
+    this._status = data.status;
+    this._validated = data.validated;
+    this._photo = data.photo;
+    this._skillSet = data.skillSet;
+    this._qualificationSet = data.qualificationSet;
+    this._subscriptionSet = data.subscriptionSet;
+    this._photoProfile = data.photoProfile;
+    this._careerGoal = data.careerGoal;
   }
-
-
   /* GETTERS & SETTERS */
   public get id(): number {
     return this._id;
@@ -39,17 +50,29 @@ export class User {
   public set id(value: number) {
     this._id = value;
   }
-  public get name(): string {
-    return this._name;
-  }
-  public set name(value: string) {
-    this._name = value;
-  }
   public get firstName(): string {
     return this._firstName;
   }
   public set firstName(value: string) {
     this._firstName = value;
+  }
+  public get lastName(): string {
+    return this._lastName;
+  }
+  public set lastName(value: string) {
+    this._lastName = value;
+  }
+  public get password(): string {
+    return this._password;
+  }
+  public set password(value: string) {
+    this._password = value;
+  }
+  get birthDate(): Date {
+    return this._birthDate;
+  }
+  set birthDate(value: Date) {
+    this._birthDate = value;
   }
   public get email(): string {
     return this._email;
@@ -57,25 +80,48 @@ export class User {
   public set email(value: string) {
     this._email = value;
   }
+  public get status(): string {
+    return this._status;
+  }
+  public set status(value: string) {
+    this._status = value;
+  }
+  public get mobileNumber(): string {
+    return this._mobileNumber;
+  }
+  public set mobileNumber(value: string) {
+    this._mobileNumber = value;
 
-  public get statut(): string {
-    return this._statut;
   }
-  public set statut(value: string) {
-    this._statut = value;
+  public get validated(): boolean {
+    return this._validated;
   }
-
-  public get qualification(): string {
-    return this._qualification;
+  public set validated(value: boolean) {
+    this._validated = value;
   }
-  public set qualification(value: string) {
-    this._qualification = value;
+  public get photo(): boolean {
+    return this._photo;
   }
-  public get competences(): string[] {
-    return this._competences;
+  public set photo(value: boolean) {
+    this._photo = value;
   }
-  public set competences(value: string[]) {
-    this._competences = value;
+  public get skillSet(): Skill[] {
+    return this._skillSet;
+  }
+  public set skillSet(value: Skill[]) {
+    this._skillSet = value;
+  }
+  public get qualificationSet(): Qualif[] {
+    return this._qualificationSet;
+  }
+  public set qualificationSet(value: Qualif[]) {
+    this._qualificationSet = value;
+  }
+  public get subscriptionSet(): Subscript[] {
+    return this._subscriptionSet;
+  }
+  public set subscriptionSet(value: Subscript[]) {
+    this._subscriptionSet = value;
   }
   public get photoProfile(): string {
     return this._photoProfile;
@@ -83,27 +129,10 @@ export class User {
   public set photoProfile(value: string) {
     this._photoProfile = value;
   }
-  get birthDate(): string {
-    return this._birthDate;
-  }
-
-  set birthDate(value: string) {
-    this._birthDate = value;
-  }
-  get mobile(): string {
-    return this._mobile;
-  }
-
-  set mobile(value: string) {
-    this._mobile = value;
-  }
-
   public get careerGoal(): string {
     return this._careerGoal;
   }
   public set careerGoal(value: string) {
     this._careerGoal = value;
   }
-
-
 }

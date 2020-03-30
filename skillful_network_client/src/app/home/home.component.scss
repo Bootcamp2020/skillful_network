@@ -19,7 +19,7 @@
   justify-content: center;
 }
 .profil .card_dashboard{
-  padding-left: auto;
+  //padding-left: auto;
   margin: auto;
   justify-content: center;
 
@@ -31,8 +31,10 @@ ul{
 .photoProfile{
   display: flex;
   justify-content: center;
-
-
+}
+#center{
+  margin: auto !important;
+  width: 80%;
 }
 img {
 
@@ -44,8 +46,22 @@ img {
   margin-right: auto;
 }
 @media screen and (min-width: 961px){
+
   .photoProfile{
     display: none;
 
   }
+}
+
+
+.home-header {
+  height: 100px
+}
+
+.home-footer {
+  height: 125px
+}
+
+.gestComponent {
+  min-height: calc(100% - 225px);
 }

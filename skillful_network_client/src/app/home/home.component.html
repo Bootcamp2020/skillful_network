@@ -1,11 +1,18 @@
-<app-header></app-header>
-<div class="gestComponent" fxLayout="row">
-    <div fxFlex="15" class="borderProfile">
-        <app-menuprofile></app-menuprofile>
-    </div>
-    <router-outlet></router-outlet>
+<div class="home-header">
+  <app-header></app-header>
 </div>
-<app-footer></app-footer>
+<div class="gestComponent" fxLayout="row">
+
+  <div fxFlex="15" class="borderProfile">
+    <app-menuprofile></app-menuprofile>
+  </div>
+  <div fxFlex="85">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<div class="home-footer">
+  <app-footer></app-footer>
+</div>
 
 
 
@@ -43,4 +50,3 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>-->
-

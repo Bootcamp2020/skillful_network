@@ -26,6 +26,7 @@ public class JobApplicationController {
     // #########################################################################
 
     // Provide all applications
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @GetMapping(value = "")
     public ResponseEntity<List<JobApplication>> getAllJobApplications() {
         List<JobApplication> applications = jobApplicationService.getAllJobApplications();
@@ -33,6 +34,7 @@ public class JobApplicationController {
     }
 
     // Provide application by its id
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<JobApplication> getAllJobApplicationsById(@PathVariable(value = "id") Long id) {
         JobApplication application = jobApplicationService.getJobApplicationById(id)
@@ -41,6 +43,7 @@ public class JobApplicationController {
     }
 
     // Provide user of an application by its id
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @GetMapping(value = "/{id}/user")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         User user = jobApplicationService.getUserById(id)
@@ -49,6 +52,7 @@ public class JobApplicationController {
     }
 
     // Provide job offer of an application by its id
+    @PreAuthorize("hasAnyRole('ENTREPRISE','USER)")
     @GetMapping(value = "/{id}/joboffer")
     public ResponseEntity<JobOffer> getJobOfferById(@PathVariable(value = "id") Long id) {
         JobOffer jobOffer = jobApplicationService.getJobOfferById(id)
@@ -57,6 +61,7 @@ public class JobApplicationController {
     }
 
     // Provide all applications for a user by his id
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @GetMapping(value = "/user/{userId}")
     public ResponseEntity<List<JobApplication>> getJobApplicationByUser(@PathVariable(value = "userId") Long userId) {
         List<JobApplication> applications = jobApplicationService.getJobApplicationsByUserId(userId)
@@ -65,6 +70,7 @@ public class JobApplicationController {
     }
 
     // Provide all applications for a training by its id
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @GetMapping(value = "/joboffer/{jobOfferId}")
     public ResponseEntity<List<JobApplication>> getJobApplicationByJobOffer(@PathVariable(value = "jobOfferId") Long jobOfferId) {
         List<JobApplication> applications = jobApplicationService.getJobApplicationsByJobOfferId(jobOfferId)
@@ -77,12 +83,14 @@ public class JobApplicationController {
     // #########################################################################
 
     // Create a new application
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @PostMapping(value = "")
     public JobApplication saveJobApplicationn(@Valid @RequestBody JobApplication application) {
         return jobApplicationService.saveOrUpdateJobApplication(application);
     }
 
     // Create a new application with a user and a jobOffer
+    @PreAuthorize("hasAnyRole('ENTREPRISE','USER)")
     @PostMapping(value = "/user/{userId}/joboffer/{jobOfferId}")
     public JobApplication saveTrainingApplication(@PathVariable(value = "userId") Long userId, @PathVariable(value = "jobOfferId") Long jobOfferId) {
         return jobApplicationService.saveJobApplicationById(userId, jobOfferId);
@@ -93,12 +101,14 @@ public class JobApplicationController {
     // #########################################################################
 
     // Update an application
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @PutMapping(value = "")
     public JobApplication updateJobApplicationn(@Valid @RequestBody JobApplication application) {
         return jobApplicationService.saveOrUpdateJobApplication(application);
     }
 
     // Set application's associated user by their ids
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @PutMapping(value = "/{id}/user/{userId}")
     public ResponseEntity<User> setUserById(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
         User user = jobApplicationService.setUserById(id, userId)
@@ -107,6 +117,7 @@ public class JobApplicationController {
     }
 
     // Set application's associated jobOffer by their ids
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @PutMapping(value = "/{id}/joboffer/{jobOfferId}")
     public ResponseEntity<JobOffer> setJobOfferById(@PathVariable(value = "id") Long id, @PathVariable(value = "jobOfferId") Long jobOfferId) {
         JobOffer jobOffer = jobApplicationService.setJobOfferById(id, jobOfferId)
@@ -119,6 +130,7 @@ public class JobApplicationController {
     // #########################################################################
 
     // Delete an application
+    @PreAuthorize("hasRole('ENTREPRISE')")
     @DeleteMapping(value = "/{id}")
     public void deleteJobApplication(@PathVariable(value = "id") Long id) {
         jobApplicationService.deleteJobApplication(id);

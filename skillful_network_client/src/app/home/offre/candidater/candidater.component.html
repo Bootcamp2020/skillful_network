@@ -1,0 +1,22 @@
+<div class="card_dashboard mat-elevation-z4">
+    <mat-card >
+        <mat-card-content>
+
+            <div fxLayout="row">
+                <mat-checkbox [(ngModel)]="agree"></mat-checkbox><p>En candidatant à cette offre, vous acceptez de candidater et de suivre la formation "{{post.nomFormation}}" d'une durée de {{post.duree}} heure(s).</p>
+            </div>
+
+            <span  id="popup" #tooltip="matTooltip"
+            matTooltip="Votre candidature a bien été enregistrée"
+            matTooltipClass="custom-tooltip-blue"
+            matTooltipHideDelay="500"
+            matTooltipPosition="above"
+            matTooltipShowDelay="300">
+            </span>
+            <div class="boutonCandidater">
+                <button [disabled]="!agree" (click)="tooltip.show()" type="submit" mat-raised-button color="primary">Candidater !</button>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>

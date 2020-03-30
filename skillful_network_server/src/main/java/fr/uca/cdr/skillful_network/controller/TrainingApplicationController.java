@@ -26,6 +26,7 @@ public class TrainingApplicationController {
     // #########################################################################
 
     // Provide all applications
+    @PreAuthorize("hasRole('ORGANISME')")
     @GetMapping(value = "")
     public ResponseEntity<List<TrainingApplication>> getAllTrainingApplications() {
         List<TrainingApplication> applications = trainingApplicationService.getAllTrainingApplications();
@@ -33,6 +34,7 @@ public class TrainingApplicationController {
     }
 
     // Provide application by its id
+    @PreAuthorize("hasAnyRole('ORGANISME','USER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<TrainingApplication> getTrainingApplicationById(@PathVariable(value = "id") Long id) {
         TrainingApplication application = trainingApplicationService.getTrainingApplicationById(id)
@@ -41,6 +43,7 @@ public class TrainingApplicationController {
     }
 
     // Provide user of an application by its id
+    @PreAuthorize("hasRole('ORGANISME')")
     @GetMapping(value = "/{id}/user")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         User user = trainingApplicationService.getUserById(id)
@@ -49,6 +52,7 @@ public class TrainingApplicationController {
     }
 
     // Provide training of an application by its id
+    @PreAuthorize("hasAnyRole('ORGANISME','USER')")
     @GetMapping(value = "/{id}/training")
     public ResponseEntity<Training> getTrainingById(@PathVariable(value = "id") Long id) {
         Training training = trainingApplicationService.getTrainingById(id)
@@ -57,6 +61,7 @@ public class TrainingApplicationController {
     }
 
     // Provide all applications for a user by his id
+    @PreAuthorize("hasRole('ORGANISME')")
     @GetMapping(value = "/user/{userId}")
     public ResponseEntity<List<TrainingApplication>> getTrainingApplicationByUser(@PathVariable(value = "userId") Long userId) {
         List<TrainingApplication> applications = trainingApplicationService.getTrainingApplicationsByUserId(userId)
@@ -65,6 +70,7 @@ public class TrainingApplicationController {
     }
 
     // Provide all applications for a training by its id
+    @PreAuthorize("hasRole('ORGANISME')")
     @GetMapping(value = "/training/{trainingId}")
     public ResponseEntity<List<TrainingApplication>> getTrainingApplicationByTraining(@PathVariable(value = "trainingId") Long trainingId) {
         List<TrainingApplication> applications = trainingApplicationService.getTrainingApplicationsByTrainingId(trainingId)
@@ -77,12 +83,14 @@ public class TrainingApplicationController {
     // #########################################################################
 
     // Create a new application
+    @PreAuthorize("hasRole('ORGANISME')")
     @PostMapping(value = "")
     public TrainingApplication saveTrainingApplication(@Valid @RequestBody TrainingApplication application) {
         return trainingApplicationService.saveOrUpdateTrainingApplication(application);
     }
 
     // Create a new application with a user and a training
+    @PreAuthorize("hasAnyRole('ORGANISME','USER')")
     @PostMapping(value = "/user/{userId}/training/{trainingId}")
     public TrainingApplication saveTrainingApplication(@PathVariable(value = "userId") Long userId, @PathVariable(value = "trainingId") Long trainingId) {
         return trainingApplicationService.saveTrainingApplicationById(userId, trainingId);
@@ -93,12 +101,14 @@ public class TrainingApplicationController {
     // #########################################################################
 
     // Update an application
+    @PreAuthorize("hasRole('ORGANISME')")
     @PutMapping(value = "")
     public TrainingApplication updateTrainingApplicationn(@Valid @RequestBody TrainingApplication application) {
         return trainingApplicationService.saveOrUpdateTrainingApplication(application);
     }
 
     // Set application's associated user by their ids
+    @PreAuthorize("hasRole('ORGANISME')")
     @PutMapping(value = "/{id}/user/{userId}")
     public ResponseEntity<User> setUserById(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
         User user = trainingApplicationService.setUserById(id, userId)
@@ -107,6 +117,7 @@ public class TrainingApplicationController {
     }
 
     // Set application's associated training by their ids
+    @PreAuthorize("hasRole('ORGANISME')")
     @PutMapping(value = "/{id}/training/{trainingId}")
     public ResponseEntity<Training> setTrainingById(@PathVariable(value = "id") Long id, @PathVariable(value = "trainingId") Long trainingId) {
         Training training = trainingApplicationService.setTrainingById(id, trainingId)
@@ -119,6 +130,7 @@ public class TrainingApplicationController {
     // #########################################################################
 
     // Delete an application
+    @PreAuthorize("hasRole('ORGANISME')")
     @DeleteMapping(value = "/{id}")
     public void deleteTrainingApplication(@PathVariable(value = "id") Long id) {
         trainingApplicationService.deleteTrainingApplication(id);

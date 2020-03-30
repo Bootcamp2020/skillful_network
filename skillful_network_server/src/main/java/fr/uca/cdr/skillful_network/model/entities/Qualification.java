@@ -27,9 +27,10 @@ public class Qualification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
+	
 	@NotNull(message = "Qualification name cannot be null")
 	@Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters")
+	@Column(name ="name", nullable=false)
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "qualificationSet")
@@ -67,8 +68,16 @@ public class Qualification {
 		this.userSet = userSet;
 
 	}
-
+	public Qualification(
+			@NotNull(message = "Qualification name cannot be null") @Size(min = 2, max = 20, message = "Qualification name must be between 3 and 20 characters") String name,
+			Set<User> userSet) {
+		super();
+		this.name = name;
+		this.userSet = userSet;
+	}
 //	------------------------------------------ Getters et Setters -------------------------------------------------------------------------
+
+	
 
 	public long getId() {
 		return id;
@@ -97,10 +106,10 @@ public class Qualification {
 //	----------------------------------------------  Méthodes  -------------------------------------------------------------------------
 	
 	
-	@Override
-	public String toString() {
-		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userSet + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Qualification [id=" + id + ", name=" + name + ", userList=" + userSet + "]";
+//	}
 
 	@Override
 	public int hashCode() {

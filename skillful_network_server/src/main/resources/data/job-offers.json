@@ -11,7 +11,8 @@
     "keywords": [
       "HTML5",
       "CSS"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 7,
@@ -27,7 +28,8 @@
       "REST",
       "SOAP",
       "Spring"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 8,
@@ -47,7 +49,8 @@
       "TLS",
       "Chiffrage des données",
       "protocol TCP"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 4,
@@ -62,7 +65,8 @@
       "Angular",
       "Java",
       "Spring"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 9,
@@ -78,6 +82,7 @@
       "Angular",
       "Java",
       "Spring"
-    ]
+    ],
+    "jobApplicationSet": []
   }
 ]

@@ -1,14 +1,15 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "taining")
 public class Training {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,9 @@ public class Training {
 	private Long durationHours;
 	private String[] prerequisites;
 	private String[] keywords;
+
+	@OneToMany(mappedBy = "training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -141,7 +145,10 @@ public class Training {
 				+ ", dateUpload=" + dateUpload + ", durationHours=" + durationHours + ", prerequisites="
 				+ Arrays.toString(prerequisites) + ", keywords=" + Arrays.toString(keywords) + "]";
 	}
-
+	 @Override
+	    public int hashCode() {
+	        return Objects.hash(id, name, organisation);
+	    }
 	
 
 }

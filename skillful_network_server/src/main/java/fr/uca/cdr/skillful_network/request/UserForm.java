@@ -25,6 +25,7 @@ public class UserForm {
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
+	public String careerGoal;
 	private Set<Skill>skillSet = new HashSet<Skill>();
 	private Set<Qualification> qualificationSet;
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
@@ -93,6 +94,15 @@ public class UserForm {
 		this.subscriptionSet = subscriptionSet;
 	}
 
+	public String getCareerGoal() {
+		return careerGoal;
+	}
+
+	public void setCareerGoal(String careerGoal) {
+		this.careerGoal = careerGoal;
+	}
+
+	
 	
 	
 }

@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,11 +14,11 @@ import java.util.Set;
 public class User {
 
 	@Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-  @Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-  private String firstName;
-  @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
+	private String firstName;
+	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
 
 	private String lastName;
 	@Size(min = 8, message = "password must be at least 8 characters")
@@ -30,7 +31,7 @@ public class User {
 	private String mobileNumber;
 	private String status;
 	private boolean validated = false;
-
+    private String careerGoal;
 	private boolean photo= false;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill>skillSet = new HashSet<Skill>();
@@ -46,6 +47,10 @@ public class User {
   
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 		super();
@@ -65,7 +70,7 @@ public class User {
 	}  
   
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
-				String mobileNumber, int status, boolean photo) {
+				String mobileNumber, int status, boolean photo, String careerGoal) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -77,6 +82,7 @@ public class User {
 		this.status = Status.fromId(status);
 		this.photo = photo;
 		this.validated = true;
+		this.careerGoal = careerGoal;
 	}
 
   public User(long id,
@@ -87,7 +93,7 @@ public class User {
 		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 		String mobileNumber, String status, boolean validated, boolean photo,
 		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet) {
+		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -103,7 +109,8 @@ public class User {
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
-   		this.trainingApplicationSet = trainingApplicationSet;
+		this.trainingApplicationSet = trainingApplicationSet;
+		this.roles = roles;
 	}
 
 	public long getId() {
@@ -169,6 +176,16 @@ public class User {
 	public void setValidated(boolean validated) {
 		this.validated = validated;
 	}
+	 
+	
+
+	public String getCareerGoal() {
+		return careerGoal;
+	}
+
+	public void setCareerGoal(String careerGoal) {
+		this.careerGoal = careerGoal;
+	}
 
 	public boolean isPhoto() {
 		return photo;
@@ -225,18 +242,27 @@ public class User {
 	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
 		this.trainingApplicationSet = trainingApplicationSet;
 	}
+    
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id +
+		return "User [" + id +
 				"] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
 				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
 				", status=" + status + ", validated=" + validated +
-				", photo=" + photo + ", " +
+				", careerGoal=" + careerGoal +", photo=" + photo + ", " +
 				", skillSet=" + skillSet +
 				", qualificationSet=" + qualificationSet +
 				", subscriptionSet=" + subscriptionSet +
 				", jobApplicationSets=" + jobApplicationSet +
-				", trainingApplicationSet=" + trainingApplicationSet;
+				", trainingApplicationSet=" + trainingApplicationSet +
+				", roles=" + roles + "]";
 	}
 }

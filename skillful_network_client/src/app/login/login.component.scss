@@ -56,13 +56,11 @@ i.material-icons{
   background-color: rgba(168, 168, 168, 0);
   color: #0000ff;
 }
-
 .button-code-return:hover {
   margin-top: 1.2em;
   background-color: rgba(158, 158, 158, 0.2);
   color: #0000ff;
 }
-
 ::ng-deep .custom-tooltip-blue {
   font-size: 15px;
   max-width: unset !important;
@@ -78,19 +76,8 @@ i.material-icons{
   border-radius: 2px;
   color: white;
  }
-
-.motDePasseOublieLink{
-  font-size: 11px;
-  color: blue;
-  position: absolute;
-  top:15em;
-  right:1em;
-}
- .motDePasseOublieLink:hover{
-  text-decoration: underline;
-  cursor: pointer;
-}
 /* fin boutons tooltips*/
+
 @media only screen and (max-width: 1230px) {
  
   .connectionForm{
@@ -98,7 +85,7 @@ i.material-icons{
   }
   .mat-card-title{
     font-size: 20px;
-    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobile (iphone5)
+    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobileNumber (iphone5)
     margin:auto;
     padding: 2rem;
   }
@@ -110,7 +97,7 @@ i.material-icons{
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
   .mat-form-field {
-    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobile (iphone5)
+    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobileNumber (iphone5)
   }
   ::ng-deep .custom-tooltip-blue {
     font-size: 11px;
@@ -137,4 +124,15 @@ i.material-icons{
 #message-guide p{
   color: white;
   text-align: center;
+}
+.motDePasseOublieLink{
+  font-size: 12px;
+  color: rgb(0, 119, 255);
+  position: absolute;
+  top:14.3em;
+  right:1em;
+}
+ .motDePasseOublieLink:hover{
+  cursor: pointer;
+  text-decoration: none;
 }

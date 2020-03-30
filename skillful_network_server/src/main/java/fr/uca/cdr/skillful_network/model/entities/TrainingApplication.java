@@ -34,6 +34,7 @@ public class TrainingApplication extends Application {
     public TrainingApplication(Long id, User user, Training training, ApplicationStatus status, Date submitDate) {
         super(id, user, status, submitDate);
         this.training = training;
+
     }
 
     public Training getTraining() {
@@ -44,6 +45,7 @@ public class TrainingApplication extends Application {
         this.training = training;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, user, training);
@@ -53,5 +55,6 @@ public class TrainingApplication extends Application {
     public String toString() {
         return super.toString() +
                 ", training=" + training.getOrganisation() + "/" + training.getName();
+
     }
 }

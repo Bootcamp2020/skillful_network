@@ -15,7 +15,8 @@
     "keywords": [
       "HTML5",
       "CSS"
-    ]
+    ],
+    "trainingApplicationSet": []
   },
   {
     "id": 2,
@@ -38,7 +39,8 @@
       "REST",
       "SOAP",
       "Spring"
-    ]
+    ],
+    "trainingApplicationSet": []
   },
   {
     "id": 3,
@@ -61,7 +63,8 @@
       "HTTPS",
       "TLS",
       "Chiffrage des donn�es"
-    ]
+    ],
+    "trainingApplicationSet": []
   },
   {
     "id": 4,
@@ -82,6 +85,7 @@
       "Angular",
       "Java",
       "Spring"
-    ]
+    ],
+    "trainingApplicationSet": []
   }
 ]
