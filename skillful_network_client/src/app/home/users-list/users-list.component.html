@@ -1,34 +1,47 @@
-<div class ="userTable" class = "mat-elevation-z8">
-  <div id="title">
-          <h1 id="title_police">Liste des utilisateurs</h1>
-  </div>
-    <hr> 
 
-  <table mat-table  #table [dataSource]="dataSource" matSort >
+<div class ="user-list" class = "mat-elevation-z8">
+    <mat-card>
 
-          <!-- Name Column -->
+        <mat-card-header id="title">
+            <mat-card-title id="title_police">Liste des utilisateurs</mat-card-title>
+        </mat-card-header>
 
-      <ng-container matColumnDef="firstName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
-          <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
-      </ng-container>
+        <hr>
+        
+        <mat-card-content>
+            <div fxLayoutAlign="center center">
+                <div class="mat-elevation-z3 table-container">
+                    <table mat-table  #table [dataSource]="dataSource" matSort >
 
-      <ng-container matColumnDef="lastName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
-          <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
-      </ng-container>
+                    <!-- Name Column -->
 
-      <ng-container matColumnDef="birthDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </mat-header-cell>
-          <mat-cell *matCellDef="let user"> {{user.birthDate | date}}</mat-cell>
-      </ng-container>
+                        <ng-container matColumnDef="firstName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
+                            <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
+                        </ng-container>
 
-      <ng-container matColumnDef="details">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
-          <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user-list/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
-      </ng-container>
+                        <ng-container matColumnDef="lastName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+                            <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
+                        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
-</table>
+                        <ng-container matColumnDef="birthDate">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </mat-header-cell>
+                            <mat-cell *matCellDef="let user"> {{user.birthDate | date: "dd/MM/yyyy"}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="details">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
+                            <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user-list/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
+                    </table>
+                </div>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+>>>>>>> e7e67d34b98516bcf2c0b29c174ed2ab0b67379e
 </div>

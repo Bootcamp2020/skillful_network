@@ -4,8 +4,9 @@ package fr.uca.cdr.skillful_network.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -20,9 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import fr.uca.cdr.skillful_network.jwt.JwtProvider;
 import fr.uca.cdr.skillful_network.jwt.response.JwtResponse;
+import fr.uca.cdr.skillful_network.model.entities.Role;
+import fr.uca.cdr.skillful_network.model.entities.Rolename;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
@@ -52,6 +59,9 @@ public class AuthenticationController {
      @Autowired
  	 private JwtProvider jwtProv;
      
+     @Autowired
+     private RoleRepository roleRepository;
+     
      
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -73,9 +83,7 @@ public class AuthenticationController {
 					// On génère un token en fonction de l'id, l'email et le password de l'utilisateur
  					String jwt = jwtProv.generateJwtToken(idFromDB, emailFromDB, passwordFromDB);
  					System.out.println("jwt dans AuthController : "+jwt);
- 					// Pour enlever le b' contenu devant le token et le ' de la fin
- 					jwt = jwt.substring(2,jwt.length()-1);
- 					System.out.println("jwt substring : "+jwt);
+ 					
  					
  					// On retourne une jwt response qui contient le token et l'utilisateur
  	 				return ResponseEntity.ok(new JwtResponse(jwt, userFromDB.get()));
@@ -102,6 +110,32 @@ public class AuthenticationController {
 			userService.sendMail(user.getEmail(), randomCode);
 		}
 		user.setPassword(randomCode);
+		
+		Set<String> strRoles = user.getRole();
+		Set<Role> roles= new HashSet<>();
+		
+		strRoles.forEach(selectedRole->{
+			switch (selectedRole) {
+//				case "user":
+//					Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
+//					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : User role not found"));
+//					roles.add(userRole);
+				case "organisme":
+					Role organismeRole = roleRepository.findByName(Rolename.ROLE_ORGANISME)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Organisme role not found"));
+					roles.add(organismeRole);
+				case "entreprise":
+					Role entrepriseRole = roleRepository.findByName(Rolename.ROLE_ENTREPRISE)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Entreprise role not found"));
+					roles.add(entrepriseRole);
+				default:
+					Role defaultRole = roleRepository.findByName(Rolename.ROLE_USER)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : default role not found"));
+					roles.add(defaultRole);
+			}
+		});
+		
+		user.setRoles(roles);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
@@ -133,5 +167,25 @@ public class AuthenticationController {
 		user.setPassword(randomCode);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+	}
+	
+//	A update plus tard pour récupérer le token dans le header
+	@PostMapping(value = "/whoami")
+	public ResponseEntity<?> whoAmI(@RequestBody String frontToken) throws JsonMappingException, JsonProcessingException{
+		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
+		if (!(jwtProv.validateToken(decryptResponse))) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
+		}
+		else {
+			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
+			User userFromDb = userService.getUserById(userFromJson.getId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
+			if(!(userFromDb.getEmail().equals(userFromDb.getEmail()) && userFromDb.getPassword().equals(userFromDb.getPassword()))) {
+				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
+			}
+			else {
+				return new ResponseEntity<String>("Le token et les informations utilisateurs sont valides", HttpStatus.OK );
+			}
+		}
 	}
 }

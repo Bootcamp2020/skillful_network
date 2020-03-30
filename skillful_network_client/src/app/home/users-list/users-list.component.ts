@@ -3,7 +3,7 @@ import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
-  import { from } from 'rxjs';
+ 
 
 @Component({
   selector: 'app-users-list',
