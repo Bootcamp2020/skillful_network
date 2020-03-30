@@ -23,6 +23,7 @@ import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
+import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
@@ -31,6 +32,7 @@ import { HeaderComponent } from './home/dashboard/header/header.component';
 import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { BottomSheetOverviewExample } from './bottom-sheet-overview-example/bottom-sheet-overview-example';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
@@ -50,6 +52,10 @@ import { CandidaterComponent } from './home/offre/candidater/candidater.componen
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
 import { FormationListComponent } from './home/formation-list/formation-list.component';
+import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
+
 
 
 
@@ -62,6 +68,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         UserComponent,
         UsersListComponent,
         PasswordConfirmationComponent,
+        PasswordForgottenComponent,
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
@@ -71,6 +78,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         FilActualitesComponent,
         ProfileComponent,
         MenuprofileComponent,
+        BottomSheetOverviewExample,
         ProfileConfComponent,
         UserConfComponent,
         SkillConfComponent,
@@ -88,7 +96,9 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         InformationsComponent,
         OffreComponent,
         FormationListComponent,
-    ],
+        JobOfferListComponent,
+        ],
+
     imports: [
         BrowserModule,
         AppRoutingModule, // Toutes nos routes sont définies dans ce module
@@ -98,8 +108,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatFormFieldModule,
-        
+        MatFormFieldModule
     ],
 
     providers: [
@@ -113,6 +122,7 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
             useClass: TokenHttpInterceptorService,
             multi: true
         },
+        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() },
         UserService
     ],
     bootstrap: [AppComponent]

@@ -13,17 +13,17 @@ export class Post {
     private _competence: string;
     private _duree: number;
     constructor(data: IPost) {
-        this.status = data.status;
-        this.titreOffre = data.titreOffre;
-        this.entreprise = data.entreprise;
-        this.description = data.description;
-        this.motsCles = data.motsCles;
-        this.niveau = data.niveau;
-        this.environement = data.environement;
-        this.nomFormation = data.nomFormation;
-        this.presRequis = data.presRequis;
-        this.competence = data.competence;
-        this.duree = data.duree;
+        this._status = data.status;
+        this._titreOffre = data.titreOffre;
+        this._entreprise = data.entreprise;
+        this._description = data.description;
+        this._motsCles = data.motsCles;
+        this._niveau = data.niveau;
+        this._environement = data.environement;
+        this._nomFormation = data.nomFormation;
+        this._presRequis = data.presRequis;
+        this._competence = data.competence;
+        this._duree = data.duree;
 
     }
 

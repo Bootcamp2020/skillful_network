@@ -20,7 +20,7 @@ export class SubscriptConfComponent implements OnInit {
   subscripts:string[];
   public listSubscript: Subscript[];
   public subscript: string;
-  
+  isLoading:boolean;
 
   constructor(private formBuilder: FormBuilder ,private service : UserService) {
 
@@ -28,16 +28,18 @@ export class SubscriptConfComponent implements OnInit {
 
   ngOnInit(): void {
     this.listSubscript =  this.userSubscriptList;
-    this.subscriptInfoGroup.value['subscriptionSet'] = this.listSubscript;
-    console.log(this.subscriptInfoGroup);  
-    
+    this.subscriptInfoGroup.value['subscriptionSet'] = this.listSubscript; 
     this.subscriptInfoGroup.valueChanges.subscribe(data=>{
+      this.isLoading=false;
       this.subscripts = []
       if (data.subscriptUnit.length >1){
+        this.isLoading=true;
         this.service.findByContain("subscriptions",data.subscriptUnit).then(
           datas=>{
-            for(let id in datas)
+            for(let id in datas){
             this.subscripts.push(datas[id].name)  
+            }
+            this.isLoading = false;
           }
         )
       }

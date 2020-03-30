@@ -1,11 +1,13 @@
 package fr.uca.cdr.skillful_network.model.repositories;
 
-import fr.uca.cdr.skillful_network.model.entities.User;
-
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import fr.uca.cdr.skillful_network.model.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -13,4 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<User> findById(Long id);
 
+	Page<User> findByLastNameOrFirstNameContaining(Pageable pageable, String keyword1, String keyword2);
 }

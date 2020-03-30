@@ -17,10 +17,13 @@
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
                     <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="qualification" class="form-control">
-                    <mat-autocomplete #auto="matAutocomplete" >
-                        <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
-                          {{qualif}}
-                        </mat-option>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                        <ng-container *ngIf="!isLoading">
+                            <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
+                            {{qualif}}
+                            </mat-option>
+                        </ng-container>
                       </mat-autocomplete>
                 </mat-form-field>
             </div>
