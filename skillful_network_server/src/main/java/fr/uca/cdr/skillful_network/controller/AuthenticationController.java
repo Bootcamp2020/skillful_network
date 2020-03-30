@@ -136,6 +136,7 @@ public class AuthenticationController {
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
 	
+//	A update plus tard pour récupérer le token dans le header
 	@PostMapping(value = "/whoami")
 	public ResponseEntity<?> whoAmI(@RequestBody String frontToken) throws JsonMappingException, JsonProcessingException{
 		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
@@ -143,7 +144,7 @@ public class AuthenticationController {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
 		}
 		else {
-			User userFromJson = jwtProv.getUserfromJson(decryptResponse);
+			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
 			User userFromDb = userService.getUserById(userFromJson.getId())
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
 			if(!(userFromDb.getEmail().equals(userFromDb.getEmail()) && userFromDb.getPassword().equals(userFromDb.getPassword()))) {

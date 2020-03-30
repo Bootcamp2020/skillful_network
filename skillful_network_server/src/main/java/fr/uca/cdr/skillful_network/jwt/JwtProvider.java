@@ -36,6 +36,7 @@ public class JwtProvider {
 		return jwt;
     }
 	
+//	Méthode qui permet de décrypter un token et de renvoyer la réponse du script python
 	public String decryptJwtToken(String frontToken) throws JsonMappingException, JsonProcessingException {
 		String line = "";
 		String scriptResponse="";
@@ -59,10 +60,12 @@ public class JwtProvider {
 		return scriptResponse;
     }
 	
+//	Méthode qui permet de définir l'état du token : valide ou invalide
 	public boolean validateToken(String decryptResponse) {
 		return (!(decryptResponse.equals("-5") || decryptResponse.equals("-4")));
 	}
 	
+//  Méthode qui permet de récupérer l'email de l'utilisateur à partir de la réponse json fournie par le decryptage du token
 	public String getEmailFromToken(String jsonDecryptResponse) throws JsonMappingException, JsonProcessingException {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -72,7 +75,8 @@ public class JwtProvider {
 		return email;
 	}
 	
-	public User getUserfromJson(String jsonDecryptResponse) throws JsonMappingException, JsonProcessingException{
+//	Méthode qui permet de récupérer un objet User à partir des informations utilisateurs de la réponse json fournie par le decryptage du token
+	public User getUserFromJson(String jsonDecryptResponse) throws JsonMappingException, JsonProcessingException{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> map = mapper.readValue(jsonDecryptResponse, Map.class);
 		
@@ -84,25 +88,12 @@ public class JwtProvider {
 		
 		User userFromJson = new User();
 		userFromJson.setId(id);
+//		Attention : l'email sera mis en lowercase : vérifier que tous les emails le soient aussi en BDD
 		userFromJson.setEmail(email);
 		userFromJson.setPassword(password);
 		
 		System.out.println("User from json : \n" + userFromJson.toString());
 		return userFromJson;
 	}
-	public static void main(String[] args) throws JsonMappingException, JsonProcessingException {
-		// TODO Auto-generated method stub
-		
-		JwtProvider jwtProvider = new JwtProvider();
-		String token = jwtProvider.generateJwtToken(1L, "John@uca.fr", "azertyyyy");
-//		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjEiLCJlbWFpbCI6IkpvaG5AdWNhLmZyIiwicGFzc3dvcmQiOiJhemVydHl5eXkiLCJleHAiOjE1ODUzMDQ5MzJ9.syA5JoTmDZlNxWoG5Qnsy11mlA9bVlPuTowPRO6zX7BErmOAHRVi8VnNhKDYO0MA";
-		String decryptResponse = jwtProvider.decryptJwtToken(token);
-		System.out.println("token décrypté : " + decryptResponse +"\ncompareTo -5: "+ decryptResponse.equals("-5"));
-		System.out.println("token valide ? " + jwtProvider.validateToken(decryptResponse));
-		String email = jwtProvider.getEmailFromToken(decryptResponse);
-		User userFromJson = jwtProvider.getUserfromJson(decryptResponse);
-		System.out.println(userFromJson.getEmail());
-		
-		
-	}
+	
 }
