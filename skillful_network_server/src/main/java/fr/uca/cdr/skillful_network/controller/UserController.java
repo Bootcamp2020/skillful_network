@@ -92,19 +92,20 @@ public class UserController {
 	@PutMapping(value = "/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
 			@Valid @RequestBody UserForm userRequest) {
-
+			
+		System.out.println(userRequest);
 		if (userService.getUserById(id).isPresent()) {
 			User userToUpdate = userService.getUserById(id).get();
 			if (userRequest != null) {
-				userToUpdate.setLastName(userRequest.getLastName());
-				userToUpdate.setFirstName(userRequest.getFirstName());
-				userToUpdate.setBirthDate(userRequest.getBirthDate());
-				userToUpdate.setEmail(userRequest.getEmail());
-				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
-				userToUpdate.setSkillSet(userRequest.getSkillSet());
-				userToUpdate.setQualificationSet(userRequest.getQualificationSet());
-				userToUpdate.setSubscriptionSet(userRequest.getSubscriptionSet());
-				userToUpdate.setCareerGoal(userRequest.getCareerGoal());
+				userToUpdate.setLastName(userRequest.get_lastName());
+				userToUpdate.setFirstName(userRequest.get_firstName());
+				userToUpdate.setBirthDate(userRequest.get_birthDate());
+				userToUpdate.setEmail(userRequest.get_email());
+				userToUpdate.setMobileNumber(userRequest.get_mobileNumber());
+				userToUpdate.setSkillSet(userRequest.get_skillSet());
+				userToUpdate.setQualificationSet(userRequest.get_qualificationSet());
+				userToUpdate.setSubscriptionSet(userRequest.get_subscriptionSet());
+				userToUpdate.setCareerGoal(userRequest.get_careerGoal());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {
