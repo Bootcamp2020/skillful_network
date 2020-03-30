@@ -25,7 +25,7 @@ export let MOCK_OFFRE: IPost =
     motsCles: 'HTML5, CSS, Développement, Web',
     niveau: 'Bac/Bac +2/3',
     environement: 'HTML5, CSS',
-    nomFormation: 'Formation développeir front-end',
+    nomFormation: 'Formation développeur front-end',
     presRequis: 'Minimum Bac',
     competence: 'HTML, CSS',
     duree: 24,
