@@ -10,7 +10,7 @@ export class User {
   private _lastName: string;
   private _password: string;
   private _email: string;
-  private _birthDate: string;
+  private _birthDate: Date;
   private _qualification: string;
   private _competences: string[];
   private _mobileNumber: string;
@@ -24,25 +24,24 @@ export class User {
 
   private _careerGoal: string;
   constructor(data: any) {
-    this.id = data.id;
-    this.firstName = data.firstName;
-
-    this.email = data.email;
-    this.status = data.status;
+    this._id = data.id;
+    this._firstName = data.firstName;
+    this._email = data.email;
+    this._status = data.status;
     this._qualification = data.qualification;
-    this.lastName = data.lastName;
-    this.password = data.password;
+    this._lastName = data.lastName;
+    this._password = data.password;
     this._birthDate = data.birthDate;
-    this.email = data.email;
+    this._email = data.email;
     this._mobileNumber = data.mobileNumber;
-    this.status = data.status;
-    this.validated = data.validated;
-    this.photo = data.photo;
-    this.skillSet = data.skillSet;
-    this.qualificationSet = data.qualificationSet;
-    this.subscriptionSet = data.subscriptionSet;
-    this.photoProfile = data.photoProfile;
-    this.careerGoal = data.careerGoal;
+    this._status = data.status;
+    this._validated = data.validated;
+    this._photo = data.photo;
+    this._skillSet = data.skillSet;
+    this._qualificationSet = data.qualificationSet;
+    this._subscriptionSet = data.subscriptionSet;
+    this._photoProfile = data.photoProfile;
+    this._careerGoal = data.careerGoal;
   }
   /* GETTERS & SETTERS */
   public get id(): number {
@@ -69,12 +68,12 @@ export class User {
   public set password(value: string) {
     this._password = value;
   }
- /* get birthDate(): Date {
+  get birthDate(): Date {
     return this._birthDate;
   }
   set birthDate(value: Date) {
     this._birthDate = value;
-  }*/
+  }
   public get email(): string {
     return this._email;
   }
@@ -87,8 +86,7 @@ export class User {
   public set status(value: string) {
     this._status = value;
   }
-
-    public get mobileNumber(): string {
+  public get mobileNumber(): string {
     return this._mobileNumber;
   }
   public set mobileNumber(value: string) {
@@ -113,7 +111,6 @@ export class User {
   public set skillSet(value: Skill[]) {
     this._skillSet = value;
   }
-
   public get qualificationSet(): Qualif[] {
     return this._qualificationSet;
   }

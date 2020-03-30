@@ -78,7 +78,8 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/users/search")
-	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool, @RequestParam(name = "keyword", required = false) String keyword) {
+	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
+			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
 			Page<User> listUsersSeachByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
 			return new ResponseEntity<Page<User>>(listUsersSeachByPage, HttpStatus.OK);
@@ -277,7 +278,6 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-		
 		@GetMapping(value = "/users/{id}/Qualifications")
 		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
 			Set<Qualification> listQualifications = this.userService.getUserById(id)
@@ -297,6 +297,7 @@ public class UserController {
 			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
 		}
 		
+
 //	@GetMapping(value = "users/{id}/skills")
 //	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
 //		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
