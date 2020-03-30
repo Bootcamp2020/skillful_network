@@ -52,9 +52,7 @@ public class User {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	Set<String> role;
-
-
+	
 	public User() {
 		super();
 	}
@@ -253,13 +251,7 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	public Set<String> getRole() {
-		return role;
-	}
 
-	public void setRole(Set<String> role) {
-		this.role = role;
-	}
 
 	@Override
 	public String toString() {
