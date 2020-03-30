@@ -11,27 +11,27 @@
         <mat-card-content>
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
-                    <table mat-table  #table [dataSource]="dataSource" >
+                    <table mat-table  #table [dataSource]="dataSource" matSort >
 
                     <!-- Name Column -->
 
                         <ng-container matColumnDef="firstName">
-                            <mat-header-cell *matHeaderCellDef> Prénom </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
                             <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="lastName">
-                            <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
                             <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="birthDate">
-                            <mat-header-cell *matHeaderCellDef> Date de naissance </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </mat-header-cell>
                             <mat-cell *matCellDef="let user"> {{user.birthDate | date: "dd/MM/yyyy"}}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="details">
-                            <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
                             <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user-list/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
                         </ng-container>
 
@@ -43,4 +43,5 @@
         </mat-card-content>
 
     </mat-card>
+>>>>>>> e7e67d34b98516bcf2c0b29c174ed2ab0b67379e
 </div>
