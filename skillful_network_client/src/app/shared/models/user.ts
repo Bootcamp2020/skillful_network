@@ -21,6 +21,7 @@ export class User {
   private _qualificationSet : Qualif[];
   private _subscriptionSet : Subscript[];
   private _photoProfile: string;
+  private _role: string[];
 
   private _careerGoal: string;
   constructor(data: any) {
@@ -42,6 +43,7 @@ export class User {
     this._subscriptionSet = data.subscriptionSet;
     this._photoProfile = data.photoProfile;
     this._careerGoal = data.careerGoal;
+    this._role = ['user'];
   }
   /* GETTERS & SETTERS */
   public get id(): number {

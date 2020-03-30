@@ -1,3 +1,4 @@
+import{ITraining} from './mock.training'
 export class Training {
     // tslint:disable-next-line:variable-name
     private _id: number;
@@ -13,18 +14,18 @@ export class Training {
     private _prerequisites: string[];
     private _keywords: string[];
 
-    constructor(data: any) {
+    constructor(data: ITraining) {
         this.id = data.id;
-        this._name = data._name;
-        this._organisation = data._organisation;
-        this._description = data._description;
-        this._financer = data._financer;
-        this._dateBeg = data._dateBeg;
-        this._dateEnd = data._dateEnd;
-        this._durationHours = data._durationHours;
-        this._dateUpload = data._dateUpload;
-        this._prerequisites = data._prerequisites;
-        this._keywords = data._keywords;
+        this.name = data.name;
+        this.organisation = data.organisation;
+        this.description = data.description;
+        this.financer = data.financer;
+        this.dateBeg = data.dateBeg;
+        this.dateEnd = data.dateEnd;
+        this.durationHours = data.durationHours;
+        this.dateUpload = data.dateUpload;
+        this.prerequisites = data.prerequisites;
+        this.keywords = data.keywords;
     }
 
     /* GETTERS & SETTERS */

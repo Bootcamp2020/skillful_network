@@ -33,6 +33,7 @@ import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
+import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
 
 /**
@@ -94,24 +95,26 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/register", method = POST)
-	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody User user) {
-		if (userService.alreadyExists(user.getEmail())) {
-			if (userService.existingMailIsValidated(user.getEmail()) == true) {
+	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
+		if (userService.alreadyExists(registerForm.getEmail())) {
+			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			} else {
 
-				Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
+				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
 				userRepository.delete(oOldUser.get());
 			}
 		}
 		String randomCode = CodeGeneration.generateCode(10);
         if (activeProfil.contains("prod")) {
 			// Send Message!
-			userService.sendMail(user.getEmail(), randomCode);
+			userService.sendMail(registerForm.getEmail(), randomCode);
 		}
+        User user = new User();
+        user.setEmail(registerForm.getEmail());
 		user.setPassword(randomCode);
 		
-		Set<String> strRoles = user.getRole();
+		Set<String> strRoles = registerForm.getRole();
 		Set<Role> roles= new HashSet<>();
 		
 		strRoles.forEach(selectedRole->{
