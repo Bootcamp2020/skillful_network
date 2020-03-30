@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.model.services;
 
+import fr.uca.cdr.skillful_network.model.entities.Application;
 import fr.uca.cdr.skillful_network.model.entities.JobApplication;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -7,7 +8,9 @@ import fr.uca.cdr.skillful_network.model.repositories.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,13 +40,13 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     @Override
     public Optional<User> getUserById(Long id) {
         return jobApplicationRepository.findById(id)
-                .map(jobApplication -> jobApplication.getUser());
+                .map(Application::getUser);
     }
 
     @Override
     public Optional<JobOffer> getJobOfferById(Long id) {
         return jobApplicationRepository.findById(id)
-                .map(jobApplication -> jobApplication.getJobOffer());
+                .map(JobApplication::getJobOffer);
     }
 
     @Override
@@ -62,26 +65,33 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public Optional<User> setUserById(Long jobApplicationOfferId, Long userId) {
-        return jobApplicationRepository.findById(jobApplicationOfferId)
-                .map(jobApplication -> {
-                    if (!userRepository.findById(userId).isPresent()) {
-                        return null;
-                    }
-                    jobApplication.setUser(userRepository.findById(userId).get());
-                    return jobApplicationRepository.save(jobApplication).getUser();
+    public JobApplication saveJobApplicationById(Long userId, Long jobOfferId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id : " + userId));
+        JobOffer jobOffer = jobOfferRepository.findById(jobOfferId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune offre d'emploi trouvée avec l'id : " + jobOfferId));
+        return jobApplicationRepository.save(new JobApplication(user, jobOffer));
+    }
+
+    @Override
+    public Optional<User> setUserById(Long id, Long userId) {
+        JobApplication application = jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvé avec l'id : " + id));
+        return userRepository.findById(userId)
+                .map( user -> {
+                    application.setUser(user);
+                    return jobApplicationRepository.save(application).getUser();
                 });
     }
 
     @Override
-    public Optional<JobOffer> setJobOfferById(Long jobApplicationOfferId, Long jobOfferId) {
-        return jobApplicationRepository.findById(jobApplicationOfferId)
-                .map(jobApplication -> {
-                    if (!jobOfferRepository.findById(jobOfferId).isPresent()) {
-                        return null;
-                    }
-                    jobApplication.setJobOffer(jobOfferRepository.findById(jobOfferId).get());
-                    return jobApplicationRepository.save(jobApplication).getJobOffer();
+    public Optional<JobOffer> setJobOfferById(Long id, Long jobOfferId) {
+        JobApplication application = jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvé avec l'id : " + id));
+        return jobOfferRepository.findById(jobOfferId)
+                .map( jobOffer -> {
+                    application.setJobOffer(jobOffer);
+                    return jobApplicationRepository.save(application).getJobOffer();
                 });
     }
 

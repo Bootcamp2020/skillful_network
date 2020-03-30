@@ -27,8 +27,11 @@
                       </mat-autocomplete>
                 </mat-form-field>
             </div>
+            <!-- <div>
+                <h3>{{this.skillInfoGroup.value['skillSet']}}</h3>
+            </div> -->
             <div class='column' id="btn_ajouter" fxFlex="30">
-                <button type="submit" mat-raised-button color="primary">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="skillInfoGroup.invalid">Ajouter</button>
             </div>
         </div>
     </form>  
