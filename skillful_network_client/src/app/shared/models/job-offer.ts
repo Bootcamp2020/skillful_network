@@ -1,3 +1,5 @@
+import {IJobOffer} from './mock.job-offers';
+
 export class JobOffer {
 
     private _id: number;
@@ -10,16 +12,16 @@ export class JobOffer {
     private _dateUpload: Date;
     private _keywords: string[];
 
-    constructor(data: any) {
-        this._id = data._id;
-        this._name = data._name;
-        this._company = data._company;
-        this._description = data._description;
-        this._type = data._type;
-        this._dateBeg = data._dateBeg;
-        this._dateEnd = data._dateEnd;
-        this._dateUpload = data._dateUpload;
-        this._keywords = data._keywords;
+    constructor(data: IJobOffer) {
+        this.id = data.id;
+        this.name = data.name;
+        this.company = data.company;
+        this.description = data.description;
+        this.type = data.type;
+        this.dateBeg = data.dateBeg;
+        this.dateEnd = data.dateEnd;
+        this.dateUpload = data.dateUpload;
+        this.keywords = data.keywords;
     }
 
     /* GETTERS & SETTERS */
