@@ -1,11 +1,17 @@
 package fr.uca.cdr.skillful_network;
 
+import java.io.FileReader;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
+import fr.uca.cdr.skillful_network.model.repositories.*;
 import fr.uca.cdr.skillful_network.tools.json.ExerciseAdapter;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,20 +27,13 @@ import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
-import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
-import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
-import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
-import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
-import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
-import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
-import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
-import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+
+import static fr.uca.cdr.skillful_network.tools.json.JSONLoader.SKILLFUL_NETWORK_SERVER_PATH;
 
 @SpringBootApplication
 @EnableAsync
 public class Application {
-//    @Autowired
-//    private ExerciseRepository exerciseRepository ;
+
 	// lance le serveur
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
@@ -117,19 +116,38 @@ public class Application {
 		};
 	}
 
-	
 	@Bean
 	@Profile("dev")
-	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
+	ApplicationRunner initExercises(ExerciseRepository exerciseRepository, QuestionRepository questionRepository) {
 		return args -> {
 			if (exerciseRepository.findAll().isEmpty()) {
-				new JSONLoader<>(
-						"src/main/resources/data/exercises.json",
-						Exercise[].class,
-						Exercise.class,
-						exerciseRepository,
-						new ExerciseAdapter()
-						).load();
+				final String path = "src/main/resources/data/exercises.json";
+				final String resourceDir = this.getClass().getResource("/").getPath();
+				final String cwdDirectory = resourceDir.substring(0, resourceDir.lastIndexOf(SKILLFUL_NETWORK_SERVER_PATH));
+				final String url = cwdDirectory + SKILLFUL_NETWORK_SERVER_PATH + path;
+				try (final JsonReader reader = new JsonReader(new FileReader(url))) {
+					final Gson gson =  new GsonBuilder().setPrettyPrinting()
+							.registerTypeAdapter(Exercise.class, new ExerciseAdapter())
+							.create();
+					Exercise[] elements = gson.fromJson(reader, Exercise[].class);
+					for (Exercise exercise : elements) {
+						if (exercise instanceof QuestionSet) {
+							((QuestionSet) exercise).getQuestions().removeAll(
+									((QuestionSet) exercise).getQuestions()
+											.stream()
+											.filter(question -> question.getChoices() != null && question.getFeedback() != null)
+											.filter(question -> 
+													question.getChoices().length() > 255 || question.getFeedback().length() > 255
+											).collect(Collectors.toList())
+							);
+							((QuestionSet) exercise).setQuestions(((QuestionSet) exercise).getQuestions());
+							questionRepository.saveAll(((QuestionSet) exercise).getQuestions());
+						}
+						exerciseRepository.saveAndFlush(exercise);
+					}
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 			}
 		};
 	}
