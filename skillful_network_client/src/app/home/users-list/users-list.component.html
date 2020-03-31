@@ -31,8 +31,10 @@
                         </ng-container>
 
                         <ng-container matColumnDef="details">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
-                            <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user-list/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
+
+                            <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+                            <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user/'+user.id]" ><mat-icon >visibility</mat-icon> </a></mat-cell>
+
                         </ng-container>
 
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
