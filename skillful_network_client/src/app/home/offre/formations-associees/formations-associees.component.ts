@@ -12,15 +12,12 @@ export class FormationsAssocieesComponent implements OnInit {
   @Input() public presRequis: string;
   @Input() public competence: string;
   @Input() public duree: number;
-  public listPosts: Post[];
+  @Input() public post : Post;
+
   constructor() { }
 
   ngOnInit(): void {
-    this.listPosts = [];
 
-    MOCK_OFFRE.forEach((post) => {
-      this.listPosts.push(new Post(post));
-    });
   }
 
 }

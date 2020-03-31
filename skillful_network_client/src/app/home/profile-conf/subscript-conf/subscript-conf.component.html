@@ -18,14 +18,17 @@
                     <mat-label>Nouvel abonnement</mat-label>
                     <input formControlName="subscriptUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete" >
-                        <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
-                          {{subscript}}
-                        </mat-option>
+                        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                        <ng-container *ngIf="!isLoading">
+                            <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
+                            {{subscript}}
+                            </mat-option>
+                        </ng-container>
                       </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="20">
-                <button type="submit" mat-raised-button color="primary">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="subscriptInfoGroup.invalid">Ajouter</button>
             </div>
         </div>
     </form>  

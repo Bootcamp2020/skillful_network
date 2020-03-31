@@ -18,23 +18,24 @@ export class SkillConfComponent implements OnInit {
   skills:string[];
   public listSkill: Skill[];
   public skill: string;
-  
+  isLoading:boolean;
 
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
     this.listSkill =  this.userSkilList;
     this.skillInfoGroup.value['skillSet'] = this.listSkill;
-    console.log(this.skillInfoGroup);  
-   
-
     this.skillInfoGroup.valueChanges.subscribe(data=>{
+      this.isLoading=false;
       this.skills = []
       if (data.skillUnit.length >1){
+        this.isLoading=true;
         this.service.findByContain("skills",data.skillUnit).then(
             datas=>{
-              for(let id in datas)
+              for(let id in datas){
               this.skills.push(datas[id].name)  
+            }
+            this.isLoading = false;
             }
         )
       }

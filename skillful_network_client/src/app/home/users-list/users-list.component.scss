@@ -5,8 +5,30 @@ h1{
   table {
     width: 100%;
     margin: auto;
+    text-align: center;
+  }
+
+  mat-header-cell, mat-cell {
+    justify-content: center;
   }
   
   a {
     color:black;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 20%;
+  }
+  .btnIcon {
+    color:black;
+    margin-top: 7px;
+  }
+  
+  .table-container {
+    width: 80%;
   }

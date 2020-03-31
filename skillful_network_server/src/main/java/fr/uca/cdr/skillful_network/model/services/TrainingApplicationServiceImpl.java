@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.model.services;
 
+import fr.uca.cdr.skillful_network.model.entities.Application;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.TrainingApplication;
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -7,7 +8,9 @@ import fr.uca.cdr.skillful_network.model.repositories.TrainingApplicationReposit
 import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,13 +40,13 @@ public class TrainingApplicationServiceImpl implements TrainingApplicationServic
     @Override
     public Optional<User> getUserById(Long id) {
         return trainingApplicationRepository.findById(id)
-                .map(trainingApplication -> trainingApplication.getUser());
+                .map(Application::getUser);
     }
 
     @Override
     public Optional<Training> getTrainingById(Long id) {
         return trainingApplicationRepository.findById(id)
-                .map(trainingApplication -> trainingApplication.getTraining());
+                .map(TrainingApplication::getTraining);
     }
 
     @Override
@@ -62,26 +65,33 @@ public class TrainingApplicationServiceImpl implements TrainingApplicationServic
     }
 
     @Override
-    public Optional<User> setUserById(Long trainingApplicationId, Long userId) {
-        return trainingApplicationRepository.findById(trainingApplicationId)
-                .map(trainingApplication -> {
-                    if (!userRepository.findById(userId).isPresent()) {
-                        return null;
-                    }
-                    trainingApplication.setUser(userRepository.findById(userId).get());
-                    return trainingApplicationRepository.save(trainingApplication).getUser();
+    public TrainingApplication saveTrainingApplicationById(Long userId, Long trainingId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id : " + userId));
+        Training training = trainingRepository.findById(trainingId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune formation trouvée avec l'id : " + trainingId));
+        return trainingApplicationRepository.save(new TrainingApplication(user, training));
+    }
+
+    @Override
+    public Optional<User> setUserById(Long id, Long userId) {
+        TrainingApplication application = trainingApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvé avec l'id : " + id));
+        return userRepository.findById(userId)
+                .map( user -> {
+                    application.setUser(user);
+                    return trainingApplicationRepository.save(application).getUser();
                 });
     }
 
     @Override
-    public Optional<Training> setTrainingById(Long trainingApplicationId, Long trainingId) {
-        return trainingApplicationRepository.findById(trainingApplicationId)
-                .map(trainingApplication -> {
-                    if (!trainingRepository.findById(trainingId).isPresent()) {
-                        return null;
-                    }
-                    trainingApplication.setTraining(trainingRepository.findById(trainingId).get());
-                    return trainingApplicationRepository.save(trainingApplication).getTraining();
+    public Optional<Training> setTrainingById(Long id, Long trainingId) {
+        TrainingApplication application = trainingApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id : " + id));
+        return trainingRepository.findById(trainingId)
+                .map(training -> {
+                    application.setTraining(training);
+                    return trainingApplicationRepository.save(application).getTraining();
                 });
     }
 

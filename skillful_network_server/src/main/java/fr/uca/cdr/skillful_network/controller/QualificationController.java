@@ -6,8 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,11 +28,15 @@ public class QualificationController {
 	@Autowired
 	private final QualificationService qualificationservice;
 
+	// Autocompletion init
+	AutoCompletion<Qualification> completor = new AutoCompletion<>(Qualification.class, "name", "userSet");
+	
 	public QualificationController(QualificationService qualificationservice) {
 		this.qualificationservice = qualificationservice;
 	}
 
-	@RequestMapping(value = "/qualifications")
+	@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/qualifications")
 	public List<Qualification> getQualifications(@RequestParam(name = "prefix", required = false) String prefix) {
 		if (prefix == null) {
 			return qualificationservice.getAllQualifications();
@@ -41,9 +44,11 @@ public class QualificationController {
 			return qualificationservice.getQualificationByPrefix(prefix);
 		}
 	}
+
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/qualifications/candidates")
-	public ResponseEntity<List<Qualification>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+	public ResponseEntity<List<Qualification>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Qualification>>(qualificationservice.getQualificationsByMatch(match), HttpStatus.OK);
 	}
 }

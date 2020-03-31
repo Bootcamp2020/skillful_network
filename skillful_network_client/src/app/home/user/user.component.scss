@@ -1,18 +1,17 @@
-app-user{
-  width: 100%;
-}
+
 .zone {
   padding: 10px;
 }
 
 @media screen and (min-width: 900px) {
+
   .container_user {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 6px;
     grid-row-gap: 6px;
-    margin: 30px;
+    margin: auto;
   }
   .zone {
     padding: 10px;

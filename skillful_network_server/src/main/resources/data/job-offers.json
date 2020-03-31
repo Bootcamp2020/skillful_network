@@ -11,7 +11,8 @@
     "keywords": [
       "HTML5",
       "CSS"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 7,
@@ -27,7 +28,8 @@
       "REST",
       "SOAP",
       "Spring"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 8,
@@ -47,7 +49,8 @@
       "TLS",
       "Chiffrage des données",
       "protocol TCP"
-    ]
+    ],
+    "jobApplicationSet": []
   },
   {
     "id": 4,
@@ -59,25 +62,11 @@
     "dateUpload": "Mar 19, 2020 3:24:33 PM",
     "keywords": [
       "Fullstack",
-      "Angular",
-      "Java",
-      "Spring"
-    ]
-  },
-  {
-    "id": 9,
-    "name": "Développeur fullstack Angular/Spring",
-    "company": "Softeam",
-    "description": "Sur ce poste, vous serez mener à remplir une mission autant frontend que backend au sein de notre équipe de développement. Vous aurez aussi l\u0027opportunité de travailler pour nos clients ou de participer/d\u0027animer des formations.",
-    "type": "CDI",
-    "dateBeg": "Mar 19, 2020 3:25:02 PM",
-    "dateUpload": "Mar 19, 2020 3:25:02 PM",
-    "keywords": [
-      "Fullstack",
       "Application Web",
       "Angular",
       "Java",
       "Spring"
-    ]
+    ],
+    "jobApplicationSet": []
   }
 ]

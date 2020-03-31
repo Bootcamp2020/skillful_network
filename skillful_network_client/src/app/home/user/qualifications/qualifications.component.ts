@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { FormBuilder} from '@angular/forms';
 import { Qualif } from 'src/app/shared/models/qualif';
-import { MOCK_QUALIF, IPost } from 'src/app/shared/models/mock.qualif';
+import {ApiHelperService} from '../../../shared/services/api-helper.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-qualifications',
@@ -9,25 +10,22 @@ import { MOCK_QUALIF, IPost } from 'src/app/shared/models/mock.qualif';
   styleUrls: ['./qualifications.component.scss']
 })
 export class QualificationsComponent implements OnInit {
-  addQualifFormGroup: FormGroup;
-  titleAlert: string = 'This field is required';
-  post: any = '';
-
   public listQualif: Qualif[];
-  @Input() public qualif: string;
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,  private api: ApiHelperService,  private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-   
-    this.listQualif = [];
-    MOCK_QUALIF.forEach((qualifu: IPost) => {
-      this.listQualif.push(new Qualif(qualifu.toString()));
-    });  
+
+    const {id} = this.route.snapshot.params;
+    console.log(id);
+    // @ts-ignore
+    this.api.get({endpoint: `/users/${id}/Qualifications`})
+        .then(data => this.listQualif = data)
+        .catch((error) => {
+          console.log('cet utilisateur n\'existe pas');
+        });
+
   }
 
-  
- 
 }

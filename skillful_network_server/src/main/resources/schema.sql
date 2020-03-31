@@ -7,6 +7,27 @@ CREATE TABLE `job_applications` (
   `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+DROP TABLE IF EXISTS SKILLS;
+CREATE TABLE SKILLS; (
+  ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+  NAME VARCHAR(250) NOT NULL
+  
+);
+DROP TABLE IF EXISTS SUBSCRIPTIONS;
+CREATE TABLE SUBSCRIPTIONS; (
+  ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+  NAME VARCHAR(250) NOT NULL
+  
+);
+DROP TABLE IF EXISTS QUALIFICATIONS;
+CREATE TABLE QUALIFICATIONS; (
+  ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+  NAME VARCHAR(250) NOT NULL
+  
+);
+
+
   
 DROP TABLE IF EXISTS `job_offer`;
 CREATE TABLE `job_offer` (
@@ -22,26 +43,9 @@ CREATE TABLE `job_offer` (
   PRIMARY KEY (`id`)
 );  
 
-DROP TABLE IF EXISTS `qualifications`;
-CREATE TABLE `qualifications` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-);   
 
-DROP TABLE IF EXISTS `skills`;
-CREATE TABLE `skills` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-);  
-  
-DROP TABLE IF EXISTS `subscriptions`;
-CREATE TABLE `subscriptions` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-);  
+
+
   
 DROP TABLE IF EXISTS `training`;
 CREATE TABLE `training` (
@@ -84,9 +88,4 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 );   
 
-  
-  
-  
-  
-  
 

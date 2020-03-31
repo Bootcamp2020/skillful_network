@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,8 @@ public class SkillController {
 
 	@Autowired
 	private SkillService skillService;
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
 		List<Skill> listSkill = this.skillService.getAllSkills();
@@ -44,6 +46,7 @@ public class SkillController {
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
 		Skill skillFromDb = this.skillService.getSkillByName(name)
@@ -53,6 +56,7 @@ public class SkillController {
 		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySkill(@PathVariable(value = "id") Long id) {
 		Set<User> listUser = this.skillService.getSkillById(id)
@@ -62,8 +66,10 @@ public class SkillController {
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 		
 		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
+
 	}
-	
+
+	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
 		
@@ -73,9 +79,10 @@ public class SkillController {
 					);
 			return new ResponseEntity<List<String>>(listSkill, HttpStatus.OK);
 	}
-
+	
+	// Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
 	@GetMapping(value = "/candidates")
-	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Skill>>(skillService.getSkillsByMatch(match), HttpStatus.OK);
 	}
 }

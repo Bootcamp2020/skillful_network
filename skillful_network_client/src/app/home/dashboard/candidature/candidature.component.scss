@@ -11,6 +11,7 @@
 .Company,
 .Job {
     margin-left: 40px;
+    width:100px;
 }
 .card_dashboard{
     padding: 0;
@@ -19,4 +20,10 @@
   }
 mat-card{
     min-height: 515px;
+}
+.icon-candidature{
+    margin-left: 30px;
+}
+#bouton-details-candidature{
+    margin-left: 20px;
 }

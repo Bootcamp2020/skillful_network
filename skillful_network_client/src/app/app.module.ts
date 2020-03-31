@@ -32,6 +32,7 @@ import { HeaderComponent } from './home/dashboard/header/header.component';
 import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { BottomSheetOverviewExample } from './bottom-sheet-overview-example/bottom-sheet-overview-example';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
 import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
@@ -77,6 +78,7 @@ import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
         FilActualitesComponent,
         ProfileComponent,
         MenuprofileComponent,
+        BottomSheetOverviewExample,
         ProfileConfComponent,
         UserConfComponent,
         SkillConfComponent,

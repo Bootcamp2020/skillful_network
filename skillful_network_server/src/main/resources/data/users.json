@@ -9,9 +9,45 @@
     "status": "1",
     "validated": false,
     "photo": false,
-    "skillSet": [],
-    "qualificationSet": [],
-    "subscriptionSet": []
+    "skillSet": [
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      },
+      {
+        "id": 3,
+        "name": "Angular",
+        "userList": []
+      }
+    ],
+    "qualificationSet": [
+      {
+        "id": 1,
+        "name": "Bac",
+        "userSet": []
+      },
+      {
+        "id": 6,
+        "name": "Ingï¿½nieur",
+        "userSet": []
+      }
+    ],
+    "subscriptionSet": [
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      },
+      {
+        "id": 3,
+        "name": "Angular",
+        "userList": []
+      }
+    ],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 2,
@@ -23,9 +59,50 @@
     "status": "1",
     "validated": false,
     "photo": false,
-    "skillSet": [],
-    "qualificationSet": [],
-    "subscriptionSet": []
+    "skillSet": [
+      {
+        "id": 3,
+        "name": "Angular",
+        "userList": []
+      },
+      {
+        "id": 5,
+        "name": "Java",
+        "userList": []
+      }
+    ],
+    "qualificationSet": [
+      {
+        "id": 3,
+        "name": "DUT",
+        "userSet": []
+      },
+      {
+        "id": 5,
+        "name": "Master",
+        "userSet": []
+      },
+      {
+        "id": 6,
+        "name": "Ingï¿½nieur",
+        "userSet": []
+      }
+    ],
+    "subscriptionSet": [
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      },
+      {
+        "id": 3,
+        "name": "Angular",
+        "userList": []
+      }
+    ],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 3,
@@ -37,9 +114,60 @@
     "status": "1",
     "validated": false,
     "photo": false,
-    "skillSet": [],
-    "qualificationSet": [],
-    "subscriptionSet": []
+    "skillSet": [
+      {
+        "id": 4,
+        "name": "Spring",
+        "userList": []
+      },
+      {
+        "id": 5,
+        "name": "Java",
+        "userList": []
+      },
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      }
+    ],
+    "qualificationSet": [
+      {
+        "id": 1,
+        "name": "Bac",
+        "userSet": []
+      },
+      {
+        "id": 4,
+        "name": "Licence",
+        "userSet": []
+      },
+      {
+        "id": 5,
+        "name": "Master",
+        "userSet": []
+      },
+      {
+        "id": 7,
+        "name": "Doctorat",
+        "userSet": []
+      }
+    ],
+    "subscriptionSet": [
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      },
+      {
+        "id": 3,
+        "name": "Angular",
+        "userList": []
+      }
+    ],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 4,
@@ -51,9 +179,45 @@
     "status": "1",
     "validated": false,
     "photo": false,
-    "skillSet": [],
-    "qualificationSet": [],
-    "subscriptionSet": []
+    "skillSet": [
+      {
+        "id": 2,
+        "name": "Javascript",
+        "userList": []
+      }
+    ],
+    "qualificationSet": [
+      {
+        "id": 2,
+        "name": "BTS",
+        "userSet": []
+      },
+      {
+        "id": 7,
+        "name": "Doctorat",
+        "userSet": []
+      }
+    ],
+    "subscriptionSet": [
+      {
+        "id": 4,
+        "name": "Spring",
+        "userList": []
+      },
+      {
+        "id": 5,
+        "name": "Java",
+        "userList": []
+      },
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      }
+    ],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 5,
@@ -65,9 +229,40 @@
     "status": "2",
     "validated": false,
     "photo": false,
-    "skillSet": [],
-    "qualificationSet": [],
-    "subscriptionSet": []
+    "skillSet": [
+      {
+        "id": 2,
+        "name": "Javascript",
+        "userList": []
+      }
+    ],
+    "qualificationSet": [
+      {
+        "id": 2,
+        "name": "BTS",
+        "userSet": []
+      }
+    ],
+    "subscriptionSet": [
+      {
+        "id": 4,
+        "name": "Spring",
+        "userList": []
+      },
+      {
+        "id": 5,
+        "name": "Java",
+        "userList": []
+      },
+      {
+        "id": 1,
+        "name": "Application Web",
+        "userList": []
+      }
+    ],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 6,
@@ -81,7 +276,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 7,
@@ -95,7 +293,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 8,
@@ -109,7 +310,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 9,
@@ -123,7 +327,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 10,
@@ -137,7 +344,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 11,
@@ -151,7 +361,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 12,
@@ -165,7 +378,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 13,
@@ -179,7 +395,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 14,
@@ -193,7 +412,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 15,
@@ -207,7 +429,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 16,
@@ -221,7 +446,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 17,
@@ -235,7 +463,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 18,
@@ -249,21 +480,27 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 19,
-    "firstName": "Bénédicte",
+    "firstName": "Bï¿½nï¿½dicte",
     "lastName": "Lorens",
     "birthDate": "Mar 24, 1988 7:13:15 AM",
-    "email": "béné@uca.fr",
+    "email": "bï¿½nï¿½@uca.fr",
     "mobileNumber": "0677868151",
     "status": "1",
     "validated": false,
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 20,
@@ -277,7 +514,10 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
   },
   {
     "id": 21,
@@ -291,6 +531,9 @@
     "photo": false,
     "skillSet": [],
     "qualificationSet": [],
-    "subscriptionSet": []
-  },
+    "subscriptionSet": [],
+    "jobApplicationSet": [],
+    "trainingApplicationSet": [],
+    "roles": []
+  }
 ]

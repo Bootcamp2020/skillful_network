@@ -7,6 +7,7 @@ import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,17 +25,23 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
+	// Autocompletion init
+	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/subscriptions")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
 		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
 		return new ResponseEntity<List<Subscription>>(listSubscription, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/subscriptions/{id}")
 	public Optional<Subscription> findById(@PathVariable("id") long id) {
 		return subscriptionService.getSubscriptionById(id);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/subscriptions/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySubscription(@PathVariable(value = "id") Long id) throws Throwable {
 		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).map((subscription) -> {
@@ -45,7 +52,8 @@ public class SubscriptionController {
 		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
 
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
 	@GetMapping(value = "/subscriptions/{name}")
 	public ResponseEntity<Subscription> getSubscriptionByName(@PathVariable(value = "name") String name) {
 		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name).orElseThrow(
@@ -53,20 +61,24 @@ public class SubscriptionController {
 
 		return new ResponseEntity<Subscription>(HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@PostMapping(value = "/subscriptions")
 	public Subscription save(@Valid @RequestBody Subscription subscription) {
 		return subscriptionService.saveOrUpdateSubscription(subscription);
 
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@DeleteMapping("/subscriptions/{id}")
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
 		subscriptionService.deleteSubscription(id);
 	}
+
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/subscriptions/candidates")
-	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestBody(required=false) String match) {
+	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Subscription>>(subscriptionService.getSubscriptionsByMatch(match), HttpStatus.OK);
 	}
 }
