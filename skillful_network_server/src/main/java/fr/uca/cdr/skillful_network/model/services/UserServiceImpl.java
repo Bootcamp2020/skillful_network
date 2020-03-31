@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Page<User> searchUsersByKeyword(Pageable pageable, String keyword) {
-		return userRepository.findByLastNameOrFirstNameContaining(pageable, keyword, keyword);
+		return userRepository.findByLastNameContainsOrFirstNameContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
 }
