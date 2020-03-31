@@ -21,6 +21,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 ​
 const MATERIAL_MODULES = [
@@ -44,7 +46,8 @@ const MATERIAL_MODULES = [
   MatSortModule,
   MatListModule,
   FlexLayoutModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

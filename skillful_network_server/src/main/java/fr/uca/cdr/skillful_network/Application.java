@@ -2,7 +2,10 @@ package fr.uca.cdr.skillful_network;
 
 import java.util.List;
 
+import fr.uca.cdr.skillful_network.tools.json.ExerciseAdapter;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,8 +18,10 @@ import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
+import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
@@ -26,7 +31,8 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 @SpringBootApplication
 @EnableAsync
 public class Application {
-
+//    @Autowired
+//    private ExerciseRepository exerciseRepository ;
 	// lance le serveur
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
@@ -99,25 +105,20 @@ public class Application {
 		};
 	}
 
-
-
-
-
-
-//	@Bean
-//	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
-//		return args -> {
-//			if (exerciseRepository.findAll().isEmpty()) {
-//				new JSONLoader<>(
-//						"src/main/resources/data/exercises.json",
-//						Exercise[].class,
-//						Exercise.class,
-//						exerciseRepository,
-//						new ExerciseAdapter()
-//						).load();
-//
-//			}
-//		};
-//	}
+	
+	@Bean
+	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
+		return args -> {
+			if (exerciseRepository.findAll().isEmpty()) {
+				new JSONLoader<>(
+						"src/main/resources/data/exercises.json",
+						Exercise[].class,
+						Exercise.class,
+						exerciseRepository,
+						new ExerciseAdapter()
+						).load();
+			}
+		};
+	}
 }
 

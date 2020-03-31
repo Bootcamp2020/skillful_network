@@ -46,6 +46,7 @@ public class SkillController {
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
 
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
@@ -55,7 +56,7 @@ public class SkillController {
 					);
 		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 	}
-
+  
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySkill(@PathVariable(value = "id") Long id) {
@@ -68,7 +69,7 @@ public class SkillController {
 		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
 
 	}
-
+  
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
