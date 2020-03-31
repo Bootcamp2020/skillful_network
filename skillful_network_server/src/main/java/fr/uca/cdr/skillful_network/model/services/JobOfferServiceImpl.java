@@ -30,7 +30,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
 	@Override
 	public Page<JobOffer> searchJobOfferByKeyword(Pageable pageable, String keyword) {
-		return jobOfferRepository.findByNameOrCompanyContaining(pageable, keyword, keyword);
+		return jobOfferRepository.findByNameContainsOrCompanyContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
 	@Override
