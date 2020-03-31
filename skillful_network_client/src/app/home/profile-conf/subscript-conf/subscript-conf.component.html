@@ -14,11 +14,11 @@
     <form [formGroup]="subscriptInfoGroup" (submit)="addSubscript()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column' fxFlex="40">
+                <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>Nouvel abonnement</mat-label>
                     <input formControlName="subscriptUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete" >
-                        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
                             {{subscript}}
