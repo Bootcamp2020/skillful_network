@@ -25,15 +25,13 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
-	// Autocompletion init
-	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
-	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/subscriptions")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
 		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
 		return new ResponseEntity<List<Subscription>>(listSubscription, HttpStatus.OK);
 	}
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/subscriptions/{id}")
 	public Optional<Subscription> findById(@PathVariable("id") long id) {
@@ -73,15 +71,11 @@ public class SubscriptionController {
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
 		subscriptionService.deleteSubscription(id);
 	}
+
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/subscriptions/candidates")
-	public List<Subscription>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
-		// Get subscriptions list
-		List<Subscription> subscriptions = subscriptionService.getAllSubscription();
-
-		// looking for completion candidates
-		List<Subscription> candidates = completor.findCandidates(subscriptions, pMatch);
-		return candidates;
+	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
+		return new ResponseEntity<List<Subscription>>(subscriptionService.getSubscriptionsByMatch(match), HttpStatus.OK);
 	}
 }

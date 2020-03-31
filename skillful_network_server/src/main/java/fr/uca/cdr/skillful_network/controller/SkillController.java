@@ -31,10 +31,7 @@ public class SkillController {
 	@Autowired
 	private SkillService skillService;
 	
-	// Autocompletion init
-	AutoCompletion<Skill> completor = new AutoCompletion<>(Skill.class, "name", "userList");
-	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
 		List<Skill> listSkill = this.skillService.getAllSkills();
@@ -48,6 +45,7 @@ public class SkillController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
@@ -57,6 +55,7 @@ public class SkillController {
 					);
 		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 	}
+  
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySkill(@PathVariable(value = "id") Long id) {
@@ -69,6 +68,7 @@ public class SkillController {
 		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
 
 	}
+  
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
@@ -78,20 +78,12 @@ public class SkillController {
 						() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun matching avec le keyword : "+keyword)
 					);
 			return new ResponseEntity<List<String>>(listSkill, HttpStatus.OK);
-		 
-			 
-
 	}
 	
-    // Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
+	// Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/candidates")
-	public List<Skill>  getAutoCompletionByMatch(@RequestParam(required=false , name="contain") String pMatch) {
-		// Get subscriptions list
-		List<Skill> skills = skillService.getAllSkills();
-		
-		// looking for completion candidates
-		List<Skill> candidates = completor.findCandidates(skills, pMatch);
-		return candidates;
+	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
+		return new ResponseEntity<List<Skill>>(skillService.getSkillsByMatch(match), HttpStatus.OK);
 	}
 }
