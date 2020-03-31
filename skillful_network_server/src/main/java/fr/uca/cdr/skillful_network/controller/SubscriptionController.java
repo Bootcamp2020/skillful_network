@@ -52,7 +52,7 @@ public class SubscriptionController {
 
 	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/subscriptions/{name}")
 	public ResponseEntity<Subscription> getSubscriptionByName(@PathVariable(value = "name") String name) {
 		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name).orElseThrow(
