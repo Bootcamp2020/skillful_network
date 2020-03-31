@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import fr.uca.cdr.skillful_network.model.entities.Role;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
@@ -24,6 +25,7 @@ import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
+import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
 import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
@@ -47,6 +49,16 @@ public class Application {
 				List<User> users = new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
 						.load();
 				users.forEach(user -> user.setValidated(true));
+			}
+		};
+	}
+	
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initRoleRepository(RoleRepository roleRepository) {
+		return args -> {
+			if (roleRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/roles.json", Role[].class, roleRepository).load();				
 			}
 		};
 	}

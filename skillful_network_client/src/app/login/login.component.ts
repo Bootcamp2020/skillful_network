@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
   public username: string;
   public email: string;
   public error: boolean;
-  public password: string;
-  
+  public password: string; 
+   
 
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
 
@@ -100,9 +100,11 @@ export class LoginComponent implements OnInit {
     console.log(this.inscriptionFormGroup.value.emailInscription);
     // variable qui va permettre la vérification de l'email
     const verifEmail = false;
+    const role = ['user'];
+   
 
     // Commenté en attendant la liaison avec le back
-    this.api.post({ endpoint: '/register', data: { email: this.inscriptionFormGroup.value.emailInscription } })
+    this.api.post({ endpoint: '/register', data: { email: this.inscriptionFormGroup.value.emailInscription, role} })
       .then(() => {
         
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
@@ -112,6 +114,8 @@ export class LoginComponent implements OnInit {
       });
     /* Reset form. */
     // this.buildFormInscription();
+    console.log(role);
+    
   }
 
   // Methode appelée lorsque l'on submit le formulaire du code temporaire
