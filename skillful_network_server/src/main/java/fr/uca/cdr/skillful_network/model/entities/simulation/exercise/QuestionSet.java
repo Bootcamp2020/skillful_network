@@ -3,8 +3,14 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
 public class QuestionSet extends Exercise {
-
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Question> questions = new HashSet<>();
 
 	public QuestionSet(Set<Question> questions) {

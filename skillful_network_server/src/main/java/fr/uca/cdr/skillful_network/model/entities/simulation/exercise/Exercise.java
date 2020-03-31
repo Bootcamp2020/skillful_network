@@ -3,7 +3,15 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 import java.util.Arrays;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
 public class Exercise {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private ExerciseType type;
