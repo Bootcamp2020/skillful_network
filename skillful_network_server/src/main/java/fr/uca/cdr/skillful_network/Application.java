@@ -137,7 +137,8 @@ public class Application {
 											.stream()
 											.filter(question -> question.getChoices() != null && question.getFeedback() != null)
 											.filter(question -> 
-													question.getChoices().length() > 255 || question.getFeedback().length() > 255
+//													question.getChoices().length() > 255 ||
+															question.getFeedback().length() > 255
 											).collect(Collectors.toList())
 							);
 							((QuestionSet) exercise).setQuestions(((QuestionSet) exercise).getQuestions());

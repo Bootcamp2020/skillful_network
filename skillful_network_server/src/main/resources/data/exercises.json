@@ -1,6 +1,54 @@
 [
   {
-    "questions": [],
+    "questions": [
+      {
+        "id": 1,
+        "question": "Angular est un framework orienteÌ� ... ",
+        "choices": [
+          "composants",
+          "modules",
+          "JavaScript,",
+          "au Nord !"
+        ],
+        "indexAnswer": 1,
+        "feedback": "Angular est un framework orienteÌ� composants : votre application entieÌ€re est un assemblage de composants !"
+      },
+      {
+        "id": 2,
+        "question": "Quelle entreprise est aÌ€ l\u0027origine d\u0027Angular ?",
+        "choices": [
+          "Amazon",
+          "Facebook",
+          "Google",
+          "Apple",
+          "Microsoft"
+        ],
+        "indexAnswer": 2,
+        "feedback": "Angular a eÌ�teÌ� creÌ�e par Google : Google a officiellement annonceÌ� Angular aÌ€ la confeÌ�rence ng-conf en Octobre 2014."
+      },
+      {
+        "id": 3,
+        "question": "Ã€ quoi sert un transpileur ?",
+        "choices": [
+          "Convertir son code TypeScript en code JavaScript:AmeÌ�liorer la qualiteÌ� de son code JavaScript",
+          "Modifier le comportement de sa page web sur les mobiles",
+          "Convertir du code JavaScript du standart ECMAScript 6 vers ECMAScript 5"
+        ],
+        "indexAnswer": 3,
+        "feedback": "Le transpilateur est un outil qui permet de publier son code pour les navigateurs qui ne supportent pas encore l\u0027ES6 : le roÌ‚le du transpilateur est de traduire le code ES6 en code ES5."
+      },
+      {
+        "id": 4,
+        "question": "Quel est le langage recommandeÌ� pour le deÌ�veloppement d\u0027applications Angular ?",
+        "choices": [
+          "Dart",
+          "TypeScript",
+          "JavaScript"
+        ],
+        "indexAnswer": 1,
+        "feedback": " 4) Quel est le langage recommandeÌ� pour le deÌ�veloppement 1/1 d\u0027applications Angular ?Dart\nTypeScript\nJavaScript\nFeedback\nL\u0027eÌ�quipe fondatrice d\u0027Angular recommande fortement d\u0027utiliser TypeScript. D\u0027ailleurs, TypeScript est le seul langage utiliseÌ� sur la documentation officielle de Angular"
+      }
+    ],
     "id": 1,
     "name": "Angular Quizz",
     "type": "QuestionSet",
@@ -11,10 +59,136 @@
     ]
   },
   {
-    "questions": [],
+    "questions": [
+      {
+        "id": 5,
+        "question": "Quâ€™est-ce que lâ€™injection de deÌ�pendance?",
+        "choices": [
+          "Câ€™est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le(inversion of control, IoC) pour des applications logicielles.",
+          "Câ€™est lâ€™un des modules de Spring.",
+          "Câ€™est une technique pour obtenir des deÌ�pendances de nâ€™importe quel projet.",
+          "Il est utiliseÌ� pour promouvoir un couplage eÌ�troit dans le code."
+        ],
+        "indexAnswer": 0,
+        "feedback": "Injection de deÌ�pendance est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le pour des applications logicielles."
+      },
+      {
+        "id": 6,
+        "question": "Quels types dâ€™injection de deÌ�pendance que Spring prend-il en charge?",
+        "choices": [
+          "BaseÌ� sur le constructeur et les setters",
+          "BaseÌ� sur le constructeur, les setters, et les getters",
+          "BaseÌ� sur les setters, les getters, et les proprieÌ�teÌ�s",
+          "BaseÌ� sur le constructeur, les setters, et les proprieÌ�teÌ�s"
+        ],
+        "indexAnswer": 0,
+        "feedback": "Spring prend en charge les injections baseÌ�es sur le constructeur et sur les setters."
+      },
+      {
+        "id": 7,
+        "question": "Lequel des eÌ�nonceÌ�s suivants est correct concernant le Framework Spring ?",
+        "choices": [
+          "Le Framework Spring est une solution lourde(heavy-weight solution).",
+          "Le Framework Spring est une solution leÌ�geÌ€re(light-weight solution).",
+          "Les deux A et B sont vrais.",
+          "Aucune de ces reÌ�ponses nâ€™est vraie, mÃªme pas la rÃ©ponse D."
+        ],
+        "indexAnswer": 1,
+        "feedback": "De nombreuses raisons font du spring un framework leÌ�ger.Spring vous fournit diffeÌ�rents modules et vous permet dâ€™utiliser celui qui vous convient le mieux. IdeÌ�alement, le fichier JAR de spring ne mesure que 2 aÌ€ 3 MB. Si vous comparez Spring avec EJB, vous devez eÌ�crire beaucoup moins de code et de configurations. La beauteÌ� de Spring reÌ�side dans le fait que vous pouvez vous concentrer sur la logique meÌ�tier alors que dans EJB, vous devez eÌ�crire beaucoup de code en meÌ‚me temps que la logique meÌ�tier qui le rend encombrant et eÌ�troitement coupleÌ�.Avec Spring, vous jouez avec POJO qui ne deÌ�pend pas dâ€™un Framework et ameÌ�liore la testabiliteÌ� de votre code. Spring propose une inteÌ�gration transparente avec les frameworks, les bibliotheÌ€ques tierces, etc."
+      },
+      {
+        "id": 8,
+        "question": "AOP fait partie de Core Container dans le Framework Spring?",
+        "choices": [
+          "Vrai.",
+          "Faux"
+        ],
+        "indexAnswer": 1,
+        "feedback": "AOP (Aspect-oriented programming) ne fait pas partie de Core Container, est lâ€™un des composants cleÌ�s du Framework Spring, est une approche de programmation qui permet aux proprieÌ�teÌ�s dâ€™un programme de deÌ�terminer comment ils sont compileÌ�es dans un programme exeÌ�cutable. AOP compleÌ€te les reÌ�gles de POO en offrant eÌ�galement une modulariteÌ�. AOP deÌ�compose la logique du programme en parties distinctes appeleÌ�es Â« concerns Â». Cela augmente la modulariteÌ� par des Â« cross- cutting concerns Â»"
+      },
+      {
+        "id": 9,
+        "question": "Le langage dâ€™expressions (ou Expression Language) fait partie de Core Container dans le Framework Spring?",
+        "choices": [
+          "Vrai.",
+          "Faux"
+        ],
+        "indexAnswer": 0,
+        "feedback": "SpEL signifie Spring Expression Language qui fait partie de Core Container. Câ€™est un langage dâ€™expression puissant qui prend en charge les requeÌ‚tes et la manipulation dâ€™un graphe dâ€™objet au moment de la creÌ�ation du bean ou de lâ€™exeÌ�cution. Il est similaire aÌ€ dâ€™autres langages dâ€™expression tels que JSP EL, OGNL, MVEL et JBoss EL, etc., avec quelques fonctionnaliteÌ�s suppleÌ�mentaires telles que lâ€™appel de meÌ�thode et la modeÌ�lisation de chaiÌ‚nes de base."
+      }
+    ],
     "id": 2,
     "name": "Spring Quizz",
     "type": "QuestionSet",
+    "keywords": [
+      "Spring",
+      "Application Web",
+      "Fullstack",
+      "Java"
+    ]
+  },
+  {
+    "questions": [
+      {
+        "id": 5,
+        "question": "Quâ€™est-ce que lâ€™injection de deÌ�pendance?",
+        "choices": [
+          "Câ€™est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le(inversion of control, IoC) pour des applications logicielles.",
+          "Câ€™est lâ€™un des modules de Spring.",
+          "Câ€™est une technique pour obtenir des deÌ�pendances de nâ€™importe quel projet.",
+          "Il est utiliseÌ� pour promouvoir un couplage eÌ�troit dans le code."
+        ],
+        "indexAnswer": 0,
+        "feedback": "Injection de deÌ�pendance est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le pour des applications logicielles."
+      },
+      {
+        "id": 6,
+        "question": "Quels types dâ€™injection de deÌ�pendance que Spring prend-il en charge?",
+        "choices": [
+          "BaseÌ� sur le constructeur et les setters",
+          "BaseÌ� sur le constructeur, les setters, et les getters",
+          "BaseÌ� sur les setters, les getters, et les proprieÌ�teÌ�s",
+          "BaseÌ� sur le constructeur, les setters, et les proprieÌ�teÌ�s"
+        ],
+        "indexAnswer": 0,
+        "feedback": "Spring prend en charge les injections baseÌ�es sur le constructeur et sur les setters."
+      },
+      {
+        "id": 7,
+        "question": "Lequel des eÌ�nonceÌ�s suivants est correct concernant le Framework Spring ?",
+        "choices": [
+          "Le Framework Spring est une solution lourde(heavy-weight solution).",
+          "Le Framework Spring est une solution leÌ�geÌ€re(light-weight solution).",
+          "Les deux A et B sont vrais.",
+          "Aucune de ces reÌ�ponses nâ€™est vraie, mÃªme pas la rÃ©ponse D."
+        ],
+        "indexAnswer": 1,
+        "feedback": "De nombreuses raisons font du spring un framework leÌ�ger.Spring vous fournit diffeÌ�rents modules et vous permet dâ€™utiliser celui qui vous convient le mieux. IdeÌ�alement, le fichier JAR de spring ne mesure que 2 aÌ€ 3 MB. Si vous comparez Spring avec EJB, vous devez eÌ�crire beaucoup moins de code et de configurations. La beauteÌ� de Spring reÌ�side dans le fait que vous pouvez vous concentrer sur la logique meÌ�tier alors que dans EJB, vous devez eÌ�crire beaucoup de code en meÌ‚me temps que la logique meÌ�tier qui le rend encombrant et eÌ�troitement coupleÌ�.Avec Spring, vous jouez avec POJO qui ne deÌ�pend pas dâ€™un Framework et ameÌ�liore la testabiliteÌ� de votre code. Spring propose une inteÌ�gration transparente avec les frameworks, les bibliotheÌ€ques tierces, etc."
+      },
+      {
+        "id": 8,
+        "question": "AOP fait partie de Core Container dans le Framework Spring?",
+        "choices": [
+          "Vrai.",
+          "Faux"
+        ],
+        "indexAnswer": 1,
+        "feedback": "AOP (Aspect-oriented programming) ne fait pas partie de Core Container, est lâ€™un des composants cleÌ�s du Framework Spring, est une approche de programmation qui permet aux proprieÌ�teÌ�s dâ€™un programme de deÌ�terminer comment ils sont compileÌ�es dans un programme exeÌ�cutable. AOP compleÌ€te les reÌ�gles de POO en offrant eÌ�galement une modulariteÌ�. AOP deÌ�compose la logique du programme en parties distinctes appeleÌ�es Â« concerns Â». Cela augmente la modulariteÌ� par des Â« cross- cutting concerns Â»"
+      },
+      {
+        "id": 9,
+        "question": "Le langage dâ€™expressions (ou Expression Language) fait partie de Core Container dans le Framework Spring?",
+        "choices": [
+          "Vrai.",
+          "Faux"
+        ],
+        "indexAnswer": 0,
+        "feedback": "SpEL signifie Spring Expression Language qui fait partie de Core Container. Câ€™est un langage dâ€™expression puissant qui prend en charge les requeÌ‚tes et la manipulation dâ€™un graphe dâ€™objet au moment de la creÌ�ation du bean ou de lâ€™exeÌ�cution. Il est similaire aÌ€ dâ€™autres langages dâ€™expression tels que JSP EL, OGNL, MVEL et JBoss EL, etc., avec quelques fonctionnaliteÌ�s suppleÌ�mentaires telles que lâ€™appel de meÌ�thode et la modeÌ�lisation de chaiÌ‚nes de base."
+      }
+    ],
+    "id": 3,
+    "name": "Timed Spring Quizz",
+    "type": "TimedQuestionSet",
     "keywords": [
       "Spring",
       "Application Web",
