@@ -34,7 +34,7 @@ public class SkillController {
 	// Autocompletion init
 	AutoCompletion<Skill> completor = new AutoCompletion<>(Skill.class, "name", "userList");
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
 		List<Skill> listSkill = this.skillService.getAllSkills();
@@ -48,7 +48,7 @@ public class SkillController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
 		Skill skillFromDb = this.skillService.getSkillByName(name)
