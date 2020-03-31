@@ -25,9 +25,6 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
-	// Autocompletion init
-	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
-	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/subscriptions")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {

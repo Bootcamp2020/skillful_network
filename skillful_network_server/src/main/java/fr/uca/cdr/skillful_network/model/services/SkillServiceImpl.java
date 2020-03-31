@@ -12,7 +12,7 @@ import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
 
 @Service(value = "skillService")
 public class SkillServiceImpl implements SkillService{
-	
+
 	@Autowired
 	private SkillRepository skillRepository;
 
@@ -21,7 +21,6 @@ public class SkillServiceImpl implements SkillService{
 
 	@Override
 	public Optional<List<String>> searchSkill(String keyword) {
-		
 		return this.skillRepository.search(keyword);
 	}
 
