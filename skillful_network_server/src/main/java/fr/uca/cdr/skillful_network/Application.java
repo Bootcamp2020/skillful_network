@@ -118,6 +118,7 @@ public class Application {
 	}
 	
 	@Bean
+	@Profile("dev")
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
 		return args -> {
 			if (exerciseRepository.findAll().isEmpty()) {

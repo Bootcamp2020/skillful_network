@@ -3,8 +3,18 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 public class Simulation {
-	
+
+
 	private Set<Exercise> exerciseSet = new HashSet<Exercise>();
 
 	public Set<Exercise> getExerciseSet() {

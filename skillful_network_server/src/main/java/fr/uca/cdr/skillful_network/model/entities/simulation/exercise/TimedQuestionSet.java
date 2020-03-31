@@ -2,6 +2,9 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+@Entity
 public class TimedQuestionSet extends QuestionSet {
 
 	private Long timeInMinutes;

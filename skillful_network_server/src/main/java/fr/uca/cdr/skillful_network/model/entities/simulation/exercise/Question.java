@@ -2,7 +2,15 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
 import java.util.Arrays;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
 public class Question {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String question;
 	private String[] choices;
