@@ -59,7 +59,7 @@ public class UserController {
 		this.repository = repository;
 	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/users")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
@@ -78,7 +78,8 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/users/search")
-	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool, @RequestParam(name = "keyword", required = false) String keyword) {
+	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
+			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
 			Page<User> listUsersSeachByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
 			return new ResponseEntity<Page<User>>(listUsersSeachByPage, HttpStatus.OK);
@@ -91,19 +92,20 @@ public class UserController {
 	@PutMapping(value = "/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
 			@Valid @RequestBody UserForm userRequest) {
-
+			
+		System.out.println(userRequest);
 		if (userService.getUserById(id).isPresent()) {
 			User userToUpdate = userService.getUserById(id).get();
 			if (userRequest != null) {
-				userToUpdate.setLastName(userRequest.getLastName());
-				userToUpdate.setFirstName(userRequest.getFirstName());
-				userToUpdate.setBirthDate(userRequest.getBirthDate());
-				userToUpdate.setEmail(userRequest.getEmail());
-				userToUpdate.setMobileNumber(userRequest.getMobileNumber());
-				userToUpdate.setSkillSet(userRequest.getSkillSet());
-				userToUpdate.setQualificationSet(userRequest.getQualificationSet());
-				userToUpdate.setSubscriptionSet(userRequest.getSubscriptionSet());
-				userToUpdate.setCareerGoal(userRequest.getCareerGoal());
+				userToUpdate.setLastName(userRequest.get_lastName());
+				userToUpdate.setFirstName(userRequest.get_firstName());
+				userToUpdate.setBirthDate(userRequest.get_birthDate());
+				userToUpdate.setEmail(userRequest.get_email());
+				userToUpdate.setMobileNumber(userRequest.get_mobileNumber());
+				userToUpdate.setSkillSet(userRequest.get_skillSet());
+				userToUpdate.setQualificationSet(userRequest.get_qualificationSet());
+				userToUpdate.setSubscriptionSet(userRequest.get_subscriptionSet());
+				userToUpdate.setCareerGoal(userRequest.get_careerGoal());
 				User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 				return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 			} else {
@@ -277,15 +279,6 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-		@GetMapping(value = "/users/{id}/skills")
-		public ResponseEntity<Set<Skill>> getAllSkillByUser(@PathVariable(value = "id") Long id) {
-			Set<Skill> listSkills = this.userService.getUserById(id)
-					.map((user) -> {
-						return user.getSkillSet();})
-					.orElseThrow(
-						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-			return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
-		}
 		@GetMapping(value = "/users/{id}/Qualifications")
 		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
 			Set<Qualification> listQualifications = this.userService.getUserById(id)
@@ -305,6 +298,7 @@ public class UserController {
 			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
 		}
 		
+
 //	@GetMapping(value = "users/{id}/skills")
 //	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
 //		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {

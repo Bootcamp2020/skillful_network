@@ -13,7 +13,7 @@ export interface IJobOffer {
 export let MOCK_JOBS : IJobOffer[] = [
     {
       id: 1,
-      name:'Developpeur FrontEnd',
+      name:'Développeur FrontEnd',
       company:'Softeam',
       description:'Notre entreprise cherche un développeur FrontEnd pour consolider notre équipe ',
       type: 'CDI',
@@ -24,7 +24,7 @@ export let MOCK_JOBS : IJobOffer[] = [
     },
     {
         id: 2,
-        name:'Developpeur FullStack',
+        name:'Développeur FullStack',
         company:'SopraSteria',
         description:'Notre entreprise cherche un développeur FullStack pour consolider notre équipe ',
         type: 'CDD',
@@ -35,7 +35,7 @@ export let MOCK_JOBS : IJobOffer[] = [
       },
       {
         id: 3,
-        name:'Developpeur  expérimenté PHP',
+        name:'Développeur PHP',
         company:'Alten',
         description:'Notre entreprise cherche un développeur PHP expérimenté pour une mission client',
         type: 'CDI',
@@ -46,7 +46,7 @@ export let MOCK_JOBS : IJobOffer[] = [
       },
       {
         id: 4,
-        name:'Developpeur Java/J2E',
+        name:'Développeur Java/J2E',
         company:'Astek',
         description:'Notre entreprise cherche un développeur Java pour un client',
         type: 'CDI',
@@ -57,7 +57,7 @@ export let MOCK_JOBS : IJobOffer[] = [
       },
       {
         id: 5,
-        name:'Developpeur Angular',
+        name:'Développeur Angular',
         company:'Amadeus',
         description:'Notre entreprise cherche un développeur Angular pour renforcer notre équipe ',
         type: 'CDI',

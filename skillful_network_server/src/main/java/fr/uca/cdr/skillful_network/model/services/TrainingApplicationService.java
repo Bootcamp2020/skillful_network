@@ -21,11 +21,13 @@ public interface TrainingApplicationService {
 
     Optional<List<TrainingApplication>> getTrainingApplicationsByTrainingId(Long trainingId);
 
-    Optional<User> setUserById(Long trainingApplicationId, Long userId);
-
-    Optional<Training> setTrainingById(Long trainingApplicationId, Long trainingId);
-
     TrainingApplication saveOrUpdateTrainingApplication(TrainingApplication trainingApplication);
+
+    TrainingApplication saveTrainingApplicationById(Long userId, Long trainingId);
+
+    Optional<User> setUserById(Long id, Long userId);
+
+    Optional<Training> setTrainingById(Long id, Long trainingId);
 
     void deleteTrainingApplication(Long id);
 }
