@@ -10,13 +10,13 @@
                     <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
 
                         <!-- Nom Column -->
-                        <ng-container matColumnDef="nom">
+                        <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
 
                         <!-- Entreprise Column -->
-                        <ng-container matColumnDef="entreprise">
+                        <ng-container matColumnDef="company">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
                             <td mat-cell *matCellDef="let element"> {{element.company}} </td>
                         </ng-container>
@@ -28,13 +28,13 @@
                         </ng-container>
 
                         <!-- Commence Column -->
-                        <ng-container matColumnDef="commence">
+                        <ng-container matColumnDef="dateBeg">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Commence</th>
                             <td mat-cell *matCellDef="let element"> {{element.dateBeg |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
 
                         <!-- Mise en ligne Column -->
-                        <ng-container matColumnDef="mise_en_ligne">
+                        <ng-container matColumnDef="dateUpload">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Mise en ligne</th>
                             <td mat-cell *matCellDef="let element"> {{element.dateUpload |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
@@ -60,7 +60,7 @@
                         <!-- Plus d'info Column -->
                         <ng-container matColumnDef="plus_info">
                             <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let element"> <a routerLink="{{'/home/offre/' + element.id }}" title="Plus d'info">Détails</a> </td> <!--<span class="material-icons btnIcon">zoom_in</span>-->
+                            <td mat-cell *matCellDef="let element"> <a routerLink="{{'/home/offre/' + element.id }}" title="Plus d'info">Détails</a> </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
