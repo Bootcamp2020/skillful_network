@@ -53,7 +53,7 @@ public class JobApplicationController {
     }
 
     // Provide job offer of an application by its id
-    @PreAuthorize("hasAnyRole('ENTREPRISE','USER)")
+    @PreAuthorize("hasAnyRole('ENTREPRISE','USER')")
     @GetMapping(value = "/{id}/joboffer")
     public ResponseEntity<JobOffer> getJobOfferById(@PathVariable(value = "id") Long id) {
         JobOffer jobOffer = jobApplicationService.getJobOfferById(id)
@@ -91,7 +91,7 @@ public class JobApplicationController {
     }
 
     // Create a new application with a user and a jobOffer
-    @PreAuthorize("hasAnyRole('ENTREPRISE','USER)")
+    @PreAuthorize("hasAnyRole('ENTREPRISE','USER')")
     @PostMapping(value = "/user/{userId}/joboffer/{jobOfferId}")
     public JobApplication saveTrainingApplication(@PathVariable(value = "userId") Long userId, @PathVariable(value = "jobOfferId") Long jobOfferId) {
         return jobApplicationService.saveJobApplicationById(userId, jobOfferId);

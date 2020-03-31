@@ -46,8 +46,7 @@ public class SkillController {
 //		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
 //	}
 
-
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
 		Skill skillFromDb = this.skillService.getSkillByName(name)

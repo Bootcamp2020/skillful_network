@@ -119,10 +119,10 @@ public class AuthenticationController {
 		
 		strRoles.forEach(selectedRole->{
 			switch (selectedRole) {
-//				case "user":
-//					Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
-//					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : User role not found"));
-//					roles.add(userRole);
+				case "user":
+					Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
+					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : User role not found"));
+					roles.add(userRole);
 				case "organisme":
 					Role organismeRole = roleRepository.findByName(Rolename.ROLE_ORGANISME)
 					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Organisme role not found"));

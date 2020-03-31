@@ -65,7 +65,7 @@ public class UserController {
 		return (List<User>) this.repository.findAll();
 	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/users/")
 	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {
@@ -76,7 +76,7 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
-
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/users/search")
 	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
 			@RequestParam(name = "keyword", required = false) String keyword) {
@@ -153,7 +153,7 @@ public class UserController {
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable Long id) {
+	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
 
 		Optional<User> user = userService.getUserById(id);
 		if (!user.isPresent()) {
