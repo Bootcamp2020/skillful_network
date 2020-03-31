@@ -14,18 +14,18 @@
     <form [formGroup]="qualifInfoGroup" (submit)="addQualif()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column'>
+                <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
                     <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="qualification" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
                             {{qualif}}
                             </mat-option>
                         </ng-container>
                       </mat-autocomplete>
-                </mat-form-field>
+                    </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">
                 <button type="submit" mat-raised-button color="primary">Ajouter</button>
