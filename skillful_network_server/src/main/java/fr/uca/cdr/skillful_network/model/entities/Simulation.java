@@ -1,6 +1,8 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ public class Simulation {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("simulationSet")
     protected User user;
 
     @NotNull(message = "Job goal cannot be null")
@@ -30,6 +32,11 @@ public class Simulation {
     private String synthesis;
 
     public Simulation() {
+    }
+
+    public Simulation(@NotNull(message = "Job goal cannot be null") String jobGoal) {
+        this.jobGoal = jobGoal;
+        this.creationDate = new Date();
     }
 
     public Simulation(@NotNull(message = "Job goal cannot be null") String jobGoal, @PastOrPresent Date creationDate, String synthesis) {
@@ -52,6 +59,10 @@ public class Simulation {
     public void setId(long id) {
         this.id = id;
     }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 
     public String getJobGoal() {
         return jobGoal;
@@ -85,8 +96,9 @@ public class Simulation {
     @Override
     public String toString() {
         return "Simulation [" + "id=" + id +
-                "] jobGoal='" + jobGoal +
+                "] userID=" + user.getId() +
+                ", jobGoal=" + jobGoal +
                 ", creationDate=" + creationDate +
-                ", synthesis='" + synthesis;
+                ", synthesis=" + synthesis;
     }
 }
