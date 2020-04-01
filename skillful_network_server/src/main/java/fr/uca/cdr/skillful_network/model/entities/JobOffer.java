@@ -1,6 +1,8 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import javax.persistence.*;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,6 +24,27 @@ public class JobOffer {
 	private Date dateEnd;
 	private Date dateUpload;
 	private String[] keywords;
+	
+	public enum Risk { 
+		SIMPLE,
+		MODERE,
+		CRITIQUE;
+	}
+	
+	@Enumerated(EnumType.ORDINAL)
+    @Column(length = 50)
+	private Risk risk;
+	
+	public enum Complexity { 
+		SIMPLE,
+		MODERE,
+		CRITIQUE;		
+	}
+	
+	@Enumerated(EnumType.ORDINAL)
+    @Column(length = 50)
+	private Complexity complexity; 
+	
 
 	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
@@ -80,15 +103,39 @@ public class JobOffer {
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
 	}
-	public Set<JobApplication> getJobApplicationSet() { return jobApplicationSet; }
-	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) { this.jobApplicationSet = jobApplicationSet; }
+	
+	
+	public Set<JobApplication> getJobApplicationSet() { 
+		return jobApplicationSet; 
+		}
+	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) { 
+		this.jobApplicationSet = jobApplicationSet; 
+		}
+	
+	
 
+	
+	public Risk getRisk() {
+		return risk;
+	}
+	public void setRisk(Risk risk) {
+		this.risk = risk;
+	}
+	public Complexity getComplexity() {
+		return complexity;
+	}
+	public void setComplexity(Complexity complexity) {
+		this.complexity = complexity;
+	}
+	
+	
 	public JobOffer() {
 		super();
 	}
 
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
+			Date dateUpload, String[] keywords, Risk risk, Complexity complexity,
+			Set<JobApplication> jobApplicationSet) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -99,9 +146,10 @@ public class JobOffer {
 		this.dateEnd = dateEnd;
 		this.dateUpload = dateUpload;
 		this.keywords = keywords;
+		this.risk = risk;
+		this.complexity = complexity;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-	
 	
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
@@ -116,28 +164,17 @@ public class JobOffer {
 		this.keywords = keywords;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, Set<JobApplication> jobApplicationSet) {
-		super();
-		this.name = name;
-		this.company = company;
-		this.description = description;
-		this.type = type;
-		this.dateBeg = dateBeg;
-		this.dateEnd = dateEnd;
-		this.dateUpload = dateUpload;
-		this.jobApplicationSet = jobApplicationSet;
-	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
-		return "JobOffer [" + id + "] name=" + name + ", company=" + company + ", description=" + description
+		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
 				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
-				+ ", keywords=" + keywords +
-				", jobApplicationSets=" + jobApplicationSet;
+				+ ", keywords=" + Arrays.toString(keywords) + ", risk=" + risk + ", complexity=" + complexity
+				+ ", jobApplicationSet=" + jobApplicationSet + "]";
 	}
-	
-	
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
