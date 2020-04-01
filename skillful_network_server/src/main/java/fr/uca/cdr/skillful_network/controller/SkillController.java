@@ -31,7 +31,7 @@ public class SkillController {
 	@Autowired
 	private SkillService skillService;
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
 		List<Skill> listSkill = this.skillService.getAllSkills();
