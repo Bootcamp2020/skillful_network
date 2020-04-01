@@ -5,6 +5,7 @@ package fr.uca.cdr.skillful_network.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -140,6 +141,7 @@ public class AuthenticationController {
 		}
         User user = new User();
         user.setEmail(registerForm.getEmail());
+        user.setDateExpiration(LocalDateTime.now().plus(24,ChronoUnit.HOURS));
         // On crypte avec bcrypt le mot de passe dans la bdd
         String randomCodeEncrypt =encoder.encode(randomCode);
 		user.setPassword(randomCodeEncrypt);
