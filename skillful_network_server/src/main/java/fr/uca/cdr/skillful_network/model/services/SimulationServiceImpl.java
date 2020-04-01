@@ -1,7 +1,5 @@
 package fr.uca.cdr.skillful_network.model.services;
 
-import fr.uca.cdr.skillful_network.model.entities.Application;
-import fr.uca.cdr.skillful_network.model.entities.JobApplication;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
@@ -52,8 +50,13 @@ public class SimulationServiceImpl implements SimulationService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id : " + userId));
         Simulation simulation = new Simulation(jobGoal);
-        simulation.setSynthesis("Lorem Ipsum ....");
         simulation.setUser(user);
+
+        // *******************************************************************
+        // analyse des criteres des objectifs par rapport aux joboffer / questionnaire / training
+        // *******************************************************************
+
+        simulation.setSynthesis("Lorem Ipsum ....");
         System.out.println(">>> new simulation: " + simulation);
         simulation = simulationRepository.save(simulation);
         System.out.println(">>> saved simulation: " + simulation);
