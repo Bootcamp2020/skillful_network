@@ -4,6 +4,7 @@ package fr.uca.cdr.skillful_network.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -85,6 +86,14 @@ public class AuthenticationController {
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
+				LocalDateTime dateExpirationMdp = userFromDB.get().getDateExpiration();
+				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
+				userService.validationMdp(isExpired, userFromDB);
+				if(isExpired){
+					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+							"Le mot de passe temporaire n'est plus valide ; veuillez relancer une inscription !");
+				}
+				
 				String passwordFromDB = userFromDB.get().getPassword();
 				String passwordRequest = loginRequest.getPassword();
 				boolean passwordMatches = encoder.matches(passwordRequest, passwordFromDB);

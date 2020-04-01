@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +34,9 @@ public class User {
 	private boolean validated = false;
     private String careerGoal;
 	private boolean photo= false;
+	
+	@Column(name = "date_expiration")
+	private LocalDateTime dateExpiration;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill>skillSet = new HashSet<Skill>();
 
@@ -252,6 +256,13 @@ public class User {
 		this.roles = roles;
 	}
 
+	public LocalDateTime getDateExpiration() {
+		return dateExpiration;
+	}
+
+	public void setDateExpiration(LocalDateTime dateExpiration) {
+		this.dateExpiration = dateExpiration;
+	}
 
 	@Override
 	public String toString() {
