@@ -24,20 +24,20 @@
 
                         <!-- Job goal Column -->
                         <ng-container matColumnDef="jobgoal">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ojectif professionnel</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Objectif professionnel</th>
                             <td mat-cell *matCellDef="let post"> {{post.careerGoal}} </td>
                         </ng-container>
 
                         <!-- Simulation detail Column -->
                         <ng-container matColumnDef="simdetail">
                             <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/home/simulation/' + post.id }}"><button mat-icon-button id="bouton-details-simulation" title="Détails de la simulation"><mat-icon>visibility</mat-icon></button></a></td> 
+                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/simulation/' + post.id }}"><button mat-icon-button id="bouton-details-simulation" title="Détails de la simulation"><mat-icon>visibility</mat-icon></button></a></td> 
                         </ng-container>        
 
                          <!-- Reload Simulation Column -->
                          <ng-container matColumnDef="reloadsim">
                             <th mat-header-cell *matHeaderCellDef> Relancer</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/home/simulation/' + post.id }}"><button mat-icon-button id="bouton-replay-simulation" title="Relancer la simulation"><mat-icon>repeat</mat-icon></button></a></td> 
+                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/newSimulation/' + post.id }}"><button mat-icon-button id="bouton-replay-simulation" title="Relancer la simulation"><mat-icon>repeat</mat-icon></button></a></td> 
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
