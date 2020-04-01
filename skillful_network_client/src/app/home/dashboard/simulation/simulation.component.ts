@@ -18,10 +18,7 @@ export class SimulationComponent implements OnInit {
   @Input() public nbexercice: number;
   @Input() public date: Date;
   @Input() public caeerGoal: String;
-  @Input() public details: String;
-  @Input() public reloadSim: String;
-
-  
+ 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   
   constructor() {
