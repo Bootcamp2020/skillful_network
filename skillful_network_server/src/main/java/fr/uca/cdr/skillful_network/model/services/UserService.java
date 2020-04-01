@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.model.services;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -36,5 +37,10 @@ public interface UserService {
 	Page<User> getPageOfEntities(PageTool pageTool);
 
 	Page<User> searchUsersByKeyword(Pageable pageable, String keyword);
+	
+	Boolean mdpExpired(LocalDateTime dateExpiration,LocalDateTime currentDate );
+	
+	void validationMdp(Boolean isExpired, Optional<User> userFromDB);
+
 
 }

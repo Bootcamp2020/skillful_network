@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.model.services;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private EmailService emailService;
@@ -86,6 +90,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Page<User> searchUsersByKeyword(Pageable pageable, String keyword) {
 		return userRepository.findByLastNameContainsOrFirstNameContainsAllIgnoreCase(pageable, keyword, keyword);
+	}
+
+	@Override
+	public Boolean mdpExpired(LocalDateTime dateExpiration, LocalDateTime currentDate) {
+		Boolean codeExpire = currentDate.isAfter(dateExpiration);
+		return codeExpire;
+	}
+
+	@Override
+	public void validationMdp(Boolean isExpired, Optional<User> userFromDB) {
+
+		Long idFromDB = userFromDB.get().getId();
+		if (isExpired == true && userFromDB.get().isValidated() == false) {
+			// le mot de passe est supprimé de la table si isAfter est true
+			userRepository.deleteById(idFromDB);
+		} else {
+			// cas du mot de passe en cours de validité
+			userFromDB.get().setValidated(true);
+			userService.saveOrUpdateUser(userFromDB.get());
+
+		}
+
 	}
 
 }
