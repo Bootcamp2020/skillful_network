@@ -28,11 +28,7 @@ public class JobOffer {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
 	private Risk risk;
-<<<<<<< HEAD
-	public enum Complexity {
-=======
         public enum Complexity {
->>>>>>> be4e3d58380341444a4d8c45a98fc440d97d8635
 		SIMPLE, MODERE, CRITIQUE;
 	}
 	@Enumerated(EnumType.ORDINAL)
@@ -45,19 +41,11 @@ public class JobOffer {
 	public Long getId() {
 		return id;
 	}
-<<<<<<< HEAD
 	
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-=======
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
->>>>>>> be4e3d58380341444a4d8c45a98fc440d97d8635
 	public String getName() {
 		return name;
 	}
@@ -149,6 +137,7 @@ public class JobOffer {
 	public JobOffer() {
 		super();
 	}
+	
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Risk risk, Complexity complexity,
 			Set<JobApplication> jobApplicationSet) {
@@ -166,10 +155,6 @@ public class JobOffer {
 		this.complexity = complexity;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> be4e3d58380341444a4d8c45a98fc440d97d8635
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
@@ -183,10 +168,6 @@ public class JobOffer {
 		this.keywords = keywords;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> be4e3d58380341444a4d8c45a98fc440d97d8635
 	@Override
 	public String toString() {
 		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
