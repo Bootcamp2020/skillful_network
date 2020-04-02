@@ -43,4 +43,20 @@ export class TrainingService {
           return promise;
     }
 
+    public findAllByPage(pageId:number, row:number): Promise<any> {
+        let promise = new Promise((resolve, reject) => {
+            this.api.get({ endpoint: '/trainings' ,queryParams: {"pageId":pageId, "row":row}})
+              .then(
+                res => { 
+                  resolve(res);
+                },
+                msg => { 
+                  reject(msg);
+                  }
+              ).catch((error) => {
+              });
+          });
+          return promise;
+    }
+
 }
