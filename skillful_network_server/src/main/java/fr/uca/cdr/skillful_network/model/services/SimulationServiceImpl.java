@@ -57,7 +57,6 @@ public class SimulationServiceImpl implements SimulationService {
         // *******************************************************************
 
         simulation.setSynthesis("Lorem Ipsum ....");
-        System.out.println(">>> new simulation: " + simulation);
         simulation = simulationRepository.save(simulation);
         System.out.println(">>> saved simulation: " + simulation);
         return Optional.of(simulation);
