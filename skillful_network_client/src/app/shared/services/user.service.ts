@@ -124,7 +124,7 @@ export class UserService {
     return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})	
   }
   
-  public getUsersBySearch(keyword:String, page: String, size: String):Promise<any>{
+  public getUsersBySearch(keyword:string, page: number, size: number):Promise<any>{
     return this.api.get({endpoint : `/users/search`, queryParams: {keyword, page: page, size: size} })
   }
   
