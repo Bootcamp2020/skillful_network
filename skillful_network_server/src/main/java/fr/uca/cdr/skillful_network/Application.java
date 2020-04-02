@@ -123,17 +123,17 @@ public class Application {
 		};
 	}
 	
-	@Bean
-	@Profile("dev")
-	ApplicationRunner initJobApplicationRepository(JobApplicationRepository jobApplicationRepository) {
-		return args -> {
-			if (jobApplicationRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/job-applications.json", JobApplication[].class,
-						jobApplicationRepository).load();
-
-			}
-		};
-	}
+//	@Bean
+//	@Profile("dev")
+//	ApplicationRunner initJobApplicationRepository(JobApplicationRepository jobApplicationRepository) {
+//		return args -> {
+//			if (jobApplicationRepository.findAll().isEmpty()) {
+//				new JSONLoader<>("src/main/resources/data/job-applications.json", JobApplication[].class,
+//						jobApplicationRepository).load();
+//
+//			}
+//		};
+//	}
 
 	@Bean
 	@Profile("dev")
