@@ -16,7 +16,9 @@ import {MOCK_USERS} from '../models/mock.users';
 //  })
 //};
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   
 
@@ -122,6 +124,11 @@ export class UserService {
     return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})	
   }
   
+  public getUsersBySearch(keyword:string, page: number, size: number):Promise<any>{
+    return this.api.get({endpoint : `/users/search`, queryParams: {keyword, page: page, size: size} })
+  }
+  
+
   public disconnect() {
 
   }
