@@ -24,14 +24,14 @@ public class SimulationController {
 	// #########################################################################
 
 	// Provide all simulations
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Simulation>> getAllsimulations() {
 		return new ResponseEntity<>(this.simulationService.getAllSimulations(), HttpStatus.OK);
 	}
 
 	// Provide simulation by ID
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER)")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Simulation> getSimulationById(@PathVariable(value = "id") Long id) {
 		Simulation simulation = this.simulationService.getSimulationById(id)
