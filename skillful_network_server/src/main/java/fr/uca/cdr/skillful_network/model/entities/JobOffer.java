@@ -23,19 +23,15 @@ public class JobOffer {
 	private Date dateEnd;
 	private Date dateUpload;
 	private String[] keywords;
-
 	public enum Risk {
 		SIMPLE, MODERE, CRITIQUE;
 	}
-
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
 	private Risk risk;
-
-	public enum Complexity {
+        public enum Complexity {
 		SIMPLE, MODERE, CRITIQUE;
 	}
-
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
 	private Complexity complexity;
@@ -50,7 +46,7 @@ public class JobOffer {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -142,7 +138,6 @@ public class JobOffer {
 	public JobOffer() {
 		super();
 	}
-
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Risk risk, Complexity complexity,
 			Set<JobApplication> jobApplicationSet) {
@@ -160,7 +155,6 @@ public class JobOffer {
 		this.complexity = complexity;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
@@ -174,7 +168,6 @@ public class JobOffer {
 		this.keywords = keywords;
 		this.jobApplicationSet = jobApplicationSet;
 	}
-
 	@Override
 	public String toString() {
 		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
@@ -182,10 +175,8 @@ public class JobOffer {
 				+ ", keywords=" + Arrays.toString(keywords) + ", risk=" + risk + ", complexity=" + complexity
 				+ ", jobApplicationSet=" + jobApplicationSet + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
 	}
-
 }
