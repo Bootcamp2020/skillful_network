@@ -20,10 +20,14 @@ import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Choice;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
+import fr.uca.cdr.skillful_network.model.repositories.ChoiceRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
+import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
@@ -116,8 +120,26 @@ public class Application {
 			}
 		};
 	}
-
 	
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
+		return args -> {
+			if (keywordRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/keywords.json", Keyword[].class, keywordRepository).load();
+			}
+		};
+	}
+	
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
+		return args -> {
+			if (choiceRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
+			}
+		};
+	}
 	@Bean
 	@Profile("dev")
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
@@ -133,5 +155,6 @@ public class Application {
 			}
 		};
 	}
+
 }
 

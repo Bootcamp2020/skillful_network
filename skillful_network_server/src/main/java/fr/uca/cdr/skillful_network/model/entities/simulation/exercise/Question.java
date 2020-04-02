@@ -1,11 +1,17 @@
 package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 public class Question {
@@ -13,21 +19,23 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String question;
-	private String[] choices;
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<Choice> choices = new HashSet<>();
 	private int indexAnswer;
-	private String feedback;
+	@Lob   // annotation to save a long text in MySQl
+	private String feedBack;
 	public Question() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Question(Long id, String question, String[] choices, int indexAnswer, String feedback) {
+	public Question(Long id, String question, Set<Choice> choices, int indexAnswer, String feedBack) {
 		super();
 		this.id = id;
 		this.question = question;
 		this.choices = choices;
 		this.indexAnswer = indexAnswer;
-		this.feedback = feedback;
+		this.feedBack = feedBack;
 	}
 	
 
@@ -47,11 +55,11 @@ public class Question {
 		this.question = question;
 	}
 
-	public String[] getChoices() {
+	public Set<Choice> getChoices() {
 		return choices;
 	}
 
-	public void setChoices(String[] choices) {
+	public void setChoices(Set<Choice> choices) {
 		this.choices = choices;
 	}
 
@@ -63,18 +71,18 @@ public class Question {
 		this.indexAnswer = indexAnswer;
 	}
 
-	public String getFeedback() {
-		return feedback;
+	public String getFeedBack() {
+		return feedBack;
 	}
 
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
+	public void setFeedBack(String feedBack) {
+		this.feedBack = feedBack;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", question=" + question + ", choices=" + Arrays.toString(choices)
-				+ ", indexAnswer=" + indexAnswer + ", feedback=" + feedback + "]";
+		return "Question [id=" + id + ", question=" + question + ", choices=" + choices
+				+ ", indexAnswer=" + indexAnswer + ", feedback=" + feedBack + "]";
 	}
 
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Fullstack",
+    "exercises": []
+  },
+  {
+    "id": 2,
+    "name": "Application Web",
+    "exercises": []
+  },
+  {
+    "id": 3,
+    "name": "Angular",
+    "exercises": []
+  },
+  {
+    "id": 4,
+    "name": "Java",
+    "exercises": []
+  },
+  {
+    "id": 5,
+    "name": "Spring",
+    "exercises": []
+  }
+]
