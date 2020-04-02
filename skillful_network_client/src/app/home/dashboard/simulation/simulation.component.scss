@@ -2,7 +2,74 @@
     padding: 0;
     margin-bottom: 20px;
     
+    .example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
   }
-mat-card{
-  min-height: 515px;
+  
+  .simulation {
+      padding-top: 10px;
+  }
+  
+  .nbExercice,
+  .Date,
+  .careerGoal {
+      margin-left: 0px;
+      
+  }
+  
+  .card_dashboard{
+      padding: 0;
+      margin-bottom: 40px;
+      margin-top: 20px;
+    }
+  mat-card{
+      min-height: 515px;
+  }
+  
+  #bouton-details-simulation{
+      text-decoration: none;
+      color: rgb(65, 76, 134);
+  }
+  #bouton-replay-simulation {
+    text-decoration: none;
+      color: rgb(110, 94, 78);
+
+  }
 }
+
+table {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  td, th {
+    width: 20%;
+    margin-left: 10px;
+    
+  }
+  .mat-header-cell {
+    background-color:  #F1F1F1;
+    text-align: center;
+  }
+  .mat-card-content {
+    padding-top: 30px;
+    border-collapse: collapse;
+  }
+
+  .table-container {
+    height: 400px;
+    overflow: auto;
+
+  }
+
+ 
+
+  
+ 
