@@ -265,6 +265,14 @@ public class User {
 		this.roles = roles;
 	}
 
+	public LocalDateTime getDateExpiration() {
+		return dateExpiration;
+	}
+
+	public void setDateExpiration(LocalDateTime dateExpiration) {
+		this.dateExpiration = dateExpiration;
+	}
+
 	public Set<Simulation> getSimulationSet() {
 		return simulationSet;
 	}
