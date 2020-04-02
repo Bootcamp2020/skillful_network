@@ -9,8 +9,7 @@ import { ApiHelperService } from './api-helper.service';
   providedIn: 'root'
 })
 export class CandidatureService {
-  apiHelper: any;
-  constructor() { }
+  constructor(private api: ApiHelperService) { }
 
   verifierCandidature(idJobOffer, listCandidature:IPost[] ): boolean{
     
@@ -32,20 +31,15 @@ export class CandidatureService {
   }
 
 
-  public getAllUserApllications(userId) :Promise<any> {
+  async getAllUserApllications(userId) : Promise<Candidature[]>{
     let endPoint = '/applications/jobs/user/'+userId;
-    let promise = new Promise((resolve, reject) => {
-    this.apiHelper.get({"endpoint":endPoint, "queryParams":{}})
-    .then(
-      res => { 
-        resolve(res);
-      },
-      msg => { 
-        reject(msg);
-        }
-      ).catch((error) => {
-      });
-    });
-    return promise;
+    try{
+      let candidatures = await this.api.get({"endpoint":endPoint});
+      return candidatures;
+    }catch(ex){
+      return null;
+    }
+    
+    
   }
 }
