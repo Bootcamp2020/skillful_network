@@ -12,7 +12,7 @@ export class InformationsComponent implements OnInit {
   @Input() public description: string;
   @Input() public motsCles: string;
   @Input() public post : Post;
-
+  
   constructor() { }
 
   ngOnInit(): void {
