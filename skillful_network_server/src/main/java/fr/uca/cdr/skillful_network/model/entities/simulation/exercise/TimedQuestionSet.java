@@ -3,7 +3,7 @@ package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
 @Entity
 public class TimedQuestionSet extends QuestionSet {
 
@@ -13,8 +13,9 @@ public class TimedQuestionSet extends QuestionSet {
 		super();
 	}
 
-	public TimedQuestionSet(Long id, String name, ExerciseType type, String[] keywords) {
-		super(id, name, type, keywords);
+	public TimedQuestionSet(Set<Question> questions,Long id, String name, ExerciseType type, Set<Keyword> keywords,Long timeInMinutes) {
+		super(questions,id, name, type, keywords);
+		this.timeInMinutes = timeInMinutes;
 	}
 
 	public TimedQuestionSet(Set<Question> questions) {
