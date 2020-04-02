@@ -2,6 +2,8 @@ package fr.uca.cdr.skillful_network.jwt;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -19,16 +21,18 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 @Component
 public class JwtProvider {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
+	
+	private final String url = Paths.get("src/main/resources/data/script/scriptToken.py").toAbsolutePath().toString();
 	
 	public String generateJwtToken(Authentication authentication) {
+		
+		System.out.println("absolutePath : "+ this.url);
 		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 		String line = "";
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
-		String url = "src/main/resources/data/script/scriptToken.py"; // à modifier suivant l'emplacement du script et de votre os
-		String cmd = "python3" + " " + url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python3" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
 		
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
@@ -49,8 +53,7 @@ public class JwtProvider {
 		String line = "";
 		String scriptResponse="";
 		String choice = "decrypt"; // encrypt ou decrypt
-		String url = "src/main/resources/data/script/scriptToken.py"; // à modifier suivant l'emplacement du script et de votre os
-		String cmd = "python3" + " " + url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python3" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
 		
 		
 		try {
