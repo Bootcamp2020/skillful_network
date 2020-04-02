@@ -1,5 +1,8 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -47,15 +50,20 @@ public class User {
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user")
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
   
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user")
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user")
+	private Set<Simulation> simulationSet = new HashSet<>();
 	
 	public User() {
 		super();
@@ -181,8 +189,6 @@ public class User {
 	public void setValidated(boolean validated) {
 		this.validated = validated;
 	}
-	 
-	
 
 	public String getCareerGoal() {
 		return careerGoal;
@@ -256,12 +262,22 @@ public class User {
 		this.roles = roles;
 	}
 
+
 	public LocalDateTime getDateExpiration() {
 		return dateExpiration;
 	}
 
 	public void setDateExpiration(LocalDateTime dateExpiration) {
 		this.dateExpiration = dateExpiration;
+	}
+
+	public Set<Simulation> getSimulationSet() {
+		return simulationSet;
+	}
+
+	public void setSimulationSet(Set<Simulation> simulationSet) {
+		this.simulationSet = simulationSet;
+
 	}
 
 	@Override
