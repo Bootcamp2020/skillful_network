@@ -145,10 +145,10 @@ public class AuthenticationController {
         // On crypte avec bcrypt le mot de passe dans la bdd
         String randomCodeEncrypt =encoder.encode(randomCode);
 		user.setPassword(randomCodeEncrypt);
-		
+		//Récupération du rôle qui a été choisi dans le formulaire=>role user par defaut, prévision choix de 3 rôles dans le formulaire rgister
 		Set<String> strRoles = registerForm.getRole();
 		Set<Role> roles= new HashSet<>();
-		
+		//Verification des rôles existant dans le RoleRepository et attribution des rôles au current user
 		strRoles.forEach(selectedRole->{
 			switch (selectedRole) {
 				case "user":
@@ -169,7 +169,7 @@ public class AuthenticationController {
 					roles.add(defaultRole);
 			}
 		});
-		
+		//Sauvegarde des rôles pour le user
 		user.setRoles(roles);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
