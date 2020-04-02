@@ -1,7 +1,10 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Arrays;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,6 +39,7 @@ public class JobOffer {
 	private Complexity complexity;
 
 	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 	
 	public Long getId() {

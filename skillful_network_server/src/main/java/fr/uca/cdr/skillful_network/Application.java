@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import fr.uca.cdr.skillful_network.model.entities.Role;
+import fr.uca.cdr.skillful_network.model.entities.JobApplication;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
@@ -26,6 +27,7 @@ import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ChoiceRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
+import fr.uca.cdr.skillful_network.model.repositories.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
@@ -121,6 +123,18 @@ public class Application {
 		};
 	}
 	
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initJobApplicationRepository(JobApplicationRepository jobApplicationRepository) {
+		return args -> {
+			if (jobApplicationRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/job-applications.json", JobApplication[].class,
+						jobApplicationRepository).load();
+
+			}
+		};
+	}
+
 	@Bean
 	@Profile("dev")
 	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {

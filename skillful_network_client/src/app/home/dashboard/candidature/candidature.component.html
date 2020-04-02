@@ -6,22 +6,25 @@
         <hr>
         <mat-card-content fxLayout="column" fxLayoutAlign="space-between start" class="tailleCard">
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
-                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post._company}}</p>
-                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.job.name}} </p>
+                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.jobOffer.company}}</p>
+                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.jobOffer.name}} </p>
 
                 <span fxFlex="20" fxLayout="row" fxLayoutAlign="start start" class="icon-candidature">
-                    <span *ngIf ="post.status ==='validate'">
+                    <span *ngIf ="post.status ==='ACCEPTED'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
                     </span>
-                    <span *ngIf="post.status ==='reject'">
+                    <span *ngIf="post.status ==='REJECTED'">
                             <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
                     </span>
-                    <span *ngIf="post.status ==='progress'">
+                    <span *ngIf="post.status ==='WAITING'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon">hourglass_empty</mat-icon>
                     </span>
                 </span>
                 <a fxFlex="20" fxLayout="row" fxLayoutAlign="start start" href="{{post.details}}" target="_blank"> <button mat-button color="primary" id="bouton-details-candidature">Details</button>
                 </a>
+            </div>
+            <div *ngIf="listCandidature === null" >
+                <p id="message-candidature">Vous n'avez aucune candidature</p>
             </div>
         </mat-card-content>
     </mat-card>
