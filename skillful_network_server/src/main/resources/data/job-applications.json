@@ -1,23 +1,32 @@
 [
 	{
-      
-      "status":"ACCEPTED",
-      "submit_date" : "May 25, 2020, 10:01:34 AM",
-      "job_offer_id": 1,
-      "user_id" : 1
-    },
-    {
-       
-        "status":"REJECTED",
-        "submit_date" : "May 25, 2020, 10:01:34 AM",
-        "job_offer_id" : 2,
-        "user_id" : 1
-    },
-    {
-       
-        "status":"WAITING",
-        "submit_date" : "May 25, 2020, 10:01:34 AM",
-        "job_offer_id" : 3,
-        "user_id" : 1
-     }
+		"status": "ACCEPTED",
+		"submit_date": "May 25, 2020, 10:01:34 AM",
+		"user": {
+			"id": 1
+		},
+		"jobOffer": {
+			"id": 1
+		}
+	},
+	{
+		"status": "REJECTED",
+		"submit_date": "May 25, 2020, 10:01:34 AM",
+		"user": {
+			"id": 1
+		},
+		"jobOffer": {
+			"id": 1
+		}
+	},
+	{
+		"status": "WAITING",
+		"submit_date": "May 25, 2020, 10:01:34 AM",
+		"user": {
+			"id": 2
+		},
+		"jobOffer": {
+			"id": 1
+		}
+	}
 ]

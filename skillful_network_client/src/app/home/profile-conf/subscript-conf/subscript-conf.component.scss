@@ -33,9 +33,16 @@
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
-  margin: 20px;
+  margin: 15px;
 }
 
 #btn_ajouter {
     width: 100px;
+}
+.progressBarDiv {
+  height: 8px;
+}
+.is-loading{
+  margin-bottom: 10px;
+  height: 1px;
 }

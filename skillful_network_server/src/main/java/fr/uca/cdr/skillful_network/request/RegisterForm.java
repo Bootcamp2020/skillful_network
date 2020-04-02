@@ -52,5 +52,16 @@ public class RegisterForm {
 	}
 	
 	
+	public RegisterForm(@Email String email, Set<String> role) {
+		super();
+		this.email = email;
+		this.role = role;
+	}
+
+	public RegisterForm() {
+		super();
+	}
+	
+	
 
 }

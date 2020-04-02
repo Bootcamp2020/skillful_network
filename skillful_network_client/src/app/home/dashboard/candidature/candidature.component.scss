@@ -8,10 +8,14 @@
     padding-top: 10px;
 }
 
-.Company,
-.Job {
-    margin-left: 40px;
+.Company{
+    margin-left: 25px;
     width:100px;
+}
+.Job{
+    margin-left: 10px;
+    width:250px;
+
 }
 .card_dashboard{
     padding: 0;
@@ -22,8 +26,51 @@ mat-card{
     min-height: 515px;
 }
 .icon-candidature{
-    margin-left: 30px;
-}
-#bouton-details-candidature{
     margin-left: 20px;
 }
+#message-candidature{
+    font-size: 25px;
+    font-style: italic;
+    margin: 20px;
+}
+@media screen and (max-width:700px ){
+    .icon-candidature{
+        margin-left: 15px;
+    }
+    #bouton-details-candidature{
+        margin-left: -35px !important;
+    }
+    .Job{
+        margin-left: 10px;
+        width:130px;
+    
+    }
+    .Company{
+        margin-left: 10px;
+        width:80px;
+    }
+    .example-form {
+        max-width: 370px;
+        min-width: 300px;
+    }
+
+}
+@media screen and (max-width:400px ){
+    #bouton-details-candidature{
+        margin-left: -15px !important;
+    }
+    .Job{
+        margin-left: 10px;
+        width:80px;
+    
+    }
+    .Company{
+        margin-left: 2px;
+        width:40px;
+    }
+    .icon-candidature{
+        margin-left: 20px;
+    }
+
+}
+

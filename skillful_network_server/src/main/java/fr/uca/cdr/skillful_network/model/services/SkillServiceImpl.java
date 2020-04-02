@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.model.services;
 
 import java.util.*;
 
+import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,15 @@ import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
 
 @Service(value = "skillService")
 public class SkillServiceImpl implements SkillService{
-	
+
 	@Autowired
 	private SkillRepository skillRepository;
-	
+
+	// Autocompletion init
+	AutoCompletion<Skill> completor = new AutoCompletion<>(Skill.class, "name", "userList");
+
 	@Override
 	public Optional<List<String>> searchSkill(String keyword) {
-		
 		return this.skillRepository.search(keyword);
 	}
 
@@ -39,4 +42,8 @@ public class SkillServiceImpl implements SkillService{
 		return this.skillRepository.findAll();
 	}
 
+	@Override
+	public List<Skill> getSkillsByMatch(String match) {
+		return completor.findCandidates(skillRepository.findAll(), match);
+	}
 }
