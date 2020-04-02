@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class JobApplication extends Application{
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_offer_id")
-    @JsonIgnore
+    @JsonManagedReference
     private JobOffer jobOffer;
 
     public JobApplication() {
