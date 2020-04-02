@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,5 +75,50 @@ public class JobOfferController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
 		}
 	}
-
+	
+	@PreAuthorize("hasRole('ENTREPRISE')")
+	@PostMapping(value="")
+	public JobOffer createJobOffer(@Valid @RequestBody JobOffer jobOffer){
+		return jobOfferService.saveOrUpdateJobOffer(jobOffer);		
+		
+	}
+	
+	@PreAuthorize("hasRole('ENTREPRISE')")
+	@PutMapping(value="/{id}")
+	@Transactional
+	public ResponseEntity<JobOffer> updateJobOffer(@PathVariable(value = "id") long id,
+			@Valid @RequestBody JobOffer jobOfferToUpdate) {
+			
+		System.out.println(jobOfferToUpdate);
+		if (jobOfferService.getJobOfferById(id).isPresent()) {
+			JobOffer initialjobOffer = jobOfferService.getJobOfferById(id).get();
+			
+			if (jobOfferToUpdate != null) {
+				initialjobOffer.setName(jobOfferToUpdate.getName());
+				initialjobOffer.setCompany(jobOfferToUpdate.getCompany());
+				initialjobOffer.setDescription(jobOfferToUpdate.getDescription());
+				initialjobOffer.setType(jobOfferToUpdate.getType());
+				initialjobOffer.setDateBeg(jobOfferToUpdate.getDateBeg());
+				initialjobOffer.setDateEnd(jobOfferToUpdate.getDateEnd());
+				initialjobOffer.setDateUpload(jobOfferToUpdate.getDateUpload());
+				initialjobOffer.setKeywords(jobOfferToUpdate.getKeywords());
+				initialjobOffer.setJobApplicationSet(jobOfferToUpdate.getJobApplicationSet());
+				
+				JobOffer jobOfferUpdated = jobOfferService.saveOrUpdateJobOffer(initialjobOffer);				
+				return new ResponseEntity<JobOffer>(jobOfferUpdated, HttpStatus.OK);
+				
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucune donnée en paramètre");
+			}
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Job Offer trouvée");
+		}
+	}
+	
+	@PreAuthorize("hasRole('ENTREPRISE')")
+	@DeleteMapping(value="/{id}")
+	@Transactional
+	public void deleteJobOffer(@PathVariable(value="id") Long id) {
+		jobOfferService.deleteJobOffer(id);
+	}
 }
