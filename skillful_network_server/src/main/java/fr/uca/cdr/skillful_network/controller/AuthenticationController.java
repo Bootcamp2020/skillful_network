@@ -4,6 +4,8 @@ package fr.uca.cdr.skillful_network.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -14,6 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +42,7 @@ import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
+import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 
 /**
  * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
@@ -63,6 +71,12 @@ public class AuthenticationController {
      @Autowired
      private RoleRepository roleRepository;
      
+     @Autowired
+     private AuthenticationManager authenticationManager;
+     
+     
+     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
+     
      
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -73,21 +87,36 @@ public class AuthenticationController {
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else {
-				Long idFromDB = userFromDB.get().getId();
- 				String emailFromDB= userFromDB.get().getEmail();
+				LocalDateTime dateExpirationMdp = userFromDB.get().getDateExpiration();
+				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
+				userService.validationMdp(isExpired, userFromDB);
+				if(isExpired){
+					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+							"Le mot de passe temporaire n'est plus valide ; veuillez relancer une inscription !");
+				}
+				
 				String passwordFromDB = userFromDB.get().getPassword();
 				String passwordRequest = loginRequest.getPassword();
-				if (passwordRequest != null && !passwordRequest.equals(passwordFromDB)) {
+				boolean passwordMatches = encoder.matches(passwordRequest, passwordFromDB);
+				System.out.println("Mots de passes correspondent ? " + passwordMatches); 
+				if (passwordRequest == null || !passwordMatches) {
 					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 							"Les 2 mots de passe ne correspondent pas");
 				} else {
+					
+					Authentication authentication = authenticationManager.authenticate(
+							new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+					UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
+					System.out.println("UserPrinciple récupéré : " + userPrinciple.toString());
+					
 					// On génère un token en fonction de l'id, l'email et le password de l'utilisateur
- 					String jwt = jwtProv.generateJwtToken(idFromDB, emailFromDB, passwordFromDB);
+ 					String jwt = jwtProv.generateJwtToken(authentication);
  					System.out.println("jwt dans AuthController : "+jwt);
  					
  					
  					// On retourne une jwt response qui contient le token et l'utilisateur
- 	 				return ResponseEntity.ok(new JwtResponse(jwt, userFromDB.get()));
+ 	 				return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
 				}
 			}
 		}
@@ -112,11 +141,14 @@ public class AuthenticationController {
 		}
         User user = new User();
         user.setEmail(registerForm.getEmail());
-		user.setPassword(randomCode);
-		
+        user.setDateExpiration(LocalDateTime.now().plus(24,ChronoUnit.HOURS));
+        // On crypte avec bcrypt le mot de passe dans la bdd
+        String randomCodeEncrypt =encoder.encode(randomCode);
+		user.setPassword(randomCodeEncrypt);
+		//Récupération du rôle qui a été choisi dans le formulaire=>role user par defaut, prévision choix de 3 rôles dans le formulaire rgister
 		Set<String> strRoles = registerForm.getRole();
 		Set<Role> roles= new HashSet<>();
-		
+		//Verification des rôles existant dans le RoleRepository et attribution des rôles au current user
 		strRoles.forEach(selectedRole->{
 			switch (selectedRole) {
 				case "user":
@@ -137,7 +169,7 @@ public class AuthenticationController {
 					roles.add(defaultRole);
 			}
 		});
-		
+		//Sauvegarde des rôles pour le user
 		user.setRoles(roles);
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,14 +14,19 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 
 @Component
 public class JwtProvider {
-	public String generateJwtToken(Long id, String email, String password) {
+	
+	private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
+	
+	public String generateJwtToken(Authentication authentication) {
+		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 		String line = "";
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
-		String code = id + " " + email + " " + password ;
+		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
 		String url = "src/main/resources/data/script/scriptToken.py"; // à modifier suivant l'emplacement du script et de votre os
 		String cmd = "python3" + " " + url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
 		
