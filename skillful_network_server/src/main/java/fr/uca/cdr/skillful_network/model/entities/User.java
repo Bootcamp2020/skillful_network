@@ -5,7 +5,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.time.LocalDateTime;
@@ -50,10 +51,12 @@ public class User {
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JsonBackReference
+	@JsonIgnoreProperties("user") 
+	@JsonBackReference 
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user")
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -63,6 +66,10 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Training> trainingSet = new HashSet<>();
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user") 
+	private Set<Simulation> simulationSet = new HashSet<>();
+	
 	public User() {
 		super();
 	}
@@ -104,7 +111,7 @@ public class User {
 			@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
 			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet,
 			Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-			Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
+			Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles, Set<Simulation> simulationSet) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -121,8 +128,11 @@ public class User {
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
 		this.trainingApplicationSet = trainingApplicationSet;
+		this.simulationSet = simulationSet;
 		this.roles = roles;
 	}
+	
+	
 
 	public Set<Training> getTrainingSet() {
 		return trainingSet;
@@ -274,6 +284,16 @@ public class User {
 
 	public void setDateExpiration(LocalDateTime dateExpiration) {
 		this.dateExpiration = dateExpiration;
+	}
+	
+	
+
+	public Set<Simulation> getSimulationSet() {
+		return simulationSet;
+	}
+
+	public void setSimulationSet(Set<Simulation> simulationSet) {
+		this.simulationSet = simulationSet;
 	}
 
 	@Override
