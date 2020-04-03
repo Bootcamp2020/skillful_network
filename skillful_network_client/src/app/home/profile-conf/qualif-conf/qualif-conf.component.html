@@ -6,7 +6,14 @@
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listQualif" class="qualif">{{post.name}}</mat-chip>
+                <mat-chip *ngFor="let post of listQualif" 
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeQualif(post)"
+                class="qualif">
+                {{post.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
             </mat-chip-list>
         </mat-card>
     </div>
@@ -17,7 +24,7 @@
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
-                    <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="qualification" class="form-control">
+                    <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder="qualification" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete">
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
