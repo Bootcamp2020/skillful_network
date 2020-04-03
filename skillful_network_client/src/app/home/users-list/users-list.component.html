@@ -6,6 +6,21 @@
             <mat-card-title id="title_police">Liste des utilisateurs</mat-card-title>
         </mat-card-header>
 
+        <div class="recherche">
+            <div >
+                <form class="formulaire" (ngsubmit)="onSearchByFirstNameOrLastName(f)" #f="ngForm">
+                    <div fxLayout="row " >
+                        <mat-icon (click)="onSearchByFirstNameOrLastName(f)" class="cursor">search</mat-icon>
+                        <div class="input "><input (keydown)="onSearchByFirstNameOrLastName(f)" placeholder="Recherche... " name="keyword" ngModel> </div>
+                        <p>nombre d'entité par page</p>
+                        <div class="input "><input name="size" ngModel value=10> </div>
+                        <p>numéro de page</p>
+                        <div class="input "><input name="page" ngModel value=1> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <hr>
         
         <mat-card-content>
@@ -43,7 +58,5 @@
                 </div>
             </div>
         </mat-card-content>
-
     </mat-card>
-
 </div>

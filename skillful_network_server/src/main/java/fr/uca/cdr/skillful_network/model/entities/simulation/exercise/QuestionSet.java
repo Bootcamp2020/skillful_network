@@ -23,9 +23,10 @@ public class QuestionSet extends Exercise {
 		// TODO Auto-generated constructor stub
 	}
 
-	public QuestionSet(Long id, String name, ExerciseType type, String[] keywords) {
-		super(id, name, type, keywords);
+	public QuestionSet( Set<Question> questions,Long id , String name, ExerciseType type, Set<Keyword> keywords) {
+		super( id,name, type, keywords);
 		// TODO Auto-generated constructor stub
+		this.questions = questions;
 	}
 
 	public Set<Question> getQuestions() {

@@ -38,4 +38,13 @@ public class JobOfferServiceImpl implements JobOfferService {
 		return jobOfferRepository.findAll();
 	}
 
+	@Override
+	public JobOffer saveOrUpdateJobOffer(JobOffer jobOffer) {		
+		return jobOfferRepository.save(jobOffer);
+	}
+
+	@Override
+	public void deleteJobOffer(Long id) {
+		jobOfferRepository.deleteById(id);		
+	}
 }

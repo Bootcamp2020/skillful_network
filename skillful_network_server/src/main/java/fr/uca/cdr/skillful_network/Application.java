@@ -12,18 +12,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import fr.uca.cdr.skillful_network.model.entities.Role;
+import fr.uca.cdr.skillful_network.model.entities.JobApplication;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Choice;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
+import fr.uca.cdr.skillful_network.model.repositories.ChoiceRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
+import fr.uca.cdr.skillful_network.model.repositories.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
+import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.QualificationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SkillRepository;
@@ -33,6 +40,8 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 @SpringBootApplication
 @EnableAsync
 public class Application {
+	
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //    @Autowired
 //    private ExerciseRepository exerciseRepository ;
 	// lance le serveur
@@ -48,7 +57,10 @@ public class Application {
 			if (userRepository.findAll().isEmpty()) {
 				List<User> users = new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
 						.load();
-				users.forEach(user -> user.setValidated(true));
+				users.forEach((user) -> {
+					user.setValidated(true);
+					user.setPassword(encoder.encode(user.getPassword()));
+					});
 			}
 		};
 	}
@@ -116,8 +128,38 @@ public class Application {
 			}
 		};
 	}
-
 	
+//	@Bean
+//	@Profile("dev")
+//	ApplicationRunner initJobApplicationRepository(JobApplicationRepository jobApplicationRepository) {
+//		return args -> {
+//			if (jobApplicationRepository.findAll().isEmpty()) {
+//				new JSONLoader<>("src/main/resources/data/job-applications.json", JobApplication[].class,
+//						jobApplicationRepository).load();
+//
+//			}
+//		};
+//	}
+
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
+		return args -> {
+			if (keywordRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/keywords.json", Keyword[].class, keywordRepository).load();
+			}
+		};
+	}
+	
+	@Bean
+	@Profile("dev")
+	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
+		return args -> {
+			if (choiceRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
+			}
+		};
+	}
 	@Bean
 	@Profile("dev")
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
@@ -133,5 +175,6 @@ public class Application {
 			}
 		};
 	}
+
 }
 

@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-header id="title">
+        <mat-card-title id="title_police">Simulation</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <div><h3>Exercice 1 - Questionnaire : {{this.simulation[0].exerciceSet[indexQuestionnaire].name}}</h3></div>
+        <mat-progress-bar mode="determinate" [value]="progressionValeur" ></mat-progress-bar>
+        <br>
+        <div style="margin-left: 30px">
+        <label id="example-radio-group-label">{{this.simulation[0].exerciceSet[indexQuestionnaire].questions[indexQuestion].question}}</label>
+        <div>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"> <!-- [(ngModel)]="currentQuestionSet.selected" > -->
+                <mat-radio-button class="example-radio-button" [value]="cpt" (change)="selection = $event.value" (click)="activateButton()" *ngFor="let choix of this.simulation[0].exerciceSet[indexQuestionnaire].questions[indexQuestion].choices;  let cpt = index;" [checked]="false"> {{choix}}</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <button mat-button [disabled]="disabledButton" *ngIf="(indexQuestion + 1) != this.simulation[0].exerciceSet[indexQuestionnaire].questions.length" value="Next" (click)="next()" mat-raised-button color="primary">Suivant</button>
+        <div class="col-md-4" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) != this.simulation[0].exerciceSet.length">
+            <button mat-button [disabled]="disabledButton" value="Submit" (click)="nextQcm()"mat-raised-button color="primary">Questionnaire suivant</button>
+        </div>
+        <div class="col-md-4" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) == this.simulation[0].exerciceSet.length">
+            <button mat-button [disabled]="disabledButton" value="Submit" (click)="submit()"mat-raised-button color="primary">Envoyer</button>
+        </div>
+        </div>
+<!--        <div *ngIf="gameover"><h5>Result:  {{correct}}/{{questions.length}}</h5></div>  -->
+    </mat-card-content>
+</mat-card>

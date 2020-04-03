@@ -19,5 +19,9 @@ public interface JobOfferService {
 
 	Page<JobOffer> searchJobOfferByKeyword(Pageable pageable, String keyword);
 	
+	JobOffer saveOrUpdateJobOffer(JobOffer jobOffer);
+	
+	void deleteJobOffer(Long id);
+	
 	
 }
