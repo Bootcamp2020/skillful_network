@@ -12,8 +12,5 @@ env:
   - SCRIPT=travis-backend-test.sh
   - SCRIPT=travis-frontend.sh
 
-install:
-  - npm install npm@latest @angular/cli -g
-
 script:
   - ./.travis/$SCRIPT
