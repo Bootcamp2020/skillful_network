@@ -54,7 +54,7 @@ public class JwtProvider {
 		String scriptResponse="";
 		String choice = "decrypt"; // encrypt ou decrypt
 		String cmd = "python3" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
-		
+		System.out.println("jwt récupéré dans decrypt : "+frontToken);
 		
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
