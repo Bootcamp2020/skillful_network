@@ -53,8 +53,8 @@ public class Application {
 						.load();
 				users.forEach((user) -> {
 					user.setValidated(true);
-					user.setPassword(encoder.encode(user.getPassword()));
-					});
+//					user.setPassword(encoder.encode(user.getPassword()));
+				});
 			}
 		};
 	}
