@@ -2,15 +2,20 @@ package fr.uca.cdr.skillful_network.model.services;
 
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.request.ExerciseForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service(value = "SimulationService")
 public class SimulationServiceImpl implements SimulationService {
@@ -20,6 +25,9 @@ public class SimulationServiceImpl implements SimulationService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+	QuestionSetService questionSetService;
 
     @Override
     public List<Simulation> getAllSimulations() {
@@ -70,4 +78,21 @@ public class SimulationServiceImpl implements SimulationService {
                     return simulation;})
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + id));
     }
+    
+    @Override
+	public float calculateSimulationGrade(Set<ExerciseForm> exercises, Long simulationId) {
+		float totalGrade = 0;
+		float simulationGrade = 0;
+		Set<Result> results=new HashSet<Result>();
+		for (ExerciseForm exerciseForm : exercises) {
+			float exerciceResult=questionSetService.calculateGrade(exerciseForm);
+			Result result=new Result(exerciseForm.getId(),exerciceResult);
+			results.add(result);
+			totalGrade += exerciceResult;
+		}
+		simulationGrade = (float) (totalGrade * (0.8 / (exercises.size())));
+		Simulation simulation = simulationRepository.findById(simulationId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + simulationId));
+		simulation.setResults(results);
+		return simulationGrade;
+	}
 }
