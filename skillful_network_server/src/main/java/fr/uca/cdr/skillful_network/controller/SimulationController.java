@@ -2,6 +2,9 @@ package fr.uca.cdr.skillful_network.controller;
 
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
+import fr.uca.cdr.skillful_network.request.ExerciseForm;
+import fr.uca.cdr.skillful_network.request.SimulationForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.Valid;
 
 @CrossOrigin("*")
 @RestController
@@ -71,6 +77,14 @@ public class SimulationController {
 		Simulation simulation = this.simulationService.startSimulation(userId, jobGoal)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Une erreur est survenue pendant l'éxécécution de la simulation."));
 		return new ResponseEntity<>(simulation, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/{id}/answer")
+	public float simulationResult(@PathVariable(value = "id") Long simulationId,@Valid @RequestBody SimulationForm simulationForm) {
+		float simulationGrade=0;
+        Set<ExerciseForm> exercises = simulationForm.getExerciseSet();
+        simulationGrade=simulationService.calculateSimulationGrade(exercises, simulationId);
+		return simulationGrade; 	
 	}
 
 	// #########################################################################
