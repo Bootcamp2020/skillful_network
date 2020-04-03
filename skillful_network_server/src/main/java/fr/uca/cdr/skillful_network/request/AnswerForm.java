@@ -5,20 +5,20 @@ public class AnswerForm {
 	private long questionId;
 	private int answer;
 
-	public long getId() {
-		return questionId;
-	}
-
-	public void setId(long questionId) {
-		this.questionId = questionId;
-	}
-
 	public int getAnswer() {
 		return answer;
 	}
 
 	public void setAnswer(int answer) {
 		this.answer = answer;
+	}
+
+	public long getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(long questionId) {
+		this.questionId = questionId;
 	}
 
 	public AnswerForm(long questionId, int answer) {
