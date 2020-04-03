@@ -2,6 +2,8 @@ package fr.uca.cdr.skillful_network.model.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,8 +30,11 @@ public class Training {
 	@OneToMany(mappedBy = "training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
-	@ManyToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<User> userSet = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("trainingSet")
+    private User user;
+
 	
 	public Set<TrainingApplication> getTrainingApplicationSet() {
 		return trainingApplicationSet;
@@ -37,12 +42,7 @@ public class Training {
 	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
 		this.trainingApplicationSet = trainingApplicationSet;
 	}
-	public Set<User> getUserSet() {
-		return userSet;
-	}
-	public void setUserSet(Set<User> userSet) {
-		this.userSet = userSet;
-	}
+
 	public Long getId() {
 		return id;
 	}
@@ -54,6 +54,13 @@ public class Training {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getOrganisation() {
 		return organisation;
