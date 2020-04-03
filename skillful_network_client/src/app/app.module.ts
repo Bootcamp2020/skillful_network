@@ -55,8 +55,11 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
 import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
-
-
+import { SimulationContainerComponent } from './home/simulation-container/simulation-container.component';
+import { SimInformationComponent } from './home/simulation-container/sim-information/sim-information.component';
+import { SimTrainingListComponent } from './home/simulation-container/sim-training-list/sim-training-list.component';
+import { SimJobOfferListComponent } from './home/simulation-container/sim-job-offer-list/sim-job-offer-list.component';
+import { SimQuestionListComponent } from './home/simulation-container/sim-question-list/sim-question-list.component';
 
 
 @NgModule({
@@ -97,6 +100,11 @@ import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
         OffreComponent,
         FormationListComponent,
         JobOfferListComponent,
+        SimulationContainerComponent,
+        SimInformationComponent,
+        SimTrainingListComponent,
+        SimJobOfferListComponent,
+        SimQuestionListComponent
         ],
 
     imports: [
