@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Qualif } from 'src/app/shared/models/qualif';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { UserService } from 'src/app/shared/services/user.service';
+
 
 @Component({
   selector: 'app-qualif-conf',
@@ -21,10 +22,16 @@ export class QualifConfComponent implements OnInit {
   public listQualif: Qualif[];
   public qualif: string;
   isLoading:boolean;
+  visible = true;
+  selectable = true;
+  removable =true;
+  addOnBlur = true;
   
 
-  constructor(private formBuilder: FormBuilder , private service : UserService) {
 
+
+ 
+  constructor(private formBuilder: FormBuilder , private service : UserService,) {
   }
 
   ngOnInit(): void {
@@ -49,8 +56,20 @@ export class QualifConfComponent implements OnInit {
 
   myControl = new FormControl()
   
+
   addQualif() {
     this.listQualif.push(new Qualif(this.qualifInfoGroup.value['qualifUnit']));
     this.qualifInfoGroup.value['qualificationSet'] = this.listQualif;
+    
   }
+  
+  
+  removeQualif(qualif : Qualif): void {
+    const index = this.listQualif.indexOf(qualif);
+    if (index >=0) {
+      this.listQualif.splice(index, 1);
+    }
+  
+  }
+ 
 }

@@ -19,6 +19,10 @@ export class SkillConfComponent implements OnInit {
   public listSkill: Skill[];
   public skill: string;
   isLoading:boolean;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
 
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
@@ -47,6 +51,13 @@ export class SkillConfComponent implements OnInit {
   addSkill() {
     this.listSkill.push(new Skill(this.skillInfoGroup.value['skillUnit']));
     this.skillInfoGroup.value['skillSet'] = this.listSkill;
+  }
+
+  removeSkill(skill : Skill) {
+    const index = this.listSkill.indexOf(skill);
+    if (index >= 0) {
+      this.listSkill.splice(index, 1);
+    }
   }
 }
 
