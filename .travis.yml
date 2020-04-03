@@ -8,7 +8,8 @@ cache:
   directories:
     - $HOME/.m2
 env:
-  - SCRIPT=travis-backend.sh
+  - SCRIPT=travis-backend-run.sh
+  - SCRIPT=travis-backend-test.sh
   - SCRIPT=travis-frontend.sh
 
 install:
