@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../offre';
+import {JobDetails, Trainings} from '../offre';
 import {MOCK_OFFRE} from '../offre.mock';
+import {ApiHelperService} from '../../../shared/services/api-helper.service';
+import {CandidatureService} from '../../../shared/services/candidature.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-formations-associees',
@@ -8,16 +11,11 @@ import {MOCK_OFFRE} from '../offre.mock';
   styleUrls: ['./formations-associees.component.scss']
 })
 export class FormationsAssocieesComponent implements OnInit {
-  @Input() public nomFormation: string;
-  @Input() public presRequis: string;
-  @Input() public competence: string;
-  @Input() public duree: number;
-  @Input() public post : Post;
+    @Input() post;
 
-  constructor() { }
+
+  constructor(private api: ApiHelperService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
   }
-
 }
