@@ -12,8 +12,8 @@ export class Post {
     private _presRequis: string;
     private _competence: string;
     private _duree: number;
-    private _risque: string;
-    private _complexite: string;
+    private _risk: string;
+    private _complexity: string;
     constructor(data: IPost) {
         this._status = data.status;
         this._titreOffre = data.titreOffre;
@@ -26,8 +26,8 @@ export class Post {
         this._presRequis = data.presRequis;
         this._competence = data.competence;
         this._duree = data.duree;
-        this._risque = data.risque;
-        this._complexite = data.complexite;
+        this._risk = data.risk;
+        this._complexity = data.complexity;
 
     }
 
@@ -108,17 +108,17 @@ export class Post {
     set duree(value: number) {
         this._duree = value;
     }
-    get risque(): string {
-        return this._risque;
+    get risk(): string {
+        return this._risk;
     }
-    set risque(value: string) {
-        this._risque = value;
+    set risk(value: string) {
+        this._risk = value;
     }
-    get complexite(): string {
-        return this._complexite;
+    get complexity(): string {
+        return this._complexity;
     }
-    set complexite(value: string) {
-        this._complexite = value;
+    set complexity(value: string) {
+        this._complexity = value;
     }
 
 

@@ -10,8 +10,8 @@ export interface IPost {
     presRequis: string;
     competence: string;
     duree: number;
-    risque: string;
-    complexite: string;
+    risk: string;
+    complexity: string;
 
 
 
@@ -31,7 +31,7 @@ export let MOCK_OFFRE: IPost =
     presRequis: 'Minimum Bac',
     competence: 'HTML, CSS',
     duree: 24,
-    risque: 'simple',
-    complexite: 'modérée'
+    risk: 'simple',
+    complexity: 'modérée'
 
 };
