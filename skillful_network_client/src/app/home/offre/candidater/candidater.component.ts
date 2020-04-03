@@ -9,8 +9,6 @@ import { Post } from '../offre';
   styleUrls: ['./candidater.component.scss']
 })
 export class CandidaterComponent implements OnInit {
-  @Input() public nomFormation: string;
-  @Input() public duree: number;
   @Input() public post : Post;
   agree: any;
   constructor() { }

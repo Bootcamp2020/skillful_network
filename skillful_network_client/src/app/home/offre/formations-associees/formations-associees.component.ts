@@ -8,10 +8,6 @@ import {MOCK_OFFRE} from '../offre.mock';
   styleUrls: ['./formations-associees.component.scss']
 })
 export class FormationsAssocieesComponent implements OnInit {
-  @Input() public nomFormation: string;
-  @Input() public presRequis: string;
-  @Input() public competence: string;
-  @Input() public duree: number;
   @Input() public post : Post;
 
   constructor() { }

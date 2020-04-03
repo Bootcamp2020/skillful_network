@@ -8,9 +8,6 @@ import {MOCK_OFFRE} from '../offre.mock';
   styleUrls: ['./informations.component.scss']
 })
 export class InformationsComponent implements OnInit {
-  @Input() public entreprise: string;
-  @Input() public description: string;
-  @Input() public motsCles: string;
   @Input() public post : Post;
   
   constructor() { }

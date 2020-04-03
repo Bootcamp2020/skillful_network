@@ -2,30 +2,30 @@ import { IPost } from './offre.mock';
 
 export class Post {
     private _status: string;
-    private _titreOffre: string;
-    private _entreprise: string;
+    private _titleJob: string;
+    private _company: string;
     private _description: string;
-    private _motsCles: string;
-    private _niveau: string;
-    private _environement: string;
-    private _nomFormation: string;
-    private _presRequis: string;
-    private _competence: string;
-    private _duree: number;
+    private _keywords: string;
+    private _level: string;
+    private _technology: string;
+    private _titletraining: string;
+    private _prerequisite: string;
+    private _skill: string;
+    private _duration: number;
     private _risk: string;
     private _complexity: string;
     constructor(data: IPost) {
         this._status = data.status;
-        this._titreOffre = data.titreOffre;
-        this._entreprise = data.entreprise;
+        this._titleJob = data.titleJob;
+        this._company = data.company;
         this._description = data.description;
-        this._motsCles = data.motsCles;
-        this._niveau = data.niveau;
-        this._environement = data.environement;
-        this._nomFormation = data.nomFormation;
-        this._presRequis = data.presRequis;
-        this._competence = data.competence;
-        this._duree = data.duree;
+        this._keywords = data.keywords;
+        this._level = data.level;
+        this._technology = data.technology;
+        this._titletraining = data.titletraining;
+        this._prerequisite = data.prerequisite;
+        this._skill = data.skill;
+        this._duration = data.duration;
         this._risk = data.risk;
         this._complexity = data.complexity;
 
@@ -39,19 +39,19 @@ export class Post {
         this._status = value;
     }
 
-    get titreOffre(): string {
-        return this._titreOffre;
+    get titleJob(): string {
+        return this._titleJob;
     }
 
-    set titreOffre(value: string) {
-        this._titreOffre = value;
+    set titleJob(value: string) {
+        this._titleJob = value;
     }
-    get entreprise(): string {
-        return this._entreprise;
+    get company(): string {
+        return this._company;
     }
 
-    set entreprise(value: string) {
-        this._entreprise = value;
+    set company(value: string) {
+        this._company = value;
     }
     get description(): string {
         return this._description;
@@ -60,53 +60,53 @@ export class Post {
     set description(value: string) {
         this._description = value;
     }
-    get motsCles(): string {
-        return this._motsCles;
+    get keywords(): string {
+        return this._keywords;
     }
 
-    set motsCles(value: string) {
-        this._motsCles = value;
+    set keywords(value: string) {
+        this._keywords = value;
     }
-    get niveau(): string {
-        return this._niveau;
+    get level(): string {
+        return this._level;
     }
-    set niveau(value: string) {
-        this._niveau = value;
+    set level(value: string) {
+        this._level = value;
     }
-    get environement(): string {
-        return this._environement;
-    }
-
-    set environement(value: string) {
-        this._environement = value;
-    }
-    get nomFormation(): string {
-        return this._nomFormation;
+    get technology(): string {
+        return this._technology;
     }
 
-    set nomFormation(value: string) {
-        this._nomFormation = value;
+    set technology(value: string) {
+        this._technology = value;
     }
-    get presRequis(): string {
-        return this._presRequis;
-    }
-
-    set presRequis(value: string) {
-        this._presRequis = value;
-    }
-    get competence(): string {
-        return this._competence;
+    get titletraining(): string {
+        return this._titletraining;
     }
 
-    set competence(value: string) {
-        this._competence = value;
+    set titletraining(value: string) {
+        this._titletraining = value;
     }
-    get duree(): number {
-        return this._duree;
+    get prerequisite(): string {
+        return this._prerequisite;
     }
 
-    set duree(value: number) {
-        this._duree = value;
+    set prerequisite(value: string) {
+        this._prerequisite = value;
+    }
+    get skill(): string {
+        return this._skill;
+    }
+
+    set skill(value: string) {
+        this._skill = value;
+    }
+    get duration(): number {
+        return this._duration;
+    }
+
+    set duration(value: number) {
+        this._duration = value;
     }
     get risk(): string {
         return this._risk;

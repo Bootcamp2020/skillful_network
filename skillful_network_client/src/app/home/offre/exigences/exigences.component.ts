@@ -7,8 +7,6 @@ import {Post} from '../offre';
   styleUrls: ['./exigences.component.scss']
 })
 export class ExigencesComponent implements OnInit {
-  @Input() public niveau: string;
-  @Input() public environement: string;
   @Input() public post : Post;
 
   constructor() { }
