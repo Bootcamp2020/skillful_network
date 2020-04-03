@@ -5,7 +5,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name="user")
 public class User {
 
 	@Id
@@ -34,31 +36,39 @@ public class User {
 	private String mobileNumber;
 	private String status;
 	private boolean validated = false;
-    private String careerGoal;
-	private boolean photo= false;
-	
+	private String careerGoal;
+	private boolean photo = false;
+
 	@Column(name = "date_expiration")
 	private LocalDateTime dateExpiration;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Skill>skillSet = new HashSet<Skill>();
+	private Set<Skill> skillSet = new HashSet<Skill>();
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
+	@JsonIgnoreProperties("user") 
+	@JsonBackReference 
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-  
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user")
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Training> trainingSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("user") 
+	private Set<Simulation> simulationSet = new HashSet<>();
 	
 	public User() {
 		super();
@@ -75,10 +85,10 @@ public class User {
 		super();
 		this.password = password;
 		this.email = email;
-	}  
-  
+	}
+
 	public User(long id, String firstName, String lastName, String password, Date birthDate, String email,
-				String mobileNumber, int status, boolean photo, String careerGoal) {
+			String mobileNumber, int status, boolean photo, String careerGoal) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -93,15 +103,15 @@ public class User {
 		this.careerGoal = careerGoal;
 	}
 
-  public User(long id,
-		@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
-		@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
-		@Size(min = 8, message = "password must be at least 8 characters") String password,
-		@PastOrPresent Date birthDate,
-		@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-		String mobileNumber, String status, boolean validated, boolean photo,
-		Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-		Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles) {
+	public User(long id,
+			@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
+			@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
+			@Size(min = 8, message = "password must be at least 8 characters") String password,
+			@PastOrPresent Date birthDate,
+			@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
+			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet,
+			Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
+			Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles, Set<Simulation> simulationSet) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -118,7 +128,18 @@ public class User {
 		this.subscriptionSet = subscriptionSet;
 		this.jobApplicationSet = jobApplicationSet;
 		this.trainingApplicationSet = trainingApplicationSet;
+		this.simulationSet = simulationSet;
 		this.roles = roles;
+	}
+	
+	
+
+	public Set<Training> getTrainingSet() {
+		return trainingSet;
+	}
+
+	public void setTrainingSet(Set<Training> trainingSet) {
+		this.trainingSet = trainingSet;
 	}
 
 	public long getId() {
@@ -184,8 +205,6 @@ public class User {
 	public void setValidated(boolean validated) {
 		this.validated = validated;
 	}
-	 
-	
 
 	public String getCareerGoal() {
 		return careerGoal;
@@ -214,11 +233,11 @@ public class User {
 	public Set<Skill> getSkillSet() {
 		return skillSet;
 	}
-  
+
 	public void setSkillSet(Set<Skill> skillSet) {
 		this.skillSet = skillSet;
 	}
-  
+
 	public Set<Qualification> getQualificationSet() {
 		return qualificationSet;
 	}
@@ -226,7 +245,7 @@ public class User {
 	public void setQualificationSet(Set<Qualification> qualificationSet) {
 		this.qualificationSet = qualificationSet;
 	}
-	
+
 	public Set<Subscription> getSubscriptionSet() {
 		return subscriptionSet;
 	}
@@ -250,7 +269,7 @@ public class User {
 	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
 		this.trainingApplicationSet = trainingApplicationSet;
 	}
-    
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -266,19 +285,24 @@ public class User {
 	public void setDateExpiration(LocalDateTime dateExpiration) {
 		this.dateExpiration = dateExpiration;
 	}
+	
+	
+
+	public Set<Simulation> getSimulationSet() {
+		return simulationSet;
+	}
+
+	public void setSimulationSet(Set<Simulation> simulationSet) {
+		this.simulationSet = simulationSet;
+	}
 
 	@Override
 	public String toString() {
-		return "User [" + id +
-				"] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password +
-				", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber +
-				", status=" + status + ", validated=" + validated +
-				", careerGoal=" + careerGoal +", photo=" + photo + ", " +
-				", skillSet=" + skillSet +
-				", qualificationSet=" + qualificationSet +
-				", subscriptionSet=" + subscriptionSet +
-				", jobApplicationSets=" + jobApplicationSet +
-				", trainingApplicationSet=" + trainingApplicationSet +
-				", roles=" + roles + "]";
+		return "User [" + id + "] firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", birthDate=" + birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", status="
+				+ status + ", validated=" + validated + ", careerGoal=" + careerGoal + ", photo=" + photo + ", "
+				+ ", skillSet=" + skillSet + ", qualificationSet=" + qualificationSet + ", subscriptionSet="
+				+ subscriptionSet + ", jobApplicationSets=" + jobApplicationSet + ", trainingApplicationSet="
+				+ trainingApplicationSet + ", roles=" + roles + "]";
 	}
 }
