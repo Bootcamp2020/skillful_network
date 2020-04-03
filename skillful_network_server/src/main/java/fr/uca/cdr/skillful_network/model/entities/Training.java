@@ -28,6 +28,21 @@ public class Training {
 	@OneToMany(mappedBy = "training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 	
+	@ManyToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<User> userSet = new HashSet<>();
+	
+	public Set<TrainingApplication> getTrainingApplicationSet() {
+		return trainingApplicationSet;
+	}
+	public void setTrainingApplicationSet(Set<TrainingApplication> trainingApplicationSet) {
+		this.trainingApplicationSet = trainingApplicationSet;
+	}
+	public Set<User> getUserSet() {
+		return userSet;
+	}
+	public void setUserSet(Set<User> userSet) {
+		this.userSet = userSet;
+	}
 	public Long getId() {
 		return id;
 	}
