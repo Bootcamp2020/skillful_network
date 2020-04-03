@@ -21,7 +21,7 @@ public class Simulation {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("simulationSet")
-    protected User user;
+    private User user;
 
     @NotNull(message = "Job goal cannot be null")
     private String jobGoal;
