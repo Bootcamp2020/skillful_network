@@ -7,9 +7,16 @@
             <hr>
             <mat-card-content>
                 <div class="parent" *ngIf="!loading">
-                    <div class="photoProfile">
-                        <img src="https://image.freepik.com/vecteurs-libre/profil-avatar-homme-icone-ronde_24640-14044.jpg">
-                    </div>
+                    <ng-container class="photoProfile" *ngIf="!user.photo; then logIn; else logOut">
+                    </ng-container>
+
+                    <ng-template #logIn>
+                        <img  src='../../../../assets/pictures/iconeprofildefaut.jpg' >
+                    </ng-template>
+
+                    <ng-template #logOut>
+                        <img  [src]="image_user" >
+                    </ng-template>
                     <div class="detail">
                         <ul>
 

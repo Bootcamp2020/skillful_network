@@ -17,10 +17,11 @@ export class SkillsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     const {id} =this.route.snapshot.params;
-    console.log(id);
-    this.api.get({endpoint: `/users/${id}/skills`})
-        .then(data => this.listSkill = data)
+     const {id} = this.route.snapshot.params;
+     console.log(id);
+     this.api.get({endpoint: `/users/${id}/skills`})
+        .then(data => {this.listSkill = data;
+                       console.log(this.listSkill); })
         .catch((error) => {
           console.log('cet utilisateur n\'existe pas');
         });

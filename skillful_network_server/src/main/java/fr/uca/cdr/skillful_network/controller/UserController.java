@@ -1,15 +1,20 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-import fr.uca.cdr.skillful_network.model.entities.Qualification;
+
 import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -138,7 +144,7 @@ public class UserController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('USER')")
+	//@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
 			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
 	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
@@ -150,8 +156,35 @@ public class UserController {
 		fout.close();
 		return "File is upload successfully" + image.getOriginalFilename();
 	}
+////////////Methode pour que l'utilasteur affiche sa photo profil///////////////////////
+	@RequestMapping(value = "/image/{id:.+}", method = RequestMethod.GET) // @RequestParam("file") MultipartFile file,
+	public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id, HttpServletResponse response)
+			throws IOException {
+		Optional<User> userforphoto = userService.getUserById(id); // this just gets the data from a database//
+																	// response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		if (!userforphoto.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id :" + id);
+		}
+		File f = new File("WebContent/images/"+id+".png");
+		BufferedImage o = ImageIO.read(f);
+		ByteArrayOutputStream b = new ByteArrayOutputStream();
+		ImageIO.write(o, "jpg", b);
+		byte[] img = b.toByteArray();
+
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(img);
+
+	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
 
@@ -163,6 +196,9 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.get());
 	}
+	
+	
+	
 
 //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
 //	public ResponseEntity<Skill> getOneSkillByUser(@PathVariable(value = "userId")Long userId, @PathVariable(value = "skillId")Long skillId) {
@@ -307,7 +343,7 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
-	@PreAuthorize("hasRole('USER')")
+	//@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "users/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
