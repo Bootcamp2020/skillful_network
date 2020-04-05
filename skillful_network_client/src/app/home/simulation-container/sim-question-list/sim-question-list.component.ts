@@ -19,7 +19,11 @@ export class SimQuestionListComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.simulationInfo();
+    if (this.simulationInfo()) {
+      if (this.simulation.trainingsSuggested == null) {
+        console.log(">>> " + this.componentName + ".trainingSuggested is EMPTY");
+      }
+    }
   }
 
   public simulationInfo(): boolean {
