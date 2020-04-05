@@ -9,6 +9,15 @@
     justify-content: center;
 }
 
+#title {
+    margin-top: 12px;
+}
+
+#divider {
+    margin: auto 20px;
+    border-top-width: medium;
+}
+
 #montitre{
     font-size: 2rem;
     font-style: italic;
@@ -31,15 +40,15 @@
     }
 
     .zone1 {
-        grid-area: 1 / 1 / 2 / 1;
+        grid-area: 1 / 1 / 1 / 1;
     }
     .zone2 {
-        grid-area: 1 / 2 / 2 / 2;
+        grid-area: 1 / 2 / 1 / 2;
     }
     .zone3 {
-        grid-area: 3 / 1 / 4 / 1;
+        grid-area: 2 / 1 / 2 / 1;
     }
     .zone4 {
-        grid-area: 3 / 2 / 4 / 2;
+        grid-area: 2 / 2 / 2 / 2;
     }
 }
