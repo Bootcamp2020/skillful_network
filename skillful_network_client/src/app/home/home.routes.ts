@@ -5,6 +5,8 @@ import {ProfileConfComponent} from './profile-conf/profile-conf.component';
 import {OffreComponent} from './offre/offre.component';
 import { FormationListComponent } from './formation-list/formation-list.component';
 import {JobOfferListComponent} from './job-offer-list/job-offer-list.component';
+import {SimulationStartComponent} from './simulation-start/simulation-start.component';
+import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
 import {SimulationContainerComponent} from './simulation-container/simulation-container.component';
 
 export const HOME_ROUTES = [
@@ -15,5 +17,7 @@ export const HOME_ROUTES = [
   {path: 'offre/:id', component: OffreComponent},
   {path: 'formation-list', component: FormationListComponent},
   {path: 'job-offer-list', component: JobOfferListComponent},
+  {path: 'simulation-start', component: SimulationStartComponent},
+  {path: 'questionnaire', component: QuestionnaireComponent}
   {path: 'simulation/:simId', component: SimulationContainerComponent},
 ];

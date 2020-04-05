@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import fr.uca.cdr.skillful_network.model.entities.Role;
 import fr.uca.cdr.skillful_network.model.entities.JobApplication;
@@ -39,6 +40,8 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 @SpringBootApplication
 @EnableAsync
 public class Application {
+	
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //    @Autowired
 //    private ExerciseRepository exerciseRepository ;
 	// lance le serveur
@@ -54,7 +57,10 @@ public class Application {
 			if (userRepository.findAll().isEmpty()) {
 				List<User> users = new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
 						.load();
-				users.forEach(user -> user.setValidated(true));
+				users.forEach((user) -> {
+					user.setValidated(true);
+					user.setPassword(encoder.encode(user.getPassword()));
+					});
 			}
 		};
 	}

@@ -55,6 +55,9 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
 import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
+import { SimulationStartComponent } from './home/simulation-start/simulation-start.component';
+import { QuestionnaireComponent } from './home/questionnaire/questionnaire.component';
+import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import { SimulationContainerComponent } from './home/simulation-container/simulation-container.component';
 import { SimInformationComponent } from './home/simulation-container/sim-information/sim-information.component';
 import { SimTrainingListComponent } from './home/simulation-container/sim-training-list/sim-training-list.component';
@@ -100,6 +103,8 @@ import { SimQuestionListComponent } from './home/simulation-container/sim-questi
         OffreComponent,
         FormationListComponent,
         JobOfferListComponent,
+        SimulationStartComponent,
+        QuestionnaireComponent,
         SimulationContainerComponent,
         SimInformationComponent,
         SimTrainingListComponent,
@@ -130,7 +135,10 @@ import { SimQuestionListComponent } from './home/simulation-container/sim-questi
             useClass: TokenHttpInterceptorService,
             multi: true
         },
-        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() },
+        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() }, {
+            provide: MAT_RADIO_DEFAULT_OPTIONS,
+            useValue: { color: 'primary' },
+        },
         UserService
     ],
     bootstrap: [AppComponent]

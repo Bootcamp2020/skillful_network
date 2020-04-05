@@ -22,6 +22,7 @@ import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator'
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 ​
@@ -47,7 +48,8 @@ const MATERIAL_MODULES = [
   MatListModule,
   FlexLayoutModule,
   MatProgressSpinnerModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatRadioModule
 ];
 
 @NgModule({

@@ -1,14 +1,13 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "simulations")
@@ -30,6 +29,9 @@ public class Simulation {
     private Date creationDate;
     
     private String synthesis;
+    
+    @Transient
+    private Set<Result> results; 
 
     public Simulation() {
     }
@@ -88,7 +90,15 @@ public class Simulation {
         this.synthesis = synthesis;
     }
 
-    @Override
+    public Set<Result> getResults() {
+		return results;
+	}
+
+	public void setResults(Set<Result> results) {
+		this.results = results;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hash(id, jobGoal);
     }
