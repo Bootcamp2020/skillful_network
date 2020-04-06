@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Post } from '../offre';
+import {JobDetails, Trainings} from '../offre';
+import {ApiHelperService} from '../../../shared/services/api-helper.service';
+import {CandidatureService} from '../../../shared/services/candidature.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 
@@ -9,13 +12,11 @@ import { Post } from '../offre';
   styleUrls: ['./candidater.component.scss']
 })
 export class CandidaterComponent implements OnInit {
-  @Input() public nomFormation: string;
-  @Input() public duree: number;
-  @Input() public post : Post;
-  agree: any;
-  constructor() { }
+    @Input() post;
+    agree: any;
 
-  ngOnInit(): void {
-  }
+    constructor(private api: ApiHelperService, private route: ActivatedRoute) { }
 
+    ngOnInit(): void {
+    }
 }
