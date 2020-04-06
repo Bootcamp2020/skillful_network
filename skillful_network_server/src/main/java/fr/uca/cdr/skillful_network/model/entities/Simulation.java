@@ -34,7 +34,8 @@ public class Simulation {
     
     private String synthesis;
     
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "result_id")
     private Set<Result> results; 
     
     
