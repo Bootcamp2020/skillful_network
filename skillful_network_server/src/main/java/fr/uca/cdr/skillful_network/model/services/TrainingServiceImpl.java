@@ -39,4 +39,17 @@ public class TrainingServiceImpl implements TrainingService {
 		return trainingRepository.findByNameContainsOrOrganisationContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
+	
+	@Override
+	public void deleteTraining(Long id) {
+		trainingRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public Training saveOrUpdateTraining(Optional<Training> trainingToUpdate) {
+		return trainingRepository.save(trainingToUpdate);
+	}
+
 }
+

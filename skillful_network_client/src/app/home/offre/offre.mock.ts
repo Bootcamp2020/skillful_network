@@ -14,7 +14,7 @@ export interface IPost {
 
 
 }
-export let MOCK_OFFRE: IPost = 
+export let MOCK_OFFRE: IPost =
 {
 
     status: 'Offre d\'emploi',
@@ -29,5 +29,4 @@ export let MOCK_OFFRE: IPost =
     presRequis: 'Minimum Bac',
     competence: 'HTML, CSS',
     duree: 24,
-
 };

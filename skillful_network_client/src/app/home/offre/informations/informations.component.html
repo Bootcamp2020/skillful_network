@@ -6,9 +6,10 @@
         <hr>
         <mat-card-content>
             <div>
-                <p>Entreprise: {{post.entreprise}}</p>
+                <p *ngIf="choixListe=='emploi'">Entreprise: {{post.company}}</p>
+                <p *ngIf="choixListe=='formation'">Entreprise: {{post.organisation}}</p>
                 <p>Description: {{post.description}}</p>
-                <p>Mot-clés: {{post.motsCles}}</p>
+                <p>Mot-clés: {{post.keywords}}</p>
 
             </div>
         </mat-card-content>
