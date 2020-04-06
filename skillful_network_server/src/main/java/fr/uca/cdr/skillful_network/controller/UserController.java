@@ -56,8 +56,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
