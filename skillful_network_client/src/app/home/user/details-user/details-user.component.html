@@ -6,22 +6,16 @@
             </mat-card-header>
             <hr>
             <mat-card-content>
-                <div class="parent" *ngIf="!loading">
-                    <ng-container class="photoProfile" *ngIf="!user.photo; then logIn; else logOut">
-                    </ng-container>
+                <div class="parent">
+                    <div class="detail">
+                        <img [src]="image_user" >
+                    </div>
 
-                    <ng-template #logIn>
-                        <img  src='../../../../assets/pictures/iconeprofildefaut.jpg' >
-                    </ng-template>
-
-                    <ng-template #logOut>
-                        <img  [src]="image_user" >
-                    </ng-template>
                     <div class="detail">
                         <ul>
 
                             <li> Nom : {{user.firstName}} </li>
-                            <li> Prénom : {{user.firstName}} </li>
+                            <li> Prénom : {{user.lastName}} </li>
                             <li> Date de Naissance : {{user.birthDate | date:'dd / MM / yyyy'}} </li>
                             <li> Email : {{user.email}}</li>
                             <li> Numéro de téléphone : {{user.mobileNumber}}</li>

@@ -1,10 +1,13 @@
 package fr.uca.cdr.skillful_network.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -14,12 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +38,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.google.common.io.Files;
 
 import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
@@ -128,7 +136,7 @@ public class UserController {
 	@PutMapping(value = "/usersModifPassword/{id}")
 	public ResponseEntity<User> updateUserPassword(@PathVariable(value = "id") long id,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-
+		
 		User userToUpdate = userService.getUserById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
 
@@ -154,10 +162,63 @@ public class UserController {
 		FileOutputStream fout = new FileOutputStream(convertFile);
 		fout.write(image.getBytes());
 		fout.close();
+		
 		return "File is upload successfully" + image.getOriginalFilename();
 	}
+	
+///// Upload Imgae avec restriction extention+taille de l'image:
+//	@SuppressWarnings("resource")
+//	@PreAuthorize("hasRole('USER')")
+//	@Transactional
+	@RequestMapping(value = "/users/uploadImage/{id}", method = RequestMethod.POST)
+	public ResponseEntity<String> fileUpload(/* @AuthenticationPrincipal User user,*/ @PathVariable("id") Long id, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
+		User userforPhoto = userService.getUserById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+		List<String> listOfExtensions = new ArrayList<String>(3);
+		listOfExtensions.add("jpg");
+		listOfExtensions.add("jpeg");
+		listOfExtensions.add("png"); 
+		String imageName = image.getOriginalFilename().toLowerCase();
+		File filecreating= new File(this.userService.createRepoImage());//"WebContent/images/"	
+		
+		String newImageName = "WebContent/images/"+id+".png";// DONE mettre à jour par I
+		
+		// on récupère l'extension du fichier qui est uploader
+		String fileExtensionName = Files.getFileExtension(imageName);
+
+		if (image.isEmpty()) {
+			redirectAttributes.addFlashAttribute("message", "Veillez selectionner une photo profil");
+			return new ResponseEntity<String>("Veuillez entrer une image valide", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+		}
+		try {
+			File convertFile = new File(newImageName);
+			convertFile.createNewFile();
+			FileOutputStream fout = new FileOutputStream(convertFile);
+			fout.write(image.getBytes());
+			
+			if (image.getBytes().length > 1000*500) {
+				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			// onverifie que  l'extension du fichier qui est uploader correspondent à celle de la liste imposée
+			else if (!listOfExtensions.contains(fileExtensionName)) {
+				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			System.out.println(userforPhoto.isPhoto());
+	   fout.close();
+	   	userforPhoto.setPhoto(true);
+	   System.out.println(userforPhoto.isPhoto());
+	   userforPhoto = userService.saveOrUpdateUser(userforPhoto);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
+	}
+
+	
 ////////////Methode pour que l'utilasteur affiche sa photo profil///////////////////////
-	@RequestMapping(value = "/image/{id:.+}", method = RequestMethod.GET) // @RequestParam("file") MultipartFile file,
+	@RequestMapping(value = "/image/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE) // @RequestParam("file") MultipartFile file,
 	public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id, HttpServletResponse response)
 			throws IOException {
 		Optional<User> userforphoto = userService.getUserById(id); // this just gets the data from a database//
@@ -165,24 +226,25 @@ public class UserController {
 		if (!userforphoto.isPresent()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id :" + id);
 		}
+
+		System.out.println(id);
+		System.out.println("WebContent/images/"+id+".png");
 		File f = new File("WebContent/images/"+id+".png");
 		BufferedImage o = ImageIO.read(f);
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
-		ImageIO.write(o, "jpg", b);
+		ImageIO.write(o, "png", b);
+		b.flush();
 		byte[] img = b.toByteArray();
+		b.close();
+		
+		/*InputStream in = getClass()
+			      .getResourceAsStream("WebContent/images/"+id+".png");
+
+		byte[] img = IOUtils.toByteArray(in);*/
 
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(img);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")

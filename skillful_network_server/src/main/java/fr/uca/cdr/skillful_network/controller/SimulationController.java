@@ -1,7 +1,12 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
+import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.services.JobOfferService;
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
+import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
+import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
 
@@ -12,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +30,9 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationService simulationService;
-
+	private UserService userService;
+	private JobOfferService jobOfferService;
+	private SimulationServiceImpl simulationServicempl;
 	// #########################################################################
 	// GET methods
 	// #########################################################################
@@ -70,14 +78,29 @@ public class SimulationController {
 	// #########################################################################
 
     // start a new simulation based on a provided job goal
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	/*@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	//@PostMapping(value = "/user/{userId}")
 	@PostMapping(value = "")
 	public ResponseEntity<Simulation> startSimulation(@RequestParam(name="userid") Long userId, @RequestParam(name="goal") String jobGoal) {
 		Simulation simulation = this.simulationService.startSimulation(userId, jobGoal)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Une erreur est survenue pendant l'éxécécution de la simulation."));
 		return new ResponseEntity<>(simulation, HttpStatus.OK);
-	}
+	}*/
+	/*@PostMapping(value = "/user/{userId}")
+    public ResponseEntity<Simulation>ArrayList<String> startSimulation(@PathVariable(value = "userId") Long userId)
+             {
+        User user = userService.getUserById(userId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + userId));
+
+        List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+        ArrayList<String> wordMuchCareerGoal = new ArrayList<String>() ;
+        /*Simulation simulation = this.simulationService.startSimulation(userId, user.getCareerGoal())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Une erreur est survenue pendant l'éxécécution de la simulation."));
+        wordMuchCareerGoal.addAll(simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer ));
+
+        return wordMuchCareerGoal; /*new ResponseEntity<>(simulation, HttpStatus.OK);
+    }*/
 	
 	@PostMapping(value = "/{id}/answer")
 	public float simulationResult(@PathVariable(value = "id") Long simulationId,@Valid @RequestBody SimulationForm simulationForm) {
