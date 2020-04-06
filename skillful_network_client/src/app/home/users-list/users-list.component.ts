@@ -27,8 +27,8 @@ export class UsersListComponent implements OnInit {
     this.userService.findAll().then(res => {
       this.dataSource = new MatTableDataSource<User>(res);
       this.dataSource.sort = this.sort;
-      this.isLoading = false
-    });
+      
+    }).finally(()=>this.isLoading = false);
   }
 
   onSearchByFirstNameOrLastName(form:NgForm) {
