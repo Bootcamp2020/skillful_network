@@ -13,7 +13,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UsersListComponent implements OnInit {
   public users: User[];
-
+  public isLoading : Boolean;
   @ViewChild (MatSort) sort : MatSort;
 
   constructor(private userService: UserService) {
@@ -23,10 +23,12 @@ export class UsersListComponent implements OnInit {
   dataSource;
   
   ngOnInit() {
+    this.isLoading =true
     this.userService.findAll().then(res => {
       this.dataSource = new MatTableDataSource<User>(res);
       this.dataSource.sort = this.sort;
-    });
+      
+    }).finally(()=>this.isLoading = false);
   }
 
   onSearchByFirstNameOrLastName(form:NgForm) {
