@@ -38,25 +38,10 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 @EnableAsync
 public class Application {
 
-	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
 
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
-	}
-
-	@Bean
-	@Profile({"dev", "test"})
-	ApplicationRunner initUserRepository(UserRepository userRepository) {
-		return args -> {
-			if (userRepository.findAll().isEmpty()) {
-				List<User> users = new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
-						.load();
-				users.forEach((user) -> {
-					user.setValidated(true);
-//					user.setPassword(encoder.encode(user.getPassword()));
-				});
-			}
-		};
 	}
 	
 	@Bean
@@ -68,6 +53,19 @@ public class Application {
 			}
 		};
 	}
+
+	@Bean
+	@Profile({"dev", "test"})
+	ApplicationRunner initUserRepository(UserRepository userRepository) {
+		return args -> {
+			if (userRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
+						.load();
+				
+			}
+		};
+	}
+	
 
 	@Bean
 	@Profile({"dev", "test"})
