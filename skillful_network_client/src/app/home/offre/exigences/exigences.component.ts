@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../offre';
+import {JobDetails, Trainings} from '../offre';
+import {ApiHelperService} from '../../../shared/services/api-helper.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-exigences',
@@ -7,13 +9,9 @@ import {Post} from '../offre';
   styleUrls: ['./exigences.component.scss']
 })
 export class ExigencesComponent implements OnInit {
-  @Input() public niveau: string;
-  @Input() public environement: string;
-  @Input() public post : Post;
-
-  constructor() { }
+    @Input() post;
+    constructor(private api: ApiHelperService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-  }
+    }
 }

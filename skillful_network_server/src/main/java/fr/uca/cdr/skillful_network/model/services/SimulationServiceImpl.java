@@ -80,6 +80,12 @@ public class SimulationServiceImpl implements SimulationService {
     }
     
     @Override
+    public Optional<Simulation> getSimulationByExamId(Long examId){
+    	return simulationRepository.findByExamId(examId);
+    }
+    
+    
+    @Override
 	public float calculateSimulationGrade(Set<ExerciseForm> exercises, Long simulationId) {
 		float totalGrade = 0;
 		float simulationGrade = 0;

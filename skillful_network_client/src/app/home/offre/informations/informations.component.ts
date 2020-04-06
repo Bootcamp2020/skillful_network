@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../offre';
+import {JobDetails, Trainings} from '../offre';
 import {MOCK_OFFRE} from '../offre.mock';
+import {ApiHelperService} from '../../../shared/services/api-helper.service';
+import {CandidatureService} from '../../../shared/services/candidature.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-informations',
@@ -8,14 +11,10 @@ import {MOCK_OFFRE} from '../offre.mock';
   styleUrls: ['./informations.component.scss']
 })
 export class InformationsComponent implements OnInit {
-  @Input() public entreprise: string;
-  @Input() public description: string;
-  @Input() public motsCles: string;
-  @Input() public post : Post;
+    @Input() post;
+    @Input() choixListe;
 
-  constructor() { }
-
-  ngOnInit(): void {
+    constructor(private api: ApiHelperService, private route: ActivatedRoute) { }
+    ngOnInit(): void {
   }
-
 }
