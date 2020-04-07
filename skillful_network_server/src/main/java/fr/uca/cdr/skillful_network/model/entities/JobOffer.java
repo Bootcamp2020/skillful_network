@@ -27,15 +27,19 @@ public class JobOffer {
 	private Date dateEnd;
 	private Date dateUpload;
 	private String[] keywords;
+
 	public enum Risk {
-		SIMPLE, MODERE, CRITIQUE;
+		SIMPLE, MODERATE, CRITICAL;
 	}
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
 	private Risk risk;
-        public enum Complexity {
-		SIMPLE, MODERE, CRITIQUE;
+
+	public enum Complexity {
+		SIMPLE, MODERATE, COMPLEX;
 	}
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
 	private Complexity complexity;
@@ -43,15 +47,15 @@ public class JobOffer {
 	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -143,7 +147,7 @@ public class JobOffer {
 	public JobOffer() {
 		super();
 	}
-	
+
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Risk risk, Complexity complexity,
 			Set<JobApplication> jobApplicationSet) {
@@ -161,6 +165,7 @@ public class JobOffer {
 		this.complexity = complexity;
 		this.jobApplicationSet = jobApplicationSet;
 	}
+
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
 			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
 		super();
@@ -174,6 +179,7 @@ public class JobOffer {
 		this.keywords = keywords;
 		this.jobApplicationSet = jobApplicationSet;
 	}
+
 	@Override
 	public String toString() {
 		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
@@ -185,5 +191,13 @@ public class JobOffer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
+	}
+
+	// Tableau des scores
+	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
+
+	public double getScore() {
+		return score[this.complexity.ordinal()][this.risk.ordinal()];
+
 	}
 }
