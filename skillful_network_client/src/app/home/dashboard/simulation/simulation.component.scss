@@ -6,18 +6,19 @@
       min-width: 150px;
       max-width: 500px;
       width: 100%;
-  }
-  
-  .simulation {
+    }
+    
+    .simulation {
       padding-top: 10px;
-  }
-
-  .card_dashboard{
+    }
+    
+    .card_dashboard{
       padding: 0;
       margin-bottom: 40px;
       margin-top: 20px;
     }
-  mat-card{
+    mat-card{
+      padding-bottom: 60px;
       min-height: 515px;
   }
   
@@ -62,7 +63,19 @@ table {
 
   }
 
- 
+  .button_simulation {
+    width: 30%;
+    padding: 7px;
+    margin-bottom: 18px;
+    margin-left: 5px;
+    float: right;
+  }
 
+  .progressBarDiv {
+    margin-top: 12%;
+  }
   
- 
+  .loading_mat_spinner {
+    margin:0 auto;
+    float: none
+  }

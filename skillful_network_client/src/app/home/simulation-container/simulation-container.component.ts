@@ -21,7 +21,7 @@ export class SimulationContainerComponent implements OnInit {
   async ngOnInit() {
     // get simulatin Id from route parsing /home/simulation/{simID}
     const { simId } = this.route.snapshot.params;
-    console.log(">> simId from route /home/simulation/{idmId} : " + simId);
+    console.log(">> simId from route /home/simulation/{simId} : " + simId);
 
     await this.api.get({ endpoint: `/simulations/${simId}` })
       .then(data => {
@@ -33,12 +33,6 @@ export class SimulationContainerComponent implements OnInit {
         return;
       });
 
-    // if (this.simulation == null) {
-    //   console.log(">>> sim-info: simulation is undefined");
-    // } else {
-    //   console.log(">>> simulation trouvé !");
-    //   console.log(">>> simulation.id: " + this.simulation.id);
-    // }
     this.simulationInfo();
 
     // Get connected user from userService
@@ -49,7 +43,6 @@ export class SimulationContainerComponent implements OnInit {
       // }
     } else {
       console.log(">> no users found");
-
     }
   }
 

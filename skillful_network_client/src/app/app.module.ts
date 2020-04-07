@@ -63,6 +63,7 @@ import { SimInformationComponent } from './home/simulation-container/sim-informa
 import { SimTrainingListComponent } from './home/simulation-container/sim-training-list/sim-training-list.component';
 import { SimJobOfferListComponent } from './home/simulation-container/sim-job-offer-list/sim-job-offer-list.component';
 import { SimQuestionListComponent } from './home/simulation-container/sim-question-list/sim-question-list.component';
+import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { SimQuestionListComponent } from './home/simulation-container/sim-questi
         SimInformationComponent,
         SimTrainingListComponent,
         SimJobOfferListComponent,
-        SimQuestionListComponent
+        SimQuestionListComponent,
+        GoalValidationModalComponent
         ],
 
     imports: [
