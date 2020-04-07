@@ -24,7 +24,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Exam saveOrUpdateJobApplication(Exam exam) {
+    public Exam saveOrUpdateExam(Exam exam) {
         return examRepository.save(exam);
     }
 
