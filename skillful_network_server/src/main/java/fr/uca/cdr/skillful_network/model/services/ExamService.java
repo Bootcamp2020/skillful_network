@@ -8,6 +8,6 @@ public interface ExamService {
 
     List<Exam> getAllExams();
     Optional<Exam> getExamById(Long id);
-    Exam saveOrUpdateJobApplication(Exam exam);
+    Exam saveOrUpdateExam(Exam exam);
 
 }
