@@ -3,6 +3,8 @@ package fr.uca.cdr.skillful_network.model.entities;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Arrays;
 
 import java.util.Date;
