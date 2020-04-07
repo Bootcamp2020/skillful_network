@@ -82,7 +82,7 @@ public class AuthenticationController {
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else if (!userFromDB.get().isValidated()) {
-				LocalDateTime dateExpirationMdp = userFromDB.get().getDateExpiration();
+				LocalDateTime dateExpirationMdp = userFromDB.get().getTemporaryCodeExpirationDate();
 				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
 				userService.validationMdp(isExpired, userFromDB);
 				if (isExpired) {
@@ -137,7 +137,7 @@ public class AuthenticationController {
 		}
 		User user = new User();
 		user.setEmail(registerForm.getEmail());
-		user.setDateExpiration(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
+		user.setTemporaryCodeExpirationDate(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
 		// On crypte avec bcrypt le mot de passe dans la bdd
 		String randomCodeEncrypt = encoder.encode(randomCode);
 		user.setPassword(randomCodeEncrypt);

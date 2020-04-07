@@ -14,12 +14,12 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	private long idExercise;
-	private float gradeExercice;
+	private float gradeExercise;
 	
-	public Result(long idExercise, float gradeExercice) {
+	public Result(long idExercise, float gradeExercise) {
 		super();
 		this.idExercise = idExercise;
-		this.gradeExercice = gradeExercice;
+		this.gradeExercise = gradeExercise;
 	}
 	public Result() {
 		super();
@@ -38,15 +38,15 @@ public class Result {
 	public void setIdExercise(long idExercise) {
 		this.idExercise = idExercise;
 	}
-	public float getGradeExercice() {
-		return gradeExercice;
+	public float getGradeExercise() {
+		return gradeExercise;
 	}
-	public void setGradeExercice(float gradeExercice) {
-		this.gradeExercice = gradeExercice;
+	public void setGradeExercise(float gradeExercise) {
+		this.gradeExercise = gradeExercise;
 	}
 	@Override
 	public String toString() {
-		return "Result [id=" + id + ", idExercise=" + idExercise + ", gradeExercice=" + gradeExercice + "]";
+		return "Result [id=" + id + ", idExercise=" + idExercise + ", gradeExercise=" + gradeExercise + "]";
 	}
 	
 
