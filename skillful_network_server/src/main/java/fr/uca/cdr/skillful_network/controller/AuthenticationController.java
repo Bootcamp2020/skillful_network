@@ -213,7 +213,7 @@ public class AuthenticationController {
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
 			boolean passwordMatches = encoder.matches(userFromJson.getPassword(), userFromDb.getPassword());
 			System.out.println("Mots de passes correspondent ? " + passwordMatches);
-			if (!(userFromDb.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
+			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
 			} else {

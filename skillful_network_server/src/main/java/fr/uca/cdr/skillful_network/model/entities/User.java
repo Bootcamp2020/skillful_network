@@ -41,6 +41,7 @@ public class User {
 
 	@Column(name = "date_expiration")
 	private LocalDateTime dateExpiration;
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill> skillSet = new HashSet<Skill>();
 

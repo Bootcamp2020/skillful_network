@@ -46,7 +46,38 @@
         "userList": []
       }
     ],
-    "jobApplicationSet": [],
+    "jobApplicationSet": [
+      {
+        "status": "ACCEPTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 1
+        }
+      },
+      {
+        "status": "REJECTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 2
+        }
+      },
+      {
+        "status": "WAITING",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 3
+        }
+      }
+    ],
     "trainingApplicationSet": [],
     "roles": [
 		      	{

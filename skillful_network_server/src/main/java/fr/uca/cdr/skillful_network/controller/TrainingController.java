@@ -89,20 +89,19 @@ public class TrainingController {
 	@Transactional
 	public ResponseEntity<Training> updateTraining(@PathVariable(value = "id") Long id,
 			@Valid @RequestBody Training training) {
-		Optional<Training> trainingToUpdate = trainingService.getTrainingById(id);
-		if (trainingToUpdate == null) {
-			throw new ResourceNotFoundException("formation non trouvée : " + id);
-		}
-		trainingToUpdate.get().setName(training.getName());
-		trainingToUpdate.get().setOrganisation(training.getOrganisation());
-		trainingToUpdate.get().setDescription(training.getDescription());
-		trainingToUpdate.get().setFinancer(training.getFinancer());
-		trainingToUpdate.get().setDateBeg(training.getDateBeg());
-		trainingToUpdate.get().setDateEnd(training.getDateEnd());
-		trainingToUpdate.get().setDateUpload(training.getDateUpload());
-		trainingToUpdate.get().setDurationHours(training.getDurationHours());
-		trainingToUpdate.get().setPrerequisites(training.getPrerequisites());
-		trainingToUpdate.get().setKeywords(training.getKeywords());
+		Training trainingToUpdate = trainingService.getTrainingById(id)
+				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"formation non trouvée : " + id));
+		
+		trainingToUpdate.setName(training.getName());
+		trainingToUpdate.setOrganisation(training.getOrganisation());
+		trainingToUpdate.setDescription(training.getDescription());
+		trainingToUpdate.setFinancer(training.getFinancer());
+		trainingToUpdate.setDateBeg(training.getDateBeg());
+		trainingToUpdate.setDateEnd(training.getDateEnd());
+		trainingToUpdate.setDateUpload(training.getDateUpload());
+		trainingToUpdate.setDurationHours(training.getDurationHours());
+		trainingToUpdate.setPrerequisites(training.getPrerequisites());
+		trainingToUpdate.setKeywords(training.getKeywords());
 		Training trainingUpdated = trainingService.saveOrUpdateTraining(trainingToUpdate);
 		return new ResponseEntity<Training>(trainingUpdated, HttpStatus.OK);
 	}

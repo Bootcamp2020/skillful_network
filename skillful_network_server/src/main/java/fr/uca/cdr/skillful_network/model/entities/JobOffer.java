@@ -5,6 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 
 import java.util.Arrays;

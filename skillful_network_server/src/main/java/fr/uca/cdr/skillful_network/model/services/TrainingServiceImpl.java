@@ -47,7 +47,7 @@ public class TrainingServiceImpl implements TrainingService {
 	}
 
 	@Override
-	public Training saveOrUpdateTraining(Optional<Training> trainingToUpdate) {
+	public Training saveOrUpdateTraining(Training trainingToUpdate) {
 		return trainingRepository.save(trainingToUpdate);
 	}
 
