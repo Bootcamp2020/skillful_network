@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -50,7 +49,6 @@ public class User {
 	private String careerGoal;
 	private boolean photo = false;
 
-	@Column(name = "temporary_code_expiration_date")
 	private LocalDateTime temporaryCodeExpirationDate;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
