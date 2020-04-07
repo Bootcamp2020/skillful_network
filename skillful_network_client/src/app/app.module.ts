@@ -58,6 +58,11 @@ import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
 import { SimulationStartComponent } from './home/simulation-start/simulation-start.component';
 import { QuestionnaireComponent } from './home/questionnaire/questionnaire.component';
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
+import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
+import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
+import { SimSynTrainingListComponent } from './home/simulation-synthesis/sim-syn-training-list/sim-syn-training-list.component';
+import { SimSynJobOfferListComponent } from './home/simulation-synthesis/sim-syn-job-offer-list/sim-syn-job-offer-list.component';
+import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
 
 
 
@@ -102,6 +107,11 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+        SimulationSynthesisComponent,
+        SimSynQuestionListComponent,
+        SimSynTrainingListComponent,
+        SimSynJobOfferListComponent,
+        SimSynInfoComponent,
         ],
 
     imports: [

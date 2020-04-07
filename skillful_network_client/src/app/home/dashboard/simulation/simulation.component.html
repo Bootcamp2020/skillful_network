@@ -31,13 +31,13 @@
                         <!-- Simulation detail Column -->
                         <ng-container matColumnDef="simdetail">
                             <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/simulation/' + post.id }}"><button mat-icon-button id="bouton-details-simulation" title="Détails de la simulation"><mat-icon>visibility</mat-icon></button></a></td> 
+                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/home/simulation-synthesis/'}}"><button mat-icon-button id="bouton-details-simulation" title="Détails de la simulation"><mat-icon>visibility</mat-icon></button></a></td> 
                         </ng-container>        
 
                          <!-- Reload Simulation Column -->
                          <ng-container matColumnDef="reloadsim">
                             <th mat-header-cell *matHeaderCellDef> Relancer</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/newSimulation/' + post.id }}"><button mat-icon-button id="bouton-replay-simulation" title="Relancer la simulation"><mat-icon>repeat</mat-icon></button></a></td> 
+                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/home/simulation-start/'}}"><button mat-icon-button id="bouton-replay-simulation" title="Relancer la simulation"><mat-icon>repeat</mat-icon></button></a></td> 
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {UsersListComponent} from './users-list/users-list.component';
 import {UserComponent} from './user/user.component';
@@ -7,6 +8,7 @@ import { FormationListComponent } from './formation-list/formation-list.componen
 import {JobOfferListComponent} from './job-offer-list/job-offer-list.component';
 import {SimulationStartComponent} from './simulation-start/simulation-start.component';
 import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
+import { SimulationSynthesisComponent } from './simulation-synthesis/simulation-synthesis.component';
 
 export const HOME_ROUTES = [
   {path: '', component: DashboardComponent},
@@ -17,5 +19,6 @@ export const HOME_ROUTES = [
   {path: 'formation-list', component: FormationListComponent},
   {path: 'job-offer-list', component: JobOfferListComponent},
   {path: 'simulation-start', component: SimulationStartComponent},
-  {path: 'questionnaire', component: QuestionnaireComponent}
+  {path: 'questionnaire', component: QuestionnaireComponent},
+  {path: 'simulation-synthesis', component: SimulationSynthesisComponent},
 ];
