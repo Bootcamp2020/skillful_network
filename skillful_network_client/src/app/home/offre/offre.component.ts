@@ -30,13 +30,13 @@ export class OffreComponent implements OnInit {
       const {id} = this.route.snapshot.params;
       if (this.choixListe == 'emploi') {
 
-          this.api.get({endpoint: `/joboffer/getOne/${id}`})
+          this.api.get({endpoint: `/offers/${id}`})
               .then(data => {
                   this.jobDetails = data;
                   console.log(this.jobDetails);
               })
               .catch((error) => {
-                  console.log('cet offre n\'existe pas');
+                  console.log('cette offre n\'existe pas');
               });
       } else {
           this.api.get({endpoint: `/trainings/${id}`})
@@ -44,7 +44,7 @@ export class OffreComponent implements OnInit {
                   this.jobDetails = data;
               })
               .catch((error) => {
-                  console.log('cet offre n\'existe pas');
+                  console.log('cette offre n\'existe pas');
               });
       }
   }
