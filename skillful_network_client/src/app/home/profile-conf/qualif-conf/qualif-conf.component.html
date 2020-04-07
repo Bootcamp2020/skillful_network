@@ -24,7 +24,7 @@
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>Nouvelle qualification</mat-label>
-                    <input formControlName="qualifUnit"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder="qualification" class="form-control">
+                    <input formControlName="qualifUnit"  type="text"  matInput #qualifInput = "matInput" [matAutocomplete]="auto"  [formControl]="myControl" placeholder="qualification" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete">
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
@@ -35,7 +35,7 @@
                     </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">
-                <button type="submit" mat-raised-button color="primary" [disabled]="qualifInfoGroup.invalid">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="qualifInput.focused && (qualifInfoGroup.invalid || !qualifInfoGroup.value.qualifUnit)">Ajouter</button>
             </div>
         </div>
     </form>
