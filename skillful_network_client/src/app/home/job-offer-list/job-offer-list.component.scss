@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  min-width: 600px;
 }
 
 .mat-form-field {
@@ -7,14 +8,26 @@ table {
   width: 100%;
 }
 
-td, th {
-  width: 20%;
-}
 .btnIcon {
-  color:black;
+  color: black;
   margin-top: 7px;
 }
 
 .table-container {
-  width: 80%;
+  overflow: auto;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-card-content {
+  margin: 3rem;
+}
+
+.mat-form-field {
+  width: 300px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

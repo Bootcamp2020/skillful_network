@@ -1,18 +1,28 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="user")
@@ -39,8 +49,8 @@ public class User {
 	private String careerGoal;
 	private boolean photo = false;
 
-	@Column(name = "date_expiration")
-	private LocalDateTime dateExpiration;
+	private LocalDateTime temporaryCodeExpirationDate;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Skill> skillSet = new HashSet<Skill>();
 
@@ -278,12 +288,12 @@ public class User {
 		this.roles = roles;
 	}
 
-	public LocalDateTime getDateExpiration() {
-		return dateExpiration;
+	public LocalDateTime getTemporaryCodeExpirationDate() {
+		return temporaryCodeExpirationDate;
 	}
 
-	public void setDateExpiration(LocalDateTime dateExpiration) {
-		this.dateExpiration = dateExpiration;
+	public void setTemporaryCodeExpirationDate(LocalDateTime temporaryCodeExpirationDate) {
+		this.temporaryCodeExpirationDate = temporaryCodeExpirationDate;
 	}
 	
 	
