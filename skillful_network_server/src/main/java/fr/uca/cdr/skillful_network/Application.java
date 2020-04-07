@@ -38,6 +38,16 @@ public class Application {
 
 	@Bean
 	@Profile({"dev", "test"})
+	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
+		return args -> {
+			if (keywordRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/keywords.json", Keyword[].class, keywordRepository).load();
+			}
+		};
+	}
+
+	@Bean
+	@Profile({"dev", "test"})
 	ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
 		return args -> {
 			if (jobOfferRepository.findAll().isEmpty()) {
@@ -79,15 +89,7 @@ public class Application {
 		};
 	}
 
-	@Bean
-	@Profile({"dev", "test"})
-	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
-		return args -> {
-			if (keywordRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/keywords.json", Keyword[].class, keywordRepository).load();
-			}
-		};
-	}
+
 	
 	@Bean
 	@Profile({"dev", "test"})

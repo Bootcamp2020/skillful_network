@@ -5,6 +5,9 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+
 import java.util.Arrays;
 
 import java.util.Date;
@@ -26,7 +29,9 @@ public class JobOffer {
 	private Date dateBeg;
 	private Date dateEnd;
 	private Date dateUpload;
-	private String[] keywords;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
+	private Set<Keyword> keywords = new HashSet<>();
 
 	public enum Risk {
 		SIMPLE, MODERATE, CRITICAL;
@@ -37,7 +42,7 @@ public class JobOffer {
 	private Risk risk;
 
 	public enum Complexity {
-		SIMPLE, MODERATE, COMPLEX;
+		SIMPLE, MODERE, CRITIQUE;
 	}
 
 	@Enumerated(EnumType.ORDINAL)
@@ -112,11 +117,11 @@ public class JobOffer {
 		this.dateUpload = dateUpload;
 	}
 
-	public String[] getKeywords() {
+	public Set<Keyword> getKeywords() {
 		return keywords;
 	}
 
-	public void setKeywords(String[] keywords) {
+	public void setKeywords(Set<Keyword> keywords) {
 		this.keywords = keywords;
 	}
 
@@ -149,7 +154,7 @@ public class JobOffer {
 	}
 
 	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords, Risk risk, Complexity complexity,
+			Date dateUpload, Set<Keyword> keywords, Risk risk, Complexity complexity,
 			Set<JobApplication> jobApplicationSet) {
 		super();
 		this.id = id;
@@ -167,7 +172,7 @@ public class JobOffer {
 	}
 
 	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, String[] keywords, Set<JobApplication> jobApplicationSet) {
+			Date dateUpload, Set<Keyword> keywords, Set<JobApplication> jobApplicationSet) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -184,8 +189,8 @@ public class JobOffer {
 	public String toString() {
 		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
 				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
-				+ ", keywords=" + Arrays.toString(keywords) + ", risk=" + risk + ", complexity=" + complexity
-				+ ", jobApplicationSet=" + jobApplicationSet + "]";
+				+ ", keywords=" + keywords + ", risk=" + risk + ", complexity=" + complexity + ", jobApplicationSet="
+				+ jobApplicationSet + "]";
 	}
 
 	@Override
