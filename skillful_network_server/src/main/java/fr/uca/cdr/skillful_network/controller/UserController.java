@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -121,18 +122,31 @@ public class UserController {
 		}
 	}
 	
+//	@PreAuthorize("hasRole('USER')")
+//	@Transactional
+//	@PutMapping(value = "/usersModifPassword/{id}")
+//	public ResponseEntity<User> updateUserPassword(@PathVariable(value = "id") long id,
+//			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
+//
+//		User userToUpdate = userService.getUserById(id).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+//		
+//		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
+//		userToUpdate.setPassword(userNewPwd);
+//		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
+//		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+//	}
+	//Utilisation du current User pour la modification
+	
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PutMapping(value = "/usersModifPassword/{id}")
-	public ResponseEntity<User> updateUserPassword(@PathVariable(value = "id") long id,
+	@PutMapping(value = "/usersModifPassword")
+	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-
-		User userToUpdate = userService.getUserById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
-		
+	
 		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
-		userToUpdate.setPassword(userNewPwd);
-		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
+		user.setPassword(userNewPwd);
+		User userUpdated = userService.saveOrUpdateUser(user);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}
 
@@ -221,15 +235,44 @@ public class UserController {
 					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + userId);
 		}
 	}
+//	@PreAuthorize("hasRole('USER')")
+//	@Transactional
+//	@DeleteMapping("/users/{userId}/skills/{skillId}")
+//	public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "userId") Long id,
+//			@PathVariable(value = "skillId") Long skillId) {
+//
+////		On vérifie que l'utilisateur existe bien
+//		User userToUpdate = this.userService.getUserById(id).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
+//
+////		On vérifie que la compétence existe bien
+//		Skill skillToDelete = this.skillService.getSkillById(skillId)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//						"Aucune competence trouvee avec l'id : " + skillId));
+//
+////		On récupère le liste de compétences de l'utilisateur
+//		Set<Skill> listSkill = userToUpdate.getSkillSet();
+//
+////      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on le mets à jours 
+//		if (listSkill.contains(skillToDelete)) {
+//			listSkill.remove(skillToDelete);
+//			userToUpdate.setSkillSet(listSkill);
+//			this.userService.saveOrUpdateUser(userToUpdate);
+//			return new ResponseEntity<Skill>(skillToDelete, HttpStatus.OK);
+//		}
+////		Dans le cas contraire on renvoie une exception
+//		else {
+//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
+//					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + id);
+//		}
+//	}
+	
+	//Utilisation du current User pour la suppression des skills
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@DeleteMapping("/users/{userId}/skills/{skillId}")
-	public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "userId") Long id,
+	@DeleteMapping("/users/skills/{skillId}")
+	public ResponseEntity<Skill> deleteSkillById(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
-
-//		On vérifie que l'utilisateur existe bien
-		User userToUpdate = this.userService.getUserById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
 
 //		On vérifie que la compétence existe bien
 		Skill skillToDelete = this.skillService.getSkillById(skillId)
@@ -237,19 +280,19 @@ public class UserController {
 						"Aucune competence trouvee avec l'id : " + skillId));
 
 //		On récupère le liste de compétences de l'utilisateur
-		Set<Skill> listSkill = userToUpdate.getSkillSet();
+		Set<Skill> listSkill = user.getSkillSet();
 
-//      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on le mets à jours 
+//      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on la supprime 
 		if (listSkill.contains(skillToDelete)) {
 			listSkill.remove(skillToDelete);
-			userToUpdate.setSkillSet(listSkill);
-			this.userService.saveOrUpdateUser(userToUpdate);
+			user.setSkillSet(listSkill);
+			this.userService.saveOrUpdateUser(user);
 			return new ResponseEntity<Skill>(skillToDelete, HttpStatus.OK);
 		}
 //		Dans le cas contraire on renvoie une exception
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + id);
+					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + user.getId());
 		}
 	}
 	
