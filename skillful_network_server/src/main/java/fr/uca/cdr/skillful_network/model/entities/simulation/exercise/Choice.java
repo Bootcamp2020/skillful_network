@@ -4,23 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class Choice { 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String choix;
+	private String choice;
 	
 	public Choice() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Choice(Long id, String choix) {
+	public Choice(Long id, String choice) {
 		super();
 		this.id = id;
-		this.choix = choix;
+		this.choice = choice;
 	}
 	public Long getId() {
 		return id;
@@ -28,15 +27,15 @@ public class Choice {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getChoix() {
-		return choix;
+	public String getChoice() {
+		return choice;
 	}
-	public void setChoix(String choix) {
-		this.choix = choix;
+	public void setChoice(String choice) {
+		this.choice = choice;
 	}
 	@Override
 	public String toString() {
-		return "Choice [id=" + id + ", choix=" + choix + "]";
+		return "Choice [id=" + id + ", choice=" + choice + "]";
 	}
 
 	
