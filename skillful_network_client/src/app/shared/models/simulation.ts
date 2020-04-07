@@ -1,5 +1,6 @@
-import { IPost } from './mock.simulation';
 import { User } from './user';
+import { JobOffer } from './job-offer';
+import { Training } from './training';
 
 
 export class Simulation {
@@ -9,9 +10,9 @@ export class Simulation {
     private _jobGoal: String;
     private _creationDate: Date ;
     private _synthesis: String ;
-    private _jobOffersSuggested: boolean;
-    private _trainingsSuggested: boolean;
-    private _exam: boolean;
+    private _jobOffersSuggested: JobOffer;
+    private _jobAccess: boolean;
+    private _trainingsSuggested: Training;
 
     constructor(data: any) {
         if (data == null) {
@@ -26,6 +27,9 @@ export class Simulation {
             this._jobGoal = data.jobGoal;
             this._creationDate = data.creationDate;
             this._synthesis = data.synthesis;
+            this._jobOffersSuggested = data.jobOffersSuggested;
+            this._jobAccess = data.jobAccess;
+            this._trainingsSuggested = data.trainingsSuggested;
         }
     }
     
@@ -59,23 +63,23 @@ export class Simulation {
     public set synthesis(value: String) {
         this._synthesis = value;
     }
-    public get jobOffersSuggested(): boolean {
+    public get jobOffersSuggested(): JobOffer {
         return this._jobOffersSuggested;
     }
-    public set jobOffersSuggested(value: boolean) {
+    public set jobOffersSuggested(value: JobOffer) {
         this._jobOffersSuggested = value;
     }
-    public get trainingsSuggested(): boolean {
+    public get trainingsSuggested(): Training {
         return this._trainingsSuggested;
     }
-    public set synthtrainingsSuggestedesis(value: boolean) {
+    public set synthtrainingsSuggestedesis(value: Training) {
         this._trainingsSuggested = value;
     }
-    public get exam(): boolean {
-        return this._exam;
+    public get jobAccess(): boolean {
+        return this._jobAccess;
     }
-    public set exam(value: boolean) {
-        this._exam = value;
+    public set jobAccess(value: boolean) {
+        this._jobAccess = value;
     }
 
 }

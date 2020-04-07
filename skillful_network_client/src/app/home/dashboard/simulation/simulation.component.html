@@ -11,21 +11,21 @@
 
                         <!-- Job goal Column -->
                         <ng-container matColumnDef="jobgoal">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Objectif</th>
+                            <th mat-header-cell *matHeaderCellDef>Objectif</th>
                             <td mat-cell *matCellDef="let post"> {{post.jobGoal}} </td>
                         </ng-container>
 
                         <!-- Date simulation Column -->
                         <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                            <th mat-header-cell *matHeaderCellDef>Date</th>
                             <td mat-cell *matCellDef="let post"> {{post.creationDate |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
 
                         <!-- Nb exercice Column -->
-                        <ng-container matColumnDef="synthesis">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Synthese</th>
-                            <td mat-cell *matCellDef="let post"> {{post.synthesis}} </td>
-                        </ng-container>
+                        <!-- <ng-container matColumnDef="exercices">
+                            <th mat-header-cell *matHeaderCellDef>Exercices</th>
+                            <td mat-cell *matCellDef="let post"> {{post.exam.length}} </td>
+                        </ng-container> -->
 
                         <!-- Simulation detail Column -->
                         <ng-container matColumnDef="simdetail">
