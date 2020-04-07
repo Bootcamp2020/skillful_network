@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +56,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
@@ -125,8 +129,9 @@ public class UserController {
 
 		User userToUpdate = userService.getUserById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
-
-		userToUpdate.setPassword(userModifPwd.getPassword());
+		
+		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
+		userToUpdate.setPassword(userNewPwd);
 		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}

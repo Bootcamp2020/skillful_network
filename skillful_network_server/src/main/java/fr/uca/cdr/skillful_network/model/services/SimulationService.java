@@ -16,6 +16,7 @@ public interface SimulationService {
 	Optional<List<Simulation>> getAllSimulationsByUserId(Long userId);
 	Optional<Simulation> saveOrUpdateSimulation(Simulation simulation);
 	Optional<Simulation> startSimulation(Long userId, String jobGoal);
+	Optional<Simulation> getSimulationByExamId(Long idExam);
 	void deleteSimulation(Long id);
 	float calculateSimulationGrade(Set<ExerciseForm>exercises, Long examId);
 
