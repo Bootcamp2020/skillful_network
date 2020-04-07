@@ -69,23 +69,21 @@ export class JobOfferListComponent implements OnInit {
     }
   }
   checkOrder(order: string) {
-    if (order == null) {
-      return order = "ASCENDING";
+    if (order == null || order === 'asc') {
+      order = "ASCENDING";
     } else {
-      if (order = 'asc') {
-        return order = "ASCENDING";
-      } else {
-        return order = "DESCENDING";
-      }
-      return order;
+      order = "DESCENDING";
     }
+    return order;
   }
 }
-  /*
-  searchByNameOrCompany(form: NgForm) {
-    this.offerService.getOffersBySearch(form.value.keyword, form.value.page, form.value.size).then(res => {
-      this.dataSource = new MatTableDataSource<JobOffer>(res.content);
-      this.dataSource.sort = this.sort;
-    });
-  }*/
+
+
+/*
+searchByNameOrCompany(form: NgForm) {
+  this.offerService.getOffersBySearch(form.value.keyword, form.value.page, form.value.size).then(res => {
+    this.dataSource = new MatTableDataSource<JobOffer>(res.content);
+    this.dataSource.sort = this.sort;
+  });
+}*/
 
