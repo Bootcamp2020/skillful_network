@@ -4,7 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.stream.JsonReader;
+
+import fr.uca.cdr.skillful_network.model.entities.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +29,8 @@ public class JSONLoader<T> {
     private Class<T> classType;
 
     private JsonDeserializer<T> adapter;
+    
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public JSONLoader(String path, Class<T[]> arrayType, JpaRepository<T, Long> repository) {
         this.path = path;
@@ -59,9 +65,17 @@ public class JSONLoader<T> {
         try (final JsonReader reader = new JsonReader(new FileReader(url))) {
             final Gson gson = this.getGson();
             List<T> elements =  Arrays.asList(gson.fromJson(reader, this.arrayType));
+            
+            System.out.println("Class = User ? " + (elements.get(0) instanceof User));
+            if (elements.get(0) instanceof User) {
+            	List <User> listUsers = (List<User>) elements;
+            	listUsers.forEach((user) -> {
+					System.out.println(user.getPassword());
+					user.setPassword(encoder.encode(user.getPassword()));
+				});
+            }
             this.repository.saveAll(elements);
             this.repository.findAll().forEach(System.out::println);
-            this.save(elements);
             return elements;
         } catch (Exception e) {
             throw new RuntimeException(e);

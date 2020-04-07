@@ -6,7 +6,7 @@
             <mat-card-title id="title_police">Liste des utilisateurs</mat-card-title>
         </mat-card-header>
 
-        <div class="recherche">
+        <div class="recherche" *ngIf="!isLoading">
             <div >
                 <form class="formulaire" (ngsubmit)="onSearchByFirstNameOrLastName(f)" #f="ngForm">
                     <div fxLayout="row " >
@@ -22,8 +22,8 @@
         </div>
 
         <hr>
-        
-        <mat-card-content>
+     
+        <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
                     <table mat-table  #table [dataSource]="dataSource" matSort >
@@ -59,4 +59,6 @@
             </div>
         </mat-card-content>
     </mat-card>
+    
 </div>
+<div class="progressBarDiv" *ngIf="isLoading" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>

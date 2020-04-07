@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.model.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -47,5 +48,20 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 			}
 		}
 		return questionResult;
+	}
+	
+	@Override
+	public List<QuestionSet> getAllQuestionSets() {
+		return questionSetRepository.findAll();
+	}
+
+	@Override
+	public Optional<QuestionSet> getQuestionSetById(Long id) {
+		return questionSetRepository.findById(id);
+	}
+
+	@Override
+	public QuestionSet saveOrUpdateJobApplication(QuestionSet questionSet) {
+		return questionSetRepository.save(questionSet);
 	}
 }

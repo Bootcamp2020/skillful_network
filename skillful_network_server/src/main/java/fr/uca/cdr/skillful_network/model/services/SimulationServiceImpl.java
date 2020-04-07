@@ -93,7 +93,7 @@ public class SimulationServiceImpl implements SimulationService {
 
 	@Override
 	public Optional<Simulation> evaluateSimulation(Set<ExerciseForm> exercises, Long examId) {
-		Simulation simulation = simulationRepository.findSimulationByExamId(examId)
+		Simulation simulation = simulationRepository.findByExamId(examId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune simulation trouvée avec l'id : " + examId));
 		simulation.setTraining(null);
@@ -101,13 +101,18 @@ public class SimulationServiceImpl implements SimulationService {
 		accessToJobOffer(simulationGrade, simulation);
 		if (!simulation.isJobAccess()) {
 			Training training = accessToJobOfferViaTraining(simulationGrade);
-			if(training != null) {
+			if (training != null) {
 				simulation.setTraining(training);
 				simulation.setJobAccess(true);
 			}
 		}
 		simulationRepository.save(simulation);
 		return Optional.of(simulation);
+	}
+
+	@Override
+	public Optional<Simulation> getSimulationByExamId(Long examId) {
+		return simulationRepository.findByExamId(examId);
 	}
 
 	private float calculateSimulationGrade(Set<ExerciseForm> exercises, Simulation simulation) {
@@ -134,11 +139,13 @@ public class SimulationServiceImpl implements SimulationService {
 	}
 
 	private Training accessToJobOfferViaTraining(float simulationGrade) {
-		Training training=null;
+		Training training = null;
 		if ((simulationGrade + TRAININGSCORE) >= JOBACCESSSCORE) {
-			training = trainingService.getTrainingById(2L).orElseThrow(//Ici on passe l'Id du training(l'exemple de la demo: formation developpeur full stack) en dur en attendant future optimisation 
+			training = trainingService.getTrainingById(2L).orElseThrow(// Ici on passe l'Id du training(l'exemple de la
+																		// demo: formation developpeur full stack) en
+																		// dur en attendant future optimisation
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun training trouvé avec l'id: " + 2L));
 		}
 		return training;
-	}	
+	}
 }
