@@ -22,7 +22,7 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 public class JwtProvider {
 	
 	
-	private final String url = Paths.get("src/main/resources/data/script/scriptToken.py").toAbsolutePath().toString();
+	private final String url = Paths.get("src\\\\main\\\\resources\\\\data\\\\script\\\\scriptToken.py").toAbsolutePath().toString();
 	
 	public String generateJwtToken(Authentication authentication) {
 		
@@ -32,7 +32,7 @@ public class JwtProvider {
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
-		String cmd = "python3" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
 		
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
@@ -53,7 +53,7 @@ public class JwtProvider {
 		String line = "";
 		String scriptResponse="";
 		String choice = "decrypt"; // encrypt ou decrypt
-		String cmd = "python3" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
 		System.out.println("jwt récupéré dans decrypt : "+frontToken);
 		
 		try {
