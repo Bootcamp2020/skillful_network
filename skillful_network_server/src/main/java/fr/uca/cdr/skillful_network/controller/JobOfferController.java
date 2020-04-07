@@ -76,6 +76,13 @@ public class JobOfferController {
 		}
 	}
 	
+	@GetMapping(value = "/getScore/{id}")
+    public double getScoreById(@PathVariable(value = "id") Long id) {
+        JobOffer jobOffer = jobOfferService.getJobOfferById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return jobOffer.getScore();
+    }
+	
 	@PreAuthorize("hasRole('ENTREPRISE')")
 	@PostMapping(value="")
 	public JobOffer createJobOffer(@Valid @RequestBody JobOffer jobOffer){

@@ -7,13 +7,18 @@ export class Trainings {
     private _name: string;
     private _company: string;
     private _durationHours: number;
+    private _risk: string;
+    private _complexity: string;
+
+
     constructor(data: any) {
         this._company = data.company;
         this._description = data.description;
         this._keywords  = data.keywords;
         this._type = data.type;
         this._name = data.name;
-        this._durationHours = data.durationHours;
+        this. _risk = data.risk;
+        this._complexity = data.complexity;
     }
     get durationHours(): number {
         return this._durationHours;
@@ -61,7 +66,20 @@ export class Trainings {
     set company(value: string) {
         this._company = value;
     }
+    get risk(): string {
+        return this._risk;
+    }
 
+    set risk(value: string) {
+        this._risk = value;
+    }
+    get complexity(): string {
+        return this._complexity;
+    }
+
+    set complexity(value: string) {
+        this._complexity = value;
+    }
 }
 export class JobDetails {
 
@@ -70,12 +88,16 @@ export class JobDetails {
     private _type: string;
     private _name: string;
     private _company: string;
+    private _risk: string;
+    private _complexity: string;
     constructor(data: any) {
        this._company = data.company;
        this._description = data.description;
        this._keywords  = data.keywords;
        this._type = data.type;
        this._name = data.name;
+       this._risk = data.risk;
+       this._complexity = data.complexity;
     }
     get description(): string {
         return this._description;
@@ -115,6 +137,21 @@ export class JobDetails {
 
     set company(value: string) {
         this._company = value;
+    }
+
+    get risk(): string {
+        return this._risk;
+    }
+
+    set risk(value: string) {
+        this._risk = value;
+    }
+    get complexity(): string {
+        return this._complexity;
+    }
+
+    set complexity(value: string) {
+        this._complexity = value;
     }
 
 
