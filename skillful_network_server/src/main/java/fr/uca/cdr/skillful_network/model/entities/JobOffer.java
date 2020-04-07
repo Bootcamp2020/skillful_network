@@ -29,11 +29,12 @@ public class JobOffer {
 	private Date dateBeg;
 	private Date dateEnd;
 	private Date dateUpload;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
 	private Set<Keyword> keywords = new HashSet<>();
 
 	public enum Risk {
-		SIMPLE, MODERE, CRITIQUE;
+		SIMPLE, MODERATE, CRITICAL;
 	}
 
 	@Enumerated(EnumType.ORDINAL)
@@ -195,5 +196,13 @@ public class JobOffer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
+	}
+
+	// Tableau des scores
+	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
+
+	public double getScore() {
+		return score[this.complexity.ordinal()][this.risk.ordinal()];
+
 	}
 }
