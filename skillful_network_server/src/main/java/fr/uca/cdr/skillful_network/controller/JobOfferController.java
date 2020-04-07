@@ -80,7 +80,7 @@ public class JobOfferController {
     public double getScoreById(@PathVariable(value = "id") Long id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return getScoreById(id);
+        return jobOffer.getScore();
     }
 	
 	@PreAuthorize("hasRole('ENTREPRISE')")

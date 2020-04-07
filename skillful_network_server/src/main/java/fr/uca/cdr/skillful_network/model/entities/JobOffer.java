@@ -27,7 +27,7 @@ public class JobOffer {
 	private String[] keywords;
 
 	public enum Risk {
-		SIMPLE, MODERE, CRITIQUE;
+		SIMPLE, MODERATE, CRITICAL;
 	}
 
 	@Enumerated(EnumType.ORDINAL)
@@ -35,7 +35,7 @@ public class JobOffer {
 	private Risk risk;
 
 	public enum Complexity {
-		SIMPLE, MODEREE, COMPLEXE;
+		SIMPLE, MODERATE, COMPLEX;
 	}
 
 	@Enumerated(EnumType.ORDINAL)
@@ -192,7 +192,7 @@ public class JobOffer {
 	}
 
 	// Tableau des scores
-	double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
+	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
 
 	public double getScore() {
 		return score[this.complexity.ordinal()][this.risk.ordinal()];
