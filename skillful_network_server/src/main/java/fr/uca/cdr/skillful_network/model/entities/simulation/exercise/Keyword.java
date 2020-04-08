@@ -25,11 +25,14 @@ public class Keyword {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
+	@JsonIgnore
 	private Set<Exercise> exercises = new HashSet<Exercise>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
+	@JsonIgnore
 	private Set<JobOffer> jobOffers = new HashSet<JobOffer>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
+	@JsonIgnore
 	private Set<Training> trainings = new HashSet<Training>();
 
 	public Keyword() {
@@ -83,10 +86,10 @@ public class Keyword {
 		this.trainings = trainings;
 	}
 
-	@Override
-	public String toString() {
-		return "Keyword [id=" + id + ", name=" + name + ", exercises=" + exercises + ", jobOffers=" + jobOffers
-				+ ", trainings=" + trainings + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Keyword [id=" + id + ", name=" + name + ", exercises=" + exercises + ", jobOffers=" + jobOffers
+//				+ ", trainings=" + trainings + "]";
+//	}
 
 }
