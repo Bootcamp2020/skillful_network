@@ -1,14 +1,11 @@
-import { MOCK_CANDIDATURE } from './../../shared/models/mock.candidature';
-import { Component, OnInit, ViewChild, Input, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { CandidatureService } from 'src/app/shared/services/candidature.service';
-import { IPost } from 'src/app/shared/models/mock.candidature';
 import { JobOfferService } from '../../shared/services/job-offer.service';
 import { JobOffer } from '../../shared/models/job-offer';
 import { Candidature } from '../../shared/models/candidature';
-import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
 
@@ -31,9 +28,8 @@ export class JobOfferListComponent implements OnInit {
   order: string;
   field: string;
   form: NgForm;
-  init: boolean = true;
   keyEvent: boolean = false;
-
+  keyword: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,23 +37,13 @@ export class JobOfferListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.init) {
-      this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.order, this.field);
-    }
-    else {
-      this.searchByNameOrCompany(this.form);
-    }
+    this.searchByNameOrCompany(this.form);
   }
 
   @HostListener('matSortChange', ['$event']) change(event) {
     this.order = event.direction;
     this.field = event.active;
-    if (this.init) {
-      this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.order, this.field);
-    }
-    else {
-      this.searchByNameOrCompany(this.form);
-    }
+    this.searchByNameOrCompany(this.form);
   }
 
   @HostListener('document:keydown', ['$event']) handleKeyboardEvent(event: KeyboardEvent) {
@@ -68,21 +54,20 @@ export class JobOfferListComponent implements OnInit {
     this.offerService.findAll(size, page, this.checkOrder(order), this.checkField(field)).then(res => {
       this.length = res.totalElements;
       this.dataSource = new MatTableDataSource<JobOffer>(res.content);
-      this.init = false;
     });
   }
 
   searchByNameOrCompany(form: NgForm) {
-    if (event != null) {
+    if (event != undefined) {
       this.pageSize = this.paginator.pageSize;
       this.pageIndex = this.paginator.pageIndex + 1;
     }
     this.offerService.getOffersBySearch(this.search(form), this.pageIndex, this.pageSize, this.checkOrder(this.order), this.checkField(this.field)).then(res => {
+      this.length = res.totalElements;
       this.dataSource = new MatTableDataSource<JobOffer>(res.content);
-      this.init = false;
     });
   }
-  
+
   checkField(field: string) {
     if (field == null) {
       return field = "dateBeg";
@@ -100,13 +85,10 @@ export class JobOfferListComponent implements OnInit {
   }
   search(form: NgForm) {
     if (this.keyEvent == false) {
-      return "";
+      this.keyword ="";
     } else {
-      return form.value.keyword;
+      this.keyword = form.value.keyword;
     }
+    return this.keyword;
   }
-
-
-
-
 }
