@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,16 +26,27 @@ public class Keyword {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
-	private Set<Exercise> exercises = new HashSet<Exercise>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy = "keywords")
+	@JsonIgnore
+	private Set<QuestionSet> exercises = new HashSet<QuestionSet>();
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST}, mappedBy = "keywords")
+	@JsonIgnore
 	private Set<JobOffer> jobOffers = new HashSet<JobOffer>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST}, mappedBy = "keywords")
+	@JsonIgnore
 	private Set<Training> trainings = new HashSet<Training>();
 
 	public Keyword() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Keyword(Long id, String name, Set<QuestionSet> exercises, Set<JobOffer> jobOffers, Set<Training> trainings) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.exercises = exercises;
+		this.jobOffers = jobOffers;
+		this.trainings = trainings;
 	}
 
 	public Keyword(Long id, String name) {
@@ -59,11 +71,11 @@ public class Keyword {
 		this.name = name;
 	}
 
-	public Set<Exercise> getExercises() {
+	public Set<QuestionSet> getExercises() {
 		return exercises;
 	}
 
-	public void setExercises(Set<Exercise> exercises) {
+	public void setExercises(Set<QuestionSet> exercises) {
 		this.exercises = exercises;
 	}
 
@@ -84,9 +96,19 @@ public class Keyword {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+	
+	@Override
 	public String toString() {
-		return "Keyword [id=" + id + ", name=" + name + ", exercises=" + exercises + ", jobOffers=" + jobOffers
-				+ ", trainings=" + trainings + "]";
+		return "Keyword [id=" + id + ", name=" + name  + "]";
 	}
 
+	
+
+	
+	
+	
+	
 }

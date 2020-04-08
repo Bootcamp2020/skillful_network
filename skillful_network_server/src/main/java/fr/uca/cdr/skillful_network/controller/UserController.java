@@ -54,6 +54,7 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
+import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -185,12 +186,13 @@ public class UserController {
 	}
 	
 ///// Upload Imgae avec restriction extention+taille de l'image:
-//	@SuppressWarnings("resource")
-//	@PreAuthorize("hasRole('USER')")
-//	@Transactional
-	@RequestMapping(value = "/users/uploadImage/{id}", method = RequestMethod.POST)
-	public ResponseEntity<String> fileUpload(/* @AuthenticationPrincipal User user,*/ @PathVariable("id") Long id, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+	@SuppressWarnings("resource")
+	@PreAuthorize("hasRole('USER')")
+	@Transactional
+	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	public ResponseEntity<String> fileUpload( @AuthenticationPrincipal UserPrinciple user, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
 		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
+		Long id= user.getId();
 		User userforPhoto = userService.getUserById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
 		List<String> listOfExtensions = new ArrayList<String>(3);

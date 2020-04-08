@@ -69,6 +69,13 @@ public class JobApplicationController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id d'utilisateur : " + userId));
         return new ResponseEntity<List<JobApplication>>(applications, HttpStatus.OK);
     }
+    /*public ResponseEntity<Set<JobApplication>> getJobApplicationByUser(@PathVariable(value = "userId") Long userId) {
+		Set<JobApplication> listapplications = this.userService.getUserById(userId).map((user) -> {
+			return user.getJobApplicationSet();
+		}).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune candidature trouvée avec l'id d'utilisateur : " + userId));
+		return new ResponseEntity<Set<JobApplication>>(listapplications, HttpStatus.OK);
+	}*/
 
     // Provide all applications for a training by its id
     @PreAuthorize("hasRole('ENTREPRISE')")
