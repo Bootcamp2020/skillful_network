@@ -8,6 +8,6 @@ public interface ExerciseService {
 
     List<Exercise> getAllExercises();
     Optional<Exercise> getExerciseById(Long id);
-    Exercise saveOrUpdateJobApplication(Exercise exercise);
+    Exercise saveOrUpdateExercise(Exercise exercise);
 
 }

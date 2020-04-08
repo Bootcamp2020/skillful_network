@@ -8,6 +8,6 @@ public interface ResultService {
 
     List<Result> getAllResults();
     Optional<Result> getResultById(Long id);
-    Result saveOrUpdateJobApplication(Result result);
+    Result saveOrUpdateResult(Result result);
 
 }
