@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network.controller;
 
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
+
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
@@ -10,6 +11,9 @@ import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSe
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.services.ExerciseService;
 import fr.uca.cdr.skillful_network.model.services.JobOfferService;
+
+import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
+
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
 import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
 import fr.uca.cdr.skillful_network.model.services.UserService;
@@ -52,6 +56,10 @@ public class SimulationController {
 	private ExerciseService exerciseService;
 	@Autowired
 	private KeywordRepository keywordRepository;
+
+	private SimulationRepository simulationRepository;
+
+
 	// #########################################################################
 	// GET methods
 	// #########################################################################
@@ -98,6 +106,7 @@ public class SimulationController {
 	// #########################################################################
 
 	// start a new simulation based on a provided job goal
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	// @PostMapping(value = "/user/{userId}")
 	/*
@@ -153,13 +162,16 @@ public class SimulationController {
 		return new ResponseEntity<ArrayList<Exercise>>(listExerciseSimulationFinal, HttpStatus.OK);
 	}
 
+	
+
 	@PostMapping(value = "/{id}/answer")
-	public float simulationResult(@PathVariable(value = "id") Long simulationId,
+	public ResponseEntity<Simulation> simulationResult(@PathVariable(value = "id") Long examId,
 			@Valid @RequestBody SimulationForm simulationForm) {
-		float simulationGrade = 0;
-		Set<ExerciseForm> exercises = simulationForm.getExerciseSet();
-		simulationGrade = simulationService.calculateSimulationGrade(exercises, simulationId);
-		return simulationGrade;
+		Simulation simulation = simulationService.evaluateSimulation(simulationForm.getExerciseSet(), examId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Une erreur est survenue pendant l'évaluation de la simulation."));
+		return new ResponseEntity<>(simulation, HttpStatus.OK);
+
 	}
 
 	// #########################################################################

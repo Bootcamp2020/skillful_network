@@ -21,10 +21,14 @@ public interface SimulationService {
 	Optional<Simulation> startSimulation(Long userId, String jobGoal);
 	Optional<Simulation> getSimulationByExamId(Long idExam);
 	void deleteSimulation(Long id);
-	float calculateSimulationGrade(Set<ExerciseForm>exercises, Long examId);
+
 	ArrayList<String> MatcherJobOfferJobGoal(String careerGoal, ArrayList<JobOffer> jobOffer);
 	ArrayList<JobOffer> ListJobOfferByJobGoal(String careerGoal, ArrayList<JobOffer> jobOffer);
 	Optional<Keyword> getKeyWordExoById(Long id);
 	List<Keyword> findAllKeyWordExo();
 	ArrayList<Keyword> exerciceMachJoboffer(ArrayList<Keyword> keyExo, ArrayList<String> keyJob);
+
+	Optional<Simulation> evaluateSimulation(Set<ExerciseForm> exercises, Long examId);
+
+
 }

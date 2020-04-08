@@ -24,7 +24,7 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public Result saveOrUpdateJobApplication(Result result) {
+    public Result saveOrUpdateResult(Result result) {
         return resultRepository.save(result);
     }
 
