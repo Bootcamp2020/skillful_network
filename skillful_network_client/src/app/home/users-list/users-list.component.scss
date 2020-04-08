@@ -32,3 +32,23 @@ h1{
   .table-container {
     width: 80%;
   }
+
+  .formulaire {
+    border-radius: 20px;
+    background: white;
+    padding: 5px;
+  }
+
+.cursor {
+    cursor: pointer;
+  }
+
+.boutonSearch{
+    display: none;
+  }
+  .progressBarDiv {
+    margin-top: 12%;
+  }
+  .is-loading{
+    margin:0 auto;
+  }

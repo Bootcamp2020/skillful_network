@@ -1,53 +1,31 @@
-import { IPost } from './offre.mock';
+//import { IPost } from './offre.mock';
+export class Trainings {
 
-export class Post {
-    private _status: string;
-    private _titreOffre: string;
-    private _entreprise: string;
     private _description: string;
-    private _motsCles: string;
-    private _niveau: string;
-    private _environement: string;
-    private _nomFormation: string;
-    private _presRequis: string;
-    private _competence: string;
-    private _duree: number;
-    constructor(data: IPost) {
-        this._status = data.status;
-        this._titreOffre = data.titreOffre;
-        this._entreprise = data.entreprise;
+    private _keywords: string;
+    private _type: string;
+    private _name: string;
+    private _company: string;
+    private _durationHours: number;
+    private _risk: string;
+    private _complexity: string;
+
+
+    constructor(data: any) {
+        this._company = data.company;
         this._description = data.description;
-        this._motsCles = data.motsCles;
-        this._niveau = data.niveau;
-        this._environement = data.environement;
-        this._nomFormation = data.nomFormation;
-        this._presRequis = data.presRequis;
-        this._competence = data.competence;
-        this._duree = data.duree;
-
+        this._keywords  = data.keywords;
+        this._type = data.type;
+        this._name = data.name;
+        this. _risk = data.risk;
+        this._complexity = data.complexity;
+    }
+    get durationHours(): number {
+        return this._durationHours;
     }
 
-    get status(): string {
-        return this._status;
-    }
-
-    set status(value: string) {
-        this._status = value;
-    }
-
-    get titreOffre(): string {
-        return this._titreOffre;
-    }
-
-    set titreOffre(value: string) {
-        this._titreOffre = value;
-    }
-    get entreprise(): string {
-        return this._entreprise;
-    }
-
-    set entreprise(value: string) {
-        this._entreprise = value;
+    set durationHours(value: number) {
+        this._durationHours = value;
     }
     get description(): string {
         return this._description;
@@ -56,54 +34,125 @@ export class Post {
     set description(value: string) {
         this._description = value;
     }
-    get motsCles(): string {
-        return this._motsCles;
+
+    get keywords(): string {
+        return this._keywords;
     }
 
-    set motsCles(value: string) {
-        this._motsCles = value;
-    }
-    get niveau(): string {
-        return this._niveau;
+    set keywords(value: string) {
+        this._keywords = value;
     }
 
-    set niveau(value: string) {
-        this._niveau = value;
-    }
-    get environement(): string {
-        return this._environement;
+    get type(): string {
+        return this._type;
     }
 
-    set environement(value: string) {
-        this._environement = value;
-    }
-    get nomFormation(): string {
-        return this._nomFormation;
+    set type(value: string) {
+        this._type = value;
     }
 
-    set nomFormation(value: string) {
-        this._nomFormation = value;
-    }
-    get presRequis(): string {
-        return this._presRequis;
+    get name(): string {
+        return this._name;
     }
 
-    set presRequis(value: string) {
-        this._presRequis = value;
-    }
-    get competence(): string {
-        return this._competence;
+    set name(value: string) {
+        this._name = value;
     }
 
-    set competence(value: string) {
-        this._competence = value;
-    }
-    get duree(): number {
-        return this._duree;
+    get company(): string {
+        return this._company;
     }
 
-    set duree(value: number) {
-        this._duree = value;
+    set company(value: string) {
+        this._company = value;
     }
+    get risk(): string {
+        return this._risk;
+    }
+
+    set risk(value: string) {
+        this._risk = value;
+    }
+    get complexity(): string {
+        return this._complexity;
+    }
+
+    set complexity(value: string) {
+        this._complexity = value;
+    }
+}
+export class JobDetails {
+
+    private _description: string;
+    private _keywords: string;
+    private _type: string;
+    private _name: string;
+    private _company: string;
+    private _risk: string;
+    private _complexity: string;
+    constructor(data: any) {
+       this._company = data.company;
+       this._description = data.description;
+       this._keywords  = data.keywords;
+       this._type = data.type;
+       this._name = data.name;
+       this._risk = data.risk;
+       this._complexity = data.complexity;
+    }
+    get description(): string {
+        return this._description;
+    }
+
+    set description(value: string) {
+        this._description = value;
+    }
+
+    get keywords(): string {
+        return this.keywords;
+    }
+
+    set keywords(value: string) {
+        this.keywords = value;
+    }
+
+    get type(): string {
+        return this._type;
+    }
+
+    set type(value: string) {
+        this._type = value;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get company(): string {
+        return this._company;
+    }
+
+    set company(value: string) {
+        this._company = value;
+    }
+
+    get risk(): string {
+        return this._risk;
+    }
+
+    set risk(value: string) {
+        this._risk = value;
+    }
+    get complexity(): string {
+        return this._complexity;
+    }
+
+    set complexity(value: string) {
+        this._complexity = value;
+    }
+
 
 }

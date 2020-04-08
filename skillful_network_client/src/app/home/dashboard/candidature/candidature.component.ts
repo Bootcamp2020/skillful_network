@@ -1,3 +1,4 @@
+import { CandidatureService } from 'src/app/shared/services/candidature.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { MOCK_CANDIDATURE, IPost } from 'src/app/shared/models/mock.candidature';
 import { Candidature } from 'src/app/shared/models/candidature';
@@ -19,15 +20,19 @@ export class CandidatureComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(public cs: CandidatureService) {
 
   }
 
   ngOnInit(): void {
-    this.listCandidature = [];
-    MOCK_CANDIDATURE.forEach((condidature: IPost) => {
-      this.listCandidature.push(new Candidature(condidature));
-    });  
+    // import depuis le back-end
+    this.getCandidatures();
+  }
+
+  async getCandidatures(){
+    this.listCandidature = await this.cs.getAllUserApllications(1);
+    console.log(this.listCandidature);
+
   }
  
    

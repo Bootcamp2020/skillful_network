@@ -10,6 +10,7 @@ import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface TrainingService {
+
 	List<Training> getAllTraining();
 
 	Optional<Training> getTrainingById(Long id);
@@ -17,5 +18,9 @@ public interface TrainingService {
 	Page<Training> getPageOfEntities(PageTool pageTool);
 
 	Page<Training> searchTrainingByKeyword(Pageable pageable, String keyword);
+
+	void deleteTraining(Long id);
+
+	Training saveOrUpdateTraining(Training trainingToUpdate);
 
 }

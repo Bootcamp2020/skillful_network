@@ -2,13 +2,14 @@
 import { Candidature } from './../models/candidature';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/mock.candidature';
+import { ApiHelperService } from './api-helper.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidatureService {
-  constructor() { }
+  constructor(private api: ApiHelperService) { }
 
   verifierCandidature(idJobOffer, listCandidature:IPost[] ): boolean{
     
@@ -27,5 +28,18 @@ export class CandidatureService {
       } 
     }
     return null;
+  }
+
+
+  async getAllUserApllications(userId) : Promise<Candidature[]>{
+    let endPoint = '/applications/jobs/user/'+userId;
+    try{
+      let candidatures = await this.api.get({"endpoint":endPoint});
+      return candidatures;
+    }catch(ex){
+      return null;
+    }
+    
+    
   }
 }

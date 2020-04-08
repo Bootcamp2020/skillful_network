@@ -6,7 +6,14 @@
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listSubscript" class="subscript">{{post.name}}</mat-chip>
+                <mat-chip *ngFor="let post of listSubscript" 
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeSubscript(post)"
+                class="subscript">
+                {{post.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
             </mat-chip-list>
         </mat-card>
     </div>
@@ -17,7 +24,7 @@
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>Nouvel abonnement</mat-label>
-                    <input formControlName="subscriptUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
+                    <input formControlName="subscriptUnit"  type="text"  matInput  #subscriptInput = "matInput" [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete" >
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
@@ -28,7 +35,7 @@
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="20">
-                <button type="submit" mat-raised-button color="primary" [disabled]="subscriptInfoGroup.invalid">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="subscriptInput.focused && (subscriptInfoGroup.invalid || !subscriptInfoGroup.value.subscriptUnit)">Ajouter</button>
             </div>
         </div>
     </form>  

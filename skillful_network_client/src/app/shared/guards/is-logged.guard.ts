@@ -1,20 +1,23 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {UserService} from '../services/user.service';
+import { TokenStorageService } from '../services/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IsLoggedGuard implements CanActivate {
-  constructor(private user: UserService, private router: Router) {
+  constructor(private tokenStorageService: TokenStorageService, private router: Router) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // this.router.navigate(['/login']);
-    // return false;
-    return true;
+      if (this.tokenStorageService.isLogged() !== true) {
+        window.alert('Accès refusé, Vous devez être connecté pour avoir accès à cette page !');
+        this.router.navigate(['/login']);
+        return false;
+      }
+      return true;
   }
 }

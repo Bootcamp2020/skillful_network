@@ -21,6 +21,11 @@ export class SubscriptConfComponent implements OnInit {
   public listSubscript: Subscript[];
   public subscript: string;
   isLoading:boolean;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+
 
   constructor(private formBuilder: FormBuilder ,private service : UserService) {
 
@@ -38,10 +43,9 @@ export class SubscriptConfComponent implements OnInit {
           datas=>{
             for(let id in datas){
             this.subscripts.push(datas[id].name)  
-            }
-            this.isLoading = false;
+            }   
           }
-        )
+        ).finally(()=> this.isLoading = false)
       }
     })
   }
@@ -49,7 +53,19 @@ export class SubscriptConfComponent implements OnInit {
   myControl = new FormControl()
 
   addSubscript() {
+    if(this.subscriptInfoGroup.value.subscriptUnit!=null){
+      if (this.subscriptInfoGroup.value.subscriptUnit.length>1){
     this.listSubscript.push(new Subscript(this.subscriptInfoGroup.value['subscriptUnit']));
     this.subscriptInfoGroup.value['subscriptionSet'] = this.listSubscript;
+      }
+    }
+  }
+
+
+  removeSubscript(subscript : Subscript): void {
+    const index = this.listSubscript.indexOf(subscript);
+    if (index >= 0) {
+      this.listSubscript.splice(index, 1);
+    }
   }
 }

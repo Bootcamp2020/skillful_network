@@ -1,6 +1,6 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,9 +15,9 @@ public abstract class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonManagedReference
     protected User user;
     protected ApplicationStatus status;
     protected Date submitDate;
