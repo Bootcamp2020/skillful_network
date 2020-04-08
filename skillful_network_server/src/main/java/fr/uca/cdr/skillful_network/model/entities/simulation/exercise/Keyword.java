@@ -26,13 +26,16 @@ public class Keyword {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy = "keywords")
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
-	private Set<QuestionSet> exercises = new HashSet<QuestionSet>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST}, mappedBy = "keywords")
+	private Set<Exercise> exercises = new HashSet<Exercise>();
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
 	private Set<JobOffer> jobOffers = new HashSet<JobOffer>();
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST}, mappedBy = "keywords")
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
 	private Set<Training> trainings = new HashSet<Training>();
 
@@ -40,7 +43,7 @@ public class Keyword {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Keyword(Long id, String name, Set<QuestionSet> exercises, Set<JobOffer> jobOffers, Set<Training> trainings) {
+	public Keyword(Long id, String name, Set<Exercise> exercises, Set<JobOffer> jobOffers, Set<Training> trainings) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -71,11 +74,11 @@ public class Keyword {
 		this.name = name;
 	}
 
-	public Set<QuestionSet> getExercises() {
+	public Set<Exercise> getExercises() {
 		return exercises;
 	}
 
-	public void setExercises(Set<QuestionSet> exercises) {
+	public void setExercises(Set<Exercise> exercises) {
 		this.exercises = exercises;
 	}
 
@@ -95,6 +98,7 @@ public class Keyword {
 		this.trainings = trainings;
 	}
 
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
@@ -105,10 +109,5 @@ public class Keyword {
 		return "Keyword [id=" + id + ", name=" + name  + "]";
 	}
 
-	
-
-	
-	
-	
 	
 }
