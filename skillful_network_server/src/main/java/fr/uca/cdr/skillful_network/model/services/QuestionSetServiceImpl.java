@@ -60,7 +60,7 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 	}
 
 	@Override
-	public QuestionSet saveOrUpdateJobApplication(QuestionSet questionSet) {
+	public QuestionSet saveOrUpdateQuestionSet(QuestionSet questionSet) {
 		return questionSetRepository.save(questionSet);
 	}
 }
