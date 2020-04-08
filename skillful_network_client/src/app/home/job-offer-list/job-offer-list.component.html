@@ -12,37 +12,37 @@
                         <!-- Nom Column -->
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            <td mat-cell *matCellDef="let element" class="nomOffre"> {{element.name}} </td>
                         </ng-container>
 
                         <!-- Entreprise Column -->
-                        <ng-container matColumnDef="company">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
-                            <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+                        <ng-container matColumnDef="company" class="noneOffre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">Entreprise</th>
+                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.company}} </td>
                         </ng-container>
 
                         <!-- Type Column -->
                         <ng-container matColumnDef="type">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-                            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneType">Type</th>
+                            <td mat-cell *matCellDef="let element" class="noneType"> {{element.type}} </td>
                         </ng-container>
 
                         <!-- Commence Column -->
-                        <ng-container matColumnDef="dateBeg">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Commence</th>
-                            <td mat-cell *matCellDef="let element"> {{element.dateBeg |date: "dd/MM/yyyy"}} </td>
+                        <ng-container matColumnDef="dateBeg" class="noneOffre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">Commence</th>
+                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.dateBeg |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
 
                         <!-- Mise en ligne Column -->
-                        <ng-container matColumnDef="dateUpload">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mise en ligne</th>
-                            <td mat-cell *matCellDef="let element"> {{element.dateUpload |date: "dd/MM/yyyy"}} </td>
+                        <ng-container matColumnDef="dateUpload" class="noneOffre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">Mise en ligne</th>
+                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.dateUpload |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
 
                          <!-- Statut Column -->
-                        <ng-container matColumnDef="statut">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
-                            <td mat-cell *matCellDef="let element">
+                        <ng-container matColumnDef="statut" >
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centrerTitreStatut">Statut</th>
+                            <td mat-cell *matCellDef="let element" class="centrerStatut">
                                 <span *ngIf="cs.verifierCandidature(element.id, listCandidature)">
                                     <span *ngIf ="cs.recupererCandidature(element.id, listCandidature).status ==='validate'">
                                         <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
@@ -59,15 +59,15 @@
 
                         <!-- Plus d'info Column -->
                         <ng-container matColumnDef="plus_info">
-                            <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let element"> <a routerLink="{{'/home/offre/' + element.id }}" title="Plus d'info">Détails</a> </td>
+                            <th mat-header-cell *matHeaderCellDef class="detailsOffre"> Détails</th>
+                            <td mat-cell *matCellDef="let element" class="detailsOffre"> <a routerLink="{{'/home/offre/' + element.id }}" title="Plus d'info">Détails</a> </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
 
-                    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+                    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
                 </div>
             </div>
         </mat-card-content>

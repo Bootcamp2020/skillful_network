@@ -1,4 +1,6 @@
-
+.gestComponent {
+  min-height: 900px;
+}
 .menu-container {
   width: 80%;
   margin: auto;
@@ -55,13 +57,11 @@ img {
 
 
 .home-header {
-  height: 100px
+  height: 100px;
 }
 
 .home-footer {
-  height: 125px
+  height: 100%;
 }
 
-.gestComponent {
-  min-height: calc(100% - 225px);
-}
+

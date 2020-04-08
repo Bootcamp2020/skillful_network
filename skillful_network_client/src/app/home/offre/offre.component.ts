@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {JobDetails, Trainings} from './offre';
 import {MOCK_OFFRE} from './offre.mock';
 import { CandidatureService } from '../../shared/services/candidature.service';
-import { IPost, MOCK_CANDIDATURE } from '../../shared/models/mock.candidature';
+import { IPost } from '../../shared/models/mock.candidature';
 import {JobDetailsService} from '../../shared/services/job-details.service';
 import {ApiHelperService} from '../../shared/services/api-helper.service';
 
