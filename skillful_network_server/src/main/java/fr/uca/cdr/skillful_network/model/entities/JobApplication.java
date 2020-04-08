@@ -1,6 +1,5 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import java.util.Objects;
 @Table(name = "jobApplications")
 public class JobApplication extends Application{
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "job_offer_id")
     @JsonManagedReference
     private JobOffer jobOffer;

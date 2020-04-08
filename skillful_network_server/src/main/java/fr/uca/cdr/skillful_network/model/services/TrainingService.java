@@ -21,6 +21,6 @@ public interface TrainingService {
 
 	void deleteTraining(Long id);
 
-	Training saveOrUpdateTraining(Optional<Training> trainingToUpdate);
+	Training saveOrUpdateTraining(Training trainingToUpdate);
 
 }
