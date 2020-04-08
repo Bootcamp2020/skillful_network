@@ -199,6 +199,7 @@ public class JobOffer {
 	}
 
 	// Tableau des scores
+	@Transient
 	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
 
 	public double getScore() {
