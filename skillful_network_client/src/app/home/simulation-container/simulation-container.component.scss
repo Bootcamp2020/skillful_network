@@ -1,0 +1,54 @@
+
+.zone {
+    padding: 10px;
+}
+
+.gestionCard{
+    width: 100%;
+    height:100%;
+    justify-content: center;
+}
+
+#title {
+    margin-top: 12px;
+}
+
+#divider {
+    margin: auto 20px;
+    border-top-width: medium;
+}
+
+#montitre{
+    font-size: 2rem;
+    font-style: italic;
+    margin: 0px;
+    margin-bottom: 12px;
+}
+
+@media screen and (min-width: 900px) {
+
+    .container_user {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 6px;
+        grid-row-gap: 6px;
+        margin: auto;
+        }
+    .zone {
+        padding: 10px;
+    }
+
+    .zone1 {
+        grid-area: 1 / 1 / 1 / 1;
+    }
+    .zone2 {
+        grid-area: 1 / 2 / 1 / 2;
+    }
+    .zone3 {
+        grid-area: 2 / 1 / 2 / 1;
+    }
+    .zone4 {
+        grid-area: 2 / 2 / 2 / 2;
+    }
+}

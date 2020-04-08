@@ -1,68 +1,93 @@
 .card_dashboard{
-    padding: 0;
-    margin-bottom: 20px;
-    
-    .example-form {
-      min-width: 150px;
-      max-width: 500px;
-      width: 100%;
-  }
-  
-  .simulation {
-      padding-top: 10px;
-  }
+  padding: 0;
+  margin-bottom: 20px;
+}
 
-  .card_dashboard{
-      padding: 0;
-      margin-bottom: 40px;
-      margin-top: 20px;
-    }
-  mat-card{
-      min-height: 515px;
-  }
-  
-  #bouton-details-simulation{
-      text-decoration: none;
-      color: rgb(65, 76, 134);
-  }
-  #bouton-replay-simulation {
-    text-decoration: none;
-      color: rgb(110, 94, 78);
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
 
-  }
+.simulation {
+  padding-top: 10px;
+}
+
+.card_dashboard{
+  padding: 0;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+mat-card{
+  padding-bottom: 60px;
+  min-height: 515px;
+}
+
+#bouton-details-simulation{
+  text-decoration: none;
+  color: rgb(126, 126, 126);
+}
+#bouton-replay-simulation {
+  text-decoration: none;
+  color: rgb(126, 126, 126);
+  
+}
+
+.icon-result-simulation {
+  text-decoration: none;
+  color: rgb(126, 126, 126);
 }
 
 table {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 20%;
+  margin-left: 10px;
   
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  td, th {
-    width: 20%;
-    margin-left: 10px;
-    
-  }
-  .mat-header-cell {
-    background-color:  #F1F1F1;
-    text-align: center;
-  }
-  .mat-card-content {
-    padding-top: 30px;
-    border-collapse: collapse;
-  }
+}
 
-  .table-container {
-    height: 400px;
-    overflow: auto;
+.mat-header-cell {
+  //background-color:  #F1F1F1;
+  text-align: center;
+}
 
-  }
+// .mat-cell {}
 
- 
+.mat-card-content {
+  padding-top: 30px;
+  border-collapse: collapse;
+}
 
+.table-container {
+  height: 400px;
+  width: 100%;
+  overflow: auto;
   
- 
+}
+
+.button_simulation {
+  width: 30%;
+  padding: 7px;
+  margin-bottom: 18px;
+  margin-left: 5px;
+  float: right;
+}
+
+.progressBarDiv {
+  margin-top: 12%;
+}
+
+.loading_mat_spinner {
+  margin:0 auto;
+  float: none
+}

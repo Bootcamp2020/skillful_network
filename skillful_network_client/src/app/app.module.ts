@@ -60,6 +60,12 @@ import {QuestionnaireComponent} from './home/questionnaire/questionnaire.compone
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { SimulationContainerComponent } from './home/simulation-container/simulation-container.component';
+import { SimInformationComponent } from './home/simulation-container/sim-information/sim-information.component';
+import { SimTrainingListComponent } from './home/simulation-container/sim-training-list/sim-training-list.component';
+import { SimJobOfferListComponent } from './home/simulation-container/sim-job-offer-list/sim-job-offer-list.component';
+import { SimQuestionListComponent } from './home/simulation-container/sim-question-list/sim-question-list.component';
+import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
 
 
 @NgModule({
@@ -102,7 +108,13 @@ import {MatNativeDateModule} from '@angular/material/core';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
-    ],
+        SimulationContainerComponent,
+        SimInformationComponent,
+        SimTrainingListComponent,
+        SimJobOfferListComponent,
+        SimQuestionListComponent,
+        GoalValidationModalComponent
+        ],
 
     imports: [
         BrowserModule,

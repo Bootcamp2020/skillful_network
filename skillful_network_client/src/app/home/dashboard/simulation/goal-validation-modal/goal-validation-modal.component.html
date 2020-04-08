@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Quel est l'objectif professionnel de cette nouvelle simulation ?</h1>
+<div mat-dialog-content>
+    <!-- <p>What's your email?</p> -->
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.goal" placeholder="Indiquez l'objectif professionel désiré.">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <!-- <button mat-button (click)="onNoClick()">No</button> -->
+    <!-- <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button> -->
+    <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="onValidClick()">Valider</button>
+</div>
