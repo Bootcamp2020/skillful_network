@@ -4,6 +4,7 @@ import { UserService } from '../shared/services/user.service';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { BottomSheetOverviewExample } from '../bottom-sheet-overview-example/bottom-sheet-overview-example';
+import { TokenStorageService } from '../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +12,15 @@ import { BottomSheetOverviewExample } from '../bottom-sheet-overview-example/bot
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private userService: UserService, public dialog: MatDialog) {
+  public user;
+  constructor(private router: Router, private userService: UserService, public dialog: MatDialog, public tokenstorage: TokenStorageService) {
   }
 
   ngOnInit() {
+    // this.user = localStorage.getItem("auth-user");
+    // console.log("----------")
+    // console.log(this.user.id);
+   console.log(this.tokenstorage.getCurrentUser());
   }
 
  

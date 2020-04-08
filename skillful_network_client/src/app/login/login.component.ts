@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
             if (data.user.id === -1) {
                 this.error = true;
             } else {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
+              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, data.user, data.authorities , 'local');
               //  this.userService.actualUser = new User({id});//lien a modifie
               this.isLoggedIn = 'true';
               localStorage.setItem('isLoggedIn', this.isLoggedIn);
@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
 
     // Commenté en attendant la liaison avec le back
     this.authService.register( {email: this.inscriptionFormGroup.value.emailInscription, role: this.role})
-      .then(() => {
+      .then((response) => {
+        console.log("ok", response);
       // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
       }).catch((error) => {
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
@@ -105,7 +106,7 @@ export class LoginComponent implements OnInit {
         if (data.user.id === -1) {
           this.error = true;
         } else {
-            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
+            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, data.user, data.authorities , 'local');
             //  this.userService.actualUser = new User({id});//lien a modifie
             this.isLoggedIn = 'true';
             localStorage.setItem('isLoggedIn', this.isLoggedIn);

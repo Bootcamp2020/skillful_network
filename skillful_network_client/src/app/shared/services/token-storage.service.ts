@@ -1,3 +1,4 @@
+import { User } from './../models/user';
 import { Injectable } from '@angular/core';
 
 // Ce service permettra de manipuler les données relatives au token/utilisateur de la session
@@ -22,7 +23,7 @@ export class TokenStorageService {
     sessionStorage.clear();
   }
 
-  public saveTokenAndCurrentUser(token: string, user: string , authorities: string[], storage: string) {
+  public saveTokenAndCurrentUser(token: string, user: User , authorities: string[], storage: string) {
     // On enlève toutes les infos dans les storage
     localStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(TOKEN_KEY);
