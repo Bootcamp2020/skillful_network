@@ -21,6 +21,11 @@ export class TokenStorageService {
     localStorage.clear();
     sessionStorage.clear();
   }
+  public saveTokenSession(token: string) {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.setItem(TOKEN_KEY, token);
+    console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
+  }
 
   public saveTokenAndCurrentUser(token: string, user: string , authorities: string[], storage: string) {
     // On enlève toutes les infos dans les storage
@@ -45,8 +50,8 @@ export class TokenStorageService {
       sessionStorage.setItem(USER_KEY, JSON.stringify(user));
       sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
       console.log('token sauvé dans le session storage : ' + sessionStorage.getItem(TOKEN_KEY));
-      console.log('data sauvées concernant l\'utilisateur courant dans le session storage : ' + localStorage.getItem(USER_KEY));
-      console.log('data sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(AUTHORITIES_KEY));
+      console.log('data sauvées concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(USER_KEY));
+      console.log('authorities sauvées  concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(AUTHORITIES_KEY));
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiHelperService } from '../shared/services/api-helper.service';
 import { UserService } from '../shared/services/user.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -6,6 +6,7 @@ import { TokenStorageService } from '../shared/services/token-storage.service';
 import { User } from '../shared/models/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,9 @@ export class LoginComponent implements OnInit {
   role: string[];
   isLoggedIn = 'false';
   isLoginFailed = false;
+  public rememberMe: FormControl = new FormControl(false)
+  isChecked: boolean;
+ 
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -32,10 +36,10 @@ export class LoginComponent implements OnInit {
   inscriptionFormGroup: FormGroup;
   loginFormGroup: FormGroup;
   codeForm: FormGroup;
-
+   
   // variable qui servira à afficher le formulaire approprié en fonction du context
   public doDisplayCodeVerif = false;
-
+ 
 
   constructor(private api: ApiHelperService, private userService: UserService, private router: Router, private formBuilder: FormBuilder, 
               private authService: AuthService, private tokenStorage: TokenStorageService) {
@@ -45,31 +49,31 @@ export class LoginComponent implements OnInit {
     this.buildFormInscription();
     this.buildFormLogin();
     this.codeFormBuild();
-
-  }
-  login() {
-    // Permet de vider le local storage
-    // tslint:disable-next-line: max-line-length
-    localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
-    this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
-        .then((data) => {
-            console.log('token' + data.accessToken);
-            console.log('user id : ' + data.user.id);
-            if (data.user.id === -1) {
-                this.error = true;
-            } else {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
-              //  this.userService.actualUser = new User({id});//lien a modifie
-              this.isLoggedIn = 'true';
-              localStorage.setItem('isLoggedIn', this.isLoggedIn);
-              this.router.navigate(['/home']);
-            }
+ }
+ login() {
+  // Permet de vider le local storage
+  // tslint:disable-next-line: max-line-length
+  localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
+  this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
+      .then((data) => {
+          console.log('token' + data.accessToken);
+          console.log('user id : ' + data.user.id);
+          if (data.user.id === -1) {
+              this.error = true;
+          } else if (this.isChecked) {
+            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');          
+          } else {
+            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities,''  );
+          }   
+          this.isLoggedIn = 'true';
+          localStorage.setItem('isLoggedIn', this.isLoggedIn);
+          this.router.navigate(['/home']);
         })
-        .catch((error) => {
-          // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
-          this.isLoginFailed = true;
-        });
-  }
+      .catch((error) => {
+        // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
+        this.isLoginFailed = true;
+      });
+}
 
   register() {
     // Permet de vider le local storage
@@ -143,4 +147,11 @@ export class LoginComponent implements OnInit {
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
+  onChange(event) {
+    this.isChecked=event;
+    // can't event.preventDefault();
+    console.log('onChange event.checked '+event.checked);
+    
+  }
+   
 }
