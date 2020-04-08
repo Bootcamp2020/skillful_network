@@ -16,9 +16,9 @@ import { UserService } from "src/app/shared/services/user.service";
 export class SimulationComponent implements OnInit {
   public listSimulation: Simulation[];
   displayedColumns: string[] = [
+    "jobaccess",
     "jobgoal",
     "date",
-    // "exercices"
     "simdetail",
     "reloadsim",
   ];
@@ -38,30 +38,36 @@ export class SimulationComponent implements OnInit {
   async ngOnInit() {
     // Get connected user from route params
     let { userId } = this.route.snapshot.params;
+
     // Get connected user from userService if not provided
     if (userId == null) {
-      if (this.userService.findAll.length == 0) {
-        console.log(">> no users found");
-      } else {
-        console.log(">> some users are listed !");
+      console.log(">> user ID not provided.. trying to find active logged user...");
         if (
           this.userService.userLogged == null ||
           this.userService.userLogged == undefined
-        ) {
-          console.log(">> no users logged");
+        ) { // exit if no user available
+          console.log(">> ERR: Active user not found.");
+          return; 
         } else {
+          userId = this.userService.userLogged.id;
           this.careerGoal = this.userService.userLogged.careerGoal;
+          console.log(">> Active user found ! userId: " + userId + ", user.careerGoal: " + this.careerGoal);
         }
-      }
     }
+    if (userId == null) { return; } // exit if no user available
     userId = userId == null ? 2 : userId;
     console.log(">> userId: " + userId);
 
-    await this.api.get({ endpoint: `/usersbyId/${userId}` }).then((user) => {
-      console.log("user found ! user.careerGoal: " + user.careerGoal);
-      this.careerGoal = user.careerGoal;
-    });
+    // GET careerGoal if needed
+    if (this.careerGoal == null ) {
+      await this.api.get({ endpoint: `/usersbyId/${userId}` }).then((user) => {
+        console.log(">> REST : Get user.careerGoal.");
+        this.careerGoal = user.careerGoal;
+      });
+    }
+    console.log(">> user.careerGoal: " + this.careerGoal);
 
+    // GET simulations list of provided user
     await this.api
       .get({ endpoint: `/simulations?userid=${userId}` })
       .then((data) => (this.listSimulation = data));

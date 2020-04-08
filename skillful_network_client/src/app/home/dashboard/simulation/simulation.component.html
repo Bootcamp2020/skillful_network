@@ -22,10 +22,13 @@
                         </ng-container>
 
                         <!-- Nb exercice Column -->
-                        <!-- <ng-container matColumnDef="exercices">
-                            <th mat-header-cell *matHeaderCellDef>Exercices</th>
-                            <td mat-cell *matCellDef="let post"> {{post.exam.length}} </td>
-                        </ng-container> -->
+                        <ng-container matColumnDef="jobaccess">
+                            <th mat-header-cell *matHeaderCellDef>Résultat</th>
+                            <td mat-cell *matCellDef="let post" class="icon-result-simulation">
+                                <mat-icon *ngIf="post.jobAccess == true" title="Simulation validée">done</mat-icon>
+                                <mat-icon *ngIf="post.jobAccess == false" title="Simulation échouée">block</mat-icon>
+                            </td>
+                        </ng-container>
 
                         <!-- Simulation detail Column -->
                         <ng-container matColumnDef="simdetail">
