@@ -5,9 +5,18 @@
         </mat-card-header>
         <hr>
         <mat-card-content>
-            <div fxLayoutAlign="center center">
-                <div class="mat-elevation-z3 table-container">
-                    <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
+            <div class="formSearch">
+                <form  #f="ngForm">
+                    <mat-form-field appearance="legacy" class="offreRecherche">
+                        <mat-label>Recherche</mat-label>
+                        <input matInput  name="keyword" ngModel placeholder="Entrer un nom de poste ou d'entreprise">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div>
+                <div class="mat-elevation-z1 table-container">
+                    <table mat-table [dataSource]="dataSource"  (matSortChange)="change($event)" matSort>
 
                         <!-- Nom Column -->
                         <ng-container matColumnDef="name">
@@ -39,12 +48,17 @@
                             <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.dateUpload |date: "dd/MM/yyyy"}} </td>
                         </ng-container>
 
-                         <!-- Statut Column -->
-                        <ng-container matColumnDef="statut" >
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centrerTitreStatut">Statut</th>
-                            <td mat-cell *matCellDef="let element" class="centrerStatut">
-                                <span *ngIf="cs.verifierCandidature(element.id, listCandidature)">
-                                    <span *ngIf ="cs.recupererCandidature(element.id, listCandidature).status ==='validate'">
+                        <!-- Statut Column -->
+
+                        <ng-container matColumnDef="statut">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+                            <td mat-cell *matCellDef="let application">
+                                <mat-icon aria-hidden="false" aria-label="Example home icon">hourglass_empty</mat-icon>
+                            </td>
+                            <!--
+                            <td mat-cell *matCellDef="let application">
+                                <span *ngIf="{{findApplicationJob(element.id}}">
+                                    <span *ngIf ="findApplicationJob({{element.id}})==='validate'">
                                         <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
                                     </span>
                                     <span *ngIf="cs.recupererCandidature(element.id, listCandidature).status ==='reject'">
@@ -54,20 +68,31 @@
                                         <mat-icon aria-hidden="false" aria-label="Example home icon">hourglass_empty</mat-icon>
                                     </span>
                                 </span>
-                            </td>
+                            </td> -->
                         </ng-container>
 
                         <!-- Plus d'info Column -->
                         <ng-container matColumnDef="plus_info">
-                            <th mat-header-cell *matHeaderCellDef class="detailsOffre"> Détails</th>
-                            <td mat-cell *matCellDef="let element" class="detailsOffre"> <a routerLink="{{'/home/offre/' + element.id }}" title="Plus d'info">Détails</a> </td>
+                            <th mat-header-cell *matHeaderCellDef> Détails</th>
+                            <td mat-cell *matCellDef="let element"> <a routerLink="{{'/home/offre/' + element.id }}"
+                                    title="Plus d'info">
+                                    <mat-icon>visibility</mat-icon>
+                                </a> </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
 
-                    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+                    <mat-paginator
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="change($event)"
+                    [hidePageSize]="hidePageSize"
+                    [showFirstLastButtons]="showFirstLastButtons"
+                    [length]="length"
+                    class="mat-paginator-container">
+                    </mat-paginator>
                 </div>
             </div>
         </mat-card-content>

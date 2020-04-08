@@ -6,6 +6,7 @@
 }
 table {
   width: 100%;
+  min-width: 600px;
 }
 
 .mat-form-field {
@@ -13,16 +14,18 @@ table {
   width: 100%;
 }
 
-td, th {
-  width: 20%;
-}
 .btnIcon {
-  color:black;
+  color: black;
   margin-top: 7px;
 }
 
 .table-container {
-  width: 80%;
+  overflow: auto;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (max-width: 960px) {
@@ -36,6 +39,9 @@ td, th {
   }
 }
 @media screen  and (max-width: 594px) {
+  .offreRecherche{
+    width: 200px !important;
+  }
   .noneType {
     display: none;
   }
@@ -43,4 +49,14 @@ td, th {
     width: 95%;
   }
 
+}
+
+.mat-card-content {
+  margin: 3rem;
+}
+
+.mat-form-field {
+  width: 300px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

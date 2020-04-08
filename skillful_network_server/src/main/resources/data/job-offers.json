@@ -1,72 +1,123 @@
 [
-  {
-    "id": 6,
-    "name": "Développeur front-end pour un site vitrine",
-    "company": "Université Côte d\u0027Azur",
-    "description": "Développement et de maintenance d’interface web pour différents clients. Les sites web ont pour mission d’afficher simplement des information pour les clients.",
-    "type": "CDI",
-    "dateBeg": "May 31, 2020 10:01:34 AM",
-    "dateEnd": "May 31, 2020 10:01:34 AM",
-    "dateUpload": "May 31, 2020 10:01:34 AM",
-    "keywords": [
-      "HTML5",
-      "CSS"
-    ],
-    "jobApplicationSet": []
-  },
-  {
-    "id": 7,
-    "name": "Développeur back-end pour un forum d’une association.",
-    "company": "WebAppEnt",
-    "description": "Développement et maintenance du back-end web de forum mis à disposition à différentes associations. Il s’agit de gérer les comptes des utilisateurs ainsi que leurs interactions sur le forum",
-    "type": "CDI",
-    "dateBeg": "May 30, 2020 10:01:34 AM",
-    "dateEnd": "May 30, 2020 10:01:34 AM",
-    "dateUpload": "May 30, 2020 10:01:34 AM",
-    "keywords": [
-      "Java/J2EE",
-      "REST",
-      "SOAP",
-      "Spring"
-    ],
-    "jobApplicationSet": []
-  },
-  {
-    "id": 8,
-    "name": "Développeur fullstack pour une application web d’une entreprise.",
-    "company": "BestBank",
-    "description": "Développement et maintenance d’une application web pour une entreprise. Cette application web prendra en charge une partie des commandes faites à l’entreprise avec un système de paiement en ligne sécurisé.",
-    "type": "CDI",
-    "dateBeg": "May 25, 2020 10:01:34 AM",
-    "dateEnd": "May 25, 2020 10:01:34 AM",
-    "dateUpload": "May 25, 2020 10:01:34 AM",
-    "keywords": [
-      "Java/J2EE",
-      "REST",
-      "SOAP",
-      "Spring",
-      "HTTPS",
-      "TLS",
-      "Chiffrage des données",
-      "protocol TCP"
-    ],
-    "jobApplicationSet": []
-  },
-  {
-    "id": 4,
-    "name": "Développeur fullstack Angular/Spring",
-    "company": "Softeam",
-    "description": "Sur ce poste, vous serez mener à remplir une mission autant frontend que backend au sein de notre équipe de développement. Vous aurez aussi l\u0027opportunité de travailler pour nos clients ou de participer/d\u0027animer des formations.",
-    "type": "CDI",
-    "dateBeg": "Mar 19, 2020 3:24:33 PM",
-    "dateUpload": "Mar 19, 2020 3:24:33 PM",
-    "keywords": [
-      "Fullstack",
-      "Application Web",
-      "Angular",
-      "Java",
-      "Spring"
-    ],
-    "jobApplicationSet": []
-  }
+	{
+		"id": 6,
+		"name": "Développeur front-end pour un site vitrine",
+		"company": "Université Côte d\u0027Azur",
+		"description": "Développement et de maintenance d’interface web pour différents clients. Les sites web ont pour mission d’afficher simplement des information pour les clients.",
+		"type": "CDI",
+		"dateBeg": "May 31, 2020 10:01:34 AM",
+		"dateEnd": "May 31, 2020 10:01:34 AM",
+		"dateUpload": "May 31, 2020 10:01:34 AM",
+		"risk": "SIMPLE",
+		"complexity": "MODERATE",
+		"keywords": [
+			{
+				"id": 5
+			},
+			{
+				"id": 6
+			}
+		],
+		"jobApplicationSet": []
+	},
+	{
+		"id": 7,
+		"name": "Développeur back-end pour un forum d’une association.",
+		"company": "WebAppEnt",
+		"description": "Développement et maintenance du back-end web de forum mis à disposition à différentes associations. Il s’agit de gérer les comptes des utilisateurs ainsi que leurs interactions sur le forum",
+		"type": "CDI",
+		"dateBeg": "May 30, 2020 10:01:34 AM",
+		"dateEnd": "May 30, 2020 10:01:34 AM",
+		"dateUpload": "May 30, 2020 10:01:34 AM",
+		"risk": "MODERATE",
+		"complexity": "COMPLEX",
+		"keywords": [
+			{
+				"id": 8
+			},
+			{
+				"id": 9
+			},
+			{
+				"id": 10
+			},
+			{
+				"id": 5
+			}
+		],
+		"jobApplicationSet": []
+	},
+	{
+		"id": 8,
+		"name": "Développeur fullstack pour une application web d’une entreprise.",
+		"company": "BestBank",
+		"description": "Développement et maintenance d’une application web pour une entreprise. Cette application web prendra en charge une partie des commandes faites à l’entreprise avec un système de paiement en ligne sécurisé.",
+		"type": "CDI",
+		"dateBeg": "May 25, 2020 10:01:34 AM",
+		"dateEnd": "May 25, 2020 10:01:34 AM",
+		"dateUpload": "May 25, 2020 10:01:34 AM",
+		"risk": "SIMPLE",
+		"complexity": "MODERATE",
+		"keywords": [
+			{
+				"id": 5
+			},
+			{
+				"id": 7
+			},
+			{
+				"id": 8
+			},
+			{
+				"id": 9
+			},
+			{
+				"id": 10
+			},
+			{
+				"id": 11
+			},
+			{
+				"id": 12
+			},
+			{
+				"id": 13
+			},
+			{
+				"id": 14
+			}
+		],
+		"jobApplicationSet": [],
+		"jobOffers": [],
+		"trainings": []
+	},
+	{
+		"id": 4,
+		"name": "Développeur fullstack Angular/Spring",
+		"company": "Softeam",
+		"description": "Sur ce poste, vous serez mener à remplir une mission autant frontend que backend au sein de notre équipe de développement. Vous aurez aussi l\u0027opportunité de travailler pour nos clients ou de participer/d\u0027animer des formations.",
+		"type": "CDI",
+		"dateBeg": "Mar 19, 2020 3:24:33 PM",
+		"dateUpload": "Mar 19, 2020 3:24:33 PM",
+		"risk": "CRITICAL",
+		"complexity": "COMPLEX",
+		"keywords": [
+			{
+				"id": 5
+			},
+			{
+				"id": 2
+			},
+			{
+				"id": 1
+			},
+			{
+				"id": 4
+			},
+			{
+				"id": 3
+			}
+		],
+		"jobApplicationSet": []
+	}
 ]

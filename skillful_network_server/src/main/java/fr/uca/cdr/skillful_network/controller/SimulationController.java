@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.controller;
 
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
+import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
@@ -25,6 +26,9 @@ public class SimulationController {
 	@Autowired
 	private SimulationService simulationService;
 
+	@Autowired
+	private SimulationRepository simulationRepository;
+
 	// #########################################################################
 	// GET methods
 	// #########################################################################
@@ -40,8 +44,8 @@ public class SimulationController {
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Simulation> getSimulationById(@PathVariable(value = "id") Long id) {
-		Simulation simulation = this.simulationService.getSimulationById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + id));
+		Simulation simulation = this.simulationService.getSimulationById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + id));
 		return new ResponseEntity<Simulation>(simulation, HttpStatus.OK);
 	}
 
@@ -57,11 +61,12 @@ public class SimulationController {
 
 	// Provide all simulations by user ID
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	//@GetMapping(value = "/user/{userId}")
+	// @GetMapping(value = "/user/{userId}")
 	@GetMapping(value = "")
-	public ResponseEntity<List<Simulation> > getAllSimulationsByUserId(@RequestParam(name="userid") Long userId) {
+	public ResponseEntity<List<Simulation>> getAllSimulationsByUserId(@RequestParam(name = "userid") Long userId) {
 		List<Simulation> simulations = this.simulationService.getAllSimulationsByUserId(userId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucune simulation trouvée avec le user id : " + userId));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Aucune simulation trouvée avec le user id : " + userId));
 		return new ResponseEntity<>(simulations, HttpStatus.OK);
 	}
 
@@ -69,22 +74,25 @@ public class SimulationController {
 	// POST methods
 	// #########################################################################
 
-    // start a new simulation based on a provided job goal
+	// start a new simulation based on a provided job goal
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	//@PostMapping(value = "/user/{userId}")
+	// @PostMapping(value = "/user/{userId}")
 	@PostMapping(value = "")
-	public ResponseEntity<Simulation> startSimulation(@RequestParam(name="userid") Long userId, @RequestParam(name="goal") String jobGoal) {
+	public ResponseEntity<Simulation> startSimulation(@RequestParam(name = "userid") Long userId,
+			@RequestParam(name = "goal") String jobGoal) {
 		Simulation simulation = this.simulationService.startSimulation(userId, jobGoal)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Une erreur est survenue pendant l'éxécécution de la simulation."));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Une erreur est survenue pendant l'éxécécution de la simulation."));
 		return new ResponseEntity<>(simulation, HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/{id}/answer")
-	public float simulationResult(@PathVariable(value = "id") Long simulationId,@Valid @RequestBody SimulationForm simulationForm) {
-		float simulationGrade=0;
-        Set<ExerciseForm> exercises = simulationForm.getExerciseSet();
-        simulationGrade=simulationService.calculateSimulationGrade(exercises, simulationId);
-		return simulationGrade; 	
+	public ResponseEntity<Simulation> simulationResult(@PathVariable(value = "id") Long examId,
+			@Valid @RequestBody SimulationForm simulationForm) {
+		Simulation simulation = simulationService.evaluateSimulation(simulationForm.getExerciseSet(), examId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Une erreur est survenue pendant l'évaluation de la simulation."));
+		return new ResponseEntity<>(simulation, HttpStatus.OK);
 	}
 
 	// #########################################################################
