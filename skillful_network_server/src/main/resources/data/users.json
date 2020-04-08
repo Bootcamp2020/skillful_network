@@ -3,11 +3,13 @@
     "id": 1,
     "firstName": "John",
     "lastName": "John",
+    "password": "12345678",
     "birthDate": "Aug 23, 1970 2:31:08 AM",
-    "email": "John@uca.fr",
+    "email": "john@uca.fr",
+     "careerGoal": "je cherche une poste fullStack java-Script, angular ,spring",
     "mobileNumber": "0678912345",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
     "skillSet": [
       {
@@ -29,7 +31,7 @@
       },
       {
         "id": 6,
-        "name": "Ing�nieur",
+        "name": "Ingénieur",
         "userSet": []
       }
     ],
@@ -45,20 +47,62 @@
         "userList": []
       }
     ],
-    "jobApplicationSet": [],
+    "jobApplicationSet": [
+
+      {
+        "status": "ACCEPTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 1
+        }
+      },
+      {
+        "status": "REJECTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 2
+        }
+      },
+      {
+        "status": "WAITING",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 3
+        }
+      }
+    ],
+
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 2,
     "firstName": "Julie",
     "lastName": "Julie",
+    "password": "12345678",
     "birthDate": "May 31, 1979 10:01:34 AM",
-    "email": "Julie@uca.fr",
+    "email": "julie@uca.fr",
     "mobileNumber": "0678912345",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+    "careerGoal":"je cherche une poste fullStack java-Script, angular ,spring",
     "skillSet": [
       {
         "id": 3,
@@ -84,7 +128,7 @@
       },
       {
         "id": 6,
-        "name": "Ing�nieur",
+        "name": "Ingénieur",
         "userSet": []
       }
     ],
@@ -100,20 +144,31 @@
         "userList": []
       }
     ],
-    "jobApplicationSet": [],
+    "jobApplicationSet": [
+	
+],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 3,
     "firstName": "Jennifer",
     "lastName": "Jennifer",
+    "password": "12345678",
     "birthDate": "Jun 27, 1985 2:29:23 PM",
-    "email": "Jennifer@uca.fr",
+    "email": "jennifer@uca.fr",
     "mobileNumber": "0678912345",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+     "careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [
       {
         "id": 4,
@@ -167,18 +222,27 @@
     ],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 4,
     "firstName": "Helen",
     "lastName": "Helen",
+    "password": "12345678",
     "birthDate": "Feb 4, 1980 2:54:29 PM",
-    "email": "Helen@uca.fr",
+    "email": "helen@uca.fr",
     "mobileNumber": "0678912345",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [
       {
         "id": 2,
@@ -217,18 +281,27 @@
     ],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 5,
     "firstName": "Rachel",
     "lastName": "Rachel",
+    "password": "12345678",
     "birthDate": "Jun 14, 1982 7:13:15 AM",
-    "email": "Rachel@uca.fr",
+    "email": "rachel@uca.fr",
     "mobileNumber": "0678912345",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java",
     "skillSet": [
       {
         "id": 2,
@@ -262,278 +335,429 @@
     ],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 6,
     "firstName": "Zinedine",
     "lastName": "Zidane",
+    "password": "12345678",
     "birthDate": "Jun 23, 1972 7:13:15 AM",
     "email": "zizou@uca.fr",
     "mobileNumber": "0678918145",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 7,
     "firstName": "Enzo",
     "lastName": "Zidane",
+    "password": "12345678",
     "birthDate": "Mar 24, 1995 7:13:15 AM",
     "email": "zozo@uca.fr",
     "mobileNumber": "0672818145",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 8,
     "firstName": "Enzo",
     "lastName": "Ferrari",
+    "password": "12345678",
     "birthDate": "Mar 24, 1898 7:13:15 AM",
     "email": "enzo@uca.fr",
     "mobileNumber": "0672818151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 9,
     "firstName": "Enzo",
     "lastName": "Paritosi",
-    "birthDate": "Mar 24, 1998 7:13:15 AM",
+    "birthDate": "Mar 24, 1998, 7:13:15 AM",
     "email": "epari@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672818151",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 10,
     "firstName": "Nicolas",
     "lastName": "De Sousa",
-    "birthDate": "Mar 24, 2000 7:13:15 AM",
+    "birthDate": "Mar 24, 2000, 7:13:15 AM",
     "email": "nds@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672818158",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 11,
     "firstName": "Nic",
     "lastName": "Casi",
-    "birthDate": "Mar 24, 1988 7:13:15 AM",
+    "birthDate": "Mar 24, 1988, 7:13:15 AM",
     "email": "nico@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672818154",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 12,
     "firstName": "Franck",
     "lastName": "Aritomasi",
-    "birthDate": "Mar 24, 2001 7:13:15 AM",
+    "birthDate": "Mar 24, 2001, 7:13:15 AM",
     "email": "franck@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0692818151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 13,
     "firstName": "Farid",
     "lastName": "Bertrand",
-    "birthDate": "Mar 24, 1999 7:13:15 AM",
+    "birthDate": "Mar 24, 1999, 7:13:15 AM",
     "email": "farid@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672818151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 14,
     "firstName": "Younes",
     "lastName": "Marte",
-    "birthDate": "Mar 24, 1898 7:13:15 AM",
+    "birthDate": "Mar 24, 1898, 7:13:15 AM",
     "email": "youyou@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672718151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 15,
     "firstName": "Sisi",
     "lastName": "Babcock",
-    "birthDate": "Mar 24, 2002 7:13:15 AM",
+    "birthDate": "Mar 24, 2002, 7:13:15 AM",
     "email": "sisi@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0772818151",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 16,
     "firstName": "Liam",
     "lastName": "Nielson",
-    "birthDate": "Mar 24, 1976 7:13:15 AM",
+    "birthDate": "Mar 24, 1976, 7:13:15 AM",
     "email": "liam@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672818121",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 17,
     "firstName": "Liam",
     "lastName": "Bielsa",
-    "birthDate": "Mar 24, 1988 7:13:15 AM",
+    "birthDate": "Mar 24, 1988, 7:13:15 AM",
     "email": "bielsa@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672868151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 18,
     "firstName": "Julie",
     "lastName": "Loren",
-    "birthDate": "Mar 24, 1988 7:13:15 AM",
+    "birthDate": "Mar 24, 1988, 7:13:15 AM",
     "email": "loren@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672568151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 19,
-    "firstName": "B�n�dicte",
+    "firstName": "Bénédicte",
     "lastName": "Lorens",
     "birthDate": "Mar 24, 1988 7:13:15 AM",
-    "email": "b�n�@uca.fr",
+    "email": "bene@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0677868151",
     "status": "1",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 20,
     "firstName": "Ben",
     "lastName": "Bore",
-    "birthDate": "Mar 24, 1988 7:13:15 AM",
+    "birthDate": "Mar 24, 1988, 7:13:15 AM",
     "email": "bore@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0672877151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+    "trainingSet": [],
+    "simulationSet": []
   },
   {
     "id": 21,
     "firstName": "Lio",
     "lastName": "Bielsa",
-    "birthDate": "Mar 24, 1988 7:13:15 AM",
+    "birthDate": "Mar 24, 1988, 7:13:15 AM",
     "email": "lbielsa@uca.fr",
+    "password": "12345678",
     "mobileNumber": "0679868151",
     "status": "2",
-    "validated": false,
+    "validated": true,
     "photo": false,
+     "careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
     "jobApplicationSet": [],
     "trainingApplicationSet": [],
-    "roles": []
+    "roles": [
+		      	{
+		      		"id": 1,
+		      		"name": "ROLE_USER"
+		      	}
+			],
+   	"trainingSet": [],
+    "simulationSet": []
   }
 ]

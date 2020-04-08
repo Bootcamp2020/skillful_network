@@ -22,8 +22,8 @@
             </mat-form-field>
 
             <mat-form-field class="tabelement">
-              <mat-label>Date de Naissance</mat-label>
-              <input [matDatepicker]="myDatepicker" formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
+              <mat-label>Date de naissance</mat-label>
+              <input (click)="myDatepicker.open()" [matDatepicker]="myDatepicker" formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
               <mat-datepicker #myDatepicker></mat-datepicker>
               <mat-icon matSuffix>calendar_today</mat-icon>
               <!--<input formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">

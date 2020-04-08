@@ -16,10 +16,11 @@ h1{
     color:black;
   }
 
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
+.mat-form-field {
+  font-size: 14px;
+  padding: 10px;
+  width: 400px;
+}
   
   td, th {
     width: 20%;
@@ -33,12 +34,6 @@ h1{
     width: 80%;
   }
 
-  .formulaire {
-    border-radius: 20px;
-    background: white;
-    padding: 5px;
-  }
-
 .cursor {
     cursor: pointer;
   }
@@ -46,3 +41,17 @@ h1{
 .boutonSearch{
     display: none;
   }
+  .progressBarDiv {
+    margin-top: 12%;
+  }
+  .is-loading{
+    margin:0 auto;
+  }
+@media screen and (max-width: 640px) {
+
+  .mat-form-field {
+    font-size: 10px;
+    padding: 10px;
+    width: 300px;
+  }
+}

@@ -17,53 +17,53 @@ import {LoginComponent} from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './shared/modules/material/material.module';
-import { MatFormFieldModule} from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
-import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
-import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
-import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
-import { FooterComponent } from './home/dashboard/footer/footer.component';
-import { ChatComponent } from './home/dashboard/chat/chat.component';
-import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
-import { HeaderComponent } from './home/dashboard/header/header.component';
-import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
-import { ProfileComponent } from './home/dashboard/profile/profile.component';
-import { MenuprofileComponent } from './menuprofile/menuprofile.component';
-import { BottomSheetOverviewExample } from './bottom-sheet-overview-example/bottom-sheet-overview-example';
-import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
-import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
-import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
-import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
-import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
-import { UserService } from './shared/services/user.service';
-import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
+import {PasswordConfirmationComponent} from './password-confirmation/password-confirmation.component';
+import {PasswordForgottenComponent} from './password-forgotten/password-forgotten.component';
+import {SimulationComponent} from './home/dashboard/simulation/simulation.component';
+import {FooterComponent} from './home/dashboard/footer/footer.component';
+import {ChatComponent} from './home/dashboard/chat/chat.component';
+import {FilActualitesComponent} from './home/dashboard/fil-actualites/fil-actualites.component';
+import {HeaderComponent} from './home/dashboard/header/header.component';
+import {CandidatureComponent} from './home/dashboard/candidature/candidature.component';
+import {ProfileComponent} from './home/dashboard/profile/profile.component';
+import {MenuprofileComponent} from './menuprofile/menuprofile.component';
+import {BottomSheetOverviewExample} from './bottom-sheet-overview-example/bottom-sheet-overview-example';
+import {ProfileConfComponent} from './home/profile-conf/profile-conf.component';
+import {UserConfComponent} from './home/profile-conf/user-conf/user-conf.component';
+import {SkillConfComponent} from './home/profile-conf/skill-conf/skill-conf.component';
+import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.component';
+import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
+import {UserService} from './shared/services/user.service';
+import {UserlistComponent} from './home/profile-conf/userlist/userlist.component';
 
-import { DetailsUserComponent } from './home/user/details-user/details-user.component';
-import { SubscriptComponent } from './home/user/subscript/subscript.component';
-import { QualificationsComponent } from './home/user/qualifications/qualifications.component';
-import { CandidaturesComponent } from './home/user/candidatures/candidatures.component';
-import { SkillsComponent } from './home/user/skills/skills.component';
-import { FormationsAssocieesComponent } from './home/offre/formations-associees/formations-associees.component';
-import { ExigencesComponent } from './home/offre/exigences/exigences.component';
-import { CandidaterComponent } from './home/offre/candidater/candidater.component';
+import {DetailsUserComponent} from './home/user/details-user/details-user.component';
+import {SubscriptComponent} from './home/user/subscript/subscript.component';
+import {QualificationsComponent} from './home/user/qualifications/qualifications.component';
+import {CandidaturesComponent} from './home/user/candidatures/candidatures.component';
+import {SkillsComponent} from './home/user/skills/skills.component';
+import {FormationsAssocieesComponent} from './home/offre/formations-associees/formations-associees.component';
+import {ExigencesComponent} from './home/offre/exigences/exigences.component';
+import {CandidaterComponent} from './home/offre/candidater/candidater.component';
 import {InformationsComponent} from './home/offre/informations/informations.component';
 import {OffreComponent} from './home/offre/offre.component';
-import { FormationListComponent } from './home/formation-list/formation-list.component';
-import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
+import {FormationListComponent} from './home/formation-list/formation-list.component';
+import {JobOfferListComponent} from './home/job-offer-list/job-offer-list.component';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
-import { SimulationStartComponent } from './home/simulation-start/simulation-start.component';
-import { QuestionnaireComponent } from './home/questionnaire/questionnaire.component';
+import {SimulationStartComponent} from './home/simulation-start/simulation-start.component';
+import {QuestionnaireComponent} from './home/questionnaire/questionnaire.component';
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
 import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
 import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
-
-
 
 
 
@@ -111,8 +111,6 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         SimulationSynthesisComponent,
         SimSynQuestionListComponent,
         SimSynInfoComponent,
-        
-        
         ],
 
     imports: [
@@ -124,6 +122,7 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
+        MatNativeDateModule
         MatFormFieldModule,
     ],
 
@@ -138,14 +137,15 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
             useClass: TokenHttpInterceptorService,
             multi: true
         },
-        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() }, {
+        {provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl()}, {
             provide: MAT_RADIO_DEFAULT_OPTIONS,
-            useValue: { color: 'primary' },
+            useValue: {color: 'primary'},
         },
-        UserService
+        UserService,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     bootstrap: [AppComponent]
-    
 })
 export class AppModule {
 }

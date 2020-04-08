@@ -1,9 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Post} from './offre';
+import {JobDetails, Trainings} from './offre';
 import {MOCK_OFFRE} from './offre.mock';
 import { CandidatureService } from '../../shared/services/candidature.service';
-import { IPost, MOCK_CANDIDATURE } from '../../shared/models/mock.candidature';
+import { IPost } from '../../shared/models/mock.candidature';
+import {JobDetailsService} from '../../shared/services/job-details.service';
+import {ApiHelperService} from '../../shared/services/api-helper.service';
 
 @Component({
   selector: 'app-offre',
@@ -13,15 +15,38 @@ import { IPost, MOCK_CANDIDATURE } from '../../shared/models/mock.candidature';
 export class OffreComponent implements OnInit {
   @Input() public status: string;
   @Input() public titreOffre: string;
-  public jobOfferId : number;
-  public post: Post;
-  public listCandidature: IPost[] = MOCK_CANDIDATURE;
-  constructor(private route: ActivatedRoute, public cs: CandidatureService) { }
+  public jobOfferId: number;
+  public choixListe: string;
+
+
+  public trainings: Trainings;
+  public jobDetails: JobDetails;
+  listCandidature: IPost[];
+
+  constructor(private api: ApiHelperService, public cs: CandidatureService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params.id;
-    this.jobOfferId = Number(id);
-    this.post = new Post(MOCK_OFFRE);
+      this.choixListe = this.route.snapshot.data.type;
+      const {id} = this.route.snapshot.params;
+      if (this.choixListe == 'emploi') {
+
+          this.api.get({endpoint: `/offers/${id}`})
+              .then(data => {
+                  this.jobDetails = data;
+                  console.log(this.jobDetails);
+              })
+              .catch((error) => {
+                  console.log('cette offre n\'existe pas');
+              });
+      } else {
+          this.api.get({endpoint: `/trainings/${id}`})
+              .then(data => {
+                  this.jobDetails = data;
+              })
+              .catch((error) => {
+                  console.log('cette offre n\'existe pas');
+              });
+      }
   }
 
 }
