@@ -42,7 +42,7 @@ public class JobOffer {
 	private Risk risk;
 
 	public enum Complexity {
-		SIMPLE, MODERE, CRITIQUE;
+		SIMPLE, MODERATE, COMPLEX;
 	}
 
 	@Enumerated(EnumType.ORDINAL)
