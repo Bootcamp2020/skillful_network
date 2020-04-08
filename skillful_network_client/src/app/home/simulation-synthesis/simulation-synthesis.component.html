@@ -1,15 +1,11 @@
 <div  class="divSimulation">
-    <h1>Synthèse de simulation</h1>
+    <h1>Synthèse de simulation {{simulation.jobGoal}}</h1>
+    <mat-divider></mat-divider>
     <div class="zoneSimulation">
-        <h1 class="ligne">Développeur Fullstack</h1>
-        
-    
         <div>
             <div class="parent">
-                <div class="zone1"><app-sim-syn-info></app-sim-syn-info></div>
-                <div class="zone2"><app-sim-syn-question-list></app-sim-syn-question-list></div>
-                <div class="zone3"><app-sim-syn-job-offer-list></app-sim-syn-job-offer-list></div>
-                <div class="zone4"><app-sim-syn-training-list></app-sim-syn-training-list></div>
+                <div class="zone zone1"><app-sim-syn-info [simulation]="simulation"></app-sim-syn-info></div>
+                <div class="zone zone2"><app-sim-syn-question-list [simulation]="simulation"></app-sim-syn-question-list></div>
             </div>
         </div>
     </div>

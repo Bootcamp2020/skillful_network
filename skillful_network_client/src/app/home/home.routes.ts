@@ -20,5 +20,5 @@ export const HOME_ROUTES = [
   {path: 'job-offer-list', component: JobOfferListComponent},
   {path: 'simulation-start', component: SimulationStartComponent},
   {path: 'questionnaire', component: QuestionnaireComponent},
-  {path: 'simulation-synthesis', component: SimulationSynthesisComponent},
+  {path: 'simulation/:simId', component: SimulationSynthesisComponent},
 ];

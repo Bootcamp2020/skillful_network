@@ -1,44 +1,13 @@
-mat-card{
-    min-height: 300px;
-    max-width: 500px;
-    justify-content: stretch;
-  }
-
-  .material-icons {
-    color: green;
-    vertical-align: middle;
-    font-size: 12px;
-    width: 12px;
-    height: 12px;
-  }
-
-  .feedback {
-    font-size: smaller;
-    font-style: italic;
-    font-stretch: condensed;
-    color: grey;
-  }
-
-.answer {
-  color:green;
-}
-
-.question {
-  font-size: larger;
-  color:black;
-}
-
-::ng-deep .mat-line {
-  word-wrap: break-word !important;
-  white-space: pre-wrap !important;
-}
-
-::ng-deep  .mat-list .mat-list-item{
-  height:initial!important;
+mat-card {
+  min-height: 400px;
 }
 
 
-
-
-
+mat-accordion {
+  margin: 1px;
+}
   
+mat-expansion-panel {
+  margin-left: 1px;
+  margin-right: 1px;
+}

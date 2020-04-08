@@ -4,20 +4,13 @@
             <mat-card-title  id="title_police">Informations</mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content>
-            <div>
+        <mat-card-content *ngIf = "simulation">
+            <div class="simInfo">
                 <ul>
-                <li>Thématiques:</li>
-                <br>
-                <li><mat-chip-list class="chipList" aria-label="Theme selection">
-                        <mat-chip color="primary" selected>Angular</mat-chip>
-                        <mat-chip color="accent" selected>Spring</mat-chip>
-                      </mat-chip-list></li>
-                <br>
-                <li>Nombre d'exercices: 2</li>
-                <li>Durée: 15 minutes</li>
-                <li>Date de réalisation: 14/05/2020</li>
-                <li>Score: 0.8</li>
+                <li>Date de réalisation: {{simulation.creationDate | date: "dd/MM/yyyy"}}  </li>
+                <li>Synthèse: {{simulation.synthesis}} </li>
+                <li>Offre d'emploi associée: {{simulation.jobGoal}} </li>
+                <li>Proposition de formation: {{simulation.jobGoal}} </li>
                 </ul>
             </div>
         </mat-card-content>
