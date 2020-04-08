@@ -32,7 +32,7 @@ public class JwtProvider {
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
-		String cmd = "python" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python3" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
 		System.out.println(cmd);
 
 		try {
@@ -54,7 +54,7 @@ public class JwtProvider {
 		String line = "";
 		String scriptResponse="";
 		String choice = "decrypt"; // encrypt ou decrypt
-		String cmd = "python" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python3" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
 		System.out.println("jwt récupéré dans decrypt : "+frontToken);
 		
 		try {
