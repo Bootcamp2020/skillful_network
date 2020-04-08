@@ -22,7 +22,7 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 public class JwtProvider {
 	
 	
-	private final String url = Paths.get("src/main/resources/data/script/scriptToken.py").toAbsolutePath().toString();
+	private final String url = Paths.get("src\\\\main\\\\resources\\\\data\\\\script\\\\scriptToken.py").toAbsolutePath().toString();
 	
 	public String generateJwtToken(Authentication authentication) {
 		
