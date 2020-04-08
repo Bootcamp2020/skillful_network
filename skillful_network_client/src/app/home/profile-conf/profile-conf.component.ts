@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../shared/services/token-storage.service';
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -17,13 +18,14 @@ export class ProfileConfComponent {
   parentGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService, public tokenstorage: TokenStorageService) { }
 
   ngOnInit() {
-    this.userLSubscription = this.userService.userLoggedSubject.subscribe(
-      (userTemp: User) => {
-        this.userLogged = userTemp;
-      });
+    // this.userLSubscription = this.userService.userLoggedSubject.subscribe(
+    //   (userTemp: User) => {
+    //     this.userLogged = userTemp;
+    //   });
+    this.userLogged = this.tokenstorage.getCurrentUser();
     this.userService.emitUsers();
     this.createForm();
   }

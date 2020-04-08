@@ -99,7 +99,8 @@ export class LoginComponent implements OnInit {
 
     // Commenté en attendant la liaison avec le back
     this.authService.register( {email: this.inscriptionFormGroup.value.emailInscription, role: this.role})
-      .then(() => {
+      .then((response) => {
+        console.log("ok", response);
       // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
       this.router.navigate(['/login']);
       console.log(this.inscriptionFormGroup.value.emailInscription +  ' existe déjà ! ');
