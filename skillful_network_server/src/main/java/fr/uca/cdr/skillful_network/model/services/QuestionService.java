@@ -8,6 +8,6 @@ public interface QuestionService {
 
     List<Question> getAllQuestions();
     Optional<Question> getQuestionById(Long id);
-    Question saveOrUpdateJobApplication(Question question);
+    Question saveOrUpdateQuestion(Question question);
 
 }

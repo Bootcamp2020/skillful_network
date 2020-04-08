@@ -11,6 +11,6 @@ public interface QuestionSetService {
 	float calculateGrade(ExerciseForm exerciseForm);
 	List<QuestionSet> getAllQuestionSets();
     Optional<QuestionSet> getQuestionSetById(Long id);
-    QuestionSet saveOrUpdateJobApplication(QuestionSet questionSet);
+    QuestionSet saveOrUpdateQuestionSet(QuestionSet questionSet);
 			
 }

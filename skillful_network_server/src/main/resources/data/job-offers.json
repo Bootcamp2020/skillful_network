@@ -9,7 +9,7 @@
 		"dateEnd": "May 31, 2020 10:01:34 AM",
 		"dateUpload": "May 31, 2020 10:01:34 AM",
 		"risk": "SIMPLE",
-		"complexity": "MODEREE",
+		"complexity": "MODERATE",
 		"keywords": [
 			{
 				"id": 5
@@ -29,8 +29,8 @@
 		"dateBeg": "May 30, 2020 10:01:34 AM",
 		"dateEnd": "May 30, 2020 10:01:34 AM",
 		"dateUpload": "May 30, 2020 10:01:34 AM",
-		"risk": "MODERE",
-		"complexity": "COMPLEXE",
+		"risk": "MODERATE",
+		"complexity": "COMPLEX",
 		"keywords": [
 			{
 				"id": 8
@@ -57,7 +57,7 @@
 		"dateEnd": "May 25, 2020 10:01:34 AM",
 		"dateUpload": "May 25, 2020 10:01:34 AM",
 		"risk": "SIMPLE",
-		"complexity": "SIMPLE",
+		"complexity": "MODERATE",
 		"keywords": [
 			{
 				"id": 5
@@ -99,8 +99,8 @@
 		"type": "CDI",
 		"dateBeg": "Mar 19, 2020 3:24:33 PM",
 		"dateUpload": "Mar 19, 2020 3:24:33 PM",
-		"risk": "CRITIQUE",
-		"complexity": "COMPLEXE",
+		"risk": "CRITICAL",
+		"complexity": "COMPLEX",
 		"keywords": [
 			{
 				"id": 5

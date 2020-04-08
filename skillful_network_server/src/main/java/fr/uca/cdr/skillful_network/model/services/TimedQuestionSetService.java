@@ -8,6 +8,6 @@ public interface TimedQuestionSetService {
 
     List<TimedQuestionSet> getAllTimedQuestionSets();
     Optional<TimedQuestionSet> getTimedQuestionSetById(Long id);
-    TimedQuestionSet saveOrUpdateJobApplication(TimedQuestionSet timedQuestionSet);
+    TimedQuestionSet saveOrUpdateTimedQuestionSet(TimedQuestionSet timedQuestionSet);
 
 }

@@ -3,9 +3,21 @@ package fr.uca.cdr.skillful_network.request;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ExerciseForm {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
+public class ExerciseForm {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<AnswerForm> answerSet = new HashSet<AnswerForm>();
 
 	public long getId() {
@@ -27,6 +39,17 @@ public class ExerciseForm {
 	public ExerciseForm() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public ExerciseForm(Set<AnswerForm> answerSet) {
+		super();
+		this.answerSet = answerSet;
+	}
+
+	public ExerciseForm(long id, Set<AnswerForm> answerSet) {
+		super();
+		this.id = id;
+		this.answerSet = answerSet;
 	}
 
 	@Override
