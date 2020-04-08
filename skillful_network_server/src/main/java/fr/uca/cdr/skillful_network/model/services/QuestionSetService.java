@@ -8,9 +8,9 @@ import fr.uca.cdr.skillful_network.request.ExerciseForm;
 
 public interface QuestionSetService {
 	
-	float calculateGrade(ExerciseForm exerciseForm);
+	float calculateGrade(ExerciseForm exerciseForm, float weightByExercice);
 	List<QuestionSet> getAllQuestionSets();
     Optional<QuestionSet> getQuestionSetById(Long id);
-    QuestionSet saveOrUpdateJobApplication(QuestionSet questionSet);
+    QuestionSet saveOrUpdateQuestionSet(QuestionSet questionSet);
 			
 }
