@@ -24,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question saveOrUpdateJobApplication(Question question) {
+    public Question saveOrUpdateQuestion(Question question) {
         return questionRepository.save(question);
     }
 
