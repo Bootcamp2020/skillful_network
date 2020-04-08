@@ -6,10 +6,10 @@
         <hr>
         <mat-card-content>
             <div class="formSearch">
-                <form  #f="ngForm">
+                <form #f="ngForm" (ngsubmit)="searchByNameOrCompany(f)" >
                     <mat-form-field appearance="legacy">
                         <mat-label>Recherche</mat-label>
-                        <input matInput  name="keyword" ngModel placeholder="Entrer un nom de poste ou d'entreprise">
+                        <input matInput (keydown)="searchByNameOrCompany(f)" name="keyword" ngModel placeholder="Entrer un nom de poste ou d'entreprise">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                 </form>

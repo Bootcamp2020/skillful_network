@@ -19,10 +19,7 @@ import { NgForm } from '@angular/forms';
 })
 export class JobOfferListComponent implements OnInit {
 
-  jobOfferId: number;
   dataSource;
-
-  //initial page size
   displayedColumns: string[] = ['name', 'company', 'type', 'dateBeg', 'dateUpload', 'statut', 'plus_info'];
   pageEvent: PageEvent;
   pageSize: number = 10;
@@ -31,11 +28,12 @@ export class JobOfferListComponent implements OnInit {
   length: number;
   hidePageSize: boolean = false;
   showFirstLastButtons: boolean = false;
-  total: number;
   order: string;
   field: string;
-  event: PageEvent;
-  //Pagination variables’
+  form: NgForm;
+  init: boolean = true;
+  keyEvent: boolean = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -43,24 +41,48 @@ export class JobOfferListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.checkOrder(this.order), this.checkField(this.field));
+    if (this.init) {
+      this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.order, this.field);
+    }
+    else {
+      this.searchByNameOrCompany(this.form);
+    }
   }
 
   @HostListener('matSortChange', ['$event']) change(event) {
-    this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.checkOrder(event.direction), this.checkField(event.active));
+    this.order = event.direction;
+    this.field = event.active;
+    if (this.init) {
+      this.getJobOffers(this.paginator, this.pageSize, this.pageIndex, this.order, this.field);
+    }
+    else {
+      this.searchByNameOrCompany(this.form);
+    }
+  }
+
+  @HostListener('document:keydown', ['$event']) handleKeyboardEvent(event: KeyboardEvent) {
+    this.keyEvent = true;
   }
 
   getJobOffers(event: PageEvent, page: number, size: number, order: string, field: string) {
-    if (event != null) {
-      page = event.pageSize;
-      size = event.pageIndex + 1;
-    }
-    this.offerService.findAll(size, page, order, field).then(res => {
+    this.offerService.findAll(size, page, this.checkOrder(order), this.checkField(field)).then(res => {
       this.length = res.totalElements;
       this.dataSource = new MatTableDataSource<JobOffer>(res.content);
+      this.init = false;
     });
   }
 
+  searchByNameOrCompany(form: NgForm) {
+    if (event != null) {
+      this.pageSize = this.paginator.pageSize;
+      this.pageIndex = this.paginator.pageIndex + 1;
+    }
+    this.offerService.getOffersBySearch(this.search(form), this.pageIndex, this.pageSize, this.checkOrder(this.order), this.checkField(this.field)).then(res => {
+      this.dataSource = new MatTableDataSource<JobOffer>(res.content);
+      this.init = false;
+    });
+  }
+  
   checkField(field: string) {
     if (field == null) {
       return field = "dateBeg";
@@ -76,14 +98,15 @@ export class JobOfferListComponent implements OnInit {
     }
     return order;
   }
+  search(form: NgForm) {
+    if (this.keyEvent == false) {
+      return "";
+    } else {
+      return form.value.keyword;
+    }
+  }
+
+
+
+
 }
-
-
-/*
-searchByNameOrCompany(form: NgForm) {
-  this.offerService.getOffersBySearch(form.value.keyword, form.value.page, form.value.size).then(res => {
-    this.dataSource = new MatTableDataSource<JobOffer>(res.content);
-    this.dataSource.sort = this.sort;
-  });
-}*/
-
