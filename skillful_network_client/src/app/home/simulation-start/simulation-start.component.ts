@@ -18,12 +18,12 @@ export class SimulationStartComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(param => {
-      console.log("param.goal: " + param.goal);
+      console.log(">> param.goal: " + param.goal);
       if ( param.goal != null) {
         this.goal = param.goal
       }
     }) ;
     //this.goal = this.route.snapshot.data.type;
-    console.log("goal: " + this.goal);
+    console.log(">> goal: " + this.goal);
   }
 }
