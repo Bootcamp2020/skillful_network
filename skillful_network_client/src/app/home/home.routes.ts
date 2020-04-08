@@ -7,7 +7,6 @@ import { FormationListComponent } from './formation-list/formation-list.componen
 import {JobOfferListComponent} from './job-offer-list/job-offer-list.component';
 import {SimulationStartComponent} from './simulation-start/simulation-start.component';
 import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
-import {SimulationContainerComponent} from './simulation-container/simulation-container.component';
 
 export const HOME_ROUTES = [
   {path: '', component: DashboardComponent},
@@ -20,5 +19,5 @@ export const HOME_ROUTES = [
   {path: 'job-offer-list', component: JobOfferListComponent},
   {path: 'simulation-start', component: SimulationStartComponent},
   {path: 'questionnaire', component: QuestionnaireComponent},
-  {path: 'simulation/:simId', component: SimulationContainerComponent},
+  {path: 'simulation/:simId', component: DashboardComponent},
 ];

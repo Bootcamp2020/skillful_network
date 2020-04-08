@@ -42,24 +42,23 @@ export class SimulationComponent implements OnInit {
     // Get connected user from userService if not provided
     if (userId == null) {
       console.log(">> user ID not provided.. trying to find active logged user...");
-        if (
-          this.userService.userLogged == null ||
-          this.userService.userLogged == undefined
-        ) { // exit if no user available
-          console.log(">> ERR: Active user not found.");
-          return; 
-        } else {
-          userId = this.userService.userLogged.id;
-          this.careerGoal = this.userService.userLogged.careerGoal;
-          console.log(">> Active user found ! userId: " + userId + ", user.careerGoal: " + this.careerGoal);
-        }
+      if ( this.userService.userLogged == null 
+        || this.userService.userLogged == undefined ) {
+        // exit if no user available
+        console.log(">> ERR: Active user not found.");
+        return;
+      } else {
+        userId = this.userService.userLogged.id;
+        this.careerGoal = this.userService.userLogged.careerGoal;
+        console.log(">> Active user found !");
+      }
     }
     if (userId == null) { return; } // exit if no user available
     userId = userId == null ? 2 : userId;
     console.log(">> userId: " + userId);
 
     // GET careerGoal if needed
-    if (this.careerGoal == null ) {
+    if (this.careerGoal == null) {
       await this.api.get({ endpoint: `/usersbyId/${userId}` }).then((user) => {
         console.log(">> REST : Get user.careerGoal.");
         this.careerGoal = user.careerGoal;
@@ -84,7 +83,17 @@ export class SimulationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != null) {
-        console.log("goal: " + result);
+        console.log(">> goal: " + result);
+        
+        // update active user if provided goal from modal dialog differs from careerGoal
+        if (result != this.careerGoal) {
+          this.userService.userLogged.careerGoal = result;
+          // Boom !
+          this.userService.updateUser(this.userService.userLogged);
+          console.log(">> active user updates with new careerGoal: " + this.userService.userLogged.careerGoal);
+        }
+
+        // navigate to simulation-start component to effectively launch the submitted goal
         this.router.navigate(["/home/simulation-start"], {
           queryParams: { goal: result },
         });
