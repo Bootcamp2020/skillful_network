@@ -20,7 +20,7 @@ public class Skill {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "skillSet")
+	@ManyToMany(mappedBy = "skillSet")
 	@JsonIgnore
 	private Set<User> userList = new HashSet<User>();
 	
