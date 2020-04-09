@@ -53,7 +53,8 @@ public class Simulation {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "simulationForm_id")
     private SimulationForm simulationForm;
     
     public Simulation() {
