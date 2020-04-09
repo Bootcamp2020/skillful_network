@@ -22,6 +22,12 @@ export class TokenStorageService {
     sessionStorage.clear();
   }
 
+  public saveTokenSession(token: string) {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.setItem(TOKEN_KEY, token);
+    console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
+  }
+
   public saveTokenAndCurrentUsername(token: string, username: string , authorities: string[], storage: string) {
     // On enlève toutes les infos dans les storage
     localStorage.removeItem(TOKEN_KEY);

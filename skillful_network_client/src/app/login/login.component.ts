@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   role: string[];
   isLoggedIn = 'false';
   isLoginFailed = false;
+  public rememberMe: FormControl = new FormControl(false);
+  isChecked: boolean;
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -54,22 +56,23 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('username : ' + data.username);
-            if (data.username === null) {
+            console.log('user id : ' + data.user.id);
+            if (data.user.id === -1) {
                 this.error = true;
+            } else if (this.isChecked) {
+              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
-              //  this.userService.actualUser = new User({id});//lien a modifie
-              this.isLoggedIn = 'true';
-              localStorage.setItem('isLoggedIn', this.isLoggedIn);
-              this.router.navigate(['/home']);
-            }
-        })
+              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities,''  );
+            }   
+            this.isLoggedIn = 'true';
+            localStorage.setItem('isLoggedIn', this.isLoggedIn);
+            this.router.navigate(['/home']);
+          })
         .catch((error) => {
           // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
           this.isLoginFailed = true;
         });
-  }
+    }
 
   register() {
     // Permet de vider le local storage
@@ -142,5 +145,10 @@ export class LoginComponent implements OnInit {
     this.codeForm = this.formBuilder.group({
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+  onChange(event) {
+    this.isChecked=event;
+    // can't event.preventDefault();
+    console.log('onChange event.checked '+event.checked);
   }
 }
