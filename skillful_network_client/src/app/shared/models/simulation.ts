@@ -15,22 +15,14 @@ export class Simulation {
     private _trainingsSuggested: Training;
 
     constructor(data: any) {
-        if (data == null) {
-            this._id = -1;
-            // this._userId = 0;
-            // this._jobGoal ="";
-            // this._creationDate = new Date;
-            // this._synthesis = "";
-        } else {
-            this._id = data.id;
-            this._userId = data.user.id;
-            this._jobGoal = data.jobGoal;
-            this._creationDate = data.creationDate;
-            this._synthesis = data.synthesis;
-            this._jobOffersSuggested = data.jobOffersSuggested;
-            this._jobAccess = data.jobAccess;
-            this._trainingsSuggested = data.trainingsSuggested;
-        }
+        this._id = data.id;
+        this._userId = data.user.id;
+        this._jobGoal = data.jobGoal;
+        this._creationDate = data.creationDate;
+        this._synthesis = data.synthesis;
+        this._jobOffersSuggested = data.jobOffersSuggested;
+        this._jobAccess = data.jobAccess;
+        this._trainingsSuggested = data.trainingsSuggested;
     }
     
     public get id(): number {

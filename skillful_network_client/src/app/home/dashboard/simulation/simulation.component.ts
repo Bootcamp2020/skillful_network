@@ -90,7 +90,7 @@ export class SimulationComponent implements OnInit {
           this.userService.userLogged.careerGoal = result;
           // Boom !
           this.userService.updateUser(this.userService.userLogged);
-          console.log(">> active user updates with new careerGoal: " + this.userService.userLogged.careerGoal);
+          console.log(">> active user updated with new careerGoal: " + this.userService.userLogged.careerGoal);
         }
 
         // navigate to simulation-start component to effectively launch the submitted goal
