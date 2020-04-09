@@ -58,6 +58,7 @@ import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
 import { SimulationStartComponent } from './home/simulation-start/simulation-start.component';
 import { QuestionnaireComponent } from './home/questionnaire/questionnaire.component';
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
+import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 
 
 
@@ -102,6 +103,7 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+        PageDataComponent,
         ],
 
     imports: [

@@ -43,9 +43,13 @@ export class TrainingService {
           return promise;
     }
 
-    public findAllByPage(pageId:number, row:number): Promise<any> {
+    public findAllByPage(page:number, 
+                        size:number, 
+                        sortOrder:String,
+                        fieldToSort:String): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: '/trainings' ,queryParams: {"pageId":pageId, "row":row}})
+            this.api.get({ endpoint: '/trainings/' ,
+              queryParams: {"page":page, "size":size, "sortOrder":sortOrder, "field":fieldToSort}})
               .then(
                 res => { 
                   resolve(res);
