@@ -60,6 +60,7 @@ import {QuestionnaireComponent} from './home/questionnaire/questionnaire.compone
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import {MatNativeDateModule} from '@angular/material/core';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+        NewPasswordComponent,
     ],
 
     imports: [
