@@ -1,19 +1,29 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
-
-import java.util.Arrays;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 
 @Entity
 @Table(name = "job_offer")
@@ -199,7 +209,7 @@ public class JobOffer {
 	}
 
 	// Tableau des scores
-	@Transient
+	@Transient @JsonSerialize @JsonDeserialize
 	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
 
 	public double getScore() {
