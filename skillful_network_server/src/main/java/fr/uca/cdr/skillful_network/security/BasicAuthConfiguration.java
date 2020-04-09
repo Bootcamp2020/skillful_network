@@ -24,7 +24,7 @@ import fr.uca.cdr.skillful_network.security.services.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
