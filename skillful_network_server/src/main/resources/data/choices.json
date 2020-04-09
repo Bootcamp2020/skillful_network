@@ -1,126 +1,126 @@
 [
   {
     "id": 1,
-    "choix": "composants"
+    "choice": "composants"
   },
   {
     "id": 2,
-    "choix": "modules"
+    "choice": "modules"
   },
   {
     "id": 3,
-    "choix": "JavaScript"
+    "choice": "JavaScript"
   },
   {
     "id": 4,
-    "choix": "au Nord !"
+    "choice": "au Nord !"
   },
   {
     "id": 5,
-    "choix": "Amazon"
+    "choice": "Amazon"
   },
   {
     "id": 6,
-    "choix": "Facebook"
+    "choice": "Facebook"
   },
   {
     "id": 7,
-    "choix": "Google"
+    "choice": "Google"
   },
   {
     "id": 8,
-    "choix": "Apple"
+    "choice": "Apple"
   },
   {
     "id": 9,
-    "choix": "Microsoft"
+    "choice": "Microsoft"
   },
   {
     "id": 10,
-    "choix": "Convertir son code TypeScript en code JavaScript"
+    "choice": "Convertir son code TypeScript en code JavaScript"
   },
   {
     "id": 11,
-    "choix": "AmeÌ�liorer la qualiteÌ� de son code JavaScript"
+    "choice": "AmeÌ�liorer la qualiteÌ� de son code JavaScript"
   },
   {
     "id": 12,
-    "choix": "Modifier le comportement de sa page web sur les mobiles"
+    "choice": "Modifier le comportement de sa page web sur les mobiles"
   },
   {
     "id": 13,
-    "choix": "Convertir du code JavaScript du standart ECMAScript 6 vers ECMAScript 5"
+    "choice": "Convertir du code JavaScript du standart ECMAScript 6 vers ECMAScript 5"
   },
   {
     "id": 14,
-    "choix": "Dart"
+    "choice": "Dart"
   },
   {
     "id": 15,
-    "choix": "TypeScript"
+    "choice": "TypeScript"
   },
   {
     "id": 16,
-    "choix": "Câ€™est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le(inversion of control, IoC) pour des applications logicielles."
+    "choice": "Câ€™est un design pattern qui impleÌ�mente le pattern Inversion de controÌ‚le(inversion of control, IoC) pour des applications logicielles."
   },
   {
     "id": 17,
-    "choix": "Câ€™est lâ€™un des modules de Spring."
+    "choice": "Câ€™est lâ€™un des modules de Spring."
   },
   {
     "id": 18,
-    "choix": "Câ€™est une technique pour obtenir des deÌ�pendances de nâ€™importe quel projet."
+    "choice": "Câ€™est une technique pour obtenir des deÌ�pendances de nâ€™importe quel projet."
   },
   {
     "id": 19,
-    "choix": "Il est utiliseÌ� pour promouvoir un couplage eÌ�troit dans le code."
+    "choice": "Il est utiliseÌ� pour promouvoir un couplage eÌ�troit dans le code."
   },
   {
     "id": 20,
-    "choix": "BaseÌ� sur le constructeur et les setters"
+    "choice": "BaseÌ� sur le constructeur et les setters"
   },
   {
     "id": 21,
-    "choix": "BaseÌ� sur le constructeur, les setters, et les getters"
+    "choice": "BaseÌ� sur le constructeur, les setters, et les getters"
   },
   {
     "id": 22,
-    "choix": "BaseÌ� sur les setters, les getters, et les proprieÌ�teÌ�s"
+    "choice": "BaseÌ� sur les setters, les getters, et les proprieÌ�teÌ�s"
   },
   {
     "id": 23,
-    "choix": "BaseÌ� sur le constructeur, les setters, et les proprieÌ�teÌ�s"
+    "choice": "BaseÌ� sur le constructeur, les setters, et les proprieÌ�teÌ�s"
   },
   {
     "id": 24,
-    "choix": "Le Framework Spring est une solution lourde(heavy-weight solution)."
+    "choice": "Le Framework Spring est une solution lourde(heavy-weight solution)."
   },
   {
     "id": 25,
-    "choix": "Le Framework Spring est une solution leÌ�geÌ€re(light-weight solution)."
+    "choice": "Le Framework Spring est une solution leÌ�geÌ€re(light-weight solution)."
   },
   {
     "id": 26,
-    "choix": "Les deux A et B sont vrais."
+    "choice": "Les deux A et B sont vrais."
   },
   {
     "id": 27,
-    "choix": "Aucune de ces reÌ�ponses nâ€™est vraie, mÃªme pas la rÃ©ponse D."
+    "choice": "Aucune de ces reÌ�ponses nâ€™est vraie, mÃªme pas la rÃ©ponse D."
   },
   {
     "id": 28,
-    "choix": "Vrai"
+    "choice": "Vrai"
   },
   {
     "id": 29,
-    "choix": "Faux"
+    "choice": "Faux"
   },
   {
     "id": 30,
-    "choix": "Vrai"
+    "choice": "Vrai"
   },
   {
     "id": 31,
-    "choix": "Faux"
+    "choice": "Faux"
   }
 ]

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {UserService} from '../../shared/services/user.service';
 
@@ -8,7 +8,7 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  @Input() user;
   constructor(private userService: UserService) {
   }
 

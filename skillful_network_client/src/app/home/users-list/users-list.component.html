@@ -6,24 +6,29 @@
             <mat-card-title id="title_police">Liste des utilisateurs</mat-card-title>
         </mat-card-header>
 
-        <div class="recherche">
+        <div class="recherche" *ngIf="!isLoading">
             <div >
-                <form class="formulaire" (ngsubmit)="onSearchByFirstNameOrLastName(f)" #f="ngForm">
-                    <div fxLayout="row " >
-                        <mat-icon (click)="onSearchByFirstNameOrLastName(f)" class="cursor">search</mat-icon>
-                        <div class="input "><input (keydown)="onSearchByFirstNameOrLastName(f)" placeholder="Recherche... " name="keyword" ngModel> </div>
-                        <p>nombre d'entité par page</p>
-                        <div class="input "><input name="size" ngModel value=10> </div>
-                        <p>numéro de page</p>
-                        <div class="input "><input name="page" ngModel value=1> </div>
+                <form [formGroup]="search" (ngSubmit)=" onSearchByFirstNameOrLastName() "
+                      class="form-group">
+                    <div fxLayout="row ">
+
+                        <mat-form-field appearance="legacy">
+
+                            <mat-label>Recherche par Nom ou Prénom</mat-label>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <input formControlName="keyword" type="text" matInput placeholder="Recherche"
+                                   class="form-control">
+                            <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
+                        </mat-form-field>
+
                     </div>
                 </form>
             </div>
         </div>
 
         <hr>
-        
-        <mat-card-content>
+     
+        <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
                     <table mat-table  #table [dataSource]="dataSource" matSort >
@@ -59,4 +64,6 @@
             </div>
         </mat-card-content>
     </mat-card>
+    
 </div>
+<div class="progressBarDiv" *ngIf="isLoading" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>

@@ -72,8 +72,11 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 						"/users/{userId}/skills/{skillId}", "/users/{id}/Qualifications", "/users/{id}/Subscription",
 						"/applications/jobs", "/applications/jobs/{id}/joboffer", "/applications/jobs/user/{userId}", 
 						"/applications/jobs/bonjour", "/users/**", "/users/{id}", 
-						"/joboffer", "/joboffer/*", "/joboffer/getOne/{id}", 
-						"/offers","/offers/", "/offers/*", "/offers/", "/trainings/{id}", "/simulations/{id}/answer","/trainings/**", "/trainings/page", "/trainings/page/*", "/trainings") // les pages/requêtes /home, /login et /token sont accessibles sans
+						"/joboffer", "/joboffer/**", "/joboffer/getOne/{id}", "/image/{id:.+}",
+						"/offers","/offers/", "/offers/*", "/offers/", "/trainings/{id}", "/simulations/{id}/answer",
+						"/simulations/user/startSimulation", "/trainings/**", "/trainings/page", "/trainings/page/*", 
+						"/trainings","/user/{userId}/joboffer/{jobOfferId}", "/users/uploadImage","/users/**") // les pages/requêtes /home, /login et /token sont accessibles sans
+
 
 				// les pages/requêtes /home, /login et /token sont accessibles sans
 				// authentifications (pour pouvoir s'identifier).

@@ -46,10 +46,9 @@ export class QualifConfComponent implements OnInit {
           datas=>{
             for(let id in datas){
             this.qualifs.push(datas[id].name)  
-            }
-            this.isLoading = false;
+            }    
           }
-        )
+        ).finally(()=>this.isLoading = false)
       }
     })
   }
@@ -58,9 +57,12 @@ export class QualifConfComponent implements OnInit {
   
 
   addQualif() {
+    if(this.qualifInfoGroup.value.qualifUnit!=null){
+      if (this.qualifInfoGroup.value.qualifUnit.length>1){
     this.listQualif.push(new Qualif(this.qualifInfoGroup.value['qualifUnit']));
     this.qualifInfoGroup.value['qualificationSet'] = this.listQualif;
-    
+      }
+    }
   }
   
   

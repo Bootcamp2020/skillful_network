@@ -16,24 +16,25 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 @Component
 public class JwtProvider {
 	
 	
-	private final String url = Paths.get("src/main/resources/data/script/scriptToken.py").toAbsolutePath().toString();
+	private final String url = Paths.get("src\\\\main\\\\resources\\\\data\\\\script\\\\scriptToken.py").toAbsolutePath().toString();
 	
 	public String generateJwtToken(Authentication authentication) {
 		
 		System.out.println("absolutePath : "+ this.url);
-		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+		User userPrincipal = (User) authentication.getPrincipal();
 		String line = "";
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
 		String cmd = "python3" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
-		
+		System.out.println(cmd);
+
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

@@ -17,10 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +43,7 @@ import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 /**
  * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
@@ -82,7 +85,7 @@ public class AuthenticationController {
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else if (!userFromDB.get().isValidated()) {
-				LocalDateTime dateExpirationMdp = userFromDB.get().getDateExpiration();
+				LocalDateTime dateExpirationMdp = userFromDB.get().getTemporaryCodeExpirationDate();
 				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
 				userService.validationMdp(isExpired, userFromDB);
 				if (isExpired) {
@@ -102,8 +105,8 @@ public class AuthenticationController {
 				Authentication authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-				System.out.println("UserPrinciple récupéré : " + userPrinciple.toString());
+				User user = (User) authentication.getPrincipal();
+				System.out.println("User récupéré : " + user.toString());
 
 				// On génère un token en fonction de l'id, l'email et le password de
 				// l'utilisateur
@@ -111,13 +114,21 @@ public class AuthenticationController {
 				System.out.println("jwt dans AuthController : " + jwt);
 
 				// On retourne une jwt response qui contient le token et l'utilisateur
-				return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
+				return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
 			}
 		}
 
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 
 	}
+	
+	@GetMapping("/user")
+	public User getCurrentUser(@AuthenticationPrincipal final User user) {
+
+		return user;
+
+	}
+
 
 	@RequestMapping(value = "/register", method = POST)
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
@@ -137,7 +148,7 @@ public class AuthenticationController {
 		}
 		User user = new User();
 		user.setEmail(registerForm.getEmail());
-		user.setDateExpiration(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
+		user.setTemporaryCodeExpirationDate(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
 		// On crypte avec bcrypt le mot de passe dans la bdd
 		String randomCodeEncrypt = encoder.encode(randomCode);
 		user.setPassword(randomCodeEncrypt);
@@ -213,7 +224,7 @@ public class AuthenticationController {
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
 			boolean passwordMatches = encoder.matches(userFromJson.getPassword(), userFromDb.getPassword());
 			System.out.println("Mots de passes correspondent ? " + passwordMatches);
-			if (!(userFromDb.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
+			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
 			} else {

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {JobDetails, Trainings} from './offre';
 import {MOCK_OFFRE} from './offre.mock';
 import { CandidatureService } from '../../shared/services/candidature.service';
-import { IPost, MOCK_CANDIDATURE } from '../../shared/models/mock.candidature';
+import { IPost } from '../../shared/models/mock.candidature';
 import {JobDetailsService} from '../../shared/services/job-details.service';
 import {ApiHelperService} from '../../shared/services/api-helper.service';
 
@@ -30,13 +30,13 @@ export class OffreComponent implements OnInit {
       const {id} = this.route.snapshot.params;
       if (this.choixListe == 'emploi') {
 
-          this.api.get({endpoint: `/joboffer/getOne/${id}`})
+          this.api.get({endpoint: `/offers/${id}`})
               .then(data => {
                   this.jobDetails = data;
                   console.log(this.jobDetails);
               })
               .catch((error) => {
-                  console.log('cet offre n\'existe pas');
+                  console.log('cette offre n\'existe pas');
               });
       } else {
           this.api.get({endpoint: `/trainings/${id}`})
@@ -44,7 +44,7 @@ export class OffreComponent implements OnInit {
                   this.jobDetails = data;
               })
               .catch((error) => {
-                  console.log('cet offre n\'existe pas');
+                  console.log('cette offre n\'existe pas');
               });
       }
   }
