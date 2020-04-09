@@ -101,6 +101,10 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+
+
+<!-- Pour trouver l'extention des fichiers image pour l'apload fait par sihem ,à garder -->
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -108,5 +112,7 @@
 		</dependency>
 
 	</dependencies>
+
+
 
 </project>

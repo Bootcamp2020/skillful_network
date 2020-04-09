@@ -9,20 +9,20 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./subscript.component.scss']
 })
 export class SubscriptComponent implements OnInit {
-  public listSubscript: Subscript[];
+  @Input() public listSubscript: Subscript[];
   constructor( private api: ApiHelperService,  private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
 
-    const {id} = this.route.snapshot.params;
+   /* const {id} = this.route.snapshot.params;
     console.log(id);
     // @ts-ignore
     this.api.get({endpoint: `/users/${id}/Subscription`})
         .then(data => this.listSubscript = data)
         .catch((error) => {
           console.log('cet utilisateur n\'existe pas');
-        });
+        });*/
   }
 }

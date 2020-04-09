@@ -1,18 +1,32 @@
 package fr.uca.cdr.skillful_network.controller;
 
+
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,8 +52,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.uca.cdr.skillful_network.model.entities.Qualification;
+
 import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
+import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.entities.User;
@@ -48,6 +63,7 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
+import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -161,8 +177,11 @@ public class UserController {
 	@PutMapping(value = "/usersModifPassword")
 	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User userUpdated = (User) authentication.getPrincipal();
+
+
 		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
 		userUpdated.setPassword(userNewPwd);
 		userService.saveOrUpdateUser(userUpdated);
@@ -176,6 +195,7 @@ public class UserController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
+
 	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
@@ -234,9 +254,104 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>("OK", HttpStatus.OK);
+
+	//@PreAuthorize("hasRole('USER')")
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
+			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
+	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
+
+		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
+		convertFile.createNewFile();
+		FileOutputStream fout = new FileOutputStream(convertFile);
+		fout.write(image.getBytes());
+		fout.close();
+		
+		return "File is upload successfully" + image.getOriginalFilename();
+
 	}
 	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+///// Upload Imgae avec restriction extention+taille de l'image:
+	@SuppressWarnings("resource")
+	@PreAuthorize("hasRole('USER')")
+	@Transactional
+	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	public ResponseEntity<String> fileUpload( @AuthenticationPrincipal UserPrinciple user, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
+		Long id= user.getId();
+		User userforPhoto = userService.getUserById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+		List<String> listOfExtensions = new ArrayList<String>(3);
+		listOfExtensions.add("jpg");
+		listOfExtensions.add("jpeg");
+		listOfExtensions.add("png"); 
+		String imageName = image.getOriginalFilename().toLowerCase();
+		File filecreating= new File(this.userService.createRepoImage());//"WebContent/images/"	
+		
+		String newImageName = "WebContent/images/"+id+".png";// DONE mettre à jour par I
+		
+		// on récupère l'extension du fichier qui est uploader
+		String fileExtensionName = Files.getFileExtension(imageName);
+
+		if (image.isEmpty()) {
+			redirectAttributes.addFlashAttribute("message", "Veillez selectionner une photo profil");
+			return new ResponseEntity<String>("Veuillez entrer une image valide", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+		}
+		try {
+			File convertFile = new File(newImageName);
+			convertFile.createNewFile();
+			FileOutputStream fout = new FileOutputStream(convertFile);
+			fout.write(image.getBytes());
+			
+			if (image.getBytes().length > 1000*500) {
+				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			// onverifie que  l'extension du fichier qui est uploader correspondent à celle de la liste imposée
+			else if (!listOfExtensions.contains(fileExtensionName)) {
+				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			System.out.println(userforPhoto.isPhoto());
+	   fout.close();
+	   	userforPhoto.setPhoto(true);
+	   System.out.println(userforPhoto.isPhoto());
+	   userforPhoto = userService.saveOrUpdateUser(userforPhoto);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
+	}
+
+	
+////////////Methode pour que l'utilasteur affiche sa photo profil///////////////////////
+	@RequestMapping(value = "/image/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE) // @RequestParam("file") MultipartFile file,
+	public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id, HttpServletResponse response)
+			throws IOException {
+		Optional<User> userforphoto = userService.getUserById(id); // this just gets the data from a database//
+																	// response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		if (!userforphoto.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id :" + id);
+		}
+
+		System.out.println(id);
+		System.out.println("WebContent/images/"+id+".png");
+		File f = new File("WebContent/images/"+id+".png");
+		BufferedImage o = ImageIO.read(f);
+		ByteArrayOutputStream b = new ByteArrayOutputStream();
+		ImageIO.write(o, "png", b);
+		b.flush();
+		byte[] img = b.toByteArray();
+		b.close();
+		
+		/*InputStream in = getClass()
+			      .getResourceAsStream("WebContent/images/"+id+".png");
+
+		byte[] img = IOUtils.toByteArray(in);*/
+
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(img);
+
+	}
+	
+	//@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
 
@@ -248,6 +363,9 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.get());
 	}
+	
+	
+	
 
 //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
 //	public ResponseEntity<Skill> getOneSkillByUser(@PathVariable(value = "userId")Long userId, @PathVariable(value = "skillId")Long skillId) {
@@ -421,7 +539,7 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
-	@PreAuthorize("hasRole('USER')")
+	//@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "users/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {

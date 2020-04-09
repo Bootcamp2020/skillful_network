@@ -4,9 +4,9 @@
             <mat-card-title id="title_police">Candidature </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content fxLayout="column" fxfxLayoutAlign="space-between start" class="tailleCard">
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between start" class="tailleCard">
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
-                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post._company}}</p>
+                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.company}}</p>
                 <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="40"> {{post.job}} </p>
                 <span fxFlex="10" fxLayout="row" fxLayoutAlign="center start">
                     <span *ngIf ="post.status ==='validate'">

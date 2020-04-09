@@ -70,8 +70,11 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/home", "/login", "/token", "/login/v1", "/register", "/upload", "/skills/*",
 						"/qualifications/*", "/subscriptions/*", "/usersbyId/{id}", "/users", "/users/{id}/skills",
 						"/users/{userId}/skills/{skillId}", "/users/{id}/Qualifications", "/users/{id}/Subscription",
-						"/applications/jobs", "/applications/jobs/{id}/joboffer", "/applications/jobs/bonjour",
-						"/users/**", "/users/{id}", "/joboffer/**", "/trainings/{id}", "/simulations/{id}/answer") // les pages/requêtes /home, /login et /token sont accessibles sans
+						"/applications/jobs", "/applications/jobs/{id}/joboffer", "/applications/jobs/user/{userId}",
+						"/users/**", "/users/{id}","/image/{id:.+}","/joboffer/getOne/{id}", "/trainings/{id}", "/simulations/{id}/answer","/applications/jobs/user/{userId}"
+						, "/users/uploadImage","/joboffer/**","/user/{userId}/joboffer/{jobOfferId}","/simulations/user/startSimulation") // les pages/requêtes /home, /login et /token sont accessibles sans
+
+
 
 													// authentifications (pour pouvoir s'identifier).
 
