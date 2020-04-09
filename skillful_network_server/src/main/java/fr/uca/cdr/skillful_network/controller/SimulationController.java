@@ -136,7 +136,7 @@ public class SimulationController {
 		// la liste de job-offers
 		ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
 		wordMatchCareerGoal
-				.addAll(simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
+				.addAll(simulationService.MatcherJobOfferJobGoal(currentUser.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
 		System.out.println(wordMatchCareerGoal);
 		// renvoyer toute la liste des job-offers qui match avec l'objectif de carrière
 		/*

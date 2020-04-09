@@ -33,7 +33,7 @@ public class Qualification {
 	@Column(name ="name", nullable=false)
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "qualificationSet")
+	@ManyToMany(mappedBy = "qualificationSet")
 	@JsonIgnore
 	private Set<User> userSet = new HashSet<User>();
 	
