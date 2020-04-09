@@ -33,6 +33,12 @@
                   <div>
                     <a class="motDePasseOublieLink" routerLink="/passwordForgotten"> Mot de passe oublié?</a>
                   </div>
+                  
+                  <div>
+                    <mat-checkbox  [disabled]="loginFormGroup.invalid" [formControl]="rememberMe" id="rememberMe" color="primary" (change)="onChange($event); false">
+                      Se souvenir de moi
+                    </mat-checkbox>
+                  </div>
                   <button [disabled]="loginFormGroup.invalid" type="submit" mat-raised-button color="primary">Connexion</button>
                 </form>
               </td>
