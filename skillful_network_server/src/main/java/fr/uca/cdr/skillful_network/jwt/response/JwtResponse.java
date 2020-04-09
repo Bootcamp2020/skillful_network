@@ -2,17 +2,19 @@ package fr.uca.cdr.skillful_network.jwt.response;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
+import fr.uca.cdr.skillful_network.model.entities.User;
+
 
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
-	private UserPrinciple user;
+	private String username;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String accessToken, UserPrinciple user, Collection<? extends GrantedAuthority> authorities) {
+	public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities) {
 		this.token = accessToken;
-		this.user = user;
+		this.username = username;
 		this.authorities = authorities;
 	}
 
@@ -32,12 +34,12 @@ public class JwtResponse {
 		this.type = tokenType;
 	}
 
-	public UserPrinciple getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(UserPrinciple user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
