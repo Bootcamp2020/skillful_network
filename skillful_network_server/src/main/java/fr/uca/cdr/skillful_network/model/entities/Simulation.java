@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
@@ -21,7 +22,7 @@ public class Simulation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("simulationSet")
     private User user;
@@ -34,26 +35,26 @@ public class Simulation {
     
     private String synthesis;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "result_id")
+    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.EAGER )
+    @JoinColumn(name = "simulation_id")
     private Set<Result> results; 
     
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "jobOffer_id")
     private JobOffer jobOffer;
     
     private boolean jobAccess;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "training_id")
     private Training training;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "simulationForm_id")
     private SimulationForm simulationForm;
     

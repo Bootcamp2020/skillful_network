@@ -86,10 +86,9 @@ public class Keyword {
 		this.trainings = trainings;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Keyword [id=" + id + ", name=" + name + ", exercises=" + exercises + ", jobOffers=" + jobOffers
-//				+ ", trainings=" + trainings + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Keyword [id=" + id + ", name=" + name + "]";
+	}
 
 }
