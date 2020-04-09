@@ -1,34 +1,32 @@
 package fr.uca.cdr.skillful_network.controller;
-
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
 import fr.uca.cdr.skillful_network.jwt.JwtProvider;
 import fr.uca.cdr.skillful_network.jwt.response.JwtResponse;
 import fr.uca.cdr.skillful_network.model.entities.Role;
@@ -40,8 +38,6 @@ import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
-
 /**
  * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
  * utilisateurs se fait grâce à l'email ou au numéro de mobile (en tant que nom
@@ -52,33 +48,23 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 @RestController
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
-
 	@Autowired
 	private UserRepository userRepository;
-
 	@Autowired
 	private UserService userService;
-
 	@Value("${spring.profiles.active}")
 	private String activeProfil;
-
 	@Autowired
 	private JwtProvider jwtProv;
-
 	@Autowired
 	private RoleRepository roleRepository;
-
 	@Autowired
 	private AuthenticationManager authenticationManager;
-
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		if (loginRequest != null) {
-
 			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
-
 			if (!userFromDB.isPresent()) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 			} else if (!userFromDB.get().isValidated()) {
@@ -90,7 +76,6 @@ public class AuthenticationController {
 							"Le mot de passe temporaire n'est plus valide ; veuillez relancer une inscription !");
 				}
 			}
-
 			String passwordFromDB = userFromDB.get().getPassword();
 			String passwordRequest = loginRequest.getPassword();
 			boolean passwordMatches = encoder.matches(passwordRequest, passwordFromDB);
@@ -98,34 +83,31 @@ public class AuthenticationController {
 			if (passwordRequest == null || !passwordMatches) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les 2 mots de passe ne correspondent pas");
 			} else {
-
 				Authentication authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-				System.out.println("UserPrinciple récupéré : " + userPrinciple.toString());
-
+				User user = (User) authentication.getPrincipal();
+				System.out.println("User récupéré : " + user.toString());
 				// On génère un token en fonction de l'id, l'email et le password de
 				// l'utilisateur
 				String jwt = jwtProv.generateJwtToken(authentication);
 				System.out.println("jwt dans AuthController : " + jwt);
-
 				// On retourne une jwt response qui contient le token et l'utilisateur
-				return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
+				return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
 			}
 		}
-
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-
 	}
-
+	@GetMapping("/user")
+	public User getCurrentUser(@AuthenticationPrincipal final User user) {
+		return user;
+	}
 	@RequestMapping(value = "/register", method = POST)
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
 		if (userService.alreadyExists(registerForm.getEmail())) {
 			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			} else {
-
 				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
 				userRepository.delete(oOldUser.get());
 			}
@@ -170,7 +152,6 @@ public class AuthenticationController {
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
-
 	@RequestMapping(value = "/passwordForgotten", method = POST)
 	public ResponseEntity<?> ifForgotPassword(@Valid @RequestBody User user) {
 		if (userService.alreadyExists(user.getEmail())) {
@@ -199,7 +180,6 @@ public class AuthenticationController {
 		userRepository.save(user);
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
-
 //	A update plus tard pour récupérer le token dans le header
 	@PostMapping(value = "/whoami")
 	public ResponseEntity<?> whoAmI(@RequestBody String frontToken)

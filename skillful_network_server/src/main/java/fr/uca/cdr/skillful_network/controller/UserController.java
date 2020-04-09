@@ -1,8 +1,11 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,7 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
@@ -138,15 +145,27 @@ public class UserController {
 //	}
 	//Utilisation du current User pour la modification
 	
+//	@PreAuthorize("hasRole('USER')")
+//	@Transactional
+//	@PutMapping(value = "/usersModifPassword")
+//	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
+//			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
+//	
+//		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
+//		user.setPassword(userNewPwd);
+//		User userUpdated = userService.saveOrUpdateUser(user);
+//		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
+//	}
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@PutMapping(value = "/usersModifPassword")
 	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User userUpdated = (User) authentication.getPrincipal();
 		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
-		user.setPassword(userNewPwd);
-		User userUpdated = userService.saveOrUpdateUser(user);
+		userUpdated.setPassword(userNewPwd);
+		userService.saveOrUpdateUser(userUpdated);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}
 
@@ -157,17 +176,64 @@ public class UserController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
+	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
-	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
-			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
-	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
-
-		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
-		convertFile.createNewFile();
-		FileOutputStream fout = new FileOutputStream(convertFile);
-		fout.write(image.getBytes());
-		fout.close();
-		return "File is upload successfully" + image.getOriginalFilename();
+	@Transactional
+	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	public ResponseEntity<String> fileUpload(@AuthenticationPrincipal User user,
+			@RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
+		
+		Long id = user.getId();
+		
+//		User userforPhoto = userService.getUserById(id).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+		
+		List<String> listOfExtensions = new ArrayList<String>(3);
+		listOfExtensions.add("jpg");
+		listOfExtensions.add("jpeg");
+		listOfExtensions.add("png");
+		String imageName = image.getOriginalFilename().toLowerCase();
+		File filecreating = new File(this.userService.createRepoImage());// "WebContent/images/"
+		
+		String newImageName = "WebContent/images/" + id + ".png";// DONE mettre à jour par I
+		
+		// on récupère l'extension du fichier qui est uploader
+		String fileExtensionName = Files.getFileExtension(imageName);
+		
+		if (image.isEmpty()) {
+			redirectAttributes.addFlashAttribute("message", "Veillez selectionner une photo profil");
+			
+			return new ResponseEntity<String>("Veuillez entrer une image valide", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+		}
+		try {
+			File convertFile = new File(newImageName);
+			convertFile.createNewFile();
+			FileOutputStream fout = new FileOutputStream(convertFile);
+			fout.write(image.getBytes());
+			
+			if (image.getBytes().length > 1000 * 500) {
+				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko",
+						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			// onverifie que l'extension du fichier qui est uploader correspondent à celle
+			// de la liste imposée
+			else if (!listOfExtensions.contains(fileExtensionName)) {
+				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge",
+						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
+			System.out.println(currentUser.isPhoto());
+			fout.close();
+			currentUser.setPhoto(true);
+			System.out.println(currentUser.isPhoto());
+			userService.saveOrUpdateUser(currentUser);
+//	   currentUser = userService.saveOrUpdateUser(currentUser);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
