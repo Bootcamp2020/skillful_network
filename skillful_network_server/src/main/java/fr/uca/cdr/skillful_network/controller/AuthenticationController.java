@@ -109,9 +109,11 @@ public class AuthenticationController {
 				// l'utilisateur
 				String jwt = jwtProv.generateJwtToken(authentication);
 				System.out.println("jwt dans AuthController : " + jwt);
-
-				// On retourne une jwt response qui contient le token et l'utilisateur
-				return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
+				
+				if (jwtProv.validateToken(jwt)) {
+					// On retourne une jwt response qui contient le token et l'utilisateur
+					return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
+				}
 			}
 		}
 
