@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.model.services;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 
@@ -18,7 +19,7 @@ public interface SimulationService {
 	Optional<User> getUserById(Long id);
 	Optional<List<Simulation>> getAllSimulationsByUserId(Long userId);
 	Optional<Simulation> saveOrUpdateSimulation(Simulation simulation);
-	Optional<Simulation> startSimulation(Long userId, String jobGoal);
+	Set<Exercise> startSimulation(Long userId);
 	Optional<Simulation> getSimulationByExamId(Long idExam);
 	void deleteSimulation(Long id);
 
