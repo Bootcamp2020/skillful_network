@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { Skill } from 'src/app/shared/models/skill';
+import { ChipValue } from 'src/app/shared/models/chip-value';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -10,14 +10,14 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 
 export class SkillConfComponent implements OnInit {
-  @Input() skillInfoGroup : FormGroup; 
-  @Input() userSkilList : Skill[]; 
+  @Input() chipInfoGroup : FormGroup; 
+  @Input() userChipList : ChipValue[]; 
 
   titleAlert: string = 'This field is required';
   post: any = '';
-  skills:string[];
-  public listSkill: Skill[];
-  public skill: string;
+  chips:string[];
+  public listChip: ChipValue[];
+  public chip: string;
   isLoading:boolean;
   visible = true;
   selectable = true;
@@ -27,36 +27,20 @@ export class SkillConfComponent implements OnInit {
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
-    this.listSkill =  this.userSkilList;
-    this.skillInfoGroup.value['skillSet'] = this.listSkill;
-    this.skillInfoGroup.valueChanges.subscribe(data=>{
-      this.isLoading=false;
-      this.skills = []
-      if (data.skillUnit.length >1){
-        this.isLoading=true;
-        this.service.findByContain("skills",data.skillUnit).then(
-            datas=>{
-              for(let id in datas){
-              this.skills.push(datas[id].name)  
-            }
-            this.isLoading = false;
-            }
-        )
-      }
-    })
+    
   }
 
   myControl = new FormControl()
 
-  addSkill() {
-    this.listSkill.push(new Skill(this.skillInfoGroup.value['skillUnit']));
-    this.skillInfoGroup.value['skillSet'] = this.listSkill;
+  addChip() {
+    this.listChip.push(new ChipValue(this.chipInfoGroup.value['skillUnit']));
+    this.chipInfoGroup.value['skillSet'] = this.listChip;
   }
 
-  removeSkill(skill : Skill) {
-    const index = this.listSkill.indexOf(skill);
+  removeChip(chip : ChipValue) {
+    const index = this.listChip.indexOf(chip);
     if (index >= 0) {
-      this.listSkill.splice(index, 1);
+      this.listChip.splice(index, 1);
     }
   }
 }

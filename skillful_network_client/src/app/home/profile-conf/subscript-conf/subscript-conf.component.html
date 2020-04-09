@@ -6,10 +6,10 @@
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listSubscript" 
+                <mat-chip *ngFor="let post of listChip" 
                 [selectable]="selectable"
                 [removable]="removable"
-                (removed)="removeSubscript(post)"
+                (removed)="removeChip(post)"
                 class="subscript">
                 {{post.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -18,7 +18,7 @@
         </mat-card>
     </div>
       
-    <form [formGroup]="subscriptInfoGroup" (submit)="addSubscript()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form [formGroup]="ChipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column' fxFlex="40">
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
@@ -27,15 +27,15 @@
                     <input formControlName="subscriptUnit"  type="text"  matInput  [matAutocomplete]="auto" [formControl]="myControl" placeholder="abonnement" class="form-control">
                     <mat-autocomplete #auto="matAutocomplete" >
                         <ng-container *ngIf="!isLoading">
-                            <mat-option *ngFor="let subscript of subscripts" [value]="subscript">
-                            {{subscript}}
+                            <mat-option *ngFor="let chip of chips" [value]="chips">
+                            {{chips}}
                             </mat-option>
                         </ng-container>
                       </mat-autocomplete>
                 </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="20">
-                <button type="submit" mat-raised-button color="primary" [disabled]="subscriptInfoGroup.invalid">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="ChipInfoGroup.invalid">Ajouter</button>
             </div>
         </div>
     </form>  

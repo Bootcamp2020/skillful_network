@@ -1,7 +1,5 @@
 import { LoginComponent } from 'src/app/login/login.component';
-import { Skill } from './skill';
-import { Qualif } from './qualif';
-import { Subscript } from './subscript';
+import { ChipValue } from './chip-value';
 import { Subscription } from 'rxjs';
 
 export class User {
@@ -17,9 +15,9 @@ export class User {
   private _status: string;
   private _validated: boolean;
   private _photo: boolean;
-  private _skillSet: Skill[];
-  private _qualificationSet : Qualif[];
-  private _subscriptionSet : Subscript[];
+  private _skillSet: ChipValue[];
+  private _qualificationSet : ChipValue[];
+  private _subscriptionSet : ChipValue[];
   private _photoProfile: string;
   private _role: string[];
 
@@ -107,22 +105,22 @@ export class User {
   public set photo(value: boolean) {
     this._photo = value;
   }
-  public get skillSet(): Skill[] {
+  public get skillSet(): ChipValue[] {
     return this._skillSet;
   }
-  public set skillSet(value: Skill[]) {
+  public set skillSet(value: ChipValue[]) {
     this._skillSet = value;
   }
-  public get qualificationSet(): Qualif[] {
+  public get qualificationSet(): ChipValue[] {
     return this._qualificationSet;
   }
-  public set qualificationSet(value: Qualif[]) {
+  public set qualificationSet(value: ChipValue[]) {
     this._qualificationSet = value;
   }
-  public get subscriptionSet(): Subscript[] {
+  public get subscriptionSet(): ChipValue[] {
     return this._subscriptionSet;
   }
-  public set subscriptionSet(value: Subscript[]) {
+  public set subscriptionSet(value: ChipValue[]) {
     this._subscriptionSet = value;
   }
   public get photoProfile(): string {

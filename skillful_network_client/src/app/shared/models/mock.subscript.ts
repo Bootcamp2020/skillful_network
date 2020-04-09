@@ -1,29 +1,29 @@
 export interface IPost {
-  subscript: String;
+  chip: String;
 }
 export let MOCK_SUBSCRIPT : IPost[] = [
     {
-      subscript: 'Auto Hebdo'
+      chip: 'Auto Hebdo'
     },
     {
-      subscript: 'Chasse Pêche et Tradition'
+      chip: 'Chasse Pêche et Tradition'
     },
     {
-      subscript: 'Bonjour Madame'
+      chip: 'Bonjour Madame'
     },
     {
-      subscript: 'Femme Actuelle'
+      chip: 'Femme Actuelle'
     },
     {
-      subscript: 'Pif Gadget'
+      chip: 'Pif Gadget'
     },
     {
-      subscript: 'Charlie Hebdo'
+      chip: 'Charlie Hebdo'
     },
     {
-      subscript: 'Fluide Glacial'
+      chip: 'Fluide Glacial'
     },
     {
-      subscript: 'Elle'
+      chip: 'Elle'
     }
 ]

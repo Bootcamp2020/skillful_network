@@ -1,20 +1,20 @@
 export interface IPost {
-    qualif: String;
+  chip: String;
 }
 export let MOCK_QUALIF : IPost[] = [
     {
-      qualif: 'M.I.T. de Palavas les flots'
+      chip: 'M.I.T. de Palavas les flots'
     },
     {
-      qualif: 'Maternelle Supérieure'
+      chip: 'Maternelle Supérieure'
     },
     {
-      qualif: '650 au TOEIC'
+      chip: '650 au TOEIC'
     },
     {
-      qualif: '850 au COÏT'
+      chip: '850 au COÏT'
     },
     {
-      qualif: 'Membre honoraire de J&M'
+      chip: 'Membre honoraire de J&M'
     }
 ]

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Qualif } from 'src/app/shared/models/qualif';
+import { ChipValue } from 'src/app/shared/models/chip-value';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
@@ -13,14 +13,14 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 
 export class QualifConfComponent implements OnInit {
-  @Input() qualifInfoGroup : FormGroup; 
-  @Input() userQualList : Qualif[];
+  @Input() chipInfoGroup : FormGroup; 
+  @Input() userChipList : ChipValue[];
 
   titleAlert: string = 'This field is required';
   post: any = '';
-  qualifs:string[];
-  public listQualif: Qualif[];
-  public qualif: string;
+  chips:string[];
+  public listChip: ChipValue[];
+  public chip: string;
   isLoading:boolean;
   visible = true;
   selectable = true;
@@ -35,17 +35,17 @@ export class QualifConfComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listQualif =  this.userQualList;
-    this.qualifInfoGroup.value['qualificationSet'] = this.listQualif;
-    this.qualifInfoGroup.valueChanges.subscribe(data=>{
+    this.listChip =  this.userChipList;
+    this.chipInfoGroup.value['qualificationSet'] = this.listChip;
+    this.chipInfoGroup.valueChanges.subscribe(data=>{
       this.isLoading=false;
-      this.qualifs = []
+      this.chips = []
       if (data.qualifUnit.length >1){
         this.isLoading=true;
         this.service.findByContain("qualifications",data.qualifUnit).then(
           datas=>{
             for(let id in datas){
-            this.qualifs.push(datas[id].name)  
+            this.chips.push(datas[id].name)  
             }
             this.isLoading = false;
           }
@@ -57,17 +57,17 @@ export class QualifConfComponent implements OnInit {
   myControl = new FormControl()
   
 
-  addQualif() {
-    this.listQualif.push(new Qualif(this.qualifInfoGroup.value['qualifUnit']));
-    this.qualifInfoGroup.value['qualificationSet'] = this.listQualif;
+  addChip() {
+    this.listChip.push(new ChipValue(this.chipInfoGroup.value['qualifUnit']));
+    this.chipInfoGroup.value['qualificationSet'] = this.listChip;
     
   }
   
   
-  removeQualif(qualif : Qualif): void {
-    const index = this.listQualif.indexOf(qualif);
+  removeChip(chip : ChipValue): void {
+    const index = this.listChip.indexOf(chip);
     if (index >=0) {
-      this.listQualif.splice(index, 1);
+      this.listChip.splice(index, 1);
     }
   
   }

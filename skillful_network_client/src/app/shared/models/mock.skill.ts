@@ -1,26 +1,26 @@
 export interface IPost {
-    skill: String;
+    chip: String;
 }
 export let MOCK_SKILL : IPost[] = [
     {
-      skill: 'Flater le mamout'
+      chip: 'Flater le mamout'
     },
     {
-      skill: 'Peigner la girafe'
+      chip: 'Peigner la girafe'
     },
     {
-      skill: 'Eborgner la mouche'
+      chip: 'Eborgner la mouche'
     },
     {
-      skill: 'Bomber le verre'
+      chip: 'Bomber le verre'
     },
     {
-      skill: 'Arriver à pied par la Chine'
+      chip: 'Arriver à pied par la Chine'
     },
     {
-      skill: 'Dégueulasser le front-end '
+      chip: 'Dégueulasser le front-end '
     },
     {
-      skill: 'Courber la banane'
+      chip: 'Courber la banane'
     }
 ]
