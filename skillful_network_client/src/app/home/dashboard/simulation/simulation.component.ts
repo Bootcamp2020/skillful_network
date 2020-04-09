@@ -25,6 +25,7 @@ export class SimulationComponent implements OnInit {
   public dataSource: MatTableDataSource<Simulation>;
   public careerGoal: String;
   public userId: Number;
+  public isLoaded: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -57,7 +58,7 @@ export class SimulationComponent implements OnInit {
         }
       }
       if (this.userId == null) { return; } // exit if no user available
-      //this.userId = this.userId == null ? 2 : this.userId;
+      //this.userId = 1; // test purposes
       console.log(">> userId: " + this.userId);
       
       // GET careerGoal if needed
@@ -65,6 +66,10 @@ export class SimulationComponent implements OnInit {
         await this.api.get({ endpoint: `/usersbyId/${this.userId}` }).then((user) => {
           console.log(">> REST : Get user.careerGoal.");
           this.careerGoal = user.careerGoal;
+        })
+        .catch(() => {
+          console.log(">>> user does not exist");
+          return;
         });
       }
       console.log(">> user.careerGoal: " + this.careerGoal);
@@ -72,8 +77,13 @@ export class SimulationComponent implements OnInit {
     // GET simulations list of provided user
     await this.api
       .get({ endpoint: `/simulations?userid=${this.userId}` })
-      .then((data) => (this.listSimulation = data));
-
+      .then((data) => (this.listSimulation = data))
+      .catch(() => {
+        console.log(">>> user does not exist");
+        return;
+      })
+      .finally(() => this.isLoaded = true);
+        
     this.dataSource = new MatTableDataSource(this.listSimulation);
     this.dataSource.sort = this.sort;
   }
