@@ -62,7 +62,13 @@ public class JobOffer {
 	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-
+	
+	// Tableau des scores
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
+	
 	public Long getId() {
 		return id;
 	}
@@ -207,10 +213,6 @@ public class JobOffer {
 	public int hashCode() {
 		return Objects.hash(id, name);
 	}
-
-	// Tableau des scores
-	@Transient @JsonSerialize @JsonDeserialize
-	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
 
 	public double getScore() {
 		return score[this.complexity.ordinal()][this.risk.ordinal()];
