@@ -43,9 +43,9 @@ export class JobOfferService {
         return promise;
     }
 
-    public getOffersBySearch(keyword: string, page: number, size: number): Promise<any> {
+    public getOffersBySearch(keyword: string, page: number, size: number, order: string, field: string): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: `/offers/search`, queryParams: { keyword, page: page, size: size } })
+            this.api.get({ endpoint: `/offers/search`, queryParams: { keyword: keyword, page: page, size: size, sortOrder: order, field: field } })
                 .then(
                     res => {
                         resolve(res);

@@ -10,7 +10,8 @@
 }
 
 .simulation {
-  padding-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .card_dashboard{
@@ -21,7 +22,7 @@
 
 mat-card{
   padding-bottom: 60px;
-  min-height: 515px;
+  min-height: 650px;
 }
 
 #bouton-details-simulation{
@@ -60,12 +61,10 @@ td, th {
   //background-color:  #F1F1F1;
   text-align: center;
 }
-
-// .mat-cell {}
-
-.mat-card-content {
-  padding-top: 30px;
-  border-collapse: collapse;
+.mat-card-actions .mat-button:first-child, .mat-card-actions .mat-raised-button:first-child, .mat-card-actions .mat-stroked-button:first-child {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 4%;
 }
 
 .table-container {

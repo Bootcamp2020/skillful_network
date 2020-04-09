@@ -40,7 +40,7 @@ public class User {
 	private String password;
 	@PastOrPresent
 	private Date birthDate;
-	@NotNull(message = "Email cannot be null")
+	//@NotNull(message = "Email cannot be null")
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;

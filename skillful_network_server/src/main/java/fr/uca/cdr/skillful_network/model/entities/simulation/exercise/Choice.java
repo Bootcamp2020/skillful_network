@@ -1,12 +1,18 @@
 package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Choice { 
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -16,6 +22,7 @@ public class Choice {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Choice(Long id, String choice) {
 		super();
 		this.id = id;
@@ -35,7 +42,7 @@ public class Choice {
 	}
 	@Override
 	public String toString() {
-		return "Choice [id=" + id + ", choice=" + choice + "]";
+		return "Choice [id=" + id + ", choice=" + choice  + "]";
 	}
 
 	
