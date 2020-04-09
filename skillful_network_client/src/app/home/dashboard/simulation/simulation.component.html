@@ -44,7 +44,7 @@
                         <ng-container matColumnDef="reloadsim">
                             <th mat-header-cell *matHeaderCellDef> Relancer</th>
                             <td mat-cell *matCellDef="let post"><a [routerLink]="['/home/simulation-start']"
-                                    [queryParams]="{goal: post.jobGoal}"><button mat-icon-button
+                                    [queryParams]="{goal: post.jobGoal, userId: userId}"><button mat-icon-button
                                         id="bouton-replay-simulation" title="Relancer la simulation">
                                         <mat-icon>sync</mat-icon>
                                     </button></a></td>

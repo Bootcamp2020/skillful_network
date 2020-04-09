@@ -24,6 +24,7 @@ export class SimulationComponent implements OnInit {
   ];
   public dataSource: MatTableDataSource<Simulation>;
   public careerGoal: String;
+  public userId: Number;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -37,38 +38,40 @@ export class SimulationComponent implements OnInit {
 
   async ngOnInit() {
     // Get connected user from route params
+    //let { userId } = this.route.snapshot.params;
     let { userId } = this.route.snapshot.params;
-
+    this.userId = userId;
+    
     // Get connected user from userService if not provided
-    if (userId == null) {
+    if (this.userId == null) {
       console.log(">> user ID not provided.. trying to find active logged user...");
       if ( this.userService.userLogged == null 
         || this.userService.userLogged == undefined ) {
-        // exit if no user available
-        console.log(">> ERR: Active user not found.");
-        return;
-      } else {
-        userId = this.userService.userLogged.id;
-        this.careerGoal = this.userService.userLogged.careerGoal;
-        console.log(">> Active user found !");
+          // exit if no user available
+          console.log(">> ERR: Active user not found.");
+          return;
+        } else {
+          this.userId = this.userService.userLogged.id;
+          this.careerGoal = this.userService.userLogged.careerGoal;
+          console.log(">> Active user found !");
+        }
       }
-    }
-    if (userId == null) { return; } // exit if no user available
-    userId = userId == null ? 2 : userId;
-    console.log(">> userId: " + userId);
-
-    // GET careerGoal if needed
-    if (this.careerGoal == null) {
-      await this.api.get({ endpoint: `/usersbyId/${userId}` }).then((user) => {
-        console.log(">> REST : Get user.careerGoal.");
-        this.careerGoal = user.careerGoal;
-      });
-    }
-    console.log(">> user.careerGoal: " + this.careerGoal);
-
+      if (this.userId == null) { return; } // exit if no user available
+      //this.userId = this.userId == null ? 2 : this.userId;
+      console.log(">> userId: " + this.userId);
+      
+      // GET careerGoal if needed
+      if (this.careerGoal == null) {
+        await this.api.get({ endpoint: `/usersbyId/${this.userId}` }).then((user) => {
+          console.log(">> REST : Get user.careerGoal.");
+          this.careerGoal = user.careerGoal;
+        });
+      }
+      console.log(">> user.careerGoal: " + this.careerGoal);
+      
     // GET simulations list of provided user
     await this.api
-      .get({ endpoint: `/simulations?userid=${userId}` })
+      .get({ endpoint: `/simulations?userid=${this.userId}` })
       .then((data) => (this.listSimulation = data));
 
     this.dataSource = new MatTableDataSource(this.listSimulation);
@@ -95,7 +98,7 @@ export class SimulationComponent implements OnInit {
 
         // navigate to simulation-start component to effectively launch the submitted goal
         this.router.navigate(["/home/simulation-start"], {
-          queryParams: { goal: result },
+          queryParams: { goal: result, userId: this.userId },
         });
       }
     });
