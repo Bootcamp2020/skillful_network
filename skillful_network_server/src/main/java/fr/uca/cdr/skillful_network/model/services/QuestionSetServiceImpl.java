@@ -14,7 +14,7 @@ import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSe
 import fr.uca.cdr.skillful_network.model.repositories.QuestionSetRepository;
 import fr.uca.cdr.skillful_network.request.AnswerForm;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
-import fr.uca.cdr.skillful_network.tools.NumberTool;
+
 
 @Service(value = "questionSetService")
 public class QuestionSetServiceImpl implements QuestionSetService {
@@ -39,7 +39,7 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 				questionGrade ++;
 			} 	
 		}
-		exerciseGrade = NumberTool.round((questionGrade/answers.size())* weightByExercice,2);
+		exerciseGrade = (float)Math.round((questionGrade/answers.size())* weightByExercice*100)/100;
 		return exerciseGrade;
 	}
 
