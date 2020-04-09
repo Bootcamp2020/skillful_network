@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.model.entities.simulation.exercise;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,12 +26,15 @@ public class Keyword {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
 	private Set<Exercise> exercises = new HashSet<Exercise>();
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
 	private Set<JobOffer> jobOffers = new HashSet<JobOffer>();
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
 	private Set<Training> trainings = new HashSet<Training>();
@@ -38,6 +42,14 @@ public class Keyword {
 	public Keyword() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Keyword(Long id, String name, Set<Exercise> exercises, Set<JobOffer> jobOffers, Set<Training> trainings) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.exercises = exercises;
+		this.jobOffers = jobOffers;
+		this.trainings = trainings;
 	}
 
 	public Keyword(Long id, String name) {
@@ -87,8 +99,14 @@ public class Keyword {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+	
+	@Override
 	public String toString() {
-		return "Keyword [id=" + id + ", name=" + name + "]";
+		return "Keyword [id=" + id + ", name=" + name  + "]";
 	}
 
+	
 }

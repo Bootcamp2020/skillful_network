@@ -1,32 +1,9 @@
-<!--<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">{{Prénom}}</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Date de Naissance</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <a [routerLink]="['/user', user.id]" class="btn btn-info">{{ user.id }}</a>
-        </td>
-        <td>firstName</td>
-        <td>lastName</td>
-        <td>birthDate</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>-->
-<div class="container_user">
-  <div class="zone zone1"><app-details-user></app-details-user> </div>
-  <div class="zone zone2"><app-skills></app-skills></div>
-  <div class="zone zone3"><app-qualifications></app-qualifications> </div>
+
+<div class="container_user" *ngIf="!loading">
+  <div class="zone zone1"><app-details-user [user]="user" [image_user]="image_user" [statusUser]="statusUser"></app-details-user> </div>
+  <div class="zone zone2"><app-skills [listSkill]="listSkill"></app-skills></div>
+  <div class="zone zone3"><app-qualifications [listQualif]="listQualif"></app-qualifications> </div>
   <div class="zone zone4"> <app-candidatures></app-candidatures></div>
-  <div class="zone zone5"><app-subscript></app-subscript></div>
+  <div class="zone zone5"><app-subscript [listSubscript]="listSubscript"></app-subscript></div>
 </div>
 
