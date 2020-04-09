@@ -24,7 +24,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Exercise saveOrUpdateJobApplication(Exercise exercise) {
+    public Exercise saveOrUpdateExercise(Exercise exercise) {
         return exerciseRepository.save(exercise);
     }
 

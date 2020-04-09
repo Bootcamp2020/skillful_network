@@ -5,12 +5,16 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
 import fr.uca.cdr.skillful_network.model.repositories.QuestionSetRepository;
 import fr.uca.cdr.skillful_network.request.AnswerForm;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
+import fr.uca.cdr.skillful_network.tools.NumberTool;
 
 @Service(value = "questionSetService")
 public class QuestionSetServiceImpl implements QuestionSetService {
@@ -22,19 +26,20 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 	QuestionSetService questionSetService;
 
 	@Override
-	public float calculateGrade(ExerciseForm exerciseForm) {
+	public float calculateGrade(ExerciseForm exerciseForm, float weightByExercice) {
 		float questionGrade = 0;
 		float exerciseGrade = 0;		
-		Optional<QuestionSet> questionSet = questionSetRepository.findById(exerciseForm.getId());
+		QuestionSet questionSet = questionSetRepository.findById(exerciseForm.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Aucune question trouvée pour l'exercice : " + exerciseForm.getId()));
 		Set<AnswerForm> answers = exerciseForm.getAnswerSet();
-		Set<Question> questions = questionSet.get().getQuestions();
+		Set<Question> questions = questionSet.getQuestions();
 		for (AnswerForm answerForm : answers) {
 			Question question = findQuestion(answerForm.getQuestionId(), questions);
 			if (question.getIndexAnswer() == answerForm.getAnswer()) {
 				questionGrade ++;
 			} 	
 		}
-		exerciseGrade = questionGrade/answers.size();
+		exerciseGrade = NumberTool.round((questionGrade/answers.size())* weightByExercice,2);
 		return exerciseGrade;
 	}
 
@@ -60,7 +65,7 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 	}
 
 	@Override
-	public QuestionSet saveOrUpdateJobApplication(QuestionSet questionSet) {
+	public QuestionSet saveOrUpdateQuestionSet(QuestionSet questionSet) {
 		return questionSetRepository.save(questionSet);
 	}
 }
