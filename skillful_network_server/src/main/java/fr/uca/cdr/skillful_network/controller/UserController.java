@@ -106,12 +106,14 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
+	
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PutMapping(value = "/users/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
+	@PutMapping(value = "/users")
+	public ResponseEntity<User> updateUser(@AuthenticationPrincipal UserPrinciple userLogged,
 			@Valid @RequestBody UserForm userRequest) {
-			
+		Long id = userLogged.getId();
+		System.out.println(id);
 		System.out.println(userRequest);
 		if (userService.getUserById(id).isPresent()) {
 			User userToUpdate = userService.getUserById(id).get();
@@ -157,7 +159,6 @@ public class UserController {
 	@PutMapping(value = "/usersModifPassword")
 	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-
 		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
 		user.setPassword(userNewPwd);
 		User userUpdated = userService.saveOrUpdateUser(user);
