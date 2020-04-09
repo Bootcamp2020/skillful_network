@@ -38,8 +38,9 @@ public class QuestionSetServiceImpl implements QuestionSetService {
 				questionGrade ++;
 			} 	
 		}
+
 		exerciseGrade = (double)Math.round((questionGrade/answers.size())* weightByExercice*100)/100;
-		return exerciseGrade;
+  	return exerciseGrade;
 	}
 
 	private Optional<Question> findQuestion(Long questionId, Set<Question> questions) {
