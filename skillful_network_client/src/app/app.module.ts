@@ -60,6 +60,7 @@ import {QuestionnaireComponent} from './home/questionnaire/questionnaire.compone
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import {MatNativeDateModule} from '@angular/material/core';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
-    ],
+        GoalValidationModalComponent
+        ],
 
     imports: [
         BrowserModule,
