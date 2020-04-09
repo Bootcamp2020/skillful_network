@@ -24,8 +24,6 @@ export class ProfileComponent implements OnInit {
 
 // });
 
-
-
   public user: User;
   constructor( public tokenstorage: TokenStorageService) { }
  /* constructor(data: any) {
@@ -37,7 +35,6 @@ export class ProfileComponent implements OnInit {
     this.careerGoal=data.careerGoal;
   } */
 
-  
   ngOnInit(): void {
     this.user = this.tokenstorage.getCurrentUser();
   }
