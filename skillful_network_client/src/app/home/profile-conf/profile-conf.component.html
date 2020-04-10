@@ -23,12 +23,12 @@
                     <app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf>
                     <app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf>
                     <app-new-password></app-new-password>
-                    <div fxLayout="column" fxLayoutAlign="center center" novalidate>
-                        <div id="btn_send" fxFlex="30">
-                            <button type="submit" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
+                    <div fxLayoutAlign="center center" novalidate>
+                        <div class="btn-profil">
+                            <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
                         </div>
-                        <div id="btn_cancel" fxFlex="30">
-                            <button type="reset" mat-raised-button color="primary">Annuler</button>
+                        <div class="btn-profil" >
+                            <button type="reset" class="btn-profil" mat-raised-button color="primary">Annuler</button>
                         </div>
                     </div>
                 </div>
