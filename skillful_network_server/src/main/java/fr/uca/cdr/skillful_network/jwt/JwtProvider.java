@@ -1,10 +1,11 @@
 package fr.uca.cdr.skillful_network.jwt;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Paths;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
 @Component
 public class JwtProvider {
 
-	private static final String SCRIPT_URL = Paths.get("src/main/resources/data/script/scriptToken.py").toAbsolutePath()
-			.toString();
+	private static final String SCRIPT_URL = "data/script/scriptToken.py";
+	private final String SCRIPT_ABSOLUTE_URL = new File((this.getClass().getResource("/").getPath()+SCRIPT_URL).toString()).getAbsolutePath();	
 	private static final String DECRYPT = "decrypt";
 	private static final String ENCRYPT = "encrypt";
 	@Value("${pyCmd}")
@@ -32,19 +33,21 @@ public class JwtProvider {
 //	Méthode qui permet de générer un token à partir de l'id, l'email et le mot de passe de l'utilisateur connecté
 	public String generateJwtToken(Authentication authentication) {
 
-		System.out.println("absolutePath : " + SCRIPT_URL);
+		System.out.println("absolutePath : " + SCRIPT_ABSOLUTE_URL);
+
 		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
-		String encryptCmd = PY_CMD + " " + SCRIPT_URL + " " + ENCRYPT + " " + code;
+		String encryptCmd = PY_CMD + " " + SCRIPT_ABSOLUTE_URL + " " + ENCRYPT + " " + code;
 
 		return ExecutePyScript(encryptCmd);
 	}
 
 //	Méthode qui permet de décrypter un token 
 	public String decryptJwtToken(String frontToken) {
-
-		String decryptCmd = PY_CMD + " " + SCRIPT_URL + " " + DECRYPT + " " + frontToken;
+		
+		System.out.println("AbsolutePath : " + SCRIPT_ABSOLUTE_URL);
+		String decryptCmd = PY_CMD + " " + SCRIPT_ABSOLUTE_URL + " " + DECRYPT + " " + frontToken;
 		System.out.println("jwt récupéré dans decrypt : " + frontToken);
 
 		return ExecutePyScript(decryptCmd);
@@ -124,23 +127,36 @@ public class JwtProvider {
 
 //	Méthode qui sert à executer le script python en fonction de la commande donnée en argument et renvoyer sa réponse
 	public String ExecutePyScript(String cmd) {
-		String line = "";
-		String scriptResponse = "";
+
+		String scriptResponse = null;
+		String error = null;
+		Process p = null;
+
 		try {
-			Process p = Runtime.getRuntime().exec(cmd);
-			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while ((line = in.readLine()) != null) {
-				// On récupère l'utilisateur
-				scriptResponse = line;
-				System.out.println(scriptResponse);
+			p = Runtime.getRuntime().exec(cmd);
+
+			try (BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream()))) {
+
+				scriptResponse = in.lines().collect(Collectors.joining());
+				System.out.println("response en java 8 : " + scriptResponse);
+
+				error = err.lines().collect(Collectors.joining(System.lineSeparator()));
+				if (!error.isEmpty())
+					System.err.println("-----> WARNING ! Something goes wrong with python scrypt execution :\n" + error);
+
+			} catch (IOException i) {
+				i.printStackTrace();
 			}
-			in.close();
-			p.destroy();
+
 		} catch (IOException ie) {
 			ie.printStackTrace();
+		} finally {
+			if (p != null) {
+				System.out.println("Destruction du processus");
+				p.destroy();
+			}
 		}
-
 		return scriptResponse;
-
 	}
 }
