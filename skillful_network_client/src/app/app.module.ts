@@ -60,7 +60,12 @@ import {QuestionnaireComponent} from './home/questionnaire/questionnaire.compone
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+
+import {MatDialogModule} from '@angular/material/dialog';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
+
 import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
+
 
 
 @NgModule({
@@ -103,8 +108,10 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+        MyDialogComponent,
         GoalValidationModalComponent
         ],
+
 
     imports: [
         BrowserModule,
@@ -115,7 +122,12 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatDialogModule
+    ],
+
+    entryComponents: [
+        MyDialogComponent
     ],
 
     providers: [
