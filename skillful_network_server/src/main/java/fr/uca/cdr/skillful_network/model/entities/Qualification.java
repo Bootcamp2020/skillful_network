@@ -15,6 +15,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,7 +37,7 @@ public class Qualification {
 	@Column(name ="name", nullable=false)
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "qualificationSet")
+	@ManyToMany(cascade = {CascadeType.ALL},mappedBy = "qualificationSet")
 	@JsonIgnore
 	private Set<User> userSet = new HashSet<User>();
 	

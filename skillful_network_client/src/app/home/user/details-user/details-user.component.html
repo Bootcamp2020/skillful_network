@@ -6,15 +6,16 @@
             </mat-card-header>
             <hr>
             <mat-card-content>
-                <div class="parent" *ngIf="!loading">
-                    <div class="photoProfile">
-                        <img src="https://image.freepik.com/vecteurs-libre/profil-avatar-homme-icone-ronde_24640-14044.jpg">
+                <div class="parent">
+                    <div class="detail">
+                        <img [src]="image_user" >
                     </div>
+
                     <div class="detail">
                         <ul>
 
                             <li> Nom : {{user.firstName}} </li>
-                            <li> Prénom : {{user.firstName}} </li>
+                            <li> Prénom : {{user.lastName}} </li>
                             <li> Date de Naissance : {{user.birthDate | date:'dd / MM / yyyy'}} </li>
                             <li> Email : {{user.email}}</li>
                             <li> Numéro de téléphone : {{user.mobileNumber}}</li>

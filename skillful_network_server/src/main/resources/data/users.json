@@ -6,6 +6,7 @@
     "password": "12345678",
     "birthDate": "Aug 23, 1970 2:31:08 AM",
     "email": "john@uca.fr",
+     "careerGoal": "je cherche une poste fullStack java-Script, angular ,spring",
     "mobileNumber": "0678912345",
     "status": "1",
     "validated": true,
@@ -46,7 +47,40 @@
         "userList": []
       }
     ],
-    "jobApplicationSet": [],
+    "jobApplicationSet": [
+
+      {
+        "status": "ACCEPTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 1
+        }
+      },
+      {
+        "status": "REJECTED",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 2
+        }
+      },
+      {
+        "status": "WAITING",
+        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "user": {
+          "id": 1
+        },
+        "jobOffer": {
+          "id": 3
+        }
+      }
+    ],
+
     "trainingApplicationSet": [],
     "roles": [
 		      	{
@@ -68,6 +102,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+    "careerGoal":"je cherche une poste fullStack java-Script, angular ,spring",
     "skillSet": [
       {
         "id": 3,
@@ -109,7 +144,9 @@
         "userList": []
       }
     ],
-    "jobApplicationSet": [],
+    "jobApplicationSet": [
+	
+],
     "trainingApplicationSet": [],
     "roles": [
 		      	{
@@ -131,6 +168,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+     "careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [
       {
         "id": 4,
@@ -204,6 +242,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [
       {
         "id": 2,
@@ -262,6 +301,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java",
     "skillSet": [
       {
         "id": 2,
@@ -315,6 +355,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -340,6 +381,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -365,6 +407,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -390,6 +433,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+"careerGoal": "je cherche une poste fullStack java-Script",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -415,6 +459,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -440,6 +485,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -465,6 +511,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -490,6 +537,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -515,6 +563,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -540,6 +589,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -565,6 +615,7 @@
     "status": "1",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -590,6 +641,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -615,6 +667,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -634,12 +687,13 @@
     "firstName": "Bénédicte",
     "lastName": "Lorens",
     "birthDate": "Mar 24, 1988 7:13:15 AM",
-    "email": "béné@uca.fr",
+    "email": "bene@uca.fr",
     "password": "12345678",
     "mobileNumber": "0677868151",
     "status": "1",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -665,6 +719,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+"careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],
@@ -690,6 +745,7 @@
     "status": "2",
     "validated": true,
     "photo": false,
+     "careerGoal": "",
     "skillSet": [],
     "qualificationSet": [],
     "subscriptionSet": [],

@@ -24,7 +24,7 @@ public class TimedQuestionSetServiceImpl implements TimedQuestionSetService {
     }
 
     @Override
-    public TimedQuestionSet saveOrUpdateJobApplication(TimedQuestionSet timedQuestionSet) {
+    public TimedQuestionSet saveOrUpdateTimedQuestionSet(TimedQuestionSet timedQuestionSet) {
         return timedQuestionSetRepository.save(timedQuestionSet);
     }
 
