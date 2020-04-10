@@ -4,11 +4,13 @@ import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.services.ExamService;
 import fr.uca.cdr.skillful_network.model.services.ExerciseService;
 import fr.uca.cdr.skillful_network.model.services.JobOfferService;
 
@@ -60,6 +62,9 @@ public class SimulationController {
 	private KeywordRepository keywordRepository;
 
 	private SimulationRepository simulationRepository;
+	
+	@Autowired
+	private ExamService examService;
 
 
 	// #########################################################################
@@ -71,6 +76,29 @@ public class SimulationController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Simulation>> getAllsimulations() {
 		return new ResponseEntity<>(this.simulationService.getAllSimulations(), HttpStatus.OK);
+	}
+	
+	// ---------------------------------TEST---------------------------------------
+	// Provide a simulation JUST FOR TEST
+//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/untruclongaecrire") //    /simulations/untruclongaecrire
+	public ResponseEntity<Exam> getAnExam() {
+		
+		List<Exercise> listExo = exerciseService.getAllExercises();
+		Set<Exercise> setExo = new HashSet<Exercise>();
+		setExo.add(listExo.get(0));
+		setExo.add(listExo.get(1));
+		Exam monExam = new Exam();
+		System.out.println(monExam);
+		monExam.setExerciseSet(setExo);
+		System.out.println(monExam);
+		monExam.setId(44L);
+		// persistance OK
+//		examService.saveOrUpdateExam(monExam);
+//		monExam = examService.getExamById(1L).get();
+		
+		
+		return new ResponseEntity<>(monExam, HttpStatus.OK);
 	}
 
 	// Provide simulation by ID
@@ -110,64 +138,16 @@ public class SimulationController {
 	// start a new simulation based on a provided job goal
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	// @PostMapping(value = "/user/{userId}")
-	/*
-	 * @PostMapping(value = "") public ResponseEntity<Simulation>
-	 * startSimulation(@RequestParam(name="userid") Long
-	 * userId, @RequestParam(name="goal") String jobGoal) { Simulation simulation =
-	 * this.simulationService.startSimulation(userId, jobGoal) .orElseThrow(() ->
-	 * new ResponseStatusException(HttpStatus.NOT_FOUND,
-	 * "Une erreur est survenue pendant l'éxécécution de la simulation.")); return
-	 * new ResponseEntity<>(simulation, HttpStatus.OK); }
-	 */
-	@PostMapping(value = "/user/startSimulation")
-	public ResponseEntity<ArrayList<Exercise>> startSimulation(@AuthenticationPrincipal User user) {
-		
+	@PostMapping(value = "/user/{userId}")
+	public ResponseEntity<Exam>startSimulation(@AuthenticationPrincipal User user) 
+	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User currentUser = (User) authentication.getPrincipal();
-		
-		System.out.println(currentUser);
-		System.out.println(currentUser.getCareerGoal());
-		
-		// recuperer tous les jobOffer
-		List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
-		System.out.println(jobOffer);
-		// Matcher l'objectif de carrière(c'est une phrase) avec les mots clés de toute
-		// la liste de job-offers
-		ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
-		wordMatchCareerGoal
-				.addAll(simulationService.MatcherJobOfferJobGoal(currentUser.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
-		System.out.println(wordMatchCareerGoal);
-		// renvoyer toute la liste des job-offers qui match avec l'objectif de carrière
-		/*
-		 * ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
-		 * listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(
-		 * user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); System.out.println(
-		 * listeJobOfferMatcheJobGoal);
-		 */
-		/*
-		 * if(wordMatchCareerGoal.size()==0) { return new
-		 * ResponseEntity<ArrayList<Keyword>>(HttpStatus.NOT_FOUND); }else {
-		 */
-		// recupérer tous la liste de mots clés qui match avec les mots clés de
-		// job-offers matché dejà avec l'objectif de carrière
-		ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
-		System.out.println("listKeywordExo :" + listKeywordExo);
-		ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
-		listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
-		System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
-		
-		// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
-		ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
-        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
-        	
-        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
-        }
-        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
-        ArrayList<Exercise>  listExerciseSimulationFinal = new ArrayList<Exercise>(mySet);
-        System.out.println(listExerciseSimulationFinal);
-		return new ResponseEntity<ArrayList<Exercise>>(listExerciseSimulationFinal, HttpStatus.OK);
+    	User currentUser = (User) authentication.getPrincipal();
+		Exam exam =this.simulationService.startSimulation(user.getId()) .orElseThrow(() ->
+	  new ResponseStatusException(HttpStatus.NOT_FOUND,"Une erreur est survenue pendant l'éxécécution de la simulation."));
+	  return new ResponseEntity<>(exam, HttpStatus.OK);
 	}
+	 
 
 	
 
