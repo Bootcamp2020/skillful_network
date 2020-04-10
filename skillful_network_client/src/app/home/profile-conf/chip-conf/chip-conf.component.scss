@@ -1,0 +1,52 @@
+.slop-display-container {
+    width: 100%;
+  }
+  
+  .example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+  }
+  
+  .candidature {
+      padding-top: 10px;
+  }
+  
+  .Company,
+  .Job {
+      margin-left: 40px;
+  }
+  .card_dashboard{
+      padding: 0;
+      margin-bottom: 40px;
+      margin-top: 20px;
+    }
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    margin: 15px;
+  }
+  
+  #btn_ajouter {
+      width: 100px;
+  }
+  .progressBarDiv {
+    height: 8px;
+  }
+  .is-loading{
+    margin-bottom: 10px;
+    height: 1px;
+  }
+  
+  .mat-chip.mat-standard-chip .mat-chip-remove {
+    color: #3f51b5;
+    opacity: 4;
+  }

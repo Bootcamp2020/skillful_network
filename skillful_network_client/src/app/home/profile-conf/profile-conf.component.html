@@ -19,7 +19,7 @@
                 <!-- colon 2 -->
                 <div fxFlex="45">
                     <!-- bloc 2 -->
-                    <app-chip-conf [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf>
+                    <app-chip-conf title="Compétences" label="Nouvelle compétence" detail="compétence" [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf>
                 </div>
             </div>
             <!-- ligne 2 -->
@@ -27,7 +27,7 @@
                 <!-- colon 1 -->
                 <div fxLayout.gt-sm="column" fxFlex="45">
                     <!-- bloc 3 -->
-                    <app-chip-conf [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet"></app-chip-conf>
+                    <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification" [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet"></app-chip-conf>
                 </div>
                 <!-- colon 2 -->
                 <div fxLayout.gt-sm="column" fxFlex="45">
@@ -39,7 +39,7 @@
             <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
                 <!-- colon 1 -->
                 <div fxLayout.gt-sm="column" fxFlex="65">
-                    <app-chip-conf [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" [userChipList]="userLogged.subscriptionSet"></app-chip-conf>
+                    <app-chip-conf title="Abonnements" label="Nouvel abonnement" detail="abonnement" [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" [userChipList]="userLogged.subscriptionSet"></app-chip-conf>
                 </div>
                 <!-- colon 2 -->
                 <div fxLayout.gt-sm="column" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" novalidate>

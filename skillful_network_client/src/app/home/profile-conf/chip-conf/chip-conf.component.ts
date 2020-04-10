@@ -11,6 +11,9 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class ChipConfComponent implements OnInit {
   @Input() chipInfoGroup : FormGroup; 
   @Input() userChipList : ChipValue[]; 
+  @Input() title : string;
+  @Input() label : string;
+  @Input() detail : string;
 
   titleAlert: string = 'This field is required';
   post: any = '';
@@ -27,7 +30,7 @@ export class ChipConfComponent implements OnInit {
 
   ngOnInit(): void {
     this.listChip =  this.userChipList;
-    this.chipInfoGroup.value[''] = this.listChip;
+    this.chipInfoGroup.value['chipSet'] = this.listChip;
     this.chipInfoGroup.valueChanges.subscribe(data=>{
       this.isLoading=false;
       this.chips = []
@@ -49,8 +52,8 @@ export class ChipConfComponent implements OnInit {
   
 
   addChip() {
-    this.listChip.push(new ChipValue(this.chipInfoGroup.value['']));
-    this.chipInfoGroup.value[''] = this.listChip;
+    this.listChip.push(new ChipValue(this.chipInfoGroup.value['chipUnit']));
+    this.chipInfoGroup.value['chipSet'] = this.listChip;
     
   }
   
