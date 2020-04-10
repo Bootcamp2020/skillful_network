@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
   role: string[];
   isLoggedIn = 'false';
   isLoginFailed = false;
+  public rememberMe: FormControl = new FormControl(false);
+  isChecked: boolean;
 
 
 
@@ -60,22 +62,23 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('username : ' + data.username);
-            if (data.username === null) {
+            console.log('user id : ' + data.username);
+            if (data.username==null) {
                 this.error = true;
+            } else if (this.isChecked) {
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
-              //  this.userService.actualUser = new User({id});//lien a modifie
-              this.isLoggedIn = 'true';
-              localStorage.setItem('isLoggedIn', this.isLoggedIn);
-              this.router.navigate(['/home']);
-            }
-        })
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
+            }   
+            this.isLoggedIn = 'true';
+            localStorage.setItem('isLoggedIn', this.isLoggedIn);
+            this.router.navigate(['/home']);
+          })
         .catch((error) => {
           // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
           this.isLoginFailed = true;
         });
-  }
+    }
 
   openDialog(message:string) {
     let dialogRef = this.dialog.open(MyDialogComponent, {
@@ -162,5 +165,10 @@ export class LoginComponent implements OnInit {
     this.codeForm = this.formBuilder.group({
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+  onChange(event) {
+    this.isChecked=event;
+    // can't event.preventDefault();
+    console.log('onChange event.checked '+event.checked);
   }
 }
