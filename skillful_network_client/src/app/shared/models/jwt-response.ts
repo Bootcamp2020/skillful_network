@@ -1,7 +1,8 @@
-import { User } from './user';
+
+
 
 export class JwtResponse {
-    username: String;
+    username: string;
     authorities: string[];
     tokenType: string;
     accessToken: string;

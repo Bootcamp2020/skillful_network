@@ -22,6 +22,12 @@ export class TokenStorageService {
     sessionStorage.clear();
   }
 
+  public saveTokenSession(token: string) {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.setItem(TOKEN_KEY, token);
+    console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
+  }
+
   public saveTokenAndCurrentUsername(token: string, username: string , authorities: string[], storage: string) {
     // On enlève toutes les infos dans les storage
     localStorage.removeItem(TOKEN_KEY);
@@ -37,7 +43,7 @@ export class TokenStorageService {
       localStorage.setItem(USERNAME_KEY , JSON.stringify(username));
       localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
       console.log('token sauvé dans le local storage : ' + localStorage.getItem(TOKEN_KEY));
-      console.log('data sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(USERNAME_KEY));
+      console.log('username sauvé concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(USERNAME_KEY));
       console.log('authorities sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(AUTHORITIES_KEY));
 
     } else {
@@ -45,8 +51,8 @@ export class TokenStorageService {
       sessionStorage.setItem(USERNAME_KEY, JSON.stringify(username));
       sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
       console.log('token sauvé dans le session storage : ' + sessionStorage.getItem(TOKEN_KEY));
-      console.log('data sauvées concernant l\'utilisateur courant dans le session storage : ' + localStorage.getItem(USERNAME_KEY));
-      console.log('data sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(AUTHORITIES_KEY));
+      console.log('username sauvé concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(USERNAME_KEY));
+      console.log('authorities sauvées concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(AUTHORITIES_KEY));
     }
   }
 
