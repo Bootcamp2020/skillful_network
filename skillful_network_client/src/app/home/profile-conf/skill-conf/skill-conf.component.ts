@@ -23,10 +23,12 @@ export class SkillConfComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-
+  skillUnit: String;
+  disabled:Boolean = false;
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
+    console.log(this.skillInfoGroup)
     this.listSkill =  this.userSkilList;
     this.skillInfoGroup.value['skillSet'] = this.listSkill;
     this.skillInfoGroup.valueChanges.subscribe(data=>{
@@ -39,9 +41,8 @@ export class SkillConfComponent implements OnInit {
               for(let id in datas){
               this.skills.push(datas[id].name)  
             }
-            this.isLoading = false;
             }
-        )
+        ).finally(()=>this.isLoading = false)
       }
     })
   }
@@ -49,8 +50,12 @@ export class SkillConfComponent implements OnInit {
   myControl = new FormControl()
 
   addSkill() {
-    this.listSkill.push(new Skill(this.skillInfoGroup.value['skillUnit']));
-    this.skillInfoGroup.value['skillSet'] = this.listSkill;
+    if(this.skillInfoGroup.value.skillUnit!=null){
+       if (this.skillInfoGroup.value.skillUnit.length>1){
+          this.listSkill.push(new Skill(this.skillInfoGroup.value['skillUnit']));
+          this.skillInfoGroup.value['skillSet'] = this.listSkill; 
+    }  
+  }
   }
 
   removeSkill(skill : Skill) {

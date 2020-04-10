@@ -34,7 +34,8 @@ public class Simulation {
     
     private String synthesis;
     
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "result_id")
     private Set<Result> results; 
     
     
@@ -52,7 +53,8 @@ public class Simulation {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "simulationForm_id")
     private SimulationForm simulationForm;
     
     public Simulation() {

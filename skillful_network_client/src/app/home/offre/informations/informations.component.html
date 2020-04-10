@@ -9,7 +9,9 @@
                 <p *ngIf="choixListe=='emploi'">Entreprise: {{post.company}}</p>
                 <p *ngIf="choixListe=='formation'">Entreprise: {{post.organisation}}</p>
                 <p>Description: {{post.description}}</p>
-                <p>Mot-clés: {{post.keywords}}</p>
+                <p>Mot-clés: <span *ngFor="let keyword of post.keywords;let isLast = last">{{keyword.name}}<span *ngIf ="!isLast">, </span><span *ngIf = "isLast">.</span></span></p>
+                <p>Risque:  {{post.risk}}</p>
+                <p>Complexité:  {{post.complexity}}</p>
 
             </div>
         </mat-card-content>

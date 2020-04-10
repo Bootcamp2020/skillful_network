@@ -6,6 +6,8 @@ import { TokenStorageService } from '../shared/services/token-storage.service';
 import { User } from '../shared/models/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogModule, MatDialog} from '@angular/material/dialog';
+import {MyDialogComponent} from '../my-dialog/my-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +23,10 @@ export class LoginComponent implements OnInit {
   role: string[];
   isLoggedIn = 'false';
   isLoginFailed = false;
+  public rememberMe: FormControl = new FormControl(false);
+  isChecked: boolean;
+
+
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -36,9 +42,11 @@ export class LoginComponent implements OnInit {
   // variable qui servira à afficher le formulaire approprié en fonction du context
   public doDisplayCodeVerif = false;
 
+  
+  dialogResult = "";
 
   constructor(private api: ApiHelperService, private userService: UserService, private router: Router, private formBuilder: FormBuilder, 
-              private authService: AuthService, private tokenStorage: TokenStorageService) {
+              private authService: AuthService, private tokenStorage: TokenStorageService, public dialog:MatDialog) {
   }
   ngOnInit() {
     // Initialisation à vide des 2 formulaires
@@ -54,23 +62,34 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('user id : ' + data.user.id);
-            if (data.user.id === -1) {
+            console.log('user id : ' + data.username);
+            if (data.username==null) {
                 this.error = true;
+            } else if (this.isChecked) {
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
-              //  this.userService.actualUser = new User({id});//lien a modifie
-              this.isLoggedIn = 'true';
-              localStorage.setItem('isLoggedIn', this.isLoggedIn);
-              this.router.navigate(['/home']);
-            }
-        })
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
+            }   
+            this.isLoggedIn = 'true';
+            localStorage.setItem('isLoggedIn', this.isLoggedIn);
+            this.router.navigate(['/home']);
+          })
         .catch((error) => {
           // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
           this.isLoginFailed = true;
         });
-  }
+    }
 
+  openDialog(message:string) {
+    let dialogRef = this.dialog.open(MyDialogComponent, {
+      width: '700px',
+      data: message
+    });
+    dialogRef.afterClosed().subscribe (result => {
+      console.log('Fermeture fenêtre dialogue ');
+      this.dialogResult = result ; 
+    })
+  }
   register() {
     // Permet de vider le local storage
     // tslint:disable-next-line:max-line-length
@@ -82,7 +101,11 @@ export class LoginComponent implements OnInit {
     this.authService.register( {email: this.inscriptionFormGroup.value.emailInscription, role: this.role})
       .then(() => {
       // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
+      this.router.navigate(['/login']);
+      console.log(this.inscriptionFormGroup.value.emailInscription +  ' existe déjà ! ');
+    this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription +'   que vous avez insérée existe déjà.');
       }).catch((error) => {
+       
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
         this.doDisplayCodeVerif = true;
       });
@@ -101,11 +124,11 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.inscriptionFormGroup.value.emailInscription, password: this.codeForm.value.code  })
       .then((data) => {
         console.log('token' + data.accessToken);
-        console.log('user id : ' + data.user.id);
-        if (data.user.id === -1) {
+        console.log('username : ' + data.username);
+        if (data.username === null) {
           this.error = true;
         } else {
-            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
+            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
             //  this.userService.actualUser = new User({id});//lien a modifie
             this.isLoggedIn = 'true';
             localStorage.setItem('isLoggedIn', this.isLoggedIn);
@@ -142,5 +165,10 @@ export class LoginComponent implements OnInit {
     this.codeForm = this.formBuilder.group({
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+  onChange(event) {
+    this.isChecked=event;
+    // can't event.preventDefault();
+    console.log('onChange event.checked '+event.checked);
   }
 }

@@ -17,7 +17,7 @@ public interface UserService {
 	Optional<User> getUserById(long id);
 
 	User saveOrUpdateUser(User user);
-
+	
 	void deleteUser(Long id);
 
 	void sendMail(String mail, String code);
