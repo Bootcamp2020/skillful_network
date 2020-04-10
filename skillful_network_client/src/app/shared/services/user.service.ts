@@ -104,9 +104,9 @@ export class UserService {
     return null;
   }
 
-  public findAll( page: number, size: number): Promise<any> {
+  public findAll(  page: number, size: number, sortOrder: string, field: string): Promise<any> {
     const promise = new Promise((resolve, reject) => {
-      this.api.get({endpoint: `/users/`, queryParams: { page, size}})
+      this.api.get({endpoint: `/users/`, queryParams: {  page, size , sortOrder, field}})
         .then(
           res => {
             resolve(res);
@@ -124,8 +124,20 @@ export class UserService {
     return this.api.get( {endpoint : `/${option}/candidates` , queryParams: {contain }});
   }
 
-  public getUsersBySearch(keyword: string, page: number, size: number): Promise<any> {
-    return this.api.get({endpoint : `/users/search`, queryParams: {keyword, page, size} });
+  public getUsersBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<any> {
+    const promise = new Promise((resolve, reject) => {
+      this.api.get({endpoint : `/users/search`, queryParams: {keyword, page, size, sortOrder, field} })
+          .then(
+              res => {
+                resolve(res);
+              },
+              msg => {
+                reject(msg);
+              }
+          ).catch((error) => {
+      });
+    });
+    return promise;
   }
 
 
