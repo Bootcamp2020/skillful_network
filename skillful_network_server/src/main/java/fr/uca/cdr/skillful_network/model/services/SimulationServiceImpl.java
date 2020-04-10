@@ -4,6 +4,8 @@ import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
@@ -12,6 +14,7 @@ import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service(value = "SimulationService")
@@ -45,8 +49,11 @@ public class SimulationServiceImpl implements SimulationService {
 	@Autowired
 	private TrainingService trainingService;
 
+	
+	@Autowired
+	private SimulationService simulationService;
+	
 	// private final float JOBACCESSSCORE = 0.80f;
-
 	private final double TRAININGSCORE = 0.4f;
 
 	@Override
@@ -75,23 +82,58 @@ public class SimulationServiceImpl implements SimulationService {
 	}
 
 	@Override
-	public Optional<Simulation> startSimulation(Long userId, String jobGoal) {
-		System.out
-				.println(">>> SimulationServiceImpl.startSimulation(userID: " + userId + ", jobGoal: " + jobGoal + ")");
+	public Optional<Exam> startSimulation(Long userId) {
+		System.out.println(">>> SimulationServiceImpl.startSimulation(userID: " + userId  + ")");
 		User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"Aucun utilisateur trouvé avec l'id : " + userId));
-		Simulation simulation = new Simulation(jobGoal);
-		simulation.setUser(user);
+		
+		System.out.println(user.getCareerGoal());
+		
+		// recuperer tous les jobOffer
+				List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+				System.out.println(jobOffer);
+				ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
+				wordMatchCareerGoal.addAll(this.simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
+				System.out.println("wordMatchCareerGoal:" +wordMatchCareerGoal);
+				if(wordMatchCareerGoal.size()==0) {
+					throw new ResponseStatusException(HttpStatus.OK, "Aucune offre d'emploi qui correspond avec votre objectif d'emploi");
+				
+					}else
+				{ 
+						Simulation simulation = new Simulation(user.getCareerGoal());
+						simulation.setUser(user);
+				ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
+				listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); 
+				System.out.println(listeJobOfferMatcheJobGoal);
+				
+				    Random rand = new Random();
+				   
+				    JobOffer JobOfferByJobGoal = listeJobOfferMatcheJobGoal.get(rand.nextInt(listeJobOfferMatcheJobGoal.size()));
+				
+			
+				ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
+				System.out.println("listKeywordExo :" + listKeywordExo);
+				ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
+				listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
+				System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
+				// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
+				ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
+		        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
+		        	
+		        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
+		        }
+		        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
 
-		// *******************************************************************
-		// analyse des criteres des objectifs par rapport aux joboffer / questionnaire /
-		// training
-		// *******************************************************************
-
+		        System.out.println(mySet);
+		        Exam exam = new Exam();
+		        exam.setExerciseSet(mySet);
+		        simulation.setExam(exam);
+		    	simulation.setJobOffer(JobOfferByJobGoal);      
 		simulation.setSynthesis("Lorem Ipsum ....");
 		simulation = simulationRepository.save(simulation);
+		
 		System.out.println(">>> saved simulation: " + simulation);
-		return Optional.of(simulation);
+		return Optional.of(simulation.getExam());}
 	}
 
 	@Override
@@ -152,8 +194,7 @@ public class SimulationServiceImpl implements SimulationService {
 			Set<Keyword> key = jobOffer.get(i).getKeywords();
 			for (Iterator<Keyword> it = key.iterator(); it.hasNext();) {
 				Keyword k = it.next();
-				System.out.println(k);
-				if (searchTheWord(careerGoal, k.getName()) != "")
+				if (searchTheWord(careerGoal, k.getName())!= "")
 					listeKeyWords.add(searchTheWord(careerGoal, k.getName()));
 			}
 		}
@@ -168,9 +209,10 @@ public class SimulationServiceImpl implements SimulationService {
 	public ArrayList<JobOffer> ListJobOfferByJobGoal(String careerGoal, ArrayList<JobOffer> jobOffer) {
 		ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
 		for (int i = 0; i < jobOffer.size(); i++) {
-			ArrayList<Keyword> key = (ArrayList<Keyword>) jobOffer.get(i).getKeywords();
-			for (int j = 0; j < key.size(); j++) {
-				if (searchTheWord(careerGoal, key.get(j).getName()) != "")
+			Set<Keyword> key = jobOffer.get(i).getKeywords();
+			for (Iterator<Keyword> it = key.iterator(); it.hasNext(); ) {
+				Keyword k = it.next();
+				if (searchTheWord(careerGoal, k.getName())!= "")
 					listeJobOfferMatcheJobGoal.add(jobOffer.get(i));
 			}
 		}
@@ -245,7 +287,7 @@ public class SimulationServiceImpl implements SimulationService {
 		//
 		splitArray = str.split(" ");
 		for (int i = 0; i < splitArray.length; i++) {
-			if (calculsimilarityOfStrings(splitArray[i], s2) >= 0.8) {
+			if (calculsimilarityOfStrings(splitArray[i], s2) >= 0.7) {
 				motChercher = s2;
 			}
 		}
@@ -257,13 +299,11 @@ public class SimulationServiceImpl implements SimulationService {
 		ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
 		for (int i = 0; i < keyJob.size(); i++) {
 			for (int j = 0; j < keyExo.size(); j++) {
-				System.out.println(keyExo.get(j).getName());
 				if (calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()) >= 0.8) {
 					System.out.println("Similarity calcul : ");
 					System.out.println(calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()));
 					listeKeyWordsEquals.add(keyExo.get(j));
 				}
-				System.out.println(listeKeyWordsEquals);
 			}
 		}
 		return listeKeyWordsEquals;
