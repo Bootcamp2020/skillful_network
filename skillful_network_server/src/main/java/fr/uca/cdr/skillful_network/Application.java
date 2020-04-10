@@ -35,7 +35,15 @@ public class Application {
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
 	}
-
+	@Bean
+	@Profile({"dev", "test"})
+	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
+		return args -> {
+			if (choiceRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
+			}
+		};
+	}
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
@@ -45,7 +53,7 @@ public class Application {
 			}
 		};
 	}
-
+	
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
@@ -91,15 +99,8 @@ public class Application {
 
 
 	
-	@Bean
-	@Profile({"dev", "test"})
-	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
-		return args -> {
-			if (choiceRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
-			}
-		};
-	}
+	
+	
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {

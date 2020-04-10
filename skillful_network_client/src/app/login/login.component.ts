@@ -60,11 +60,11 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('user id : ' + data.user.id);
-            if (data.user.id === -1) {
+            console.log('username : ' + data.username);
+            if (data.username === null) {
                 this.error = true;
             } else {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
               //  this.userService.actualUser = new User({id});//lien a modifie
               this.isLoggedIn = 'true';
               localStorage.setItem('isLoggedIn', this.isLoggedIn);
@@ -121,11 +121,11 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.inscriptionFormGroup.value.emailInscription, password: this.codeForm.value.code  })
       .then((data) => {
         console.log('token' + data.accessToken);
-        console.log('user id : ' + data.user.id);
-        if (data.user.id === -1) {
+        console.log('username : ' + data.username);
+        if (data.username === null) {
           this.error = true;
         } else {
-            this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');
+            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
             //  this.userService.actualUser = new User({id});//lien a modifie
             this.isLoggedIn = 'true';
             localStorage.setItem('isLoggedIn', this.isLoggedIn);

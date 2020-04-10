@@ -1,21 +1,45 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
+
+import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
+import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.services.ExerciseService;
+import fr.uca.cdr.skillful_network.model.services.JobOfferService;
+
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
+
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
+import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
+import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
 
 @CrossOrigin("*")
@@ -25,9 +49,18 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationService simulationService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private JobOfferService jobOfferService;
 
 	@Autowired
+	private ExerciseService exerciseService;
+	@Autowired
+	private KeywordRepository keywordRepository;
+
 	private SimulationRepository simulationRepository;
+
 
 	// #########################################################################
 	// GET methods
@@ -75,16 +108,68 @@ public class SimulationController {
 	// #########################################################################
 
 	// start a new simulation based on a provided job goal
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	// @PostMapping(value = "/user/{userId}")
-	@PostMapping(value = "")
-	public ResponseEntity<Simulation> startSimulation(@RequestParam(name = "userid") Long userId,
-			@RequestParam(name = "goal") String jobGoal) {
-		Simulation simulation = this.simulationService.startSimulation(userId, jobGoal)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"Une erreur est survenue pendant l'éxécécution de la simulation."));
-		return new ResponseEntity<>(simulation, HttpStatus.OK);
+	/*
+	 * @PostMapping(value = "") public ResponseEntity<Simulation>
+	 * startSimulation(@RequestParam(name="userid") Long
+	 * userId, @RequestParam(name="goal") String jobGoal) { Simulation simulation =
+	 * this.simulationService.startSimulation(userId, jobGoal) .orElseThrow(() ->
+	 * new ResponseStatusException(HttpStatus.NOT_FOUND,
+	 * "Une erreur est survenue pendant l'éxécécution de la simulation.")); return
+	 * new ResponseEntity<>(simulation, HttpStatus.OK); }
+	 */
+	@PostMapping(value = "/user/startSimulation")
+	public ResponseEntity<ArrayList<Exercise>> startSimulation(@AuthenticationPrincipal User user) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
+		
+		System.out.println(currentUser);
+		System.out.println(currentUser.getCareerGoal());
+		
+		// recuperer tous les jobOffer
+		List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+		System.out.println(jobOffer);
+		// Matcher l'objectif de carrière(c'est une phrase) avec les mots clés de toute
+		// la liste de job-offers
+		ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
+		wordMatchCareerGoal
+				.addAll(simulationService.MatcherJobOfferJobGoal(currentUser.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
+		System.out.println(wordMatchCareerGoal);
+		// renvoyer toute la liste des job-offers qui match avec l'objectif de carrière
+		/*
+		 * ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
+		 * listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(
+		 * user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); System.out.println(
+		 * listeJobOfferMatcheJobGoal);
+		 */
+		/*
+		 * if(wordMatchCareerGoal.size()==0) { return new
+		 * ResponseEntity<ArrayList<Keyword>>(HttpStatus.NOT_FOUND); }else {
+		 */
+		// recupérer tous la liste de mots clés qui match avec les mots clés de
+		// job-offers matché dejà avec l'objectif de carrière
+		ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
+		System.out.println("listKeywordExo :" + listKeywordExo);
+		ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
+		listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
+		System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
+		
+		// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
+		ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
+        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
+        	
+        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
+        }
+        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
+        ArrayList<Exercise>  listExerciseSimulationFinal = new ArrayList<Exercise>(mySet);
+        System.out.println(listExerciseSimulationFinal);
+		return new ResponseEntity<ArrayList<Exercise>>(listExerciseSimulationFinal, HttpStatus.OK);
 	}
+
+	
 
 	@PostMapping(value = "/{id}/answer")
 	public ResponseEntity<Simulation> simulationResult(@PathVariable(value = "id") Long examId,
@@ -93,6 +178,7 @@ public class SimulationController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Une erreur est survenue pendant l'évaluation de la simulation."));
 		return new ResponseEntity<>(simulation, HttpStatus.OK);
+
 	}
 
 	// #########################################################################

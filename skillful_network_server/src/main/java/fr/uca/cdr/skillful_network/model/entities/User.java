@@ -1,9 +1,13 @@
 package fr.uca.cdr.skillful_network.model.entities;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,18 +20,27 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User implements UserDetails  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -40,7 +53,7 @@ public class User {
 	private String password;
 	@PastOrPresent
 	private Date birthDate;
-	@NotNull(message = "Email cannot be null")
+	//@NotNull(message = "Email cannot be null")
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
@@ -51,21 +64,21 @@ public class User {
 
 	private LocalDateTime temporaryCodeExpirationDate;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Skill> skillSet = new HashSet<Skill>();
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user") 
 	@JsonBackReference 
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user")
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 
@@ -73,12 +86,15 @@ public class User {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private Set<Training> trainingSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user") 
 	private Set<Simulation> simulationSet = new HashSet<>();
+	
+	@Transient
+	private Collection<? extends GrantedAuthority> authorities;
 	
 	public User() {
 		super();
@@ -119,9 +135,9 @@ public class User {
 			@Size(min = 8, message = "password must be at least 8 characters") String password,
 			@PastOrPresent Date birthDate,
 			@NotNull(message = "Email cannot be null") @Email(message = "Email should be valid") String email,
-			String mobileNumber, String status, boolean validated, boolean photo, Set<Skill> skillSet,
+			String mobileNumber, String status, boolean validated, String careerGoal, boolean photo, Set<Skill> skillSet,
 			Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet,
-			Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles, Set<Simulation> simulationSet) {
+			Set<JobApplication> jobApplicationSet, Set<TrainingApplication> trainingApplicationSet, Set<Role> roles, Set<Simulation> simulationSet, Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -132,6 +148,7 @@ public class User {
 		this.mobileNumber = mobileNumber;
 		this.status = status;
 		this.validated = validated;
+		this.careerGoal = careerGoal;
 		this.photo = photo;
 		this.skillSet = skillSet;
 		this.qualificationSet = qualificationSet;
@@ -140,6 +157,65 @@ public class User {
 		this.trainingApplicationSet = trainingApplicationSet;
 		this.simulationSet = simulationSet;
 		this.roles = roles;
+		this.authorities = authorities;
+	}
+	
+	public static User build(User user) {
+		List<GrantedAuthority> authorities = user.getRoles().stream()
+				.map(roles -> new SimpleGrantedAuthority(roles.getName().name())).collect(Collectors.toList());
+		return new User(user.getId(), user.getFirstName(), user.getLastName(), user.getPassword(),
+				user.getBirthDate(), user.getEmail(), user.getMobileNumber(), user.getStatus(), 
+				user.isValidated(),user.getCareerGoal(), user.isPhoto(), user.getSkillSet(), user.getQualificationSet(),
+				user.getSubscriptionSet(), user.getJobApplicationSet(), user.getTrainingApplicationSet(),
+				user.getRoles(), user.getSimulationSet() , authorities);
+
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+
+	}
+	
+
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		User user = (User) o;
+		return Objects.equals(id, user.id);
 	}
 	
 	
