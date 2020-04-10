@@ -3,10 +3,17 @@
     
     
     <div class="lienProfile"  fxLayout="column">
-        <div class="photoProfile container">
-            <img [src]="userService.userLogged.photoProfile" alt="Avatar" class="image" />
+        <div class="photoProfile container profilePhoto">
+            <!--<img [src]="userService.userLogged.photoProfile" alt="Avatar" class="image" />
             <div class="middle">
                 <div class="text" cursor="none" (click)="openModalProfile()" ><strong><i>Mise à jour </i></strong> </div>
+            </div>-->
+            <img [src]="userService.userLogged.photoProfile" alt="Avatar" class="image effetImage">
+            <div class="overlay middle">
+                <input type="file">
+                <p class="text upIMG" cursor="none" (click)="openModalProfile()"><i class="material-icons appPhoto" matTooltip="Ajouter une image" matTooltipPosition="below">
+                    add_a_photo
+                </i></p>
             </div>
         </div>
         <p><a [routerLink]="['/home/profile']" class="lienProfile" href="https://www.google.com/">Profil</a></p>
