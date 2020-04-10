@@ -1,12 +1,10 @@
 package fr.uca.cdr.skillful_network.controller;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.io.Files;
 
-import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
+
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.model.entities.Skill;
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
@@ -55,7 +52,6 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
-
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -292,7 +288,7 @@ public class UserController {
 		Optional<User> user = userService.getUserById(id);
 		if (!user.isPresent()) {
 
-			throw new ResourceNotFoundException("User not found with id : " + id);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND ,"User not found with id : " + id);
 
 		}
 		return ResponseEntity.ok().body(user.get());
