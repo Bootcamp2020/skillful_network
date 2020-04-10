@@ -154,9 +154,11 @@ public class UserController {
 //		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 //	}
 	// Utilisation du current User pour la modification
-
-	@PutMapping("/user")
-	public ResponseEntity<User> updateUsernameCurrentUser(@AuthenticationPrincipal User user,
+	
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@Transactional
+	@PutMapping("/users")
+	public ResponseEntity<User> updatePasswordUser(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
