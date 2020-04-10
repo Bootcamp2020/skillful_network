@@ -60,6 +60,8 @@ import {QuestionnaireComponent} from './home/questionnaire/questionnaire.compone
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
 
 
 @NgModule({
@@ -102,6 +104,7 @@ import {MatNativeDateModule} from '@angular/material/core';
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+        MyDialogComponent,
     ],
 
     imports: [
@@ -113,7 +116,12 @@ import {MatNativeDateModule} from '@angular/material/core';
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatDialogModule
+    ],
+
+    entryComponents: [
+        MyDialogComponent
     ],
 
     providers: [

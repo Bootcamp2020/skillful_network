@@ -1,0 +1,34 @@
+
+    .mat-dialog-content{
+text-align: center;
+    }
+  
+  .mat-card-title{
+    color: grey;
+    padding: 2rem;
+  }
+
+  mat-card-title button{   
+   position:absolute;
+   right:22%;
+   bottom:57%; 
+  }
+
+  .title{
+    text-align: center;
+  }
+
+  mat-dialog-actions  {
+    text-align: center;
+  }
+
+  .lien{
+    font-size: 14px;
+    color: rgb(72, 255, 0);
+    margin-left : 40%;
+  }
+
+  #crossButton{
+    padding:2px;
+    font-size: 22px;
+  }

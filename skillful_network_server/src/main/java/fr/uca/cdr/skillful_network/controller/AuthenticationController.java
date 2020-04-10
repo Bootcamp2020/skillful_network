@@ -123,9 +123,9 @@ public class AuthenticationController {
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
 		if (userService.alreadyExists(registerForm.getEmail())) {
 			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
+				System.out.println("l'email existe déjà et a été validé !");
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			} else {
-
 				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
 				userRepository.delete(oOldUser.get());
 			}
