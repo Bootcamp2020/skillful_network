@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { User } from 'src/app/shared/models/user';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BottomSheetOverviewExample } from '../bottom-sheet-overview-example/bottom-sheet-overview-example';
@@ -15,6 +15,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class MenuprofileComponent implements OnInit {
     public photoProfile: any;
+
     user: User=new User({
     id: 1,
     firstName:'Steeve',
@@ -64,7 +65,7 @@ export class MenuprofileComponent implements OnInit {
       data: { user: this.userService.userLogged.photoProfile }
     });
 
-   
+
   }
 
 
