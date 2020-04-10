@@ -92,7 +92,7 @@ export class UserService {
     this.userLogged.subscriptionSet = user.subscriptionSet;
 
     // envoie vers le back
-    this.api.put({ endpoint: '/users/' + this.userLogged.id, data: this.userLogged });
+    this.api.put({ endpoint: '/users', data: this.userLogged });
     this.emitUsers();
   }
 
