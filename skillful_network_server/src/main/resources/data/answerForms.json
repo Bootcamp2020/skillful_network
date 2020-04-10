@@ -1,0 +1,17 @@
+[
+	{
+		"id": 1,
+		"questionId": 1,
+		"answer": 1
+	},
+	{
+		"id": 2,
+		"questionId": 2,
+		"answer": 6
+	},
+	{
+		"id": 3,
+		"questionId": 3,
+		"answer": 10
+    }
+]

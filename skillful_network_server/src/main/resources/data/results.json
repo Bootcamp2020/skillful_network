@@ -1,0 +1,12 @@
+[
+	{
+		"id": 1,
+		"idExercise": 2,
+		"gradeExercise": 0.8
+	},
+	{
+		"id": 2,
+		"idExercise": 1,
+		"gradeExercise": 1.2
+	}
+]
