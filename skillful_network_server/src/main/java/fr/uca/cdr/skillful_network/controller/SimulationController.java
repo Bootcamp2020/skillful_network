@@ -4,11 +4,13 @@ import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.services.ExamService;
 import fr.uca.cdr.skillful_network.model.services.ExerciseService;
 import fr.uca.cdr.skillful_network.model.services.JobOfferService;
 
@@ -19,13 +21,15 @@ import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -58,6 +62,9 @@ public class SimulationController {
 	private KeywordRepository keywordRepository;
 
 	private SimulationRepository simulationRepository;
+	
+	@Autowired
+	private ExamService examService;
 
 
 	// #########################################################################
@@ -69,6 +76,29 @@ public class SimulationController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Simulation>> getAllsimulations() {
 		return new ResponseEntity<>(this.simulationService.getAllSimulations(), HttpStatus.OK);
+	}
+	
+	// ---------------------------------TEST---------------------------------------
+	// Provide a simulation JUST FOR TEST
+//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/untruclongaecrire") //    /simulations/untruclongaecrire
+	public ResponseEntity<Exam> getAnExam() {
+		
+		List<Exercise> listExo = exerciseService.getAllExercises();
+		Set<Exercise> setExo = new HashSet<Exercise>();
+		setExo.add(listExo.get(0));
+		setExo.add(listExo.get(1));
+		Exam monExam = new Exam();
+		System.out.println(monExam);
+		monExam.setExerciseSet(setExo);
+		System.out.println(monExam);
+		monExam.setId(44L);
+		// persistance OK
+//		examService.saveOrUpdateExam(monExam);
+//		monExam = examService.getExamById(1L).get();
+		
+		
+		return new ResponseEntity<>(monExam, HttpStatus.OK);
 	}
 
 	// Provide simulation by ID
@@ -119,9 +149,14 @@ public class SimulationController {
 	 * new ResponseEntity<>(simulation, HttpStatus.OK); }
 	 */
 	@PostMapping(value = "/user/startSimulation")
-	public ResponseEntity<ArrayList<Exercise>> startSimulation(@AuthenticationPrincipal UserPrinciple user) {
-		System.out.println(user);
-		System.out.println(user.getCareerGoal());
+	public ResponseEntity<ArrayList<Exercise>> startSimulation(@AuthenticationPrincipal User user) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
+		
+		System.out.println(currentUser);
+		System.out.println(currentUser.getCareerGoal());
+		
 		// recuperer tous les jobOffer
 		List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
 		System.out.println(jobOffer);
@@ -129,7 +164,7 @@ public class SimulationController {
 		// la liste de job-offers
 		ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
 		wordMatchCareerGoal
-				.addAll(simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
+				.addAll(simulationService.MatcherJobOfferJobGoal(currentUser.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
 		System.out.println(wordMatchCareerGoal);
 		// renvoyer toute la liste des job-offers qui match avec l'objectif de carrière
 		/*

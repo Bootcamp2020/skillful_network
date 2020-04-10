@@ -17,7 +17,7 @@ export class OffreComponent implements OnInit {
   @Input() public titreOffre: string;
   public jobOfferId: number;
   public choixListe: string;
-
+    public keywords: any;
 
   public trainings: Trainings;
   public jobDetails: JobDetails;
@@ -33,7 +33,6 @@ export class OffreComponent implements OnInit {
           this.api.get({endpoint: `/offers/${id}`})
               .then(data => {
                   this.jobDetails = data;
-                  console.log(this.jobDetails);
               })
               .catch((error) => {
                   console.log('cette offre n\'existe pas');

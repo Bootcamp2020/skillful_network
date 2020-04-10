@@ -1,56 +1,66 @@
-
 <div class="card_dashboard mat-elevation-z4">
-    <mat-card >
+    <mat-card>
         <mat-card-header id="title">
             <mat-card-title id="title_police">Simulation </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content>
+        <mat-card-content *ngIf="isLoaded">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z4 table-container">
                     <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
 
                         <!-- Job goal Column -->
                         <ng-container matColumnDef="jobgoal">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Objectif professionnel</th>
-                            <td mat-cell *matCellDef="let post"> {{post.careerGoal}} </td>
-                        </ng-container>
-                        
-                        <!-- Date simulation Column -->
-                        <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-                            <td mat-cell *matCellDef="let post"> {{post.date |date: "dd/MM/yyyy"}} </td>
+                            <th mat-header-cell *matHeaderCellDef>Objectif</th>
+                            <td mat-cell *matCellDef="let post"> {{post.jobGoal}} </td>
                         </ng-container>
 
-                        <!-- Nb exercice Column -->
-                        <ng-container matColumnDef="nbexercice">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre d'exercices</th>
-                            <td mat-cell *matCellDef="let post"> {{post.nbexercice}} </td>
+                        <!-- Date simulation Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef>Date</th>
+                            <td mat-cell *matCellDef="let post"> {{post.creationDate |date: "dd/MM/yyyy"}} </td>
+                        </ng-container>
+
+                        <!-- Job Access Column -->
+                        <ng-container matColumnDef="jobaccess">
+                            <th mat-header-cell *matHeaderCellDef>Résultat</th>
+                            <td mat-cell *matCellDef="let post" class="icon-result-simulation">
+                                <mat-icon *ngIf="post.jobAccess == true" title="Simulation validée">done</mat-icon>
+                                <mat-icon *ngIf="post.jobAccess == false" title="Simulation échouée">block</mat-icon>
+                            </td>
                         </ng-container>
 
                         <!-- Simulation detail Column -->
                         <ng-container matColumnDef="simdetail">
                             <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/simulation/' + post.id }}"><button mat-icon-button id="bouton-details-simulation" title="Détails de la simulation"><mat-icon>visibility</mat-icon></button></a></td> 
-                        </ng-container>        
+                            <td mat-cell *matCellDef="let post"><a
+                                    routerLink="{{'/home/simulation/' + post.id }}"><button mat-icon-button
+                                        id="bouton-details-simulation" title="Détails de la simulation">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button></a></td>
+                        </ng-container>
 
-                         <!-- Reload Simulation Column -->
-                         <ng-container matColumnDef="reloadsim">
+                        <!-- Reload Simulation Column -->
+                        <ng-container matColumnDef="reloadsim">
                             <th mat-header-cell *matHeaderCellDef> Relancer</th>
-                            <td mat-cell *matCellDef="let post"><a routerLink="{{'/newSimulation/' + post.id }}"><button mat-icon-button id="bouton-replay-simulation" title="Relancer la simulation"><mat-icon>repeat</mat-icon></button></a></td> 
+                            <td mat-cell *matCellDef="let post"><a [routerLink]="['/home/simulation-start']"
+                                    [queryParams]="{goal: post.jobGoal, userId: userId}"><button mat-icon-button
+                                        id="bouton-replay-simulation" title="Relancer la simulation">
+                                        <mat-icon>sync</mat-icon>
+                                    </button></a></td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-
-                   
                 </div>
-            </div>
+            </div>  
         </mat-card-content>
+        <mat-card-content *ngIf="isLoaded">
+            <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="openDialog()">Démarrer</button>
+        </mat-card-content>
+        <div class="progressBarDiv" *ngIf="!isLoaded">
+            <mat-spinner class="loading_mat_spinner" color="primary" ></mat-spinner>
+        </div>
     </mat-card>
 </div>
-
-
-
-
