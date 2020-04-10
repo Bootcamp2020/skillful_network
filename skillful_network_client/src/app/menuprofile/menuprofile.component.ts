@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { User } from 'src/app/shared/models/user';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BottomSheetOverviewExample } from '../bottom-sheet-overview-example/bottom-sheet-overview-example';
@@ -11,6 +11,7 @@ import { UserService } from '../shared/services/user.service';
     styleUrls: ['./menuprofile.component.scss']
 })
 export class MenuprofileComponent implements OnInit {
+
     
     user: User=new User({
     id: 1,
@@ -49,7 +50,7 @@ export class MenuprofileComponent implements OnInit {
       data: { user: this.userService.userLogged.photoProfile }
     });
 
-   
+
   }
 
 
