@@ -24,11 +24,11 @@
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
                     <mat-label>{{label}}</mat-label>
-                    <input formControlName="chipUnit"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder={{detail}} class="form-control">
+                    <input formControlName="chipValue"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder={{detail}} class="form-control">
                     <mat-autocomplete #auto="matAutocomplete">
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let chip of chips" [value]="chip">
-                            {{chip}}
+                                {{chip}}
                             </mat-option>
                         </ng-container>
                       </mat-autocomplete>

@@ -9,8 +9,9 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./chip-conf.component.scss']
 })
 export class ChipConfComponent implements OnInit {
-  @Input() chipInfoGroup : FormGroup; 
-  @Input() userChipList : ChipValue[]; 
+  @Input() chipInfoGroup : FormGroup;
+  @Input() userChipList : ChipValue[];
+
   @Input() title : string;
   @Input() label : string;
   @Input() detail : string;
@@ -29,8 +30,9 @@ export class ChipConfComponent implements OnInit {
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
-    this.listChip =  this.userChipList;
-    this.chipInfoGroup.value['chipSet'] = this.listChip;
+    this.listChip = this.userChipList;
+    this.chipInfoGroup.value['chipValues'] = this.listChip;
+    console.log(this.chipInfoGroup);
     this.chipInfoGroup.valueChanges.subscribe(data=>{
       this.isLoading=false;
       this.chips = []
@@ -39,7 +41,7 @@ export class ChipConfComponent implements OnInit {
         this.service.findByContain("",data.any).then(
           datas=>{
             for(let id in datas){
-            this.chips.push(datas[id].name)  
+                this.chips.push(datas[id].name)
             }
             this.isLoading = false;
           }
@@ -52,9 +54,10 @@ export class ChipConfComponent implements OnInit {
   
 
   addChip() {
-    this.listChip.push(new ChipValue(this.chipInfoGroup.value['chipUnit']));
-    this.chipInfoGroup.value['chipSet'] = this.listChip;
-    
+    console.log(this.chipInfoGroup.value['chipValue']);
+    console.log(this.chipInfoGroup);
+    this.listChip.push(new ChipValue(this.chipInfoGroup.value['chipValue']));
+    this.chipInfoGroup.value['Values'] = this.listChip;
   }
   
   

@@ -38,21 +38,20 @@ export class ProfileConfComponent {
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
         'careerGoal': [this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)]]
       }),
-      
+
       formSkillInfos: this.formBuilder.group({
-        // 'skillSet': this.userLogged.skillSet,
-        'skillSet': '',
-        'skillUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.skillSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formQualInfos: this.formBuilder.group({
-        'qualificationSet': this.userLogged.qualificationSet,
-        'qualifUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.qualificationSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formSubscriptInfos: this.formBuilder.group({
-        'subscriptionSet': this.userLogged.subscriptionSet,
-        'subscriptUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.subscriptionSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       })
     });
   }

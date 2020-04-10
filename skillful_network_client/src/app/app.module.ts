@@ -35,9 +35,6 @@ import { MenuprofileComponent } from './menuprofile/menuprofile.component';
 import { BottomSheetOverviewExample } from './bottom-sheet-overview-example/bottom-sheet-overview-example';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
-import { SkillConfComponent } from './home/profile-conf/skill-conf/skill-conf.component';
-import { QualifConfComponent } from './home/profile-conf/qualif-conf/qualif-conf.component';
-import { SubscriptConfComponent } from './home/profile-conf/subscript-conf/subscript-conf.component';
 import { UserService } from './shared/services/user.service';
 import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
 
@@ -86,9 +83,6 @@ import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.compo
         BottomSheetOverviewExample,
         ProfileConfComponent,
         UserConfComponent,
-        SkillConfComponent,
-        QualifConfComponent,
-        SubscriptConfComponent,
         UserlistComponent,
         DetailsUserComponent,
         SubscriptComponent,
