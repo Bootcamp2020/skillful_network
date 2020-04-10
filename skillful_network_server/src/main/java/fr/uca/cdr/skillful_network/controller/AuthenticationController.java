@@ -51,7 +51,7 @@ import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping ("")
+@RequestMapping ("/Authentication")
 public class AuthenticationController {
 
 	@Autowired

@@ -8,22 +8,22 @@ let LoginComponent = class LoginComponent {
         this.router = router;
     }
     ngOnInit() {
+
     }
     login() {
         // Permet de vider le local storage
         localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
-        this.api.post({ endpoint: '/login', data: this.username })
+        this.api.post({ endpoint: '/Authentication/login', data: this.username })
             .then((id) => {
-            console.log(id);
-            if (id === -1) {
-                this.error = true;
-            }
-            else {
-                localStorage.setItem('token', 'X'); // TODO Gérer le token
-                this.userService.actualUser = new User({ id });
-                this.router.navigate(['/home']);
-            }
-        });
+                console.log(id);
+                if (id === -1) {
+                    this.error = true;
+                } else {
+                    localStorage.setItem('token', 'X'); // TODO Gérer le token
+                    this.userService.actualUser = new User({ id });
+                    this.router.navigate(['/home']);
+                }
+            });
     }
 };
 LoginComponent = tslib_1.__decorate([

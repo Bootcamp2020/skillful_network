@@ -63,6 +63,7 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
  */
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
@@ -79,13 +80,13 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users")
+	@GetMapping(value = "")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users/")
+	@GetMapping(value = "/")
 	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {
 			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
@@ -96,7 +97,7 @@ public class UserController {
 		}
 	}
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users/search")
+	@GetMapping(value = "/search")
 	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
 			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
@@ -108,7 +109,7 @@ public class UserController {
 	}
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PutMapping(value = "/users/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
 			@Valid @RequestBody UserForm userRequest) {
 			
@@ -163,33 +164,12 @@ public class UserController {
 		User userUpdated = userService.saveOrUpdateUser(user);
 		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 	}
-
-	@GetMapping(value = "/testCreationRepo")
-	public ResponseEntity<Boolean> testCreationRepo() {
-		this.userService.createRepoImage();
-
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-	}
-	
-	//@PreAuthorize("hasRole('USER')")
-	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
-			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
-	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
-
-		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
-		convertFile.createNewFile();
-		FileOutputStream fout = new FileOutputStream(convertFile);
-		fout.write(image.getBytes());
-		fout.close();
-		
-		return "File is upload successfully" + image.getOriginalFilename();
-	}
 	
 ///// Upload Imgae avec restriction extention+taille de l'image:
 	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public ResponseEntity<String> fileUpload( @AuthenticationPrincipal UserPrinciple user, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
 		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
 		Long id= user.getId();
@@ -307,7 +287,7 @@ public class UserController {
 //		}
 //	}
 	@PreAuthorize("hasRole('USER')")
-	@GetMapping(value = "/users/{userId}/skills/{skillName}")
+	@GetMapping(value = "/{userId}/skills/{skillName}")
 	public ResponseEntity<Skill> getOneSkillByNameByUser(@PathVariable(value = "userId") Long userId,
 			@PathVariable(value = "skillName") String skillName) {
 
@@ -369,7 +349,7 @@ public class UserController {
 	//Utilisation du current User pour la suppression des skills
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@DeleteMapping("/users/skills/{skillId}")
+	@DeleteMapping("/skills/{skillId}")
 	public ResponseEntity<Skill> deleteSkillById(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
 
@@ -397,7 +377,7 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PostMapping("/users/{userId}/skills/{skillId}")
+	@PostMapping("/{userId}/skills/{skillId}")
 	public ResponseEntity<Skill> setSkillbyId(@PathVariable(value = "userId") Long id,
 			@PathVariable(value = "skillId") Long skillId) {
 
@@ -426,7 +406,7 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
 		}
 	}
-		@GetMapping(value = "/users/{id}/Qualifications")
+		@GetMapping(value = "/{id}/Qualifications")
 		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
 			Set<Qualification> listQualifications = this.userService.getUserById(id)
 					.map((user) -> {
@@ -435,7 +415,7 @@ public class UserController {
 						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 			return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
 		}
-		@GetMapping(value = "/users/{id}/Subscription")
+		@GetMapping(value = "/{id}/Subscription")
 		public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
 			Set<Subscription> listSubscription = this.userService.getUserById(id)
 					.map((user) -> {
@@ -455,7 +435,7 @@ public class UserController {
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
 	//@PreAuthorize("hasRole('USER')")
-	@GetMapping(value = "users/{id}/skills")
+	@GetMapping(value = "/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
 			return user.getSkillSet();

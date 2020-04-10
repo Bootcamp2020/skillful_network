@@ -8,7 +8,7 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  @Input() user;
+  @Input() user: any;
   constructor(private userService: UserService) {
   }
 

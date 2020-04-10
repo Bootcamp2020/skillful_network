@@ -59,7 +59,7 @@ export class SimulationComponent implements OnInit {
 
     // GET careerGoal if needed
     if (this.careerGoal == null) {
-      await this.api.get({ endpoint: `/usersbyId/${userId}` }).then((user) => {
+      await this.api.get({ endpoint: `users/usersbyId/${userId}` }).then((user) => {
         console.log(">> REST : Get user.careerGoal.");
         this.careerGoal = user.careerGoal;
       });
