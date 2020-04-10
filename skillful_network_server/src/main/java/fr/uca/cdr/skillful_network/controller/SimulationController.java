@@ -4,6 +4,7 @@ import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
@@ -111,61 +112,15 @@ public class SimulationController {
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@PostMapping(value = "/user/{userId}")
-	public ResponseEntity<Set<Exercise>>startSimulation(@AuthenticationPrincipal User user) 
-	{ Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    User currentUser = (User) authentication.getPrincipal();
-	    Set<Exercise> exerciceSimulation =this.simulationService.startSimulation(user.getId()); 
-	return new ResponseEntity<Set<Exercise>>(exerciceSimulation, HttpStatus.OK);
+	public ResponseEntity<Exam>startSimulation(@AuthenticationPrincipal User user) 
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	User currentUser = (User) authentication.getPrincipal();
+		Exam exam =this.simulationService.startSimulation(user.getId()) .orElseThrow(() ->
+	  new ResponseStatusException(HttpStatus.NOT_FOUND,"Une erreur est survenue pendant l'éxécécution de la simulation."));
+	  return new ResponseEntity<>(exam, HttpStatus.OK);
 	}
 	 
-//	@PostMapping(value = "/user/startSimulation")
-//	public ResponseEntity<ArrayList<Exercise>> startSimulation(@AuthenticationPrincipal User user) {
-//		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		User currentUser = (User) authentication.getPrincipal();
-//		
-//		System.out.println(currentUser);
-//		System.out.println(currentUser.getCareerGoal());
-//		
-//		// recuperer tous les jobOffer
-//		List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
-//		System.out.println(jobOffer);
-//		// Matcher l'objectif de carrière(c'est une phrase) avec les mots clés de toute
-//		// la liste de job-offers
-//		ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
-//		wordMatchCareerGoal
-//				.addAll(simulationService.MatcherJobOfferJobGoal(currentUser.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
-//		System.out.println(wordMatchCareerGoal);
-//		// renvoyer toute la liste des job-offers qui match avec l'objectif de carrière
-//		/*
-//		 * ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
-//		 * listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(
-//		 * user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); System.out.println(
-//		 * listeJobOfferMatcheJobGoal);
-//		 */
-//		/*
-//		 * if(wordMatchCareerGoal.size()==0) { return new
-//		 * ResponseEntity<ArrayList<Keyword>>(HttpStatus.NOT_FOUND); }else {
-//		 */
-//		// recupérer tous la liste de mots clés qui match avec les mots clés de
-//		// job-offers matché dejà avec l'objectif de carrière
-//		ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
-//		System.out.println("listKeywordExo :" + listKeywordExo);
-//		ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
-//		listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
-//		System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
-//		
-//		// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
-//		ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
-//        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
-//        	
-//        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
-//        }
-//        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
-//        ArrayList<Exercise>  listExerciseSimulationFinal = new ArrayList<Exercise>(mySet);
-//        System.out.println(listExerciseSimulationFinal);
-//		return new ResponseEntity<ArrayList<Exercise>>(listExerciseSimulationFinal, HttpStatus.OK);
-//	}
 
 	
 

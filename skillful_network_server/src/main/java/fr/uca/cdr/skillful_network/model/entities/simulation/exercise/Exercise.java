@@ -10,6 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.sun.istack.NotNull;
+
 
 @Entity
 public class Exercise {
@@ -19,6 +24,8 @@ public class Exercise {
 	private String name;
 	private ExerciseType type;
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@NotFound(action=NotFoundAction.IGNORE)
+	@NotNull
 	private Set<Keyword> keywords = new HashSet<>();
 
 	public Exercise() {

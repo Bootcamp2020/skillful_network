@@ -13,7 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Training;
@@ -24,19 +28,28 @@ public class Keyword {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private Long id;
+	@NotFound(action=NotFoundAction.IGNORE)
+	@NotNull
 	private String name;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
+	@NotFound(action=NotFoundAction.IGNORE)
+	@NotNull
 	private Set<Exercise> exercises = new HashSet<Exercise>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
+	@NotFound(action=NotFoundAction.IGNORE)
+	@NotNull
 	private Set<JobOffer> jobOffers = new HashSet<JobOffer>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST},mappedBy ="keywords")
 	@JsonIgnore
+	@NotFound(action=NotFoundAction.IGNORE)
+	@NotNull
 	private Set<Training> trainings = new HashSet<Training>();
 
 	public Keyword() {

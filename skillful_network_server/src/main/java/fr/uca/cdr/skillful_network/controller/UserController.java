@@ -85,17 +85,17 @@ public class UserController {
 		return (List<User>) this.repository.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users/")
-	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
-		if (pageTool != null) {
-			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
-			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
-		} else {
-			System.out.println(pageTool);
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
-		}
-	}
+//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+//	@GetMapping(value = "/users/")
+//	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
+//		if (pageTool != null) {
+//			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
+//			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
+//		} else {
+//			System.out.println(pageTool);
+//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
+//		}
+//	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/users/search")
@@ -177,32 +177,32 @@ public class UserController {
 	}
 
 	// @PreAuthorize("hasRole('USER')")
-	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
-			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
-	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
-
-		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
-		convertFile.createNewFile();
-		FileOutputStream fout = new FileOutputStream(convertFile);
-		fout.write(image.getBytes());
-		fout.close();
-
-		return "File is upload successfully" + image.getOriginalFilename();
-	}
+//	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
+//			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
+//	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
+//
+//		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
+//		convertFile.createNewFile();
+//		FileOutputStream fout = new FileOutputStream(convertFile);
+//		fout.write(image.getBytes());
+//		fout.close();
+//
+//		return "File is upload successfully" + image.getOriginalFilename();
+//	}
 
 ///// Upload Imgae avec restriction extention+taille de l'image:
 	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
-	public ResponseEntity<String> fileUpload(@AuthenticationPrincipal User user,
+	public ResponseEntity<Boolean> fileUpload(@AuthenticationPrincipal User user,
 			@RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
 		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User currentUser = (User) authentication.getPrincipal();
 
 		Long id = user.getId();
-
+        
 //		User userforPhoto = userService.getUserById(id).orElseThrow(
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
 
@@ -220,7 +220,7 @@ public class UserController {
 
 		if (image.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Veillez selectionner une photo profil");
-			return new ResponseEntity<String>("Veuillez entrer une image valide", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			return new ResponseEntity<Boolean>(false, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 		}
 		try {
 			File convertFile = new File(newImageName);
@@ -229,13 +229,13 @@ public class UserController {
 			fout.write(image.getBytes());
 
 			if (image.getBytes().length > 1000 * 500) {
-				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko",
+				return new ResponseEntity<Boolean>(false,
 						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 			}
 			// onverifie que l'extension du fichier qui est uploader correspondent à celle
 			// de la liste imposée
 			else if (!listOfExtensions.contains(fileExtensionName)) {
-				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge",
+				return new ResponseEntity<Boolean>(false,
 						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 			}
 			System.out.println(currentUser.isPhoto());
@@ -248,7 +248,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<String>("OK", HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
 ////////////Methode pour que l'utilasteur affiche sa photo profil///////////////////////
