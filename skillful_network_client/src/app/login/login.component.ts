@@ -56,13 +56,13 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('user id : ' + data.user.id);
-            if (data.user.id === -1) {
+            console.log('user id : ' + data.username);
+            if (data.username==null) {
                 this.error = true;
             } else if (this.isChecked) {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities , 'local');          
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUser(data.accessToken, JSON.stringify(data.user), data.authorities,''  );
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
             }   
             this.isLoggedIn = 'true';
             localStorage.setItem('isLoggedIn', this.isLoggedIn);
