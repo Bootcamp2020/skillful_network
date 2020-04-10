@@ -1,0 +1,158 @@
+[
+	{
+		"id": 1,
+		"user": {
+			"id": 1
+	     },
+		"jobGoal": "Developpeur front-end",
+		"creationDate": "Jan 23, 2020 2:31:08 AM",
+		"synthesis": "synthesis",
+		"results": [
+			{
+				"id": 1,
+				"idExercise": 2,
+				"gradeExercise": 0.8
+			},
+			{
+				"id": 2,
+				"idExercise": 1,
+				"gradeExercise": 1.2
+			}
+		],
+		"jobOffer": {
+			"id": 1
+		},
+		"jobAccess": false,
+		"training": {
+			"id": 1
+		},
+		"exam": {
+			"id": 1,
+			"exerciseSet": [{"id":1},{"id":2}]
+	    },
+		"simulationForm": {
+			"id": 1,
+			"exerciseSet": [
+				{
+					"id": 1,
+					"answerSet": [
+						{
+							"id": 1,
+							"questionId": 1,
+							"answer": 1
+						},
+						{
+							"id": 2,
+							"questionId": 2,
+							"answer": 6
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"id": 2,
+		"user": {
+			"id": 5
+	     },
+		"jobGoal": "Developpeur fullstack",
+		"creationDate": "Feb 23, 2020 7:22:25 PM",
+		"synthesis": "synthesis",
+		"results": [
+			{
+				"id": 3,
+				"idExercise": 2,
+				"gradeExercise": 0.6
+			},
+			{
+				"id": 4,
+				"idExercise": 1,
+				"gradeExercise": 0.8
+			}
+		],
+		"jobOffer": {
+			"id": 3
+		},
+		"jobAccess": true,
+		"training": {
+			"id": 2
+		},
+		"exam": {
+			"id": 2,
+			"exerciseSet": [{"id":1}]
+		},
+		"simulationForm": {
+			"id": 2,
+			"exerciseSet": [
+				{
+					"id": 2,
+					"answerSet": [
+						{
+							"id": 3,
+							"questionId": 3,
+							"answer": 1
+						},
+						{
+							"id": 4,
+							"questionId": 4,
+							"answer": 6
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"id": 3,
+		"user": {
+			"id": 8
+	     },
+		"jobGoal": "Developpeur Angular",
+		"creationDate": "Dec 23, 2019 2:31:08 AM",
+		"synthesis": "synthesis",
+		"results": [
+			{
+				"id": 5,
+				"idExercise": 2,
+				"gradeExercise": 0.8
+			},
+			{
+				"id": 6,
+				"idExercise": 1,
+				"gradeExercise": 1.2
+			}
+		],
+		"jobOffer": {
+			"id": 4
+		},
+		"jobAccess": true,
+		"training": {
+			"id": 4
+		},
+		"exam": {
+			"id": 3,
+			"exerciseSet": [{"id":2}]
+	    },
+		"simulationForm": {
+			"id": 3,
+			"exerciseSet": [
+				{
+					"id": 3,
+					"answerSet": [
+						{
+							"id": 5,
+							"questionId": 1,
+							"answer": 3
+						},
+						{
+							"id": 6,
+							"questionId": 2,
+							"answer": 4
+						}
+					]
+				}
+			]
+		}
+	}
+]

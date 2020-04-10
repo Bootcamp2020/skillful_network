@@ -12,15 +12,12 @@ import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
-import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -39,26 +36,25 @@ public class SimulationServiceImpl implements SimulationService {
 
 	@Autowired
 	QuestionSetService questionSetService;
-	
+
 	@Autowired
 	private KeywordRepository keywordRepository;
 
-	@Autowired
-	private JobOfferRepository jobOfferRepository;
-	
-	@Autowired
-	private TrainingService trainingService;
-	
+//	@Autowired
+//	private JobOfferRepository jobOfferRepository;
+
 	@Autowired
 	private JobOfferService jobOfferService;
+
+	@Autowired
+	private TrainingService trainingService;
+
 	
 	@Autowired
 	private SimulationService simulationService;
 	
-	private final float JOBACCESSSCORE = 0.80f;
-
-	private final float TRAININGSCORE = 0.4f;
-
+	// private final float JOBACCESSSCORE = 0.80f;
+	private final double TRAININGSCORE = 0.4f;
 
 	@Override
 	public List<Simulation> getAllSimulations() {
@@ -84,7 +80,6 @@ public class SimulationServiceImpl implements SimulationService {
 	public Optional<Simulation> saveOrUpdateSimulation(Simulation simulation) {
 		return Optional.of(simulationRepository.save(simulation));
 	}
-
 
 	@Override
 	public Optional<Exam> startSimulation(Long userId) {
@@ -156,11 +151,13 @@ public class SimulationServiceImpl implements SimulationService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune simulation trouvée avec l'id : " + examId));
 		simulation.setTraining(null);
-		float simulationGrade = calculateSimulationGrade(exercises, simulation);
-		accessToJobOffer(simulationGrade, simulation);
+		double simulationGrade = calculateSimulationGrade(exercises, simulation);
+		
+		double jobOfferScore = simulation.getJobOffer().getScore();
+		accessToJobOffer(jobOfferScore, simulationGrade, simulation);
 		if (!simulation.isJobAccess()) {
-			Training training = accessToJobOfferViaTraining(simulationGrade);
-			if(training != null) {
+			Training training = accessToJobOfferViaTraining(jobOfferScore, simulationGrade);
+			if (training != null) {
 				simulation.setTraining(training);
 				simulation.setJobAccess(true);
 			}
@@ -168,17 +165,18 @@ public class SimulationServiceImpl implements SimulationService {
 		simulationRepository.save(simulation);
 		return Optional.of(simulation);
 	}
-    
-    @Override
-    public Optional<Simulation> getSimulationByExamId(Long examId){
-    	return simulationRepository.findByExamId(examId);
-    }
-    private float calculateSimulationGrade(Set<ExerciseForm> exercises, Simulation simulation) {
-		float simulationGrade = 0;
+
+	@Override
+	public Optional<Simulation> getSimulationByExamId(Long examId) {
+		return simulationRepository.findByExamId(examId);
+	}
+
+	private double calculateSimulationGrade(Set<ExerciseForm> exercises, Simulation simulation) {
+		double simulationGrade = 0;
 		Set<Result> results = new HashSet<Result>();
-		float weightByExercice = 0.8f / exercises.size();
+		double weightByExercice = 0.8f / exercises.size();
 		for (ExerciseForm exerciseForm : exercises) {
-			float exerciceResult = questionSetService.calculateGrade(exerciseForm, weightByExercice);
+			double exerciceResult = questionSetService.calculateGrade(exerciseForm, weightByExercice);
 
 			Result result = new Result(exerciseForm.getId(), exerciceResult);
 			results.add(result);
@@ -194,13 +192,13 @@ public class SimulationServiceImpl implements SimulationService {
 
 		for (int i = 0; i < jobOffer.size(); i++) {
 			Set<Keyword> key = jobOffer.get(i).getKeywords();
-			for (Iterator<Keyword> it = key.iterator(); it.hasNext(); ) {
+			for (Iterator<Keyword> it = key.iterator(); it.hasNext();) {
 				Keyword k = it.next();
 				if (searchTheWord(careerGoal, k.getName())!= "")
 					listeKeyWords.add(searchTheWord(careerGoal, k.getName()));
 			}
 		}
-	
+
 		Set<String> mySet = new HashSet<String>(listeKeyWords);
 		List<String> listeKeyWords2 = new ArrayList<String>(mySet);
 
@@ -311,21 +309,25 @@ public class SimulationServiceImpl implements SimulationService {
 		return listeKeyWordsEquals;
 	}
 
+	private void accessToJobOffer(double jobOfferScore, double simulationGrade, Simulation simulation) {
 
-	private void accessToJobOffer(float simulationGrade, Simulation simulation) {
-		if (simulationGrade >= JOBACCESSSCORE) {
+		if (simulationGrade >= jobOfferScore) {
 			simulation.setJobAccess(true);
 		} else {
 			simulation.setJobAccess(false);
 		}
 	}
+	
 
-	private Training accessToJobOfferViaTraining(float simulationGrade) {
-		Training training=null;
-		if ((simulationGrade + TRAININGSCORE) >= JOBACCESSSCORE) {
-			training = trainingService.getTrainingById(2L).orElseThrow(//Ici on passe l'Id du training(l'exemple de la demo: formation developpeur full stack) en dur en attendant future optimisation 
+	private Training accessToJobOfferViaTraining( double jobOfferScore, double simulationGrade) {
+		Training training = null;
+		if ((simulationGrade + TRAININGSCORE) >= jobOfferScore) {
+			training = trainingService.getTrainingById(2L).orElseThrow(// Ici on passe l'Id du training(l'exemple de la
+																		// demo: formation developpeur full stack) en
+																		// dur en attendant future optimisation
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun training trouvé avec l'id: " + 2L));
 		}
 		return training;
-	}	
+	}
+	
 }

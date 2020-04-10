@@ -14,12 +14,12 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	private long idExercise;
-	private float gradeExercise;
+	private double gradeExercise;
 	
-	public Result(long idExercise, float gradeExercise) {
+	public Result(long idExercise, double exerciceResult) {
 		super();
 		this.idExercise = idExercise;
-		this.gradeExercise = gradeExercise;
+		this.gradeExercise = exerciceResult;
 	}
 	public Result() {
 		super();
@@ -38,7 +38,7 @@ public class Result {
 	public void setIdExercise(long idExercise) {
 		this.idExercise = idExercise;
 	}
-	public float getGradeExercise() {
+	public double getGradeExercise() {
 		return gradeExercise;
 	}
 	public void setGradeExercise(float gradeExercise) {

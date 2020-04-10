@@ -10,6 +10,7 @@ import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.services.ExamService;
 import fr.uca.cdr.skillful_network.model.services.ExerciseService;
 import fr.uca.cdr.skillful_network.model.services.JobOfferService;
 
@@ -61,6 +62,9 @@ public class SimulationController {
 	private KeywordRepository keywordRepository;
 
 	private SimulationRepository simulationRepository;
+	
+	@Autowired
+	private ExamService examService;
 
 
 	// #########################################################################
@@ -72,6 +76,29 @@ public class SimulationController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Simulation>> getAllsimulations() {
 		return new ResponseEntity<>(this.simulationService.getAllSimulations(), HttpStatus.OK);
+	}
+	
+	// ---------------------------------TEST---------------------------------------
+	// Provide a simulation JUST FOR TEST
+//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/untruclongaecrire") //    /simulations/untruclongaecrire
+	public ResponseEntity<Exam> getAnExam() {
+		
+		List<Exercise> listExo = exerciseService.getAllExercises();
+		Set<Exercise> setExo = new HashSet<Exercise>();
+		setExo.add(listExo.get(0));
+		setExo.add(listExo.get(1));
+		Exam monExam = new Exam();
+		System.out.println(monExam);
+		monExam.setExerciseSet(setExo);
+		System.out.println(monExam);
+		monExam.setId(44L);
+		// persistance OK
+//		examService.saveOrUpdateExam(monExam);
+//		monExam = examService.getExamById(1L).get();
+		
+		
+		return new ResponseEntity<>(monExam, HttpStatus.OK);
 	}
 
 	// Provide simulation by ID

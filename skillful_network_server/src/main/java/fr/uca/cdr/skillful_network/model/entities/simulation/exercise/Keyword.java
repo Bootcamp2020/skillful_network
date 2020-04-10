@@ -111,7 +111,6 @@ public class Keyword {
 		this.trainings = trainings;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
