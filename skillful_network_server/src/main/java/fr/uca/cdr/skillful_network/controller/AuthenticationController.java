@@ -17,10 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +43,7 @@ import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 /**
  * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
@@ -102,8 +105,8 @@ public class AuthenticationController {
 				Authentication authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-				System.out.println("UserPrinciple récupéré : " + userPrinciple.toString());
+				User user = (User) authentication.getPrincipal();
+				System.out.println("User récupéré : " + user.toString());
 
 				// On génère un token en fonction de l'id, l'email et le password de
 				// l'utilisateur
@@ -112,7 +115,7 @@ public class AuthenticationController {
 				
 				if (jwtProv.validateToken(jwt)) {
 					// On retourne une jwt response qui contient le token et l'utilisateur
-					return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple, userPrinciple.getAuthorities()));
+					return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
 				}
 			}
 		}
@@ -120,14 +123,22 @@ public class AuthenticationController {
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
 
 	}
+	
+	@GetMapping("/user")
+	public User getCurrentUser(@AuthenticationPrincipal final User user) {
+
+		return user;
+
+	}
+
 
 	@RequestMapping(value = "/register", method = POST)
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
 		if (userService.alreadyExists(registerForm.getEmail())) {
 			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
+				System.out.println("l'email existe déjà et a été validé !");
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			} else {
-
 				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
 				userRepository.delete(oOldUser.get());
 			}

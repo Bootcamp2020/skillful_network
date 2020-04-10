@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 @Component
 public class JwtProvider {
@@ -34,9 +34,7 @@ public class JwtProvider {
 	public String generateJwtToken(Authentication authentication) {
 
 		System.out.println("absolutePath : " + SCRIPT_ABSOLUTE_URL);
-
-		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
-
+		User userPrincipal = (User) authentication.getPrincipal();
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
 		String encryptCmd = PY_CMD + " " + SCRIPT_ABSOLUTE_URL + " " + ENCRYPT + " " + code;
 

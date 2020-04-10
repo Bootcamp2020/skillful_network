@@ -46,6 +46,12 @@ import javax.persistence.ManyToMany;
 			super();
 			// TODO Auto-generated constructor stub
 		}
+		public SimulationForm(Long id, Set<ExerciseForm> exerciseSet) {
+			super();
+			this.id = id;
+			this.exerciseSet = exerciseSet;
+		}
+
 
 		@Override
 		public String toString() {
