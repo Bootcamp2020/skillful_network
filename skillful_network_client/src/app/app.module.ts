@@ -7,7 +7,6 @@
 
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -40,7 +39,6 @@ import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.c
 import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
 import {UserService} from './shared/services/user.service';
 import {UserlistComponent} from './home/profile-conf/userlist/userlist.component';
-
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
 import {QualificationsComponent} from './home/user/qualifications/qualifications.component';
@@ -61,12 +59,13 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
 import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
 import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
-
 import {MatDialogModule} from '@angular/material/dialog';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
+import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
+import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
+import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
 
 
 
@@ -110,13 +109,13 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
-
         NewPasswordComponent,
-
-
         PageDataComponent,
         MyDialogComponent,
-        GoalValidationModalComponent
+        GoalValidationModalComponent,
+        SimulationSynthesisComponent,
+        SimSynQuestionListComponent,
+        SimSynInfoComponent,
         ],
 
 
@@ -130,7 +129,8 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
         MatNativeDateModule,
-        MatDialogModule
+        MatDialogModule,
+        MatFormFieldModule,
     ],
 
     entryComponents: [
