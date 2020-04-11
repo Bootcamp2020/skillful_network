@@ -41,12 +41,14 @@ export interface IQuestionForm {
   userAnswerId: number;
 }
 
+// MOCK samples
+
 export let MOCK_EXAM : IExam = {
   id: 44,
   exerciceSet: [
     {
       id: 1,
-      name: "Spring Quizz",
+      name: "MOCK Spring Quizz",
       questions: [
         {
           id: 9,
@@ -86,7 +88,7 @@ export let MOCK_EXAM : IExam = {
     },
     {
       id: 2,
-      name: "Angular Quizz",
+      name: "MOCK Angular Quizz",
       questions: [
         {
           id: 3,

@@ -31,8 +31,8 @@ export class SimulationSynthesisComponent implements OnInit {
       .then((data) => {
         this.simulation = data;
         // MOCK exam and simulationForm
-        this.simulation.exam = MOCK_EXAM;
-        this.simulation.examForm = MOCK_EXAM_FORM;
+        if (this.simulation.exam == null) this.simulation.exam = MOCK_EXAM;
+        if (this.simulation.examForm == null) this.simulation.examForm = MOCK_EXAM_FORM;
         this.getUserAnswer();
       })
       .catch(() => {
