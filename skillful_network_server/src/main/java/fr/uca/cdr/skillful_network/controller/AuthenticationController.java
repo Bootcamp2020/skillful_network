@@ -112,9 +112,11 @@ public class AuthenticationController {
 				// l'utilisateur
 				String jwt = jwtProv.generateJwtToken(authentication);
 				System.out.println("jwt dans AuthController : " + jwt);
-
-				// On retourne une jwt response qui contient le token et l'utilisateur
-				return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
+				
+				if (jwtProv.validateToken(jwt)) {
+					// On retourne une jwt response qui contient le token et l'utilisateur
+					return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
+				}
 			}
 		}
 
@@ -134,9 +136,9 @@ public class AuthenticationController {
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
 		if (userService.alreadyExists(registerForm.getEmail())) {
 			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
+				System.out.println("l'email existe déjà et a été validé !");
 				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			} else {
-
 				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
 				userRepository.delete(oOldUser.get());
 			}

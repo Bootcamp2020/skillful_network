@@ -53,7 +53,7 @@ public class User implements UserDetails  {
 	private String password;
 	@PastOrPresent
 	private Date birthDate;
-	//@NotNull(message = "Email cannot be null")
+	@NotNull(message = "Email cannot be null")
 	@Email(message = "Email should be valid")
 	private String email;
 	private String mobileNumber;
@@ -64,21 +64,21 @@ public class User implements UserDetails  {
 
 	private LocalDateTime temporaryCodeExpirationDate;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Skill> skillSet = new HashSet<Skill>();
 
-	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
 
-	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
 
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user") 
 	@JsonBackReference 
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user")
 	private Set<TrainingApplication> trainingApplicationSet = new HashSet<>();
 
@@ -86,10 +86,10 @@ public class User implements UserDetails  {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private Set<Training> trainingSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user") 
 	private Set<Simulation> simulationSet = new HashSet<>();
 	

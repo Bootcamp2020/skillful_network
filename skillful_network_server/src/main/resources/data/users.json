@@ -51,7 +51,7 @@
 
       {
         "status": "ACCEPTED",
-        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "submit_date": "May 25, 2020 10:01:34 AM",
         "user": {
           "id": 1
         },
@@ -61,7 +61,7 @@
       },
       {
         "status": "REJECTED",
-        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "submit_date": "May 25, 2020 10:01:34 AM",
         "user": {
           "id": 1
         },
@@ -71,7 +71,7 @@
       },
       {
         "status": "WAITING",
-        "submit_date": "May 25, 2020, 10:01:34 AM",
+        "submit_date": "May 25, 2020 10:01:34 AM",
         "user": {
           "id": 1
         },

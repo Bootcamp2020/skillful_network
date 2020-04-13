@@ -4,24 +4,25 @@ import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
-import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service(value = "SimulationService")
@@ -35,20 +36,25 @@ public class SimulationServiceImpl implements SimulationService {
 
 	@Autowired
 	QuestionSetService questionSetService;
-	
+
 	@Autowired
 	private KeywordRepository keywordRepository;
 
+//	@Autowired
+//	private JobOfferRepository jobOfferRepository;
+
 	@Autowired
-	private JobOfferRepository jobOfferRepository;
-	
+	private JobOfferService jobOfferService;
+
 	@Autowired
 	private TrainingService trainingService;
 
-	private final float JOBACCESSSCORE = 0.80f;
-
-	private final float TRAININGSCORE = 0.4f;
-
+	
+	@Autowired
+	private SimulationService simulationService;
+	
+	// private final float JOBACCESSSCORE = 0.80f;
+	private final double TRAININGSCORE = 0.4f;
 
 	@Override
 	public List<Simulation> getAllSimulations() {
@@ -75,25 +81,59 @@ public class SimulationServiceImpl implements SimulationService {
 		return Optional.of(simulationRepository.save(simulation));
 	}
 
-
 	@Override
-	public Optional<Simulation> startSimulation(Long userId, String jobGoal) {
-		System.out
-				.println(">>> SimulationServiceImpl.startSimulation(userID: " + userId + ", jobGoal: " + jobGoal + ")");
+	public Optional<Exam> startSimulation(Long userId) {
+		System.out.println(">>> SimulationServiceImpl.startSimulation(userID: " + userId  + ")");
 		User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"Aucun utilisateur trouvé avec l'id : " + userId));
-		Simulation simulation = new Simulation(jobGoal);
-		simulation.setUser(user);
+		
+		System.out.println(user.getCareerGoal());
+		
+		// recuperer tous les jobOffer
+				List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+				System.out.println(jobOffer);
+				ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
+				wordMatchCareerGoal.addAll(this.simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
+				System.out.println("wordMatchCareerGoal:" +wordMatchCareerGoal);
+				if(wordMatchCareerGoal.size()==0) {
+					throw new ResponseStatusException(HttpStatus.OK, "Aucune offre d'emploi qui correspond avec votre objectif d'emploi");
+				
+					}else
+				{ 
+						Simulation simulation = new Simulation(user.getCareerGoal());
+						simulation.setUser(user);
+				ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
+				listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); 
+				System.out.println(listeJobOfferMatcheJobGoal);
+				
+				    Random rand = new Random();
+				   
+				    JobOffer JobOfferByJobGoal = listeJobOfferMatcheJobGoal.get(rand.nextInt(listeJobOfferMatcheJobGoal.size()));
+				
+			
+				ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
+				System.out.println("listKeywordExo :" + listKeywordExo);
+				ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
+				listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
+				System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
+				// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
+				ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
+		        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
+		        	
+		        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
+		        }
+		        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
 
-		// *******************************************************************
-		// analyse des criteres des objectifs par rapport aux joboffer / questionnaire /
-		// training
-		// *******************************************************************
-
+		        System.out.println(mySet);
+		        Exam exam = new Exam();
+		        exam.setExerciseSet(mySet);
+		        simulation.setExam(exam);
+		    	simulation.setJobOffer(JobOfferByJobGoal);      
 		simulation.setSynthesis("Lorem Ipsum ....");
 		simulation = simulationRepository.save(simulation);
+		
 		System.out.println(">>> saved simulation: " + simulation);
-		return Optional.of(simulation);
+		return Optional.of(simulation.getExam());}
 	}
 
 	@Override
@@ -111,11 +151,13 @@ public class SimulationServiceImpl implements SimulationService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune simulation trouvée avec l'id : " + examId));
 		simulation.setTraining(null);
-		float simulationGrade = calculateSimulationGrade(exercises, simulation);
-		accessToJobOffer(simulationGrade, simulation);
+		double simulationGrade = calculateSimulationGrade(exercises, simulation);
+		
+		double jobOfferScore = simulation.getJobOffer().getScore();
+		accessToJobOffer(jobOfferScore, simulationGrade, simulation);
 		if (!simulation.isJobAccess()) {
-			Training training = accessToJobOfferViaTraining(simulationGrade);
-			if(training != null) {
+			Training training = accessToJobOfferViaTraining(jobOfferScore, simulationGrade);
+			if (training != null) {
 				simulation.setTraining(training);
 				simulation.setJobAccess(true);
 			}
@@ -123,17 +165,18 @@ public class SimulationServiceImpl implements SimulationService {
 		simulationRepository.save(simulation);
 		return Optional.of(simulation);
 	}
-    
-    @Override
-    public Optional<Simulation> getSimulationByExamId(Long examId){
-    	return simulationRepository.findByExamId(examId);
-    }
-    private float calculateSimulationGrade(Set<ExerciseForm> exercises, Simulation simulation) {
-		float simulationGrade = 0;
+
+	@Override
+	public Optional<Simulation> getSimulationByExamId(Long examId) {
+		return simulationRepository.findByExamId(examId);
+	}
+
+	private double calculateSimulationGrade(Set<ExerciseForm> exercises, Simulation simulation) {
+		double simulationGrade = 0;
 		Set<Result> results = new HashSet<Result>();
-		float weightByExercice = 0.8f / exercises.size();
+		double weightByExercice = 0.8f / exercises.size();
 		for (ExerciseForm exerciseForm : exercises) {
-			float exerciceResult = questionSetService.calculateGrade(exerciseForm, weightByExercice);
+			double exerciceResult = questionSetService.calculateGrade(exerciseForm, weightByExercice);
 
 			Result result = new Result(exerciseForm.getId(), exerciceResult);
 			results.add(result);
@@ -149,14 +192,13 @@ public class SimulationServiceImpl implements SimulationService {
 
 		for (int i = 0; i < jobOffer.size(); i++) {
 			Set<Keyword> key = jobOffer.get(i).getKeywords();
-			for (Iterator<Keyword> it = key.iterator(); it.hasNext(); ) {
+			for (Iterator<Keyword> it = key.iterator(); it.hasNext();) {
 				Keyword k = it.next();
-				System.out.println(k);
 				if (searchTheWord(careerGoal, k.getName())!= "")
 					listeKeyWords.add(searchTheWord(careerGoal, k.getName()));
 			}
 		}
-	
+
 		Set<String> mySet = new HashSet<String>(listeKeyWords);
 		List<String> listeKeyWords2 = new ArrayList<String>(mySet);
 
@@ -167,9 +209,10 @@ public class SimulationServiceImpl implements SimulationService {
 	public ArrayList<JobOffer> ListJobOfferByJobGoal(String careerGoal, ArrayList<JobOffer> jobOffer) {
 		ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
 		for (int i = 0; i < jobOffer.size(); i++) {
-			ArrayList<Keyword> key = (ArrayList<Keyword>) jobOffer.get(i).getKeywords();
-			for (int j = 0; j < key.size(); j++) {
-				if (searchTheWord(careerGoal, key.get(j).getName()) != "")
+			Set<Keyword> key = jobOffer.get(i).getKeywords();
+			for (Iterator<Keyword> it = key.iterator(); it.hasNext(); ) {
+				Keyword k = it.next();
+				if (searchTheWord(careerGoal, k.getName())!= "")
 					listeJobOfferMatcheJobGoal.add(jobOffer.get(i));
 			}
 		}
@@ -244,7 +287,7 @@ public class SimulationServiceImpl implements SimulationService {
 		//
 		splitArray = str.split(" ");
 		for (int i = 0; i < splitArray.length; i++) {
-			if (calculsimilarityOfStrings(splitArray[i], s2) >= 0.8) {
+			if (calculsimilarityOfStrings(splitArray[i], s2) >= 0.7) {
 				motChercher = s2;
 			}
 		}
@@ -256,33 +299,35 @@ public class SimulationServiceImpl implements SimulationService {
 		ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
 		for (int i = 0; i < keyJob.size(); i++) {
 			for (int j = 0; j < keyExo.size(); j++) {
-				System.out.println(keyExo.get(j).getName());
 				if (calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()) >= 0.8) {
 					System.out.println("Similarity calcul : ");
 					System.out.println(calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()));
 					listeKeyWordsEquals.add(keyExo.get(j));
 				}
-				System.out.println(listeKeyWordsEquals);
 			}
 		}
 		return listeKeyWordsEquals;
 	}
 
+	private void accessToJobOffer(double jobOfferScore, double simulationGrade, Simulation simulation) {
 
-	private void accessToJobOffer(float simulationGrade, Simulation simulation) {
-		if (simulationGrade >= JOBACCESSSCORE) {
+		if (simulationGrade >= jobOfferScore) {
 			simulation.setJobAccess(true);
 		} else {
 			simulation.setJobAccess(false);
 		}
 	}
+	
 
-	private Training accessToJobOfferViaTraining(float simulationGrade) {
-		Training training=null;
-		if ((simulationGrade + TRAININGSCORE) >= JOBACCESSSCORE) {
-			training = trainingService.getTrainingById(2L).orElseThrow(//Ici on passe l'Id du training(l'exemple de la demo: formation developpeur full stack) en dur en attendant future optimisation 
+	private Training accessToJobOfferViaTraining( double jobOfferScore, double simulationGrade) {
+		Training training = null;
+		if ((simulationGrade + TRAININGSCORE) >= jobOfferScore) {
+			training = trainingService.getTrainingById(2L).orElseThrow(// Ici on passe l'Id du training(l'exemple de la
+																		// demo: formation developpeur full stack) en
+																		// dur en attendant future optimisation
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun training trouvé avec l'id: " + 2L));
 		}
 		return training;
-	}	
+	}
+	
 }

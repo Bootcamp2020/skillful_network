@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class AnswerForm {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -34,7 +35,12 @@ public class AnswerForm {
 		this.questionId = questionId;
 		this.answer = answer;
 	}
-
+	public AnswerForm(long id, long questionId, int answer) {
+		super();
+		this.id = id;
+		this.questionId = questionId;
+		this.answer = answer;
+	}
 	public AnswerForm() {
 		super();
 		// TODO Auto-generated constructor stub
