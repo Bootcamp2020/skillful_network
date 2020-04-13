@@ -5,22 +5,26 @@
         </mat-card-header>
         <hr>
         <mat-card-content fxLayout="column" fxLayoutAlign="space-between start" class="tailleCard">
+
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
-                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.company}}</p>
-                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="40"> {{post.job}} </p>
-                <span fxFlex="10" fxLayout="row" fxLayoutAlign="center start">
-                    <span *ngIf ="post.status ==='validate'">
+
+                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="35"> {{post.jobOffer.company}}</p>
+                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="40"> {{post.jobOffer.name}} </p>
+                <span fxFlex="10" fxLayout="row" fxLayoutAlign="center start" class="icon-candidature">
+                    <span *ngIf ="post.status ==='ACCEPTED'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: seagreen">done</mat-icon>
                     </span>
-                <span *ngIf="post.status ==='reject'">
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" color="warn">close</mat-icon>
+                    <span *ngIf="post.status ==='REJECTED'">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" color="warn">close</mat-icon>
                     </span>
-                <span *ngIf="post.status ==='progress'">
+                    <span *ngIf="post.status ==='WAITING'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: #1a7ea2">hourglass_empty</mat-icon>
                     </span>
                 </span>
-                <a fxFlex="20" fxLayout="row" fxLayoutAlign="center start" href="{{post.details}}" target="_blank" style="color: peru"> Details</a>
+
+                <a fxFlex="15" fxLayout="row" fxLayoutAlign="end start" href="{{post.jobOffer.details}}" target="_blank" style="color: peru"> Details</a>
             </div>
+
         </mat-card-content>
     </mat-card>
 </div>

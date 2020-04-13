@@ -20,7 +20,7 @@ export class User {
   private _skillSet: Skill[];
   private _qualificationSet : Qualif[];
   private _subscriptionSet : Subscript[];
-  private _photoProfile: string;
+  private _photoProfile: any;
   private _role: string[];
 
   private _careerGoal: string;
@@ -128,10 +128,10 @@ export class User {
   public set subscriptionSet(value: Subscript[]) {
     this._subscriptionSet = value;
   }
-  public get photoProfile(): string {
+  public get photoProfile():any {
     return this._photoProfile;
   }
-  public set photoProfile(value: string) {
+  public set photoProfile(value: any) {
     this._photoProfile = value;
   }
   public get careerGoal(): string {

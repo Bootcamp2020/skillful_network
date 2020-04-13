@@ -46,10 +46,10 @@ export class UserComponent implements OnInit {
 
         listPromises.push(this.api.get({endpoint: `/users/${id}/Subscription`}));
 
-        //listPromises.push(this.api.get({endpoint: `/applications/jobs/user/${id}`}));
+        listPromises.push(this.api.get({endpoint: `/applications/jobs/user/${id}`}));
 
         Promise.all(listPromises)
-            .then(([userData, listQualif, listSkill, listSubscript, /*listCandidature*/]) => {
+            .then(([userData, listQualif, listSkill, listSubscript, listCandidature]) => {
                 this.user = new User(userData);
                 console.log('this.user');
                 if (this.user.status === '1') {
@@ -72,8 +72,8 @@ export class UserComponent implements OnInit {
                 this.listQualif = listQualif;
                 this.listSkill = listSkill;
                 this.listSubscript = listSubscript;
-                //this.listCandidature = listCandidature;
-
+                this.listCandidature = listCandidature;
+                console.log(this.listCandidature);
                 this.loading = false;
             })
             .catch((error) => {

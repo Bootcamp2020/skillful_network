@@ -31,6 +31,11 @@ public class Exam {
 		this.exerciseSet = exerciseSet;
 	}
 
+	public Exam(Set<Exercise> exerciseSet) {
+		super();
+		this.exerciseSet = exerciseSet;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -41,7 +41,7 @@ onNoClick(): void {
 onValidate() : void {
   let body = new FormData();
   body.append("image", this.dataURItoBlob(this.profilPicture), 'image.png');
-  this.http.post(environment.base_url+'users/uploadImage', body).toPromise().then((res) => {
+  this.http.post(environment.base_url+'/users/uploadImage', body).toPromise().then((res) => {
     console.log(res);
     this.userService.userLogged.photoProfile=this.profilPicture;
   })
