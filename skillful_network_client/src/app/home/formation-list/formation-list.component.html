@@ -7,62 +7,11 @@
         <mat-card-content>
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
-                    <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
-
-                        <!-- Nom Column -->
-                        <ng-container matColumnDef="name" class="nomOffre">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="nomOffre">Nom</th>
-                            <td mat-cell *matCellDef="let element" class="nomOffre"> {{element.name}} </td>
-                        </ng-container>
-
-                        
-                        <ng-container matColumnDef="organisation" class="noneType">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneType">Organisation</th>
-                            <td mat-cell *matCellDef="let element" class="noneType"> {{element.organisation}} </td>
-                        </ng-container>
-
-                    
-                        <ng-container matColumnDef="description" class="noneDescription">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneDescription">Description</th>
-                            <td mat-cell *matCellDef="let element" class="noneDescription">{{element.description}}</td>
-                        </ng-container>
-
-                       
-                        <ng-container matColumnDef="financer" class="noneOffre">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">Financer</th>
-                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.financer}}</td>
-                        </ng-container>
-
-                      
-                        <ng-container matColumnDef="dateBeg" class="noneOffre">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">Date du début</th>
-                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.dateBeg| date: 'dd-MM-yyyy' }} </td>
-                        </ng-container>
-                          
-                          <ng-container matColumnDef="dateEnd" class="noneOffre">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="noneOffre">date fin</th>
-                            <td mat-cell *matCellDef="let element" class="noneOffre"> {{element.dateEnd| date: 'dd-MM-yyyy' }} </td>
-                        </ng-container>
-                         
-                         <ng-container matColumnDef="durationHours">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>durée</th>
-                            <td mat-cell *matCellDef="let element"> {{element.durationHours}} </td>
-                        </ng-container>
-                        
-
-                        <!-- Plus d'info Column -->
-                        <ng-container matColumnDef="plus_info">
-                            <th mat-header-cell *matHeaderCellDef> Détails</th>
-                            <td mat-cell *matCellDef="let element"> <a routerLink="{{'/home/formation/' + element.id }}" title="Plus d'info">Détails</a> </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-
-                    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+                    <app-page-data entityIn='training' ></app-page-data>
                 </div>
             </div>
         </mat-card-content>
     </mat-card>
+
+
 </div>

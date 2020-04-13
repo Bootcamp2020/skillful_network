@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.uca.cdr.skillful_network.model.entities.User;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 
 @Component
 public class JwtProvider {
@@ -27,12 +27,12 @@ public class JwtProvider {
 	public String generateJwtToken(Authentication authentication) {
 		
 		System.out.println("absolutePath : "+ this.url);
-		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+		User userPrincipal = (User) authentication.getPrincipal();
 		String line = "";
 		String jwt = "";
 		String choice = "encrypt"; // encrypt ou decrypt
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
-		String cmd = "python3" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python" + " " + this.url + " " + choice + " " + code; // La commande python3 est aussi à adapter suivant les os
 		System.out.println(cmd);
 
 		try {
@@ -54,7 +54,7 @@ public class JwtProvider {
 		String line = "";
 		String scriptResponse="";
 		String choice = "decrypt"; // encrypt ou decrypt
-		String cmd = "python3" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
+		String cmd = "python" + " " + this.url + " " + choice + " " + frontToken; // La commande python3 est aussi à adapter suivant les os
 		System.out.println("jwt récupéré dans decrypt : "+frontToken);
 		
 		try {

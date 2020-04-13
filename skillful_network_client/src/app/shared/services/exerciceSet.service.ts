@@ -11,6 +11,9 @@ export class ExerciceSetService {
     public exercicesSet: ExerciceSet[];
     public returnExercicesSet: ReturnExerciceSet;
 
+    public userId:number;
+    // userId: any;
+
     constructor(private api: ApiHelperService) {
         this.exercicesSet = [];
         MOCK_EXERCICE_SET.forEach(exo => {
@@ -31,6 +34,7 @@ export class ExerciceSetService {
     public findAll(): Promise<any> {
         let promise = new Promise((resolve, reject) => {
             this.api.get({ endpoint: '/simulation' })
+            //this.api.get({endpoint : `/simulation/${userid}/${goal}` , queryParams:{"userid": userid, "goal":goal}})
                 .then(
                     res => {
                         resolve(res);
@@ -47,7 +51,7 @@ export class ExerciceSetService {
 // Envoi au Backend
     public export(returnExercicesSet): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.post({ endpoint: '/simulations/:id/answer'})
+            this.api.post({ endpoint: '/simulations/:id/answer', data: returnExercicesSet})
                 .then(
                     res => {
                         resolve(res);

@@ -17,14 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,7 +55,7 @@ import fr.uca.cdr.skillful_network.model.services.SkillService;
 import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
-import fr.uca.cdr.skillful_network.security.services.UserPrinciple;
+
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 /**
@@ -72,19 +73,19 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SkillService skillService;
-	
+
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public UserController(UserRepository repository) {
 		this.repository = repository;
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/")
 	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
@@ -96,6 +97,7 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/search")
 	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
@@ -107,12 +109,16 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
 		}
 	}
+	
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id,
+	public ResponseEntity<User> updateUser(@AuthenticationPrincipal User userLogged,
+
 			@Valid @RequestBody UserForm userRequest) {
-			
+		Long id = userLogged.getId();
+		System.out.println(id);
 		System.out.println(userRequest);
 		if (userService.getUserById(id).isPresent()) {
 			User userToUpdate = userService.getUserById(id).get();
@@ -136,7 +142,7 @@ public class UserController {
 
 		}
 	}
-	
+
 //	@PreAuthorize("hasRole('USER')")
 //	@Transactional
 //	@PutMapping(value = "/usersModifPassword/{id}")
@@ -151,39 +157,49 @@ public class UserController {
 //		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
 //		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 //	}
-	//Utilisation du current User pour la modification
-	
-	@PreAuthorize("hasRole('USER')")
-	@Transactional
-	@PutMapping(value = "/usersModifPassword")
-	public ResponseEntity<User> updateUserPassword(@AuthenticationPrincipal User user,
+	// Utilisation du current User pour la modification
+
+	@PutMapping("/user")
+	public ResponseEntity<User> updatePasswordCurrentUser(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
 		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
-		user.setPassword(userNewPwd);
-		User userUpdated = userService.saveOrUpdateUser(user);
-		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
-	}
-	
+		currentUser.setPassword(userNewPwd);
+		userService.saveOrUpdateUser(currentUser);
+
+		return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+
+	}	
+
+
 ///// Upload Imgae avec restriction extention+taille de l'image:
 	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-	public ResponseEntity<String> fileUpload( @AuthenticationPrincipal UserPrinciple user, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	public ResponseEntity<String> fileUpload(@AuthenticationPrincipal User user,
+			@RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+
 		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
-		Long id= user.getId();
-		User userforPhoto = userService.getUserById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
+
+		Long id = user.getId();
+
+//		User userforPhoto = userService.getUserById(id).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
+
 		List<String> listOfExtensions = new ArrayList<String>(3);
 		listOfExtensions.add("jpg");
 		listOfExtensions.add("jpeg");
-		listOfExtensions.add("png"); 
+		listOfExtensions.add("png");
 		String imageName = image.getOriginalFilename().toLowerCase();
-		File filecreating= new File(this.userService.createRepoImage());//"WebContent/images/"	
-		
-		String newImageName = "WebContent/images/"+id+".png";// DONE mettre à jour par I
-		
+		File filecreating = new File(this.userService.createRepoImage());// "WebContent/images/"
+
+		String newImageName = "WebContent/images/" + id + ".png";// DONE mettre à jour par I
+
 		// on récupère l'extension du fichier qui est uploader
 		String fileExtensionName = Files.getFileExtension(imageName);
 
@@ -196,29 +212,34 @@ public class UserController {
 			convertFile.createNewFile();
 			FileOutputStream fout = new FileOutputStream(convertFile);
 			fout.write(image.getBytes());
-			
-			if (image.getBytes().length > 1000*500) {
-				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+
+			if (image.getBytes().length > 1000 * 500) {
+				return new ResponseEntity<String>("La taille de l'image doit etre inferieure ou egale 500 ko",
+						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 			}
-			// onverifie que  l'extension du fichier qui est uploader correspondent à celle de la liste imposée
+			// onverifie que l'extension du fichier qui est uploader correspondent à celle
+			// de la liste imposée
 			else if (!listOfExtensions.contains(fileExtensionName)) {
-				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge", HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+				return new ResponseEntity<String>("Votre format de l'image n'est pas prit en charge",
+						HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 			}
-			System.out.println(userforPhoto.isPhoto());
-	   fout.close();
-	   	userforPhoto.setPhoto(true);
-	   System.out.println(userforPhoto.isPhoto());
-	   userforPhoto = userService.saveOrUpdateUser(userforPhoto);
+			System.out.println(currentUser.isPhoto());
+			fout.close();
+			currentUser.setPhoto(true);
+			System.out.println(currentUser.isPhoto());
+			userService.saveOrUpdateUser(currentUser);
+//	   currentUser = userService.saveOrUpdateUser(currentUser);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
 
-	
 ////////////Methode pour que l'utilasteur affiche sa photo profil///////////////////////
-	@RequestMapping(value = "/image/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE) // @RequestParam("file") MultipartFile file,
+	@RequestMapping(value = "/image/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE) // @RequestParam("file")
+																												// MultipartFile
+																												// file,
 	public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id, HttpServletResponse response)
 			throws IOException {
 		Optional<User> userforphoto = userService.getUserById(id); // this just gets the data from a database//
@@ -228,25 +249,27 @@ public class UserController {
 		}
 
 		System.out.println(id);
-		System.out.println("WebContent/images/"+id+".png");
-		File f = new File("WebContent/images/"+id+".png");
+		System.out.println("WebContent/images/" + id + ".png");
+		File f = new File("WebContent/images/" + id + ".png");
 		BufferedImage o = ImageIO.read(f);
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		ImageIO.write(o, "png", b);
 		b.flush();
 		byte[] img = b.toByteArray();
 		b.close();
-		
-		/*InputStream in = getClass()
-			      .getResourceAsStream("WebContent/images/"+id+".png");
 
-		byte[] img = IOUtils.toByteArray(in);*/
+		/*
+		 * InputStream in = getClass()
+		 * .getResourceAsStream("WebContent/images/"+id+".png");
+		 * 
+		 * byte[] img = IOUtils.toByteArray(in);
+		 */
 
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(img);
 
 	}
-	
-	//@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+
+	// @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/usersbyId/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
 
@@ -258,9 +281,6 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.get());
 	}
-	
-	
-	
 
 //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
 //	public ResponseEntity<Skill> getOneSkillByUser(@PathVariable(value = "userId")Long userId, @PathVariable(value = "skillId")Long skillId) {
@@ -287,14 +307,18 @@ public class UserController {
 //		}
 //	}
 	@PreAuthorize("hasRole('USER')")
-	@GetMapping(value = "/{userId}/skills/{skillName}")
-	public ResponseEntity<Skill> getOneSkillByNameByUser(@PathVariable(value = "userId") Long userId,
+	@GetMapping(value = "/user/skills/{skillName}")
+	public ResponseEntity<Skill> getOneSkillByNameByUser(@AuthenticationPrincipal User user,
+
 			@PathVariable(value = "skillName") String skillName) {
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
+
 //		On vérifie que l'utilisateur existe bien
-		User userFromDb = userService.getUserById(userId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"Aucun utilisateur trouvé avec l'id " + userId));
+//		User userFromDb = userService.getUserById(userId)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//						"Aucun utilisateur trouvé avec l'id " + userId));
 
 //		On vérifie que la compétence existe bien
 		Skill SkillFromDb = skillService.getSkillByName(skillName)
@@ -302,7 +326,7 @@ public class UserController {
 						"Aucune compétence trouvée avec le nom : " + skillName));
 
 //		On récupère la liste de compétences de l'utilisateur
-		Set<Skill> userSkills = userFromDb.getSkillSet();
+		Set<Skill> userSkills = currentUser.getSkillSet();
 
 //		Si la compétence de la bdd est contenue dans la liste de l'utilisateur, on la renvoie
 		if (userSkills.contains(SkillFromDb)) {
@@ -311,7 +335,7 @@ public class UserController {
 //		Dans le cas contraire on renvoie une exception
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec le nom : " + skillName
-					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + userId);
+					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
 		}
 	}
 //	@PreAuthorize("hasRole('USER')")
@@ -345,13 +369,16 @@ public class UserController {
 //					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + id);
 //		}
 //	}
-	
-	//Utilisation du current User pour la suppression des skills
+
+	// Utilisation du current User pour la suppression des skills
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@DeleteMapping("/skills/{skillId}")
 	public ResponseEntity<Skill> deleteSkillById(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
 
 //		On vérifie que la compétence existe bien
 		Skill skillToDelete = this.skillService.getSkillById(skillId)
@@ -359,51 +386,55 @@ public class UserController {
 						"Aucune competence trouvee avec l'id : " + skillId));
 
 //		On récupère le liste de compétences de l'utilisateur
-		Set<Skill> listSkill = user.getSkillSet();
+		Set<Skill> listSkill = currentUser.getSkillSet();
 
 //      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on la supprime 
 		if (listSkill.contains(skillToDelete)) {
 			listSkill.remove(skillToDelete);
-			user.setSkillSet(listSkill);
-			this.userService.saveOrUpdateUser(user);
+			currentUser.setSkillSet(listSkill);
+			this.userService.saveOrUpdateUser(currentUser);
 			return new ResponseEntity<Skill>(skillToDelete, HttpStatus.OK);
 		}
 //		Dans le cas contraire on renvoie une exception
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + user.getId());
+					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
 		}
 	}
-	
+
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
 	@PostMapping("/{userId}/skills/{skillId}")
-	public ResponseEntity<Skill> setSkillbyId(@PathVariable(value = "userId") Long id,
+	public ResponseEntity<Skill> setSkillbyId(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
 
-        //On vérifie que l'utilisateur existe bien
-		User userToUpdate = this.userService.getUserById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = (User) authentication.getPrincipal();
 
-       //On vérifie que la compétence existe bien
+//        //On vérifie que l'utilisateur existe bien
+//		User userToUpdate = this.userService.getUserById(id).orElseThrow(
+//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
+
+		// On vérifie que la compétence existe bien
 		Skill skillToAdd = this.skillService.getSkillById(skillId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune competence trouvee avec l'id : " + skillId));
 
-        //	On récupère le liste de compétences de l'utilisateur
-		Set<Skill> listSkill = userToUpdate.getSkillSet();
+		// On récupère le liste de compétences de l'utilisateur
+		Set<Skill> listSkill = currentUser.getSkillSet();
 
-       //Si la compétence à ajouter n'est pas dans la liste de compétences de l'utilisateur, alors on le mets à jours 
+		// Si la compétence à ajouter n'est pas dans la liste de compétences de
+		// l'utilisateur, alors on le mets à jours
 		if (!(listSkill.contains(skillToAdd))) {
 			listSkill.add(skillToAdd);
-			userToUpdate.setSkillSet(listSkill);
-			this.userService.saveOrUpdateUser(userToUpdate);
+			currentUser.setSkillSet(listSkill);
+			this.userService.saveOrUpdateUser(currentUser);
 			return new ResponseEntity<Skill>(skillToAdd, HttpStatus.OK);
 		}
-			//Dans le cas contraire on renvoie une exception
+		// Dans le cas contraire on renvoie une exception
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + id);
+					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
 		}
 	}
 		@GetMapping(value = "/{id}/Qualifications")
@@ -424,7 +455,6 @@ public class UserController {
 						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
 		}
-		
 
 //	@GetMapping(value = "users/{id}/skills")
 //	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
@@ -434,7 +464,9 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
-	//@PreAuthorize("hasRole('USER')")
+
+	
+	// @PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {

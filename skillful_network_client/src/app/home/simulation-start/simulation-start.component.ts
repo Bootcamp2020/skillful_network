@@ -7,23 +7,25 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './simulation-start.component.html',
   styleUrls: ['./simulation-start.component.scss']
 })
-
 export class SimulationStartComponent implements OnInit {
-//  Test avec MOCK !!
-  public data = this.sim.findAllMock();
-  public goal: String;
-
-  constructor(public sim: ExerciceSetService, private route: ActivatedRoute) {
+  //  Test avec MOCK !!
+    public data = this.sim.findAllMock();
+    // import du data depuis le back !!
+    //public data = this.sim.findAll();
+    public goal: String;
+  
+    constructor(public sim: ExerciceSetService, private route: ActivatedRoute) {
+    }
+    ngOnInit(): void {
+      this.route.queryParams.subscribe(param => {
+        console.log("param.goal: " + param.goal);
+        if ( param.goal != null) {
+          this.goal = param.goal
+        }
+        if (param.userId != null)
+        {this.sim.userId= param.userId}
+      }) ;
+      //this.goal = this.route.snapshot.data.type;
+      console.log("goal: " + this.goal);
+    }
   }
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(param => {
-      console.log(">> param.goal: " + param.goal);
-      if ( param.goal != null) {
-        this.goal = param.goal
-      }
-    }) ;
-    //this.goal = this.route.snapshot.data.type;
-    console.log(">> goal: " + this.goal);
-  }
-}

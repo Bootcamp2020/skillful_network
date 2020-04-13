@@ -30,6 +30,7 @@ export class JobOfferListComponent implements OnInit {
   form: NgForm;
   keyEvent: boolean = false;
   keyword: string;
+  eventPage: PageEvent;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -58,7 +59,7 @@ export class JobOfferListComponent implements OnInit {
   }
 
   searchByNameOrCompany(form: NgForm) {
-    if (event != undefined) {
+    if (this.eventPage != undefined) {
       this.pageSize = this.paginator.pageSize;
       this.pageIndex = this.paginator.pageIndex + 1;
     }
