@@ -1,5 +1,6 @@
 mat-card{
-  height: auto;
+  min-height: 500px;
+
 }
 $gray: #92959E;
 .container_chat {
@@ -10,7 +11,7 @@ $gray: #92959E;
 }
 
 .mat-card-content {
-  height: 200px;
+  height: 90%;
   overflow: auto;
 }
 
@@ -207,3 +208,11 @@ $white: #ffffff;
   color: $gray;
 }
 
+@media screen and (max-width: 458px) {
+  mat-card {
+    width: 100%;
+  }
+  .tailleCard {
+    width: auto;
+  }
+}

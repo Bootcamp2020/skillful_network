@@ -1,7 +1,7 @@
 .card_dashboard{
     padding: 0;
     margin-bottom: 0px;
-    height: 30%;
+  width: auto;
     
     .example-form {
       min-width: 150px;
@@ -19,7 +19,7 @@
       margin-top: 20px;
     }
   mat-card{
-      height: auto;
+      min-height: 500px;
   }
 
   padding: 0;
