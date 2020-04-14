@@ -22,12 +22,15 @@ public class UserAdapter implements JsonDeserializer<User>{
 			throws JsonParseException {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		// Convertie le json en user
 		final User user = new GsonBuilder().setPrettyPrinting().create()
 		    .fromJson(jsonElement, User.class);
 		
 		// Encode le password du user
 		user.setPassword(encoder.encode(user.getPassword()));
 		
+		//retourne le user avec le password encodé
 		return user;
 
 	}
