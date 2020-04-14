@@ -154,7 +154,7 @@ public class UserController {
 //		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 //	}
 	// Utilisation du current User pour la modification
-
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@PutMapping("/user")
 	public ResponseEntity<User> updatePasswordCurrentUser(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
