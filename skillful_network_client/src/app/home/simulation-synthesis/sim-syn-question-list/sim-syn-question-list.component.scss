@@ -28,6 +28,9 @@ mat-icon {
 .correctAnswer {
   color: green;
 }
+.wrongAnswer {
+  color: rgb(200, 10, 10);
+}
 .feedback {
   color: rgb(44, 44, 44);
   font-style: italic;

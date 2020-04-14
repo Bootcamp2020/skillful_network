@@ -31,8 +31,8 @@ export class SimulationSynthesisComponent implements OnInit {
       .then((data) => {
         this.simulation = data;
         // MOCK exam and simulationForm
-        if (this.simulation.exam == null) this.simulation.exam = MOCK_EXAM;
-        if (this.simulation.examForm == null) this.simulation.examForm = MOCK_EXAM_FORM;
+        // if (this.simulation.exam == null) this.simulation.exam = MOCK_EXAM;
+        // if (this.simulation.examForm == null) this.simulation.examForm = MOCK_EXAM_FORM;
         this.getUserAnswer();
       })
       .catch(() => {
@@ -58,26 +58,32 @@ export class SimulationSynthesisComponent implements OnInit {
 
   public getUserAnswer(): void {
     // insert user answer in exam entity
-    if (this.simulation.exam != null && this.simulation.examForm != null) {
-      console.log("############################");
-      this.simulation.exam.exerciceSet.forEach((exercice) => {
-        console.log("## exercice [" + exercice.id + "]");
-        exercice.questions.forEach((question) => {
+    console.log("############################");
+    console.log("## exam: " + this.simulation.exam.id);
+    console.log("## examForm: " + this.simulation.simulationForm.id);
+    
+    if (this.simulation.exam != null && this.simulation.simulationForm != null) {
+      this.simulation.exam.exerciseSet.forEach((exercise) => {
+        console.log("############################");
+        console.log("## exercice [" + exercise.id + "] " + exercise.name);
+        
+        exercise.questions.forEach((question) => {
+          console.log("############################");
           console.log("## question [" + question.id + "] ");
-
+          console.log("## indexAnswer [" + question.indexAnswer + "] ");
+          
           // look into ExamForm structure same questionId
-          this.simulation.examForm.exerciceSet.forEach((exerciceForm) => {
-            exerciceForm.questions.forEach((questionForm) => {
+          this.simulation.simulationForm.exerciseSet.forEach((exerciseForm) => {
+            exerciseForm.answerSet.forEach((answerForm) => {
               // compare question ID
-              if (questionForm.questionId == question.id) {
-                console.log(
-                  "## questionForm [" + questionForm.questionId + "] "
-                );
-                console.log("##++ userAnswer: " + questionForm.userAnswerId);
-                question.userAnswerId = questionForm.userAnswerId;
+              if (answerForm.questionId == question.id) {
+                console.log("##++ questionForm [" + answerForm.questionId + "] ");
+                console.log("##++ userAnswer [" + answerForm.answer + "] ");
+                question.userAnswerId = answerForm.answer;
               }
             });
           });
+          
         });
       });
     }
