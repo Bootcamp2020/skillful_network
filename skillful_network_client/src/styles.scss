@@ -32,7 +32,7 @@ L'avantage du SASS, c'est qu'on centralise les styles inhérent à des thématiq
 cela comme un développement "plus propre" (comprenez plus lisible par un autre dev / mieux maintenable)
 */
 
-html, body { height: 100%; }
+html, body { height: 100%; min-height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
  
     //margin: 5px;
@@ -57,3 +57,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   width: 90%;
 
 }}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

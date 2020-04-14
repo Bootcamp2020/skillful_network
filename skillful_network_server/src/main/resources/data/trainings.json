@@ -13,8 +13,12 @@
       "Bac"
     ],
     "keywords": [
-      "HTML5",
-      "CSS"
+      {
+        "id": 6
+      },
+      {
+        "id": 7
+      }
     ],
     "trainingApplicationSet": []
   },
@@ -32,13 +36,30 @@
       "Bac +2"
     ],
     "keywords": [
-      "HTML5/CSS",
-      "Javascript",
-      "AngularJS",
-      "Java/J2EE",
-      "REST",
-      "SOAP",
-      "Spring"
+      {
+       "id": 6
+      },
+      {
+        "id": 7
+      },
+      {
+        "id": 15
+      },
+      {
+        "id": 3
+      },
+      {
+        "id": 8
+      },
+      {
+        "id": 9
+      },
+      {
+        "id": 10
+      },
+      {
+        "id": 5
+      }
     ],
     "trainingApplicationSet": []
   },
@@ -56,13 +77,27 @@
       "Bac +5"
     ],
     "keywords": [
-      "Java/J2EE",
-      "REST",
-      "SOAP",
-      "Spring",
-      "HTTPS",
-      "TLS",
-      "Chiffrage des donn�es"
+      {
+        "id": 8
+      },
+      {
+        "id": 9
+      },
+      {
+        "id": 10
+      },
+      {
+        "id": 5
+      },
+      {
+        "id": 11
+      },
+      {
+       "id": 12
+      },
+      {
+        "id": 13
+      }
     ],
     "trainingApplicationSet": []
   },
@@ -80,11 +115,21 @@
       ""
     ],
     "keywords": [
-      "Application Web",
-      "Fullstack",
-      "Angular",
-      "Java",
-      "Spring"
+      {
+        "id": 2
+      },
+      {
+        "id": 1
+      },
+      {
+        "id": 3
+      },
+      {
+        "id": 4
+      },
+      {
+        "id": 5
+      }
     ],
     "trainingApplicationSet": []
   }

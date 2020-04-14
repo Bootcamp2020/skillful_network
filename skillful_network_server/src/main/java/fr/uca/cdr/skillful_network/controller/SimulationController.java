@@ -1,20 +1,47 @@
 package fr.uca.cdr.skillful_network.controller;
 
+import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Simulation;
+
+import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
+import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.services.ExamService;
+import fr.uca.cdr.skillful_network.model.services.ExerciseService;
+import fr.uca.cdr.skillful_network.model.services.JobOfferService;
+
+import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
+
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
+import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
+import fr.uca.cdr.skillful_network.model.services.UserService;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
 
 @CrossOrigin("*")
@@ -24,6 +51,21 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationService simulationService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private JobOfferService jobOfferService;
+
+	@Autowired
+	private ExerciseService exerciseService;
+	@Autowired
+	private KeywordRepository keywordRepository;
+
+	private SimulationRepository simulationRepository;
+	
+	@Autowired
+	private ExamService examService;
+
 
 	// #########################################################################
 	// GET methods
@@ -35,13 +77,36 @@ public class SimulationController {
 	public ResponseEntity<List<Simulation>> getAllsimulations() {
 		return new ResponseEntity<>(this.simulationService.getAllSimulations(), HttpStatus.OK);
 	}
+	
+	// ---------------------------------TEST---------------------------------------
+	// Provide a simulation JUST FOR TEST
+//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/untruclongaecrire") //    /simulations/untruclongaecrire
+	public ResponseEntity<Exam> getAnExam() {
+		
+		List<Exercise> listExo = exerciseService.getAllExercises();
+		Set<Exercise> setExo = new HashSet<Exercise>();
+		setExo.add(listExo.get(0));
+		setExo.add(listExo.get(1));
+		Exam monExam = new Exam();
+		System.out.println(monExam);
+		monExam.setExerciseSet(setExo);
+		System.out.println(monExam);
+		monExam.setId(44L);
+		// persistance OK
+//		examService.saveOrUpdateExam(monExam);
+//		monExam = examService.getExamById(1L).get();
+		
+		
+		return new ResponseEntity<>(monExam, HttpStatus.OK);
+	}
 
 	// Provide simulation by ID
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Simulation> getSimulationById(@PathVariable(value = "id") Long id) {
-		Simulation simulation = this.simulationService.getSimulationById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + id));
+		Simulation simulation = this.simulationService.getSimulationById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune simulation trouvée avec l'id : " + id));
 		return new ResponseEntity<Simulation>(simulation, HttpStatus.OK);
 	}
 
@@ -57,11 +122,12 @@ public class SimulationController {
 
 	// Provide all simulations by user ID
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	//@GetMapping(value = "/user/{userId}")
+	// @GetMapping(value = "/user/{userId}")
 	@GetMapping(value = "")
-	public ResponseEntity<List<Simulation> > getAllSimulationsByUserId(@RequestParam(name="userid") Long userId) {
+	public ResponseEntity<List<Simulation>> getAllSimulationsByUserId(@RequestParam(name = "userid") Long userId) {
 		List<Simulation> simulations = this.simulationService.getAllSimulationsByUserId(userId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucune simulation trouvée avec le user id : " + userId));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Aucune simulation trouvée avec le user id : " + userId));
 		return new ResponseEntity<>(simulations, HttpStatus.OK);
 	}
 
@@ -69,22 +135,30 @@ public class SimulationController {
 	// POST methods
 	// #########################################################################
 
-    // start a new simulation based on a provided job goal
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	//@PostMapping(value = "/user/{userId}")
-	@PostMapping(value = "")
-	public ResponseEntity<Simulation> startSimulation(@RequestParam(name="userid") Long userId, @RequestParam(name="goal") String jobGoal) {
-		Simulation simulation = this.simulationService.startSimulation(userId, jobGoal)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Une erreur est survenue pendant l'éxécécution de la simulation."));
-		return new ResponseEntity<>(simulation, HttpStatus.OK);
+	// start a new simulation based on a provided job goal
+
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@PostMapping(value = "/user/{userId}")
+	public ResponseEntity<Exam>startSimulation(@AuthenticationPrincipal User user) 
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	User currentUser = (User) authentication.getPrincipal();
+		Exam exam =this.simulationService.startSimulation(user.getId()) .orElseThrow(() ->
+	  new ResponseStatusException(HttpStatus.NOT_FOUND,"Une erreur est survenue pendant l'éxécécution de la simulation."));
+	  return new ResponseEntity<>(exam, HttpStatus.OK);
 	}
+	 
+
 	
+
 	@PostMapping(value = "/{id}/answer")
-	public float simulationResult(@PathVariable(value = "id") Long simulationId,@Valid @RequestBody SimulationForm simulationForm) {
-		float simulationGrade=0;
-        Set<ExerciseForm> exercises = simulationForm.getExerciseSet();
-        simulationGrade=simulationService.calculateSimulationGrade(exercises, simulationId);
-		return simulationGrade; 	
+	public ResponseEntity<Simulation> simulationResult(@PathVariable(value = "id") Long examId,
+			@Valid @RequestBody SimulationForm simulationForm) {
+		Simulation simulation = simulationService.evaluateSimulation(simulationForm.getExerciseSet(), examId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Une erreur est survenue pendant l'évaluation de la simulation."));
+		return new ResponseEntity<>(simulation, HttpStatus.OK);
+
 	}
 
 	// #########################################################################

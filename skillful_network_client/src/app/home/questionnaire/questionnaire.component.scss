@@ -1,5 +1,5 @@
 .table-container {
-  width: 80%;
+  width: 100%;
 }
 .example-radio-group {
   display: flex;
@@ -8,4 +8,18 @@
 }
 .example-radio-button {
   margin: 5px;
+}
+.container{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+
+}
+.container-card{
+  min-width: 100%;
+}
+.barre{
+  display: inline;
+  margin-left: 50px;
 }

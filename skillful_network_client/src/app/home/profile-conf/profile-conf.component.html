@@ -13,11 +13,13 @@
             <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
                 <!-- colon 1 -->
                 <div fxFlex="45">
-                    <!-- bloc 1 -->
                     <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
+                    <app-candidature></app-candidature>
+                    <app-simulation></app-simulation>
                 </div>
                 <!-- colon 2 -->
                 <div fxFlex="45">
+<<<<<<< HEAD
                     <!-- bloc 2 -->
                     <app-chip-conf title="Compétences" label="Nouvelle compétence" detail="compétence" [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf>
                 </div>
@@ -48,6 +50,19 @@
                     </div>
                     <div id="btn_cancel" fxFlex="30">
                         <button type="reset" mat-raised-button color="primary">Annuler</button>
+=======
+                    <app-qualif-conf [qualifInfoGroup]="parentGroup.get('formQualInfos')" [userQualList]="userLogged.qualificationSet"></app-qualif-conf>                
+                    <app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf>
+                    <app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf>
+                    <app-new-password></app-new-password>
+                    <div fxLayoutAlign="center center" novalidate>
+                        <div class="btn-profil">
+                            <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
+                        </div>
+                        <div class="btn-profil" >
+                            <button type="reset" class="btn-profil" mat-raised-button color="primary">Annuler</button>
+                        </div>
+>>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
                     </div>
                 </div>
             </div>

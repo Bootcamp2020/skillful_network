@@ -1,4 +1,4 @@
-<div class="card_dashboard mat-elevation-z4">
+<div class="card_profil mat-elevation-z4">
     <div class='row'>
         <mat-card class="slop-display-container">
             <mat-card-header id="title">
@@ -23,8 +23,13 @@
             <div class='column'>
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
+<<<<<<< HEAD:skillful_network_client/src/app/home/profile-conf/chip-conf/chip-conf.component.html
                     <mat-label>{{label}}</mat-label>
                     <input formControlName="chipValue"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder={{detail}} class="form-control">
+=======
+                    <mat-label>Nouvelle qualification</mat-label>
+                    <input formControlName="qualifUnit"  type="text"  matInput #qualifInput = "matInput" [matAutocomplete]="auto"  [formControl]="myControl" placeholder="qualification" class="form-control">
+>>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14:skillful_network_client/src/app/home/profile-conf/qualif-conf/qualif-conf.component.html
                     <mat-autocomplete #auto="matAutocomplete">
                         <ng-container *ngIf="!isLoading">
                             <mat-option *ngFor="let chip of chips" [value]="chip">
@@ -35,7 +40,11 @@
                     </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">
+<<<<<<< HEAD:skillful_network_client/src/app/home/profile-conf/chip-conf/chip-conf.component.html
                 <button type="submit" mat-raised-button color="primary" [disabled]="chipInfoGroup.invalid">Ajouter</button>
+=======
+                <button type="submit" mat-raised-button color="primary" [disabled]="qualifInput.focused && (qualifInfoGroup.invalid || !qualifInfoGroup.value.qualifUnit)">Ajouter</button>
+>>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14:skillful_network_client/src/app/home/profile-conf/qualif-conf/qualif-conf.component.html
             </div>
         </div>
     </form>

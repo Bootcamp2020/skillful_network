@@ -8,14 +8,19 @@
 
         <div class="recherche" *ngIf="!isLoading">
             <div >
-                <form class="formulaire" (ngsubmit)="onSearchByFirstNameOrLastName(f)" #f="ngForm">
-                    <div fxLayout="row " >
-                        <mat-icon (click)="onSearchByFirstNameOrLastName(f)" class="cursor">search</mat-icon>
-                        <div class="input "><input (keydown)="onSearchByFirstNameOrLastName(f)" placeholder="Recherche... " name="keyword" ngModel> </div>
-                        <p>nombre d'entité par page</p>
-                        <div class="input "><input name="size" ngModel value=10> </div>
-                        <p>numéro de page</p>
-                        <div class="input "><input name="page" ngModel value=1> </div>
+                <form [formGroup]="search" (ngSubmit)=" onSearchByFirstNameOrLastName() "
+                      class="form-group">
+                    <div fxLayout="row ">
+
+                        <mat-form-field appearance="legacy">
+
+                            <mat-label>Recherche par Nom ou Prénom</mat-label>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <input formControlName="keyword" type="text" matInput placeholder="Recherche"
+                                   class="form-control">
+                            <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
+                        </mat-form-field>
+
                     </div>
                 </form>
             </div>
@@ -26,7 +31,7 @@
         <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
-                    <table mat-table  #table [dataSource]="dataSource" matSort >
+                    <table mat-table [dataSource]="dataSource"  (matSortChange)="change($event)" matSort>
 
                     <!-- Name Column -->
 
@@ -55,6 +60,15 @@
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
                     </table>
+                    <mat-paginator
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions"
+                            (page)="change($event)"
+                            [hidePageSize]="hidePageSize"
+                            [showFirstLastButtons]="showFirstLastButtons"
+                            [length]="length"
+                            class="mat-paginator-container">
+                    </mat-paginator>
                 </div>
             </div>
         </mat-card-content>

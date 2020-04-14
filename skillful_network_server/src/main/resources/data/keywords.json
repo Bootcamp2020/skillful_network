@@ -1,27 +1,63 @@
 [
   {
     "id": 1,
-    "name": "Fullstack",
-    "exercises": []
+    "name": "Fullstack"
+	
   },
   {
     "id": 2,
-    "name": "Application Web",
-    "exercises": []
+    "name": "Application Web"
   },
   {
     "id": 3,
-    "name": "Angular",
-    "exercises": []
+    "name": "Angular"
   },
   {
     "id": 4,
-    "name": "Java",
-    "exercises": []
+    "name": "Java"
   },
   {
     "id": 5,
-    "name": "Spring",
-    "exercises": []
+    "name": "Spring"
+  },
+  {
+    "id": 6,
+    "name": "HTML5"
+  },
+  {
+    "id": 7,
+    "name": "CSS"
+  },
+  {
+    "id": 8,
+    "name": "Java/J2EE"
+  },
+  {
+    "id": 9,
+    "name": "REST"
+  },
+  {
+    "id": 10,
+    "name": "SOAP"
+  },
+  {
+    "id":11,
+    "name": "HTTPS"
+  },
+  {
+    "id": 12,
+    "name": "TLS"
+  },
+  {
+    "id": 13,
+    "name": "Chiffrage des données"
+  },
+  {
+    "id": 14,
+    "name": "protocol TCP"
+  },
+  {
+    "id": 15,
+    "name": "javascript"
   }
 ]

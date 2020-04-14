@@ -17,7 +17,7 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Exercise> exerciseSet = new HashSet<Exercise>();
 
 	public Exam() {
@@ -28,6 +28,11 @@ public class Exam {
 	public Exam(Long id, Set<Exercise> exerciseSet) {
 		super();
 		this.id = id;
+		this.exerciseSet = exerciseSet;
+	}
+
+	public Exam(Set<Exercise> exerciseSet) {
+		super();
 		this.exerciseSet = exerciseSet;
 	}
 

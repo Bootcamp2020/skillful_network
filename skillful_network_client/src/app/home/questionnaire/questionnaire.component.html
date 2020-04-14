@@ -1,4 +1,5 @@
-<mat-card>
+<div class="container" fxLayoutAlign="center center">
+<mat-card class="container-card">
     <mat-card-header id="title">
         <mat-card-title id="title_police">Simulation</mat-card-title>
     </mat-card-header>
@@ -14,14 +15,24 @@
                 <mat-radio-button class="example-radio-button" [value]="cpt" (change)="selection = $event.value" (click)="activateButton()" *ngFor="let choix of this.simulation[0].exerciceSet[indexQuestionnaire].questions[indexQuestion].choices;  let cpt = index;" [checked]="false"> {{choix}}</mat-radio-button>
             </mat-radio-group>
         </div>
-        <button mat-button [disabled]="disabledButton" *ngIf="(indexQuestion + 1) != this.simulation[0].exerciceSet[indexQuestionnaire].questions.length" value="Next" (click)="next()" mat-raised-button color="primary">Suivant</button>
-        <div class="col-md-4" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) != this.simulation[0].exerciceSet.length">
-            <button mat-button [disabled]="disabledButton" value="Submit" (click)="nextQcm()"mat-raised-button color="primary">Questionnaire suivant</button>
+        <div class="barre">
+        <button mat-button [disabled]="disabledButtonP" *ngIf="!(indexQuestionnaire > 0 && indexQuestion==0) "  (click)="previous()" mat-raised-button color="primary" class="btn-previous">Précédent</button>
         </div>
-        <div class="col-md-4" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) == this.simulation[0].exerciceSet.length">
-            <button mat-button [disabled]="disabledButton" value="Submit" (click)="submit()"mat-raised-button color="primary">Envoyer</button>
+        <div  class="barre" *ngIf="(indexQuestion == 0 ) && (indexQuestionnaire == ((this.simulation[0].exerciceSet.length)-1))">
+            <button mat-button [disabled]="disabledButtonP" value="Submit"  (click)="previousQcm()" mat-raised-button color="primary"class="btn-qcmN">Questionnaire Précédent</button>   
+        </div>
+        <div  class="barre">
+        <button mat-button [disabled]="disabledButton" *ngIf="(indexQuestion + 1) != this.simulation[0].exerciceSet[indexQuestionnaire].questions.length" value="Next" (click)="next()" mat-raised-button color="primary">Suivant</button>
+        </div> 
+        <div class="barre" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) != this.simulation[0].exerciceSet.length">
+            <button mat-button [disabled]="disabledButton" value="Submit"  (click)="nextQcm()" mat-raised-button color="primary" class="btn-qcmN">Questionnaire suivant</button>
+        </div>    
+          
+        <div class="barre" *ngIf="(indexQuestion + 1) == this.simulation[0].exerciceSet[indexQuestionnaire].questions.length && (indexQuestionnaire + 1) == this.simulation[0].exerciceSet.length">
+            <button mat-button [disabled]="disabledButton" value="Submit" (click)="submit()"mat-raised-button color="primary" class="btn-qcmN">Envoyer</button>
         </div>
         </div>
 <!--        <div *ngIf="gameover"><h5>Result:  {{correct}}/{{questions.length}}</h5></div>  -->
     </mat-card-content>
 </mat-card>
+</div>

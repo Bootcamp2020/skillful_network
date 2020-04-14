@@ -9,12 +9,8 @@ import { Candidature } from 'src/app/shared/models/candidature';
 })
 export class CandidaturesComponent implements OnInit {
 
-  public listCandidature: Candidature[];
-  @Input() public company: string;
-  @Input() public status: string;
-  @Input() public details: string;
-  @Input() public job: string;
 
+  @Input() public listCandidature: Candidature[];
 
 
   constructor() {
@@ -22,9 +18,6 @@ export class CandidaturesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listCandidature = [];
-    MOCK_CANDIDATURE.forEach((condidature: IPost) => {
-      this.listCandidature.push(new Candidature(condidature));
-    });
+
   }
 }

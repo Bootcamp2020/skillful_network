@@ -15,10 +15,17 @@ export class User {
   private _status: string;
   private _validated: boolean;
   private _photo: boolean;
+<<<<<<< HEAD
   private _skillSet: ChipValue[];
   private _qualificationSet : ChipValue[];
   private _subscriptionSet : ChipValue[];
   private _photoProfile: string;
+=======
+  private _skillSet: Skill[];
+  private _qualificationSet : Qualif[];
+  private _subscriptionSet : Subscript[];
+  private _photoProfile: any;
+>>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
   private _role: string[];
 
   private _careerGoal: string;
@@ -123,10 +130,10 @@ export class User {
   public set subscriptionSet(value: ChipValue[]) {
     this._subscriptionSet = value;
   }
-  public get photoProfile(): string {
+  public get photoProfile():any {
     return this._photoProfile;
   }
-  public set photoProfile(value: string) {
+  public set photoProfile(value: any) {
     this._photoProfile = value;
   }
   public get careerGoal(): string {
