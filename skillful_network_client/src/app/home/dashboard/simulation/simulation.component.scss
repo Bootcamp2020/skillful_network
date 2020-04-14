@@ -1,4 +1,27 @@
 .card_dashboard{
+    padding: 0;
+    margin-bottom: 0px;
+    height: 30%;
+    
+    .example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+  }
+  
+  .simulation {
+      padding-top: 10px;
+  }
+
+  .card_dashboard{
+      padding: 0;
+      margin-bottom: 40px;
+      margin-top: 20px;
+    }
+  mat-card{
+      height: auto;
+  }
+
   padding: 0;
   margin-bottom: 20px;
 }
@@ -26,6 +49,7 @@ mat-card{
 #bouton-replay-simulation {
   text-decoration: none;
   color: rgb(126, 126, 126);
+
   
 }
 
@@ -35,6 +59,34 @@ mat-card{
 }
 
 table {
+
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  td, th {
+    width: 20%;
+    margin-left: 10px;
+    
+  }
+  .mat-header-cell {
+    background-color:  #F1F1F1;
+    text-align: center;
+  }
+  .mat-card-content {
+    padding-top: 0px;
+    border-collapse: collapse;
+  }
+
+  .table-container {
+    height: 200px;
+    overflow: auto;
+
   width: 100%;
   margin-bottom: 10px;
   text-align: center;
@@ -44,6 +96,7 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
 
 td, th {
   width: 20%;
