@@ -35,7 +35,7 @@ const routes: Routes = [
         // Pour accéder à cette route, Angular va appeler la méthode canActivate de "isLoggedGuard"
         // Si cette méthode renvoie true, alors le user sera autorisé à rentrer, sinon non.
         //A commenter pour les tests
-        canActivate: [IsLoggedGuard]
+        //canActivate: [IsLoggedGuard] // Attention a remettre avant de push
     }
 ];
 

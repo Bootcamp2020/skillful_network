@@ -13,7 +13,7 @@ export class SimSynQuestionListComponent implements OnInit {
   public componentName: String = "app-sim-syn-question-list";
   @Input() public simulation: Simulation;
   @Input() public isLoaded: boolean;
-
+  ​
   constructor() { }
   ​
   ngOnInit(): void {
@@ -38,8 +38,5 @@ export class SimSynQuestionListComponent implements OnInit {
     console.log(info);
   }
 }
-    ​
-    // async function wait (delay) {
-    //   await new Promise(resolve => setTimeout(resolve, delay));
-    // }
+   
     

@@ -7,6 +7,7 @@ const USERNAME_KEY = 'username';
 const LOCAL_STORAGE = 'local';
 const AUTHORITIES_KEY = 'authorities';
 const IS_LOGGED_IN = 'isLoggedIn';
+const IS_LOGGED = 'isLogged';
 
 
 
@@ -14,7 +15,7 @@ const IS_LOGGED_IN = 'isLoggedIn';
   providedIn: 'root'
 })
 export class TokenStorageService {
-
+ 
   constructor() { }
 
   signOut() {
@@ -42,6 +43,7 @@ export class TokenStorageService {
       localStorage.setItem(TOKEN_KEY, token);
       localStorage.setItem(USERNAME_KEY , JSON.stringify(username));
       localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+      localStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
       console.log('token sauvé dans le local storage : ' + localStorage.getItem(TOKEN_KEY));
       console.log('username sauvé concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(USERNAME_KEY));
       console.log('authorities sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(AUTHORITIES_KEY));
@@ -50,6 +52,7 @@ export class TokenStorageService {
       sessionStorage.setItem(TOKEN_KEY, token);
       sessionStorage.setItem(USERNAME_KEY, JSON.stringify(username));
       sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+      sessionStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
       console.log('token sauvé dans le session storage : ' + sessionStorage.getItem(TOKEN_KEY));
       console.log('username sauvé concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(USERNAME_KEY));
       console.log('authorities sauvées concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(AUTHORITIES_KEY));

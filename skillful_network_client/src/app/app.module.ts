@@ -1,3 +1,4 @@
+
 /**
  * Module principal de l'application
  * Pour rappel, un module permet de représenter un lot de fonctionnalités. Il va référencer les composants de votre applications
@@ -39,6 +40,7 @@ import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.c
 import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
 import {UserService} from './shared/services/user.service';
 import {UserlistComponent} from './home/profile-conf/userlist/userlist.component';
+
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
 import {QualificationsComponent} from './home/user/qualifications/qualifications.component';
@@ -94,7 +96,6 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent,
-        UserlistComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
@@ -109,6 +110,7 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
+
         NewPasswordComponent,
         PageDataComponent,
         MyDialogComponent,
@@ -117,7 +119,6 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         SimSynQuestionListComponent,
         SimSynInfoComponent,
         ],
-
 
     imports: [
         BrowserModule,
@@ -135,6 +136,7 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
 
     entryComponents: [
         MyDialogComponent
+
     ],
 
     providers: [

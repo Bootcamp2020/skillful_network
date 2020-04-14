@@ -6,8 +6,8 @@
     <hr>
     <mat-card-content *ngIf="isLoaded && simulation.exam">
       <mat-tab-group mat-align-tabs="center">
-
-        <mat-tab *ngFor="let set of simulation.exam.exerciceSet" [label]="set.name">
+        
+        <mat-tab *ngFor="let set of simulation.exam.exerciceSet" [label]="set.name" >
           <mat-accordion>
 
             <mat-expansion-panel *ngFor="let question of set.questions">
@@ -18,18 +18,18 @@
               <ul *ngFor="let choice of question.choices">
                 <li>{{choice.choice}}
                   <mat-icon *ngIf="choice.id == question.userAnswerId" title="votre réponse">person</mat-icon>
-                  <mat-icon *ngIf="choice.id == question.indexAnswer" title="réponse correcte">done</mat-icon>
+                  <mat-icon class="correctAnswer" *ngIf="choice.id == question.indexAnswer" title="réponse correcte">done</mat-icon>
                 </li>
               </ul>
 
-              <p>{{question.feedBack}}</p>
-            </mat-expansion-panel>
+              <p class ="feedback">{{question.feedBack}}</p>
+              </mat-expansion-panel>
 
           </mat-accordion>
         </mat-tab>
 
       </mat-tab-group>
-    </mat-card-content>
+    </mat-card-content> 
 
     <mat-card-content *ngIf="isLoaded && ! simulation.exam">
       <h1>Aucun questionnaire trouvé</h1>

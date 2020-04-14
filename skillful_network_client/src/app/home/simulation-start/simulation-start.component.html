@@ -6,18 +6,18 @@
         <hr>
         <mat-card-content>
             <div fxLayoutAlign="center center">
-                <div class="mat-elevation-z3 class-width"> <!--table-container-->
+                <div class="mat-elevation-z3 class-width">
                     <div class="row bloc-text1">
                         <p> Objectif de carrière : {{goal}}<br>
-                            Nous avons trouvé pour vous une simulation composée de {{ this.data[0].exerciceSet.length }} exercice(s) :</p>
+                            Nous avons trouvé pour vous une simulation composée de {{ this.data.exerciseSet.length }} exercice(s) :</p>
                         <ul>
-                            <li *ngFor="let questionnaire of this.data[0].exerciceSet;  let index = index;">Questionnaire : {{ questionnaire.name }} ({{ questionnaire.questions.length }} questions)</li>
+                            <li *ngFor="let questionnaire of this.data.exerciseSet;  let index = index;">Questionnaire : {{ questionnaire.name }} ({{ questionnaire.questions.length }} questions)</li>
                         </ul>
                     </div>
                     <div class="row bloc-text2">
                         <div>
                             <p class="text-align-btn">En fin de simulation, le serveur vous proposera une offre en adéquation avec vos résultats.</p></div>
-                        <div class='column btn-commencer' fxFlex="20"> <!-- id="btn_ajouter"-->
+                        <div class='column btn-commencer' fxFlex="20">
                             <button routerLink="/home/questionnaire" type="submit" mat-raised-button color="primary" class="">Commencer</button>
                         </div>
                     </div>

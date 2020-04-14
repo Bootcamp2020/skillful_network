@@ -7,28 +7,24 @@
         <mat-card-content *ngIf = "isLoaded && simulation">
             <div class="simInfo">
                 <ul>
-                <li>objectif: {{simulation.jobGoal}}  </li>
-                <li>Date de réalisation: {{simulation.creationDate | date: "dd/MM/yyyy"}}  </li>
-                <li>Synthèse: {{simulation.synthesis}} </li>
-                <li *ngIf="simulation.jobOffer">
-                    Offre d'emploi associée: <br> 
-                    <a routerLink="{{'/home/offre/' + simulation.jobOffer.id }}">{{simulation.jobOffer.name}}</a>
-                </li>
-                <!-- <li *ngIf="!simulation.jobOffer">
-                    Aucune offre d'emploi associée: <br> 
-                    <a routerLink="{{'/home/offre/' + simulation.jobOffer.id }}">{{simulation.jobOffer.name}}</a>
+                <li>Objectif: <br><p class="output"> {{simulation.jobGoal}} </p></li>
+                <li>Date de réalisation:<br><p class="output"> {{simulation.creationDate | date: "dd/MM/yyyy"}} </p></li>
+                <li>Synthèse:<br><p class="output"> {{simulation.synthesis}} </p></li>
+                <!--<li *ngIf="simulation.jobOffer">
+                    Offre d'emploi associée: <br>
+                    <a routerLink="{{'/home/offre/' + simulation.jobOffer.id }}"><p class="output">{{simulation.jobOffer.name}}</p></a>
                 </li> -->
                 <li *ngIf="simulation.training">
                     Proposition de formation: <br>
-                    <a routerLink="{{'/home/formation/' + simulation.training.id }}">{{simulation.training.name}}</a>
+                    <a routerLink="{{'/home/formation/' + simulation.training.id }}"><p class="output">{{simulation.training.name}}</p></a>
                 </li>
                 </ul>
             </div>
         </mat-card-content>
-
         <div class="progressBarDiv" *ngIf="!isLoaded">
             <mat-spinner class="loading_mat_spinner" color="primary" ></mat-spinner>
         </div>
     </mat-card>
 </div>
+
 

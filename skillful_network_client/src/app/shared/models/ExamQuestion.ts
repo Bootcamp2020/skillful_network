@@ -25,7 +25,7 @@ export class ExamQuestion {
   get choices(): ExamChoice[] { return this._choices; }
   set choices(value: ExamChoice[]) { this._choices = value; }
   get indexAnswer(): number { return this._indexAnswer; }
-  set indexAnswerd(value: number) { this._indexAnswer = value; }
+  set indexAnswer(value: number) { this._indexAnswer = value; }
   get feedBack(): string { return this._feedBack; }
   set feedBack(value: string) { this._feedBack = value; }
   get userAnswerId(): number { return this._userAnswerId; }

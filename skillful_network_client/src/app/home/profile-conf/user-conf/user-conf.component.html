@@ -18,16 +18,17 @@
               <mat-label>Prénom</mat-label>
               <input formControlName="firstName" matInput placeholder="Votre prénom" class="form-control">
               <mat-icon matSuffix>account_circle</mat-icon>
-            </mat-form-field>
-        
-            <mat-form-field class="tabelement">
-              <mat-label>Date de Naissance</mat-label>
-              <input [matDatepicker]="myDatepicker" formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
-              <mat-datepicker #myDatepicker></mat-datepicker>
-              <mat-icon matSuffix>calendar_today</mat-icon>
+            </mat-form-field>       
+
               <!--<input formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
               -->
+            <mat-form-field>
+              <mat-label>Date de Naissance</mat-label>
+              <input matInput [matDatepicker]="myDatepicker" formControlName="birthDate" matInput placeholder="Votre date de naissance" class="form-control">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
             </mat-form-field>
+            
         
             <mat-form-field class="tabelement">
               <mat-label>Email</mat-label>

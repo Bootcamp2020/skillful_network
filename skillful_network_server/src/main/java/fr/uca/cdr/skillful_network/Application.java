@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.tools.json.ExerciseAdapter;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
+import fr.uca.cdr.skillful_network.tools.json.UserAdapter;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -90,8 +91,13 @@ public class Application {
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
-						.load();
+				new JSONLoader<>(
+						"src/main/resources/data/users.json", 
+						User[].class,
+						User.class,
+						userRepository,
+						new UserAdapter()
+						).load();
 				
 			}
 		};

@@ -49,7 +49,7 @@ const MATERIAL_MODULES = [
   MatProgressSpinnerModule,
   MatProgressBarModule,
   MatRadioModule,
-  MatExpansionModule,
+  MatExpansionModule
 ];
 
 @NgModule({

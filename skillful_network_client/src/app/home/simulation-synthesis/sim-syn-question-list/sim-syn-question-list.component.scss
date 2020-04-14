@@ -20,3 +20,15 @@ mat-expansion-panel {
   margin:0 auto;
   float: none
 }
+
+mat-icon {
+  display: inline-flex;
+  vertical-align: bottom;
+}
+.correctAnswer {
+  color: green;
+}
+.feedback {
+  color: rgb(44, 44, 44);
+  font-style: italic;
+}
