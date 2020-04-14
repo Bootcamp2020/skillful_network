@@ -65,15 +65,6 @@ public class JSONLoader<T> {
         try (final JsonReader reader = new JsonReader(new FileReader(url))) {
             final Gson gson = this.getGson();
             List<T> elements =  Arrays.asList(gson.fromJson(reader, this.arrayType));
-            
-            System.out.println("Class = User ? " + (elements.get(0) instanceof User));
-            if (elements.get(0) instanceof User) {
-            	List <User> listUsers = (List<User>) elements;
-            	listUsers.forEach((user) -> {
-					System.out.println(user.getPassword());
-					user.setPassword(encoder.encode(user.getPassword()));
-				});
-            }
             this.repository.saveAll(elements);
             this.repository.findAll().forEach(System.out::println);
             return elements;

@@ -36,6 +36,7 @@ public class JwtProvider {
 		System.out.println("absolutePath : " + SCRIPT_ABSOLUTE_URL);
 		User userPrincipal = (User) authentication.getPrincipal();
 		String code = userPrincipal.getId() + " " + userPrincipal.getEmail() + " " + userPrincipal.getPassword();
+
 		String encryptCmd = PY_CMD + " " + SCRIPT_ABSOLUTE_URL + " " + ENCRYPT + " " + code;
 
 		return ExecutePyScript(encryptCmd);
@@ -43,6 +44,7 @@ public class JwtProvider {
 
 //	Méthode qui permet de décrypter un token 
 	public String decryptJwtToken(String frontToken) {
+
 		
 		System.out.println("AbsolutePath : " + SCRIPT_ABSOLUTE_URL);
 		String decryptCmd = PY_CMD + " " + SCRIPT_ABSOLUTE_URL + " " + DECRYPT + " " + frontToken;
