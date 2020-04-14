@@ -17,7 +17,7 @@
 
               <ul *ngFor="let choice of question.choices">
                 <li>{{choice.choice}}
-                  <mat-icon *ngIf="choice.id == question.userAnswerId" title="réponse correcte">person</mat-icon>
+                  <mat-icon *ngIf="choice.id == question.userAnswerId" title="votre réponse">person</mat-icon>
                   <mat-icon *ngIf="choice.id == question.indexAnswer" title="réponse correcte">done</mat-icon>
                 </li>
               </ul>

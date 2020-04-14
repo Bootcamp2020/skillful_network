@@ -14,6 +14,10 @@
                     Offre d'emploi associée: <br> 
                     <a routerLink="{{'/home/offre/' + simulation.jobOffer.id }}">{{simulation.jobOffer.name}}</a>
                 </li>
+                <!-- <li *ngIf="!simulation.jobOffer">
+                    Aucune offre d'emploi associée: <br> 
+                    <a routerLink="{{'/home/offre/' + simulation.jobOffer.id }}">{{simulation.jobOffer.name}}</a>
+                </li> -->
                 <li *ngIf="simulation.training">
                     Proposition de formation: <br>
                     <a routerLink="{{'/home/formation/' + simulation.training.id }}">{{simulation.training.name}}</a>
