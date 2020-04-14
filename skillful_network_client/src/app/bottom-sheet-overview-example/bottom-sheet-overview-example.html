@@ -1,15 +1,26 @@
 <div>
+    <div class="card_dashboard mat-elevation-z4">
+        <mat-card >
+            <mat-card-header  id="title">
+                <mat-card-title  id="title_police"><span mat-line><strong>Importer une photo</strong> </span><br></mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <div fxLayout="column">
+                    <img *ngIf=profilPicture [src]="profilPicture" alt="Avatar" class="image" height="300" />
 
-    <mat-nav-list>
-        <img *ngIf=profilPicture [src]="profilPicture" alt="Avatar" class="image" height="300" />
-        <span mat-line><strong><i>Importer une photo</i></strong> </span><br>
-        <input type="file"  (change)="onSelectFile($event)">
-        
-    </mat-nav-list>
-
-    <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Annuler</button>
-        <button mat-button (click)="onValidate()" >Valider</button>
+                    <button mat-raised-button><input type="file"  (change)="onSelectFile($event)"></button>
+                </div>
+                <div mat-dialog-actions>
+                    <button mat-flat-button><i class="divIcons material-icons iconsProfile iconRouge" (click)="onNoClick()">
+                        clear
+                    </i></button>
+                    <button mat-flat-button><i class="divIcons material-icons iconsProfile iconVert" (click)="onValidate()">
+                        check
+                    </i></button>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </div>
     
 </div>
