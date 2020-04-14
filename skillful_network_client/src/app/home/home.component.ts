@@ -17,10 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.user = localStorage.getItem("auth-user");
-    // console.log("----------")
-    // console.log(this.user.id);
-   console.log(this.tokenstorage.getCurrentUser());
+
   }
 
  
