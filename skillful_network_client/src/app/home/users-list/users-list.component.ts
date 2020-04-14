@@ -69,7 +69,7 @@ export class UsersListComponent implements OnInit {
     }
 
     const keyword = this.search.value.keyword;
-    this.userService.getUsersBySearch(keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField()).then(res => {
+    this.userService.getUsersBySearch(keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField()).then((res: { totalElements: number; content: User[]; }) => {
       this.length = res.totalElements;
       this.dataSource = new MatTableDataSource<User>(res.content);
     }).finally(() => this.isLoading = false);

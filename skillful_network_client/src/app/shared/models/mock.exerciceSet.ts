@@ -1,12 +1,12 @@
 import {IExercice, MOCK_EXERCICE} from './mock.exercice';
 
 export interface IExerciceSet {
-    exerciceSet: IExercice[];
+    exerciseSet: IExercice[];
 }
 
 export const MOCK_EXERCICE_SET: IExerciceSet[] = [
     {
-        exerciceSet: [
+        exerciseSet: [
             MOCK_EXERCICE[0],
             MOCK_EXERCICE[1]
         ]

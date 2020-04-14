@@ -17,33 +17,28 @@ export class PasswordConfirmationComponent implements OnInit {
   public hidePassword = true;
   public hideConfirmPassword = true;
   public error: boolean;
-  user: User;
+  password: string;
 
-  constructor(private fb: FormBuilder, private api: ApiHelperService, private UserService: UserService, private router: Router) {
-    const random = Math.floor(Math.random() * (100));
-    this.user = new User( random );
+  constructor(private fb: FormBuilder, private api: ApiHelperService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
     this._buildForm();
+    this.password = null;
   }
 
   public onSubmit() {
-    let id = this.user.id;
-    let pass = this.formPost.get('password').value;
-    console.log("id: " + id + " password: " + pass);
-    // On vide le localStorage
-    // localStorage.removeItem('token'); // test purpose : TODO Retirer
-    // this.api.put({ endpoint: '/user/' + id, data: pass })
-    //   .then((id: number) => {
-    //     if (id === -1) {
-    //       this.error = true;
-    //     } else {
-    //       localStorage.setItem('token', 'X'); // TODO Gérer le token
-    //       // this.userService.actualUser = new User({id});
-    //       this.router.navigate(['/home']);
-    //     }
-    //   });
+    this.password = this.formPost.get('password').value;
+    console.log( 'password récupéré à update : ' + this.password);
+    this.userService.updateUserPassword(this.password)
+    .then((data) => {
+      console.log('Mot de passe de l\'utilisateur est maintenant : ' + data.password);
+      console.log('Le mot de passe a bien été mis à jours');
+      this.router.navigate(['/home']);
+    })
+    .catch((error: any) => {
+      console.log('Une erreur s\'est produite : ' +  error);
+    });
   }
 
   private _buildForm() {

@@ -1,0 +1,20 @@
+<div class="divSimulation">
+    <h1>Synthèse de simulation</h1>
+    <mat-divider></mat-divider>
+    <div class="zoneSimulation">
+        <mat-card-content *ngIf="isLoaded && ! simulation">
+            <h1>Aucune information trouvée</h1>
+        </mat-card-content>
+        <div>
+            <div class="parent">
+                <div class="zone zone1">
+                    <app-sim-syn-info [isLoaded]="isLoaded" [simulation]="simulation"></app-sim-syn-info>
+                </div>
+                <div class="zone zone2">
+                    <app-sim-syn-question-list [isLoaded]="isLoaded" [simulation]="simulation">
+                    </app-sim-syn-question-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

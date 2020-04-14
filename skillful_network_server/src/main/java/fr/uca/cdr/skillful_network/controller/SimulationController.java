@@ -121,7 +121,7 @@ public class SimulationController {
 //	}
 
 	// Provide all simulations by user ID
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	// @GetMapping(value = "/user/{userId}")
 	@GetMapping(value = "")
 	public ResponseEntity<List<Simulation>> getAllSimulationsByUserId(@RequestParam(name = "userid") Long userId) {

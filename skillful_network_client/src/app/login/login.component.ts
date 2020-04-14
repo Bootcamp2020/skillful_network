@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
               this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
             }   
             this.isLoggedIn = 'true';
-            localStorage.setItem('isLoggedIn', this.isLoggedIn);
+           // localStorage.setItem('isLoggedIn', this.isLoggedIn);
             this.router.navigate(['/home']);
           })
         .catch((error) => {
