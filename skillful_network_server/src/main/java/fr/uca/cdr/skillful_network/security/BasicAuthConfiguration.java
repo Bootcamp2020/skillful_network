@@ -68,14 +68,14 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers("/home", "/login", "/token", "/login/v1", "/register", "/upload", "/skills/*",
-						"/qualifications/*", "/subscriptions/*", "/usersbyId/{id}", "/users", "/users/{id}/skills",
+						"/qualifications/*", "/simulations","/subscriptions/*", "/usersbyId/{id}", "/users", "/users/{id}/skills",
 						"/users/{userId}/skills/{skillId}", "/users/{id}/Qualifications", "/users/{id}/Subscription",
 						"/applications/jobs", "/applications/jobs/{id}/joboffer", "/applications/jobs/user/{userId}", 
 						"/applications/jobs/bonjour", "/users/**", "/users/{id}", 
 						"/joboffer", "/joboffer/**", "/joboffer/getOne/{id}", "/image/{id:.+}",
 						"/offers","/offers/", "/offers/*", "/offers/", "/trainings/{id}", "/simulations/{id}/answer",
 						"/simulations/user/startSimulation", "/trainings/**", "/trainings/page", "/trainings/page/*", 
-						"/trainings","/user/{userId}/joboffer/{jobOfferId}", "/users/uploadImage","/users/**" , "/simulations/untruclongaecrire") // les pages/requêtes /home, /login et /token sont accessibles sans
+						"/trainings","/user/{userId}/joboffer/{jobOfferId}", "/users/uploadImage","/users/**" , "/simulations/untruclongaecrire","/whoami") // les pages/requêtes /home, /login et /token sont accessibles sans
 
 
 				// les pages/requêtes /home, /login et /token sont accessibles sans

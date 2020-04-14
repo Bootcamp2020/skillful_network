@@ -224,13 +224,13 @@ public class AuthenticationController {
 			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
 			User userFromDb = userService.getUserById(userFromJson.getId())
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
-			boolean passwordMatches = encoder.matches(userFromJson.getPassword(), userFromDb.getPassword());
-			System.out.println("Mots de passes correspondent ? " + passwordMatches);
+			boolean passwordMatches = userFromJson.getPassword().equalsIgnoreCase( userFromDb.getPassword());
+			System.out.println("Mots de passes correspondent ? " + passwordMatches + " password from json: " +userFromJson.getPassword() + " password from db: " +userFromDb.getPassword());
 			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
 			} else {
-				return new ResponseEntity<String>("Le token et les informations utilisateurs sont valides",
+				return new ResponseEntity<User>(userFromDb,
 						HttpStatus.OK);
 			}
 		}
