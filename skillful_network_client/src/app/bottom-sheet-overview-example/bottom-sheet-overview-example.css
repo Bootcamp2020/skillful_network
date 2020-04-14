@@ -1,0 +1,13 @@
+.iconVert{
+    color: lawngreen;
+}
+.iconRouge{
+    color: red;
+}
+i{
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+.mat-dialog-actions{
+    justify-content: center;
+}

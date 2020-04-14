@@ -19,6 +19,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/subscriptions")
 @Transactional
 public class SubscriptionController {
 
@@ -26,20 +27,20 @@ public class SubscriptionController {
 	private SubscriptionService subscriptionService;
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping("/subscriptions")
+	@GetMapping("")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
 		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
 		return new ResponseEntity<List<Subscription>>(listSubscription, HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping("/subscriptions/{id}")
+	@GetMapping("/{id}")
 	public Optional<Subscription> findById(@PathVariable("id") long id) {
 		return subscriptionService.getSubscriptionById(id);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@GetMapping(value = "/subscriptions/{id}/users")
+	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySubscription(@PathVariable(value = "id") Long id) throws Throwable {
 		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).map((subscription) -> {
 			return subscription.getUserList();
@@ -51,7 +52,7 @@ public class SubscriptionController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/subscriptions/{name}")
+	@GetMapping(value = "/{name}")
 	public ResponseEntity<Subscription> getSubscriptionByName(@PathVariable(value = "name") String name) {
 		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun abonnement trouvé avec le nom " + name));
@@ -60,21 +61,21 @@ public class SubscriptionController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@PostMapping(value = "/subscriptions")
+	@PostMapping(value = "")
 	public Subscription save(@Valid @RequestBody Subscription subscription) {
 		return subscriptionService.saveOrUpdateSubscription(subscription);
 
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@DeleteMapping("/subscriptions/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
 		subscriptionService.deleteSubscription(id);
 	}
 
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@GetMapping(value = "/subscriptions/candidates")
+	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Subscription>>(subscriptionService.getSubscriptionsByMatch(match), HttpStatus.OK);
 	}

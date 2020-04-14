@@ -8,8 +8,11 @@ import {MOCK_EXERCICE_SET} from '../models/mock.exerciceSet';
 })
 export class ExerciceSetService {
     public exercicesSet: ExerciceSet[];
+
     public returnExercicesSet: any;
+
     public userId:number;
+    // userId: any;
 
     constructor(private api: ApiHelperService) {
         this.exercicesSet = [];
