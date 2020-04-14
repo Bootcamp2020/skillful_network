@@ -40,7 +40,7 @@ import {SkillConfComponent} from './home/profile-conf/skill-conf/skill-conf.comp
 import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.component';
 import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
 import {UserService} from './shared/services/user.service';
-import {UserlistComponent} from './home/profile-conf/userlist/userlist.component';
+
 
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
@@ -97,7 +97,6 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         SkillConfComponent,
         QualifConfComponent,
         SubscriptConfComponent,
-        UserlistComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
