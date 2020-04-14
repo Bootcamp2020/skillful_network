@@ -4,10 +4,11 @@
       <mat-card-title id="title_police">Questions/Réponses</mat-card-title>
     </mat-card-header>
     <hr>
+    
     <mat-card-content *ngIf="isLoaded && simulation.exam">
       <mat-tab-group mat-align-tabs="center">
         
-        <mat-tab *ngFor="let set of simulation.exam.exerciceSet" [label]="set.name" >
+        <mat-tab *ngFor="let set of simulation.exam.exerciseSet" [label]="set.name" >
           <mat-accordion>
 
             <mat-expansion-panel *ngFor="let question of set.questions">
@@ -17,7 +18,8 @@
 
               <ul *ngFor="let choice of question.choices">
                 <li>{{choice.choice}}
-                  <mat-icon *ngIf="choice.id == question.userAnswerId" title="votre réponse">person</mat-icon>
+                  <mat-icon class="correctAnswer" *ngIf="(choice.id == question.userAnswerId) && (choice.id == question.indexAnswer)" title="votre réponse">person</mat-icon>
+                  <mat-icon class="wrongAnswer" *ngIf="(choice.id == question.userAnswerId) && (choice.id != question.indexAnswer) " title="votre réponse">person</mat-icon>
                   <mat-icon class="correctAnswer" *ngIf="choice.id == question.indexAnswer" title="réponse correcte">done</mat-icon>
                 </li>
               </ul>

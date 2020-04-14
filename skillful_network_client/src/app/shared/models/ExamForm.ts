@@ -1,18 +1,17 @@
-import { ExamExercice } from './ExamExercice';
-import { ExamExerciceForm } from './ExamExerciceForm';
+import { ExamExerciseForm } from './ExamExerciseForm';
 
 export class ExamForm {
 
   private _id: number;
-  private _exerciceSet: ExamExerciceForm[];
+  private _exerciseSet: ExamExerciseForm[];
 
   constructor(data: any) {
     this._id = data.id;
-    this._exerciceSet = data.exerciceSet;
+    this._exerciseSet = data.exerciceSet;
   }
 
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }
-  get exerciceSet(): ExamExerciceForm[] { return this._exerciceSet; }
-  set exerciceSet(value: ExamExerciceForm[]) { this._exerciceSet = value; }
+  get exerciseSet(): ExamExerciseForm[] { return this._exerciseSet; }
+  set exerciseSet(value: ExamExerciseForm[]) { this._exerciseSet = value; }
 }
