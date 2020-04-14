@@ -138,11 +138,9 @@ public class SimulationController {
 	// start a new simulation based on a provided job goal
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@PostMapping(value = "/user/{userId}")
+	@PostMapping(value = "/user")
 	public ResponseEntity<Exam>startSimulation(@AuthenticationPrincipal User user) 
 	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	User currentUser = (User) authentication.getPrincipal();
 		Exam exam =this.simulationService.startSimulation(user.getId()) .orElseThrow(() ->
 	  new ResponseStatusException(HttpStatus.NOT_FOUND,"Une erreur est survenue pendant l'éxécécution de la simulation."));
 	  return new ResponseEntity<>(exam, HttpStatus.OK);
