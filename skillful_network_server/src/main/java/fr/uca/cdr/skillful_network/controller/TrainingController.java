@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import fr.uca.cdr.skillful_network.exceptions.ResourceNotFoundException;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.services.TrainingService;
 import fr.uca.cdr.skillful_network.tools.PageTool;

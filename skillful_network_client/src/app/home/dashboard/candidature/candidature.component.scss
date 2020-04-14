@@ -19,17 +19,25 @@
 }
 .card_dashboard{
     padding: 0;
-    margin-bottom: 40px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 30%;
   }
 mat-card{
-    //min-height: 515px;
+
+  
+    height: auto;
+    min-height: 200px;
+
+  
+
+  
 }
 .icon-candidature{
     margin-left: 20px;
 }
 #message-candidature{
-    font-size: 25px;
+    font-size: 15px;
     font-style: italic;
     margin: 20px;
 }

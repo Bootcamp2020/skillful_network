@@ -13,8 +13,6 @@ export class CandidaturesComponent implements OnInit {
   @Input() public listCandidature: Candidature[];
 
 
-
-
   constructor() {
 
   }
