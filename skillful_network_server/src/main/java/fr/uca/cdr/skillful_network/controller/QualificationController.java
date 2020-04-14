@@ -46,7 +46,7 @@ public class QualificationController {
 	}
 
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Qualification>> getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Qualification>>(qualificationservice.getQualificationsByMatch(match), HttpStatus.OK);

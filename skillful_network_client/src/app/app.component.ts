@@ -18,27 +18,18 @@ export class AppComponent implements OnInit{
     
   }
   ngOnInit(): void {
-    this.router.events
-    .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-    .subscribe(event => {
-      if (
-        event.id === 1 &&
-        event.url === event.urlAfterRedirects 
-      ) {
-        console.log("Avant de rentrer dans le test")
         this.stillLogged = true
-        this.api.post({endpoint:"/whoami" , data:this.tokenStorageService.getToken()}).then(
+        this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
           data=>{
             this.userService.updateUser(data);
             this.stillLogged = false
           }
-          ).catch(err=>{
+          )
+    .catch(err=>{
             localStorage.clear()
             this.router.navigate(['/login']);
             this.stillLogged = false
           })
-      }
-    })
   }
   
 }
