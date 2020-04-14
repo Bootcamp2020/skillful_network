@@ -1,3 +1,4 @@
+
 /**
  * Module principal de l'application
  * Pour rappel, un module permet de représenter un lot de fonctionnalités. Il va référencer les composants de votre applications
@@ -22,7 +23,6 @@ import {DashboardComponent} from './home/dashboard/dashboard.component';
 import {UserComponent} from './home/user/user.component';
 import {UsersListComponent} from './home/users-list/users-list.component';
 import {TokenHttpInterceptorService} from './shared/interceptors/token-http-interceptor.service';
-<<<<<<< HEAD
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
 import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
@@ -38,26 +38,6 @@ import { ProfileConfComponent } from './home/profile-conf/profile-conf.component
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
 import { UserService } from './shared/services/user.service';
 import { UserlistComponent } from './home/profile-conf/userlist/userlist.component';
-=======
-import {PasswordConfirmationComponent} from './password-confirmation/password-confirmation.component';
-import {PasswordForgottenComponent} from './password-forgotten/password-forgotten.component';
-import {SimulationComponent} from './home/dashboard/simulation/simulation.component';
-import {FooterComponent} from './home/dashboard/footer/footer.component';
-import {ChatComponent} from './home/dashboard/chat/chat.component';
-import {FilActualitesComponent} from './home/dashboard/fil-actualites/fil-actualites.component';
-import {HeaderComponent} from './home/dashboard/header/header.component';
-import {CandidatureComponent} from './home/dashboard/candidature/candidature.component';
-import {ProfileComponent} from './home/dashboard/profile/profile.component';
-import {MenuprofileComponent} from './menuprofile/menuprofile.component';
-import {BottomSheetOverviewExample} from './bottom-sheet-overview-example/bottom-sheet-overview-example';
-import {ProfileConfComponent} from './home/profile-conf/profile-conf.component';
-import {UserConfComponent} from './home/profile-conf/user-conf/user-conf.component';
-import {SkillConfComponent} from './home/profile-conf/skill-conf/skill-conf.component';
-import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.component';
-import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
-import {UserService} from './shared/services/user.service';
-import {UserlistComponent} from './home/profile-conf/userlist/userlist.component';
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
 
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
@@ -76,17 +56,17 @@ import {getFrenchPaginatorIntl} from './shared/utils/customMatPaginationIntl';
 import {SimulationStartComponent} from './home/simulation-start/simulation-start.component';
 import {QuestionnaireComponent} from './home/questionnaire/questionnaire.component';
 import {MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
-<<<<<<< HEAD
 import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.component';
 
-=======
 import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
 
+
+import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
+import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
+import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
 import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
-
 import {MatDialogModule} from '@angular/material/dialog';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
@@ -130,20 +110,17 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         JobOfferListComponent,
         SimulationStartComponent,
         QuestionnaireComponent,
-<<<<<<< HEAD
+
         ChipConfComponent,
     
-=======
-
+        SimulationSynthesisComponent,
+        SimSynQuestionListComponent,
+        SimSynInfoComponent,
         NewPasswordComponent,
-
-
         PageDataComponent,
         MyDialogComponent,
         GoalValidationModalComponent
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
         ],
-
 
     imports: [
         BrowserModule,
@@ -155,11 +132,14 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
         MatNativeDateModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
         MatDialogModule
     ],
 
     entryComponents: [
         MyDialogComponent
+
     ],
 
     providers: [
