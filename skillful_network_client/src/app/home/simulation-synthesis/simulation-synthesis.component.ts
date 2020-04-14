@@ -81,3 +81,5 @@ export class SimulationSynthesisComponent implements OnInit {
         });
       });
     }
+  }
+}
