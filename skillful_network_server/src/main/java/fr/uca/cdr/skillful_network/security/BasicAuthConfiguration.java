@@ -1,10 +1,12 @@
 package fr.uca.cdr.skillful_network.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,27 +24,36 @@ import fr.uca.cdr.skillful_network.jwt.JwtAuthTokenFilter;
 import fr.uca.cdr.skillful_network.security.services.UserDetailsServiceImpl;
 
 @Configuration
-@EnableWebSecurity
-@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
+public class BasicAuthConfiguration {
+
+	// ###########################################################################
+	// WebSecurityConfigurerAdapter boolean for HTTP Pattern Matcher Security enabled or disabled
+	// application.properties file :
+	// # enabled :
+	// api.security.httpPatternMatcher.disabled=false (or empty/null)
+	// # disabled :
+	// api.security.httpPatternMatcher.disabled=true
+	// ###########################################################################
+
+	@Value("${api.security.httpPatternMatcher.disabled:false}")
+	private boolean httpPatternMatcherDisabled;
 
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	private JwtAuthEntryPoint unauthorizedHandler;
+    private JwtAuthEntryPoint unauthorizedHandler;
 
-	@Bean
-	public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-		return new JwtAuthTokenFilter();
-	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
+        return new JwtAuthTokenFilter();
+    }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 //	@Bean
 //	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 //		// on genère un InMemoryUserDetailsManager pour pouvoir enregistré une nouvelle
@@ -53,44 +64,90 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 //		return new InMemoryUserDetailsManager(users);
 //	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
+	// ###########################################################################
+	// WebSecurityConfigurerAdapter bean with Role Authentication Security enabled
+	// ###########################################################################
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+	@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
+    @EnableWebSecurity
+    @Profile("!roleAuthSecurityDisabled")
+    @EnableGlobalMethodSecurity(prePostEnabled = true)
+    public class RoleSecurityEnabledConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/home", "/authentication/login", "/authentication/token", "/authentication/login/v1", "/authentication/register", "/skills/*",
-						"/qualifications/*", "/subscriptions/*", "users/usersbyId/{id}", "/users", "/users/{id}/skills",
-						"/users/{userId}/skills/{skillId}", "/users/{id}/Qualifications", "/users/{id}/Subscription",
-						"/users/**", "/users/{id}","/users/image/{id:.+}","/joboffer/getOne/{id}", "/trainings/{id}", "/simulations/{id}/answer","/applications/jobs/user/{userId}"
-						, "/users/uploadImage","/joboffer/**","/user/{userId}/joboffer/{jobOfferId}", // les pages/requêtes /home, /login et /token sont accessibles sans
+		@Bean
+		@Override
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
 
-						"/applications/jobs", "/applications/jobs/{id}/joboffer", "/applications/jobs/user/{userId}", 
-						"/applications/jobs/bonjour", "/users/**", "/users/{id}", 
-						"/joboffer", "/joboffer/**", "/joboffer/getOne/{id}", "/image/{id:.+}",
-						"/offers","/offers/", "/offers/*", "/offers/", "/trainings/{id}", "/simulations/{id}/answer",
-						"/simulations/user/startSimulation", "/trainings/**", "/trainings/page", "/trainings/page/*", 
-						"/trainings","/user/{userId}/joboffer/{jobOfferId}", "/users/**" , "/simulations/untruclongaecrire") // les pages/requêtes /home, /login et /token sont accessibles sans
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        }
+		@Override
+        protected void configure(HttpSecurity http) throws Exception {
+			http.cors().and().csrf().disable()
+					.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+			if ( ! httpPatternMatcherDisabled) { // http pattern matcher enabled
+				http.authorizeRequests()
+						.antMatchers("/home", "/login", "/token", "/login/v1", "/register")
+						.permitAll()// les pages accessibles sans authentifications (pour pouvoir s'identifier).
+						.anyRequest().authenticated(); // toutes les pages/requêtes nécessite une authentification
+			} else { // http pattern matcher disabled
+				http.authorizeRequests()
+						.anyRequest().permitAll(); // toutes les pages/requêtes sont accessibles
+			}
+			http.authorizeRequests()
+					.and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+					.and().sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and().httpBasic();
+			http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        }
+    }
 
+	// ###########################################################################
+	// WebSecurityConfigurerAdapter bean with Role Authentication Security disabled
+	// application.properties file :
+	// + spring.profiles.include=roleAuthSecurityDisabled
+	// ###########################################################################
 
+	@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
+    @EnableWebSecurity
+    @Profile("roleAuthSecurityDisabled")
+    //@EnableGlobalMethodSecurity(prePostEnabled = true)
+    public class RoleSecurityDisabledConfig extends WebSecurityConfigurerAdapter {
 
-				// les pages/requêtes /home, /login et /token sont accessibles sans
-				// authentifications (pour pouvoir s'identifier).
+		@Bean
+		@Override
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
 
-				.permitAll().anyRequest().authenticated() // toutes les qutess pages/requêtes nécessite une
-															// authentification pour pouvoir y accéder.
-				.and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-				.and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().httpBasic();
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+			http.cors().and().csrf().disable()
+					.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+			if ( ! httpPatternMatcherDisabled) { // http pattern matcher enabled
+				http.authorizeRequests()
+						.antMatchers("/home", "/login", "/token", "/login/v1", "/register")
+						.permitAll()// les pages accessibles sans authentifications (pour pouvoir s'identifier).
+						.anyRequest().authenticated(); // toutes les pages/requêtes nécessite une authentification
+			} else { // http pattern matcher disabled
+				http.authorizeRequests()
+						.anyRequest().permitAll(); // toutes les pages/requêtes sont accessibles
+			}
+			http.authorizeRequests()
+					.and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+					.and().sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and().httpBasic();
+			http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        }
+    }
 }
