@@ -60,8 +60,7 @@ export class MenuprofileComponent implements OnInit {
 
   openModalProfile() {
     const dialogRef = this.dialog.open(BottomSheetOverviewExample, {
-      width: '25%',
-      height: '70%',
+
       data: { user: this.userService.userLogged.photoProfile }
     });
 
