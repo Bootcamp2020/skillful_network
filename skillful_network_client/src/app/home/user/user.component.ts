@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
         this.loading = true;
         const listPromises = [];
 
-        listPromises.push(this.api.get({endpoint: `/usersbyId/${id}`}));
+        listPromises.push(this.api.get({endpoint: `/users/usersbyId/${id}`}));
 
         listPromises.push(this.api.get({endpoint: `/users/${id}/Qualifications`}));
 
@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
         Promise.all(listPromises)
             .then(([userData, listQualif, listSkill, listSubscript, listCandidature]) => {
                 this.user = new User(userData);
-
+                console.log('this.user');
                 if (this.user.status === '1') {
                     this.statusUser = 'Chercheur d\'emploi';
                     console.log(this.user.status);
@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
                 }
                 console.log(this.user.photo);
                 if (this.user.photo) {
-                    this.http.get(environment.base_url + `/image/${id}`, {responseType: 'blob'})
+                    this.http.get(environment.base_url + `users/image/${id}`, {responseType: 'blob'})
                         .subscribe(dataBlob => {
                             const objectURL = URL.createObjectURL(dataBlob);
                             this.image_user = this.sanitizer.bypassSecurityTrustUrl(objectURL);
@@ -69,7 +69,6 @@ export class UserComponent implements OnInit {
                 } else {
                     this.image_user = '../../../../assets/pictures/profile_defaut.jpg';
                 }
-
                 this.listQualif = listQualif;
                 this.listSkill = listSkill;
                 this.listSubscript = listSubscript;

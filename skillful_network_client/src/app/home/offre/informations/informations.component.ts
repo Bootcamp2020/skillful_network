@@ -12,13 +12,22 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./informations.component.scss']
 })
 export class InformationsComponent implements OnInit {
-    @Input() post;
-    @Input() choixListe;
 
 
     constructor(private api: ApiHelperService, private route: ActivatedRoute) { }
+    @Input() post;
+    @Input() choixListe;
+    myMap = {
+        MODERATE: 'Modéré',
+        CRITICAL: 'Critique',
+        SIMPLE: 'Simple'
+    };
+    myMap2 = {
+        MODERATE: 'Modéré',
+        CRITICAL: 'Critique',
+        SIMPLE: 'Simple'
+    };
     ngOnInit(): void {
         console.log(this.post);
     }
-
 }
