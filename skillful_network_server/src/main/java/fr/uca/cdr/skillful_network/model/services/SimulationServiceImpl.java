@@ -91,31 +91,23 @@ public class SimulationServiceImpl implements SimulationService {
 		
 		// recuperer tous les jobOffer
 				List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
-				System.out.println(jobOffer);
 				ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
 				wordMatchCareerGoal.addAll(this.simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
-				System.out.println("wordMatchCareerGoal:" +wordMatchCareerGoal);
 				if(wordMatchCareerGoal.size()==0) {
 					throw new ResponseStatusException(HttpStatus.OK, "Aucune offre d'emploi qui correspond avec votre objectif d'emploi");
-				
 					}else
 				{ 
 						Simulation simulation = new Simulation(user.getCareerGoal());
 						simulation.setUser(user);
 				ArrayList<JobOffer> listeJobOfferMatcheJobGoal = new ArrayList<JobOffer>();
 				listeJobOfferMatcheJobGoal.addAll(simulationService.ListJobOfferByJobGoal(user.getCareerGoal(),(ArrayList<JobOffer>) jobOffer )); 
-				System.out.println(listeJobOfferMatcheJobGoal);
 				
-				    Random rand = new Random();
-				   
+				    Random rand = new Random();   
 				    JobOffer JobOfferByJobGoal = listeJobOfferMatcheJobGoal.get(rand.nextInt(listeJobOfferMatcheJobGoal.size()));
-				
-			
 				ArrayList<Keyword> listKeywordExo = (ArrayList<Keyword>) simulationService.findAllKeyWordExo();
-				System.out.println("listKeywordExo :" + listKeywordExo);
 				ArrayList<Keyword> listeKeyWordsEquals = new ArrayList<Keyword>();
 				listeKeyWordsEquals.addAll(simulationService.exerciceMachJoboffer(listKeywordExo, wordMatchCareerGoal));
-				System.out.println("listeKeyWordsEquals :" + listeKeyWordsEquals);
+			
 				// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
 				ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
 		        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
@@ -300,8 +292,6 @@ public class SimulationServiceImpl implements SimulationService {
 		for (int i = 0; i < keyJob.size(); i++) {
 			for (int j = 0; j < keyExo.size(); j++) {
 				if (calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()) >= 0.8) {
-					System.out.println("Similarity calcul : ");
-					System.out.println(calculsimilarityOfStrings(keyJob.get(i), keyExo.get(j).getName()));
 					listeKeyWordsEquals.add(keyExo.get(j));
 				}
 			}
