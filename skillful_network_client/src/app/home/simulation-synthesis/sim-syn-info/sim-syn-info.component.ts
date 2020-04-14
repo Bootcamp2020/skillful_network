@@ -10,7 +10,7 @@ export class SimSynInfoComponent implements OnInit {
 
   public componentName: String = "app-sim-syn-info";
   @Input() public simulation: Simulation;
-  public isLoaded: boolean = false;
+  @Input() public isLoaded: boolean = false;
 ​
   constructor() { }
 ​
@@ -22,19 +22,19 @@ export class SimSynInfoComponent implements OnInit {
    this.simulationInfo();
   }
 ​
-  public simulationInfo(): boolean {
-  this.isLoaded = false;
-   let info: String = ">>> " + this.componentName + ": simulation" ;
-   if (this.simulation == null || this.simulation.id == -1 ) {
-     this.simulation = null;
-     info = info + " is undefined yet";
-   } else {
-     this.isLoaded = true;
-     info = info + " updated ! its id: " + this.simulation.id;
+public simulationInfo(): void {
+  let info: String = ">>>> " + this.componentName + ": simulation";
+  if ( ! this.isLoaded) {
+    info = info + " is undefined yet";
+  } else {
+    if (this.simulation == null) {
+      info = info + " is not found!";
+    } else {
+      info = info + " is loaded! its id: " + this.simulation.id;
     }
-   console.log(info)
-   return this.isLoaded;
   }
+  console.log(info);
+ }
 }
 
 ​

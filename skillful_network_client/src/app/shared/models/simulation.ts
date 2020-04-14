@@ -13,8 +13,8 @@ export class Simulation {
     private _jobOffer: JobOffer;
     private _jobAccess: boolean;
     private _training: Training;
-    private _exam: IExam = MOCK_EXAM;
-    private _examForm: IExamForm  = MOCK_EXAM_FORM;
+    private _exam: IExam;
+    private _examForm: IExamForm;
 
     constructor(data: any) {
         this._id = data.id;

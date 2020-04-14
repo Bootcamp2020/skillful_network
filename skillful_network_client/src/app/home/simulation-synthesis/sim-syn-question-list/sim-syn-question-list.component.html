@@ -4,152 +4,40 @@
       <mat-card-title id="title_police">Questions/Réponses</mat-card-title>
     </mat-card-header>
     <hr>
-    <mat-card-content>
-    <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Angular Quizz">
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quelle entreprise est à l'origine d'Angular ?
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ul>
-          <li>Microsoft</li>
-          <li>Google</li>
-          <li>Oracle</li>
-          <li>La réponse D</li>
-        </ul>
-        <p>"Angular a été crée par Google : Google a officiellement annoncé Angular à la conférence ng-conf en
-          Octobre 2014."</p>
-      </mat-expansion-panel>
+    <mat-card-content *ngIf="isLoaded && simulation.exam">
+      <mat-tab-group mat-align-tabs="center">
+        
+        <mat-tab *ngFor="let set of simulation.exam.exerciceSet" [label]="set.name" >
+          <mat-accordion>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      </mat-expansion-panel>
+            <mat-expansion-panel *ngFor="let question of set.questions">
+              <mat-expansion-panel-header>
+                <mat-panel-title> {{question.question}}</mat-panel-title>
+              </mat-expansion-panel-header>
 
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            À quoi sert un transpileur ?
-          </mat-panel-title>
-          <mat-panel-description>
+              <ul *ngFor="let choice of question.choices">
+                <li>{{choice.choice}}
+                  <mat-icon *ngIf="choice.id == question.userAnswerId" title="votre réponse">person</mat-icon>
+                  <mat-icon class="correctAnswer" *ngIf="choice.id == question.indexAnswer" title="réponse correcte">done</mat-icon>
+                </li>
+              </ul>
 
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>réponses</p>
-        <p>choix du candidat</p>
-        <p>bonne réponse</p>
-        <p>"Le transpilateur est un outil qui permet de publier son code pour les navigateurs qui ne supportent pas
-          encore l'ES6 : le rôle du transpilateur est de traduire le code ES6 en code ES5."</p>
-      </mat-expansion-panel>
+              <p class ="feedback">{{question.feedBack}}</p>
+              </mat-expansion-panel>
 
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quel est le langage recommandé pour le développement d'applications Angular ?
-          </mat-panel-title>
-          <mat-panel-description>
+          </mat-accordion>
+        </mat-tab>
 
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>réponses</p>
-        <p>choix du candidat</p>
-        <p>bonne réponse</p>
-        <p>"L'équipe fondatrice d'Angular recommande fortement d'utiliser TypeScript. D'ailleurs, TypeScript est le
-          seul langage utilisé sur la documentation officielle d'Angular"</p>
-      </mat-expansion-panel>
+      </mat-tab-group>
+    </mat-card-content> 
 
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quelle entreprise est à l'origine d'Angular ?
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ul>
-          <li>Microsoft</li>
-          <li>Google</li>
-          <li>Oracle</li>
-          <li>La réponse D</li>
-        </ul>
-        <p>"Angular a été crée par Google : Google a officiellement annoncé Angular à la conférence ng-conf en
-          Octobre 2014."</p>
-      </mat-expansion-panel>
+    <mat-card-content *ngIf="isLoaded && ! simulation.exam">
+      <h1>Aucun questionnaire trouvé</h1>
+    </mat-card-content>
 
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quel est le langage recommandé pour le développement d'applications Angular ?
-          </mat-panel-title>
-          <mat-panel-description>
-
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>réponses</p>
-        <p>choix du candidat</p>
-        <p>bonne réponse</p>
-        <p>"L'équipe fondatrice d'Angular recommande fortement d'utiliser TypeScript. D'ailleurs, TypeScript est le
-          seul langage utilisé sur la documentation officielle d'Angular"</p>
-      </mat-expansion-panel>
-
-    </mat-accordion>
-  </mat-tab>
-    
-    <mat-tab label="Spring Quizz">
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quelle entreprise est à l'origine d'Angular ?
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ul>
-          <li>Microsoft</li>
-          <li>Google</li>
-          <li>Oracle</li>
-          <li>La réponse D</li>
-        </ul>
-        <p>"Angular a été crée par Google : Google a officiellement annoncé Angular à la conférence ng-conf en
-          Octobre 2014."</p>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            À quoi sert un transpileur ?
-          </mat-panel-title>
-          <mat-panel-description>
-
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>réponses</p>
-        <p>choix du candidat</p>
-        <p>bonne réponse</p>
-        <p>"Le transpilateur est un outil qui permet de publier son code pour les navigateurs qui ne supportent pas
-          encore l'ES6 : le rôle du transpilateur est de traduire le code ES6 en code ES5."</p>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Quel est le langage recommandé pour le développement d'applications Angular ?
-          </mat-panel-title>
-          <mat-panel-description>
-
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>réponses</p>
-        <p>choix du candidat</p>
-        <p>bonne réponse</p>
-        <p>"L'équipe fondatrice d'Angular recommande fortement d'utiliser TypeScript. D'ailleurs, TypeScript est le
-          seul langage utilisé sur la documentation officielle d'Angular"</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card-content>
+    <div class="progressBarDiv" *ngIf="!isLoaded">
+      <mat-spinner class="loading_mat_spinner" color="primary"></mat-spinner>
+    </div>
   </mat-card>
 
 </div>

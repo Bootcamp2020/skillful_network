@@ -4,7 +4,7 @@
             <mat-card-title id="title_police">Simulation </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content *ngIf="isLoaded">
+        <mat-card-content *ngIf="isLoaded && listSimulation">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z4 table-container">
                     <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
@@ -57,6 +57,10 @@
                 </div>
             </div>  
         </mat-card-content>
+        <mat-card-content *ngIf="isLoaded && ! listSimulation">
+            <h1>Aucune simulation trouvée</h1>
+        </mat-card-content>
+
         <mat-card-content *ngIf="isLoaded">
             <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="openDialog()">Démarrer</button>
         </mat-card-content>
