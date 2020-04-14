@@ -10,7 +10,9 @@ import {ReturnExerciceSet} from '../models/return-exerciceSet';
 export class ExerciceSetService {
     public exercicesSet: ExerciceSet[];
     public returnExercicesSet: ReturnExerciceSet;
+
     public userId:number;
+    // userId: any;
 
     constructor(private api: ApiHelperService) {
         this.exercicesSet = [];

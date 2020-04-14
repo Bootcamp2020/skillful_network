@@ -1,7 +1,7 @@
 import { User } from './user';
 import { JobOffer } from './job-offer';
 import { Training } from './training';
-
+import { IExam, MOCK_EXAM, IExamForm, MOCK_EXAM_FORM } from './mock.examen';
 
 export class Simulation {
 
@@ -10,9 +10,11 @@ export class Simulation {
     private _jobGoal: String;
     private _creationDate: Date ;
     private _synthesis: String ;
-    private _jobOffersSuggested: JobOffer;
+    private _jobOffer: JobOffer;
     private _jobAccess: boolean;
-    private _trainingsSuggested: Training;
+    private _training: Training;
+    private _exam: IExam;
+    private _examForm: IExamForm;
 
     constructor(data: any) {
         this._id = data.id;
@@ -20,9 +22,11 @@ export class Simulation {
         this._jobGoal = data.jobGoal;
         this._creationDate = data.creationDate;
         this._synthesis = data.synthesis;
-        this._jobOffersSuggested = data.jobOffersSuggested;
+        this._jobOffer = data.jobOffer;
         this._jobAccess = data.jobAccess;
-        this._trainingsSuggested = data.trainingsSuggested;
+        this._training = data.training;
+        this._exam = data.exam;
+        this._examForm = data.simulationForm;
     }
     
     public get id(): number {
@@ -55,23 +59,35 @@ export class Simulation {
     public set synthesis(value: String) {
         this._synthesis = value;
     }
-    public get jobOffersSuggested(): JobOffer {
-        return this._jobOffersSuggested;
+    public get jobOffer(): JobOffer {
+        return this._jobOffer;
     }
-    public set jobOffersSuggested(value: JobOffer) {
-        this._jobOffersSuggested = value;
+    public set jobOffer(value: JobOffer) {
+        this._jobOffer = value;
     }
-    public get trainingsSuggested(): Training {
-        return this._trainingsSuggested;
+    public get training(): Training {
+        return this._training;
     }
-    public set synthtrainingsSuggestedesis(value: Training) {
-        this._trainingsSuggested = value;
+    public set training(value: Training) {
+        this._training = value;
     }
     public get jobAccess(): boolean {
         return this._jobAccess;
     }
     public set jobAccess(value: boolean) {
         this._jobAccess = value;
+    }
+    public get exam(): IExam {
+        return this._exam;
+    }
+    public set exam(value: IExam) {
+        this._exam = value;
+    }
+    public get examForm(): IExamForm {
+        return this._examForm;
+    }
+    public set examForm(value: IExamForm) {
+        this._examForm = value;
     }
 
 }
