@@ -45,7 +45,7 @@ export class PasswordForgottenComponent implements OnInit {
     let verifEmail = false;
 
     // Commenté en attendant la liaison avec le back
-    this.api.post({ endpoint: '/Authentication/passwordForgotten', data: { email: this.FormGroup.value.email } })
+    this.api.post({ endpoint: '/authentication/passwordForgotten', data: { email: this.FormGroup.value.email } })
       .then(() => {
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
       }).catch((error) => {
@@ -62,7 +62,7 @@ export class PasswordForgottenComponent implements OnInit {
     let verifCode = false;
 
     // Commenté en attendant la liaison avec le back
-    this.api.post({ endpoint: '/Authentication/login', data: { password: this.codeForm.value.code, email: this.FormGroup.value.email } })
+    this.api.post({ endpoint: '/authentication/login', data: { password: this.codeForm.value.code, email: this.FormGroup.value.email } })
       .then(() => {
         this.router.navigate(['./home']);
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet

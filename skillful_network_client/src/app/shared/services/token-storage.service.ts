@@ -14,10 +14,7 @@ const IS_LOGGED_IN = 'isLoggedIn';
   providedIn: 'root'
 })
 export class TokenStorageService {
-  // saveTokenAndCurrentUsername(accessToken: string, arg1: string, authorities: string[], arg3: string) {
-  //   throw new Error("Method not implemented.");
-  // }
-
+ 
   constructor() { }
 
   signOut() {

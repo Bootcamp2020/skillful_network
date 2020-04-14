@@ -28,15 +28,16 @@ export class ProfileComponent implements OnInit {
   firstname: any;
   email: string;
   careerGoal: string;
-  constructor(private profile: UserService) {
-    
-    this.id = this.user.id;
-    this.name=this.user.name;
-    this.firstname=this.user.firstname;
-    this.email=this.user.email;
-    this.competences=this.user.competences;
-    this.careerGoal=this.user.careerGoal;
-   }
+  
+  constructor() { }
+  /* constructor(data: any) {
+     this.id = data.id;
+     this.name=data.name;
+     this.firstname=data.firstname;
+     this.email=data.email;
+     this.competences=data.competences;
+     this.careerGoal=data.careerGoal;
+   } */
 
    
   ngOnInit(): void {

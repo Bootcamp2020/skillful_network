@@ -24,9 +24,6 @@ export class User {
   private _role: string[];
 
   private _careerGoal: string;
-  name: any;
-  firstname: any;
-  competences: any;
   constructor(data: any) {
     this._id = data.id;
     this._firstName = data.firstName;

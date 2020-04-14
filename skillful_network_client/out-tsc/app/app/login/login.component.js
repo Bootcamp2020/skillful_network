@@ -13,7 +13,7 @@ let LoginComponent = class LoginComponent {
     login() {
         // Permet de vider le local storage
         localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
-        this.api.post({ endpoint: '/Authentication/login', data: this.username })
+        this.api.post({ endpoint: '/authentication/login', data: this.username })
             .then((id) => {
                 console.log(id);
                 if (id === -1) {
