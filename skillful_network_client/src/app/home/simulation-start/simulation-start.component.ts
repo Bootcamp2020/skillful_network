@@ -9,13 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SimulationStartComponent implements OnInit {
   //  Test avec MOCK !!
-    public data = this.sim.findAllMock();
-    // import du data depuis le back !!
-    //public data = this.sim.findAll();
+    //public data = this.sim.findAllMock();
     public goal: String;
+    public data: any;
   
     constructor(public sim: ExerciceSetService, private route: ActivatedRoute) {
     }
+
     ngOnInit(): void {
       this.route.queryParams.subscribe(param => {
         console.log("param.goal: " + param.goal);
@@ -25,7 +25,11 @@ export class SimulationStartComponent implements OnInit {
         if (param.userId != null)
         {this.sim.userId= param.userId}
       }) ;
-      //this.goal = this.route.snapshot.data.type;
-      console.log("goal: " + this.goal);
+
+        // import du data depuis le back !!
+        this.sim.findAll().then(res => {
+           this.data = res;
+            console.log(this.data);
+        });
     }
   }
