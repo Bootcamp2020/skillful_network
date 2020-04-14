@@ -38,9 +38,5 @@ export class SimSynQuestionListComponent implements OnInit {
     console.log(info);
   }
 }
-    ​
-    // async function wait (delay) {
-    //   await new Promise(resolve => setTimeout(resolve, delay));
-    // }
+   
     
-
