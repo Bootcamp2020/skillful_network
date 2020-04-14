@@ -1,7 +1,12 @@
+.card_profil{
+  padding: 0;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
 .slop-display-container {
   width: 100%;
 }
-
 
 .example-form {
     min-width: 150px;
@@ -46,6 +51,7 @@
   margin-bottom: 10px;
   height: 1px;
 }
+
 .mat-chip.mat-standard-chip .mat-chip-remove {
   color: #3f51b5;
   opacity: 4;

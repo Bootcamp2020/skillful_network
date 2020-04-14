@@ -31,7 +31,7 @@
         <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
-                    <table mat-table  #table [dataSource]="dataSource" matSort >
+                    <table mat-table [dataSource]="dataSource"  (matSortChange)="change($event)" matSort>
 
                     <!-- Name Column -->
 
@@ -60,6 +60,15 @@
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
                     </table>
+                    <mat-paginator
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions"
+                            (page)="change($event)"
+                            [hidePageSize]="hidePageSize"
+                            [showFirstLastButtons]="showFirstLastButtons"
+                            [length]="length"
+                            class="mat-paginator-container">
+                    </mat-paginator>
                 </div>
             </div>
         </mat-card-content>
