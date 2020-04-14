@@ -60,6 +60,7 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
  */
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
@@ -76,7 +77,7 @@ public class UserController {
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users")
+	@GetMapping(value = "")
 	public List<User> getUsers() {
 		return (List<User>) this.repository.findAll();
 	}
@@ -94,7 +95,7 @@ public class UserController {
 //	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/users/search")
+	@GetMapping(value = "/search")
 	public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
 			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
@@ -107,8 +108,10 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PutMapping(value = "/users")
+
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> updateUser(@AuthenticationPrincipal User userLogged,
+
 			@Valid @RequestBody UserForm userRequest) {
 		Long id = userLogged.getId();
 		System.out.println(id);
@@ -151,7 +154,7 @@ public class UserController {
 //		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
 //	}
 	// Utilisation du current User pour la modification
-
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@PutMapping("/user")
 	public ResponseEntity<User> updatePasswordCurrentUser(@AuthenticationPrincipal User user,
 			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
@@ -194,6 +197,7 @@ public class UserController {
 	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
 	public ResponseEntity<Boolean> fileUpload(@AuthenticationPrincipal User user,
 			@RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+
 		// On impose la liste des extention autorisées : .JPG, .JPEG, PNG :
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User currentUser = (User) authentication.getPrincipal();
@@ -321,6 +325,7 @@ public class UserController {
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/user/skills/{skillName}")
 	public ResponseEntity<Skill> getOneSkillByNameByUser(@AuthenticationPrincipal User user,
+
 			@PathVariable(value = "skillName") String skillName) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -384,7 +389,7 @@ public class UserController {
 	// Utilisation du current User pour la suppression des skills
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@DeleteMapping("/user/skills/{skillId}")
+	@DeleteMapping("/skills/{skillId}")
 	public ResponseEntity<Skill> deleteSkillById(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
 
@@ -415,7 +420,7 @@ public class UserController {
 
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@PostMapping("/user/skills/{skillId}")
+	@PostMapping("/{userId}/skills/{skillId}")
 	public ResponseEntity<Skill> setSkillbyId(@AuthenticationPrincipal User user,
 			@PathVariable(value = "skillId") Long skillId) {
 
@@ -448,24 +453,24 @@ public class UserController {
 					+ " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
 		}
 	}
-
-	@GetMapping(value = "/users/{id}/Qualifications")
-	public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
-		Set<Qualification> listQualifications = this.userService.getUserById(id).map((user) -> {
-			return user.getQualificationSet();
-		}).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-		return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/users/{id}/Subscription")
-	public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
-		Set<Subscription> listSubscription = this.userService.getUserById(id).map((user) -> {
-			return user.getSubscriptionSet();
-		}).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-		return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
-	}
+		@GetMapping(value = "/{id}/Qualifications")
+		public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
+			Set<Qualification> listQualifications = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getQualificationSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
+		}
+		@GetMapping(value = "/{id}/Subscription")
+		public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
+			Set<Subscription> listSubscription = this.userService.getUserById(id)
+					.map((user) -> {
+						return user.getSubscriptionSet();})
+					.orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
+			return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
+		}
 
 //	@GetMapping(value = "users/{id}/skills")
 //	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
@@ -475,8 +480,10 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
 //		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
 //	}
+
+	
 	// @PreAuthorize("hasRole('USER')")
-	@GetMapping(value = "users/{id}/skills")
+	@GetMapping(value = "/{id}/skills")
 	public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
 		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
 			return user.getSkillSet();

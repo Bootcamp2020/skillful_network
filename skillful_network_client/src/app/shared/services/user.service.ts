@@ -164,4 +164,8 @@ export class UserService {
     return promise;
   }
 
+  public updateUserPassword(passwordToUpdate: string): Promise<any> {
+    return this.api.put({endpoint: '/users/user', data: {password: passwordToUpdate}});
+  }
+
 }
