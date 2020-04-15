@@ -33,7 +33,7 @@ export class ExerciceSetService {
 // Import depuis le Backend
     public findAll(): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: '/simulations/user' })
+            this.api.post({ endpoint: '/simulations/user' })
                 .then(
                     res => {
                         resolve(res);
