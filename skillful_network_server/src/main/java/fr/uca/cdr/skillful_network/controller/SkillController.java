@@ -81,7 +81,7 @@ public class SkillController {
 	}
 	
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Skill>>(skillService.getSkillsByMatch(match), HttpStatus.OK);

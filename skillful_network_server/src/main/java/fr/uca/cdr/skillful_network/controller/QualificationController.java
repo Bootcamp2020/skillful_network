@@ -25,6 +25,7 @@ import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/qualifications")
 public class QualificationController {
 
 	@Autowired
@@ -35,7 +36,7 @@ public class QualificationController {
 	}
 
 	@PreAuthorize("hasRole('USER')")
-	@GetMapping(value = "/qualifications")
+	@GetMapping(value = "/")
 	public List<Qualification> getQualifications(@RequestParam(name = "prefix", required = false) String prefix) {
 		if (prefix == null) {
 			return qualificationservice.getAllQualifications();
@@ -45,8 +46,8 @@ public class QualificationController {
 	}
 
 	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@GetMapping(value = "/qualifications/candidates")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Qualification>> getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
 		return new ResponseEntity<List<Qualification>>(qualificationservice.getQualificationsByMatch(match), HttpStatus.OK);
 	}

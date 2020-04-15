@@ -12,9 +12,9 @@ import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
+import fr.uca.cdr.skillful_network.request.SimulationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
@@ -138,10 +138,12 @@ public class SimulationServiceImpl implements SimulationService {
 	}
 
 	@Override
-	public Optional<Simulation> evaluateSimulation(Set<ExerciseForm> exercises, Long examId) {
+	public Optional<Simulation> evaluateSimulation(SimulationForm simulationForm, Long examId) {
+		Set<ExerciseForm> exercises=simulationForm.getExerciseSet();
 		Simulation simulation = simulationRepository.findByExamId(examId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Aucune simulation trouvée avec l'id : " + examId));
+		simulation.setSimulationForm(simulationForm);
 		simulation.setTraining(null);
 		double simulationGrade = calculateSimulationGrade(exercises, simulation);
 		
