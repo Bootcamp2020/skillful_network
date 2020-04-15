@@ -19,10 +19,10 @@ export class UsersListComponent implements OnInit {
   private page: number;
   private size: number;
   private order: string;
-  private keyword: string;
+  private keyword = '';
   private pageIndex = 1;
   private field: string;
-  pageSize = 10;
+  public pageSize = 10;
   pageSizeOptions: number[] = [10, 25, 50, 100];
   length: number;
   hidePageSize = false;
@@ -45,10 +45,7 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void  {
     this.isLoading = true;
-    this.userService.findAll(this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.field = 'firstName').then(res => {
-      this.length = res.totalElements;
-      this.dataSource = new MatTableDataSource<User>(res.content);
-    }).finally(() => this.isLoading = false);
+    this.onSearchOnInit();
 
   }
   @HostListener('matSortChange', ['$event']) change(event) {
@@ -60,6 +57,12 @@ export class UsersListComponent implements OnInit {
     this.event = event;
     this.keyEvent = true;
 
+  }
+  onSearchOnInit() {
+    this.userService.getUsersBySearch(this.keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField()).then(res => {
+      this.length = res.totalElements;
+      this.dataSource = new MatTableDataSource<User>(res.content);
+    }).finally(() => this.isLoading = false);
   }
 
   onSearchByFirstNameOrLastName() {
@@ -76,7 +79,7 @@ export class UsersListComponent implements OnInit {
   }
   checkField() {
     if (this.field == null) {
-      return this.field = 'firstName';
+      return this.field = 'lastName';
     } else {
       return this.field;
     }
