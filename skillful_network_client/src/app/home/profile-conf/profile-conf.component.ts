@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user';
 import { Subscription } from 'rxjs';
+import {Candidature} from "../../shared/models/candidature";
+import {ApiHelperService} from "../../shared/services/api-helper.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile-conf',
@@ -15,17 +18,21 @@ export class ProfileConfComponent {
   userLogged: User;
   userLSubscription: Subscription;
   parentGroup: FormGroup;
-
-  constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
+  public listCandidature: Candidature[];
+  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.userLSubscription = this.userService.userLoggedSubject.subscribe(
       (userTemp: User) => {
         this.userLogged = userTemp;
       });
     this.userService.emitUsers();
     this.createForm();
+    this.api.get({endpoint: `/applications/jobs/user/1`})
+        .then(data => {
+          this.listCandidature = data;
+        });
   }
 
   createForm() {

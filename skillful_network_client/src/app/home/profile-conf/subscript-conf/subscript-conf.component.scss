@@ -5,9 +5,8 @@ button{
   height: 50px;
 }
 .card_profil{
-  padding: 0;
   margin-bottom: 40px;
-  margin-top: 0px;
+
 }
 
 .slop-display-container {
@@ -21,7 +20,7 @@ button{
 }
 
 .candidature {
-    padding-top: 10px;
+   // padding-top: 10px;
 }
 
 .Company,
@@ -29,7 +28,6 @@ button{
     margin-left: 40px;
 }
 .card_dashboard{
-    padding: 0;
     margin-bottom: 40px;
     margin-top: 20px;
   }
@@ -42,8 +40,7 @@ button{
 .column {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
+
   margin: 15px;
 }
 
