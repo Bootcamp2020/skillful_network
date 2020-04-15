@@ -7,7 +7,7 @@ const USERNAME_KEY = 'username';
 const LOCAL_STORAGE = 'local';
 const AUTHORITIES_KEY = 'authorities';
 const IS_LOGGED_IN = 'isLoggedIn';
-const IS_LOGGED = 'isLogged';
+const IS_LOGGED = 'true';
 
 
 
@@ -37,6 +37,8 @@ export class TokenStorageService {
     sessionStorage.removeItem(USERNAME_KEY );
     localStorage.removeItem(AUTHORITIES_KEY);
     sessionStorage.removeItem(AUTHORITIES_KEY);
+    localStorage.removeItem(IS_LOGGED_IN);
+    sessionStorage.removeItem(IS_LOGGED_IN);
 
   // En fonction du choix donné en argument, on sauvegarde les informations dans le storage approprié
     if (storage === LOCAL_STORAGE) {
@@ -81,7 +83,7 @@ export class TokenStorageService {
 
 
   public isLogged(): boolean {
-    return localStorage.getItem(IS_LOGGED_IN) === 'true' || sessionStorage.getItem(IS_LOGGED_IN) === 'true' ;
+    return (Boolean)(localStorage.getItem(IS_LOGGED_IN)  || sessionStorage.getItem(IS_LOGGED_IN)) ;
 
   }
 

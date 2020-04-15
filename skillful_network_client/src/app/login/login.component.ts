@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   // variable qui servira à afficher le formulaire approprié en fonction du context
   public doDisplayCodeVerif = false;
 
-  
+
   dialogResult = "";
 
   constructor(private api: ApiHelperService, private userService: UserService, private router: Router, private formBuilder: FormBuilder, 
@@ -62,16 +62,15 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('user id : ' + data.username);
-            if (data.username==null) {
+            console.log('user email : ' + data.username);
+            if (data.username == null) {
                 this.error = true;
             } else if (this.isChecked) {
               this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
-            }   
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities, ''  );
+            }
             this.isLoggedIn = 'true';
-           // localStorage.setItem('isLoggedIn', this.isLoggedIn);
             this.router.navigate(['/home']);
           })
         .catch((error) => {
@@ -124,14 +123,13 @@ export class LoginComponent implements OnInit {
     this.authService.login({ emailLogin: this.inscriptionFormGroup.value.emailInscription, password: this.codeForm.value.code  })
       .then((data) => {
         console.log('token' + data.accessToken);
-        console.log('username : ' + data.username);
+        console.log('user email : ' + data.username);
         if (data.username === null) {
           this.error = true;
         } else {
             this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
             //  this.userService.actualUser = new User({id});//lien a modifie
             this.isLoggedIn = 'true';
-            localStorage.setItem('isLoggedIn', this.isLoggedIn);
             this.router.navigate(['/home']);
           }
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
