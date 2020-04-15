@@ -67,7 +67,7 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/home","/authentification/login","/authentication/whoami", "/authentication/token", "/authentication/login/v1", "/authentication/register", "/skills/*",
+				.antMatchers("/home","/authentication/login","/authentication/whoami", "/authentication/token", "/authentication/login/v1", "/authentication/register", "/skills/*",
 						"/qualifications/*", "/subscriptions/*", "users/usersbyId/{id}", "/users", "/users/{id}/skills",
 						"/users/{userId}/skills/{skillId}", "/users/{id}/Qualifications", "/users/{id}/Subscription",
 						"/users/**", "/users/{id}","/users/image/{id:.+}","/joboffer/getOne/{id}", "/trainings/{id}", "/simulations/{id}/answer","/applications/jobs/user/{userId}"
