@@ -2,15 +2,15 @@
     <div class='row'>
         <mat-card class="slop-display-container">
             <mat-card-header id="title">
-                <mat-card-title id="title_police">Qualifications </mat-card-title>
+                <mat-card-title id="title_police">{{title}} </mat-card-title>
             </mat-card-header>
             <hr>
             <mat-chip-list >
-                <mat-chip *ngFor="let post of listQualif" 
+                <mat-chip *ngFor="let post of listChip" 
                 [selectable]="selectable"
                 [removable]="removable"
-                (removed)="removeQualif(post)"
-                class="qualif">
+                (removed)="removeChip(post)"
+                class="chip">
                 {{post.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
@@ -18,24 +18,24 @@
         </mat-card>
     </div>
       
-    <form [formGroup]="qualifInfoGroup" (submit)="addQualif()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form [formGroup]="chipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column'>
                 <div class="progressBarDiv"><mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar></div>
                 <mat-form-field>
-                    <mat-label>Nouvelle qualification</mat-label>
-                    <input formControlName="qualifUnit"  type="text"  matInput #qualifInput = "matInput" [matAutocomplete]="auto"  [formControl]="myControl" placeholder="qualification" class="form-control">
+                    <mat-label>{{label}}</mat-label>
+                    <input formControlName="chipValue"  type="text"  matInput  [matAutocomplete]="auto"  [formControl]="myControl" placeholder={{detail}} class="form-control">
                     <mat-autocomplete #auto="matAutocomplete">
                         <ng-container *ngIf="!isLoading">
-                            <mat-option *ngFor="let qualif of qualifs" [value]="qualif">
-                            {{qualif}}
+                            <mat-option *ngFor="let chip of chips" [value]="chip">
+                                {{chip}}
                             </mat-option>
                         </ng-container>
                       </mat-autocomplete>
                     </mat-form-field>
             </div>
             <div class='column' id="btn_ajouter" fxFlex="30">
-                <button type="submit" mat-raised-button color="primary" [disabled]="qualifInput.focused && (qualifInfoGroup.invalid || !qualifInfoGroup.value.qualifUnit)">Ajouter</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="chipInfoGroup.invalid">Ajouter</button>
             </div>
         </div>
     </form>

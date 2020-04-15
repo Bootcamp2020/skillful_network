@@ -35,9 +35,6 @@ import {MenuprofileComponent} from './menuprofile/menuprofile.component';
 import {BottomSheetOverviewExample} from './bottom-sheet-overview-example/bottom-sheet-overview-example';
 import {ProfileConfComponent} from './home/profile-conf/profile-conf.component';
 import {UserConfComponent} from './home/profile-conf/user-conf/user-conf.component';
-import {SkillConfComponent} from './home/profile-conf/skill-conf/skill-conf.component';
-import {QualifConfComponent} from './home/profile-conf/qualif-conf/qualif-conf.component';
-import {SubscriptConfComponent} from './home/profile-conf/subscript-conf/subscript-conf.component';
 import {UserService} from './shared/services/user.service';
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
@@ -66,6 +63,7 @@ import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-v
 import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
 import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
 import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
+import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.component';
 
 
 
@@ -91,9 +89,6 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         BottomSheetOverviewExample,
         ProfileConfComponent,
         UserConfComponent,
-        SkillConfComponent,
-        QualifConfComponent,
-        SubscriptConfComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
@@ -116,6 +111,7 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         SimulationSynthesisComponent,
         SimSynQuestionListComponent,
         SimSynInfoComponent,
+        ChipConfComponent,
         ],
 
     imports: [

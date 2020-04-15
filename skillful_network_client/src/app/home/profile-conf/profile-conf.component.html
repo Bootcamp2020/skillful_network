@@ -10,12 +10,11 @@
             <app-userlist></app-userlist>
         </div> -->
         <form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
-
             <div class="parent" >
                 <div class="div1" ><app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf> </div>
-                <div class="div2" ><app-qualif-conf [qualifInfoGroup]="parentGroup.get('formQualInfos')" [userQualList]="userLogged.qualificationSet"></app-qualif-conf> </div>
-                <div class="div3"><app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf></div>
-                <div class="div4"><app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf> </div>
+                <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification" [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet" ></app-chip-conf>
+                <app-chip-conf title="Compétences" label="Nouvelle compétence" detail="compétence" [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf>
+                <app-chip-conf title="Abonnements" label="Nouvel abonnement" detail="abonnement" [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" userChipName="subscriptUnit" [userChipList]="userLogged.subscriptionSet" ></app-chip-conf>
                 <div class="div5"> <app-simulation></app-simulation></div>
                 <div class="div6"> <app-candidatures-user [listCandidature]="listCandidature"></app-candidatures-user> </div>
                 <div class="div7"> <app-new-password></app-new-password></div>

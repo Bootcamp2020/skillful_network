@@ -1,4 +1,4 @@
-export class Skill {
+export class ChipValue {
 
     constructor(public name : string) {}
        
