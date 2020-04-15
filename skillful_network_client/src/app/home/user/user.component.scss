@@ -1,7 +1,7 @@
 
 
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 960px) {
 
   .container_user {
     display: grid;
@@ -33,3 +33,13 @@
 }
 
 
+@media screen and (max-width: 960px) {
+  .container_user{
+    width: 80%;
+    margin:auto;
+    margin-top: 20px;
+  }
+  .zone {
+    padding: 20px;
+  }
+}
