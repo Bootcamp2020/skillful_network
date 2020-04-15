@@ -1,9 +1,9 @@
 
 <div class="container_user" *ngIf="!loading">
   <div class="zone zone1"><app-details-user [user]="user" [image_user]="image_user" [statusUser]="statusUser"></app-details-user> </div>
-  <div class="zone zone2"><app-skills [listSkill]="listSkill"></app-skills></div>
-  <div class="zone zone3"><app-qualifications [listQualif]="listQualif"></app-qualifications> </div>
+  <div class="zone zone2"><app-skills [listChip]="listSkill"></app-skills></div>
+  <div class="zone zone3"><app-qualifications [listChip]="listQualif"></app-qualifications> </div>
   <div class="zone zone4"> <app-candidatures [listCandidature]="listCandidature"></app-candidatures></div>
-  <div class="zone zone5"><app-subscript [listSubscript]="listSubscript"></app-subscript></div>
+  <div class="zone zone5"><app-subscript [listChip]="listSubscript"></app-subscript></div>
 </div>
 

@@ -10,11 +10,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./qualifications.component.scss']
 })
 export class QualificationsComponent implements OnInit {
-<<<<<<< HEAD
-  public listChip: ChipValue[];
-=======
-  @Input() public listQualif: Qualif[];
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
+ @Input() public listChip: ChipValue[];
   constructor(private formBuilder: FormBuilder,  private api: ApiHelperService,  private route: ActivatedRoute) {
 
   }

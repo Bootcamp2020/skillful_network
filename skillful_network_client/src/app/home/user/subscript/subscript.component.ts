@@ -9,11 +9,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./subscript.component.scss']
 })
 export class SubscriptComponent implements OnInit {
-<<<<<<< HEAD
-  public listChip: ChipValue[];
-=======
-  @Input() public listSubscript: Subscript[];
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
+  @Input () public listChip: ChipValue[];
   constructor( private api: ApiHelperService,  private route: ActivatedRoute) {
 
   }

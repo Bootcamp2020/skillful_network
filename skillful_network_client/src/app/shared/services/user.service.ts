@@ -26,7 +26,6 @@ export class UserService {
   }
 
 
-<<<<<<< HEAD
   private skill0 = new ChipValue('Flater');
   private skill1 = new ChipValue('Peigner');
   private skill2 = new ChipValue('Eborgner');
@@ -51,32 +50,6 @@ export class UserService {
   private subscript5 = new ChipValue('Charlie Hebdo');
   private subscript6 = new ChipValue('Elle');
   
-=======
-  private skill0 = new Skill('Flater');
-  private skill1 = new Skill('Peigner');
-  private skill2 = new Skill('Eborgner');
-  private skill3 = new Skill('Bomber');
-  private skill4 = new Skill('Arriver');
-  private skill5 = new Skill('Dégueulasser');
-  private skill6 = new Skill('Courber');
-
-  private qualif0 = new Qualif('Maternelle');
-  private qualif1 = new Qualif('MaternelleSpe');
-  private qualif2 = new Qualif('650 au TOEIC');
-  private qualif3 = new Qualif('850 au COÏT');
-  private qualif4 = new Qualif('Membre J&M');
-  private qualif5 = new Qualif('BTS');
-  private qualif6 = new Qualif('M.I.T');
-
-  private subscript0 = new Subscript('Auto Hebdo');
-  private subscript1 = new Subscript('Chasse Pêche');
-  private subscript2 = new Subscript('Bonjour Madame');
-  private subscript3 = new Subscript('Femme Actuelle');
-  private subscript4 = new Subscript('Pif Gadget');
-  private subscript5 = new Subscript('Charlie Hebdo');
-  private subscript6 = new Subscript('Elle');
-
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
 
   public userLogged = new User({
     id: 2,
@@ -145,13 +118,8 @@ export class UserService {
     return promise;
   }
 
-<<<<<<< HEAD
   public findByContain(option:String ,contain: String): Promise<ChipValue>{	
     return this.api.get( {endpoint : `/${option}/candidates` , queryParams:{"contain": contain }})	
-=======
-  public findByContain(option: string , contain: string): Promise<Skill> {
-    return this.api.get( {endpoint : `/${option}/candidates` , queryParams: {contain }});
->>>>>>> 1a34c34f5038dff7fa9d5950e9414b6cb9d21b14
   }
 
   public getUsersBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<any> {
