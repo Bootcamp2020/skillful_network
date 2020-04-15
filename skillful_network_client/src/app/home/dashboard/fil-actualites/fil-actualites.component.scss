@@ -1,10 +1,36 @@
 .margePactu{
   margin-bottom: 0;
 }
+.container_dashboard {
+  height: 100%;
+}
+.shadow-box {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
+  0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+}
 .card_dashboard{
   padding: 0;
-  margin-bottom: 40px;
+  //margin-bottom: 40px;
+  min-height: 100%;
 }
 .cardActu{
-  min-height: 515px;
+  //min-height: 100%;
+  height: auto;
+  box-shadow: none;
+
 }
+.mat-focus-indicator {
+  height: 97%;
+  padding-bottom: 15px;
+}
+.tailleCard {
+  margin-bottom: 10px;
+}
+
+.mat-elevation-z4 {border-radius: 4px;}
+
+
+

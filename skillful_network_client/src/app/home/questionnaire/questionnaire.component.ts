@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciceSetService} from '../../shared/services/exerciceSet.service';
-import {ReturnExerciceSet} from '../../shared/models/return-exerciceSet';
-import {ReturnAnswerSet} from '../../shared/models/return-answerSet';
-import {ReturnQuestion} from '../../shared/models/return-question';
 
 @Component({
   selector: 'app-questionnaire',
@@ -13,94 +10,125 @@ export class QuestionnaireComponent implements OnInit {
 
   indexQuestion: number;
   indexQuestionnaire: number;
-  start = true;
-  returnQuest: any;
-  returnAnsw: any[];
-  public returnExo: any[];
   public selection: number;
   public disabledButton: boolean;
+  public disabledButtonP: boolean;
   nbAllQuestion: number;
   progressionValeur: number;
+  public dataReturn: any;
 
 //  Donnée depuis le MOCK
-  public simulation = this.sim.findAllMock();
+//  public simulation = this.sim.findAllMock();
+  public simulation: any;
 
 constructor(public sim: ExerciceSetService) {
   }
 
   ngOnInit(): void {
-    console.log(this.simulation);
+
 //  Initialisation Variables
     this.indexQuestion = 0;
     this.indexQuestionnaire = 0;
-    this.returnAnsw = [];
-    this.returnExo = [];
+    this.dataReturn = {exerciseSet: []};
     this.selection = null;
     this.disabledButton = true;
+    this.disabledButtonP = true;
     this.progressionValeur = 0;
 
+    this.sim.findAll().then(res => {
+      this.simulation = res;
+      console.log(this.simulation);
+
+      this.addAnswerSetToDataReturn();
+
 //  Pour avoir le nombre de question total des 2 questionnaires pour calcul progress bar
-    this.nbAllQuestion = this.nbQuestion();
+      this.nbAllQuestion = this.nbQuestion();
+      this.progressionValeur += ((1 / this.nbAllQuestion) * 100);
+    });
 
-// Création de l'objet réponse utilisateur pour le retour au backend
-    this.returnQuest = new ReturnQuestion(0, 0);
-    this.returnAnsw.push(new ReturnAnswerSet(1, this.returnQuest));
-    this.returnExo.push(new ReturnExerciceSet(this.returnAnsw));
-    console.log(this.returnExo);
-
-    this.progressionValeur += ((1 / this.nbAllQuestion) * 100);
   }
 
+// Calcul du nombre de question totale de tous les questionnaires disponible dans la simulation
   nbQuestion(): number {
   let nbQ = 0;
-  for(let cpt = 0; cpt < this.simulation[0].exerciceSet.length; cpt++) {
-    nbQ += this.simulation[0].exerciceSet[cpt].questions.length;
+  for(let cpt = 0; cpt < this.simulation.exerciseSet.length; cpt++) {
+    nbQ += this.simulation.exerciseSet[cpt].questions.length;
   }
   return nbQ;
   }
 
-  activateButton() {
+// Désactivation du boutton pour obliger l'utilisateur à répondre à la question
+activateButton() {
   this.disabledButton = false;
-  }
+  this.disabledButtonP = false;
+  if(this.indexQuestion === 0)
+  {
+  this.disabledButtonP = true;
+} 
 
+  }
+//  Passer à la question suivante, suite au clic de l'utilisateur
+next() {
+  this.addQuestionToDataReturn();
+  this.indexQuestion += 1;
+  this.progressionValeur += ((1 / this.nbAllQuestion) * 100);
+  this.disabledButton = true;
+  if (this.indexQuestion==1){
+    this.disabledButtonP = false;
+  }
+}
+
+//  Passer au questionnaire suivant, suite au clic de l'utilisateur
   nextQcm() {
+    this.addQuestionToDataReturn();
     this.indexQuestion = 0;
     this.indexQuestionnaire += 1;
     this.disabledButton = true;
     this.progressionValeur += ((1 / this.nbAllQuestion) * 100);
-  }
-
-  next() {
-  if (this.indexQuestion === 0) {
-    //this.returnExo[0].exerciceSet[this.indexQuestionnaire].answerSet[this.indexQuestion].questionId(5);//(this.simulation[0].exerciceSet[this.indexQuestionnaire].questions[this.indexQuestion].id);
-    //this.returnExo[0].exerciceSet[this.indexQuestionnaire].answerSet[this.indexQuestion].answer = this.selection;
-    console.log(this.returnExo);
-  } else {
-    console.log(this.returnExo);
-  }
-  this.indexQuestion += 1;
-    this.progressionValeur += ((1 / this.nbAllQuestion) * 100);
-  this.disabledButton = true;
-  }
-  submit() {
-/*
-    if(this.currentIndex+1==this.questions.length){
-      this.gameover=true;
-      this.start=false;
-      this.correct=0;
-      this.notAttempted=0;
-      this.questions.map(x=>{
-        if(x.selected!=0){
-          if(x.selected == x.answer)
-            this.correct=this.correct + 1;
-        }
-        else {
-          this.notAttempted = this.notAttempted + 1;
-        }
-        x.selected=0;
-      });
+    this.addAnswerSetToDataReturn();
+    if(this.indexQuestionnaire==1 && this.indexQuestion==0){
+      this.disabledButtonP = false;
     }
+  }
+  //  Passer au questionnaire précédent, suite au clic de l'utilisateur
+  previousQcm() {
+    this.indexQuestion = (this.simulation.exerciseSet[this.indexQuestionnaire-1].questions.length)-1;
+    this.indexQuestionnaire -= 1;
+    this.progressionValeur -= (1 / this.nbAllQuestion)*100;
+    this.dataReturn.exerciseSet.pop();
+    this.dataReturn.exerciseSet[this.indexQuestionnaire].answerSet.pop();  
+  }
+  //  Passer à la question précédente, suite au clic de l'utilisateur
+  previous() { 
+    this.indexQuestion -= 1;
+    this.progressionValeur -= ((1 / this.nbAllQuestion) * 100);
+    if(this.indexQuestion === 0 && this.indexQuestionnaire==0)
+    {
+    this.disabledButtonP = true;
+  }  
+  this.dataReturn.exerciseSet[this.indexQuestionnaire].answerSet.pop(); 
+}
+ 
+//  Validation des questionnaires fait par l'utilisateur, puis envoi au backend pour correction
+  submit() {
+    this.addQuestionToDataReturn();
+    console.log(this.dataReturn);
+//    console.log(JSON.stringify(this.dataReturn));
+    this.sim.export(this.simulation.id, this.dataReturn).then(res => {
+      console.log(res);
+    });
+  }
 
-*/
+//  Rajout de la réponse utilisateur et l'id de la question à l'objet de retour pour le backend
+  addQuestionToDataReturn() {
+    this.dataReturn.exerciseSet[this.indexQuestionnaire].answerSet.push({questionId: null, answer: null});
+    this.dataReturn.exerciseSet[this.indexQuestionnaire].answerSet[this.indexQuestion].questionId = this.simulation.exerciseSet[this.indexQuestionnaire].questions[this.indexQuestion].id;
+    this.dataReturn.exerciseSet[this.indexQuestionnaire].answerSet[this.indexQuestion].answer = this.selection;
+  }
+
+//  Rajout du nouveau questionnaire et de son l'id à l'objet de retour pour le backend
+  addAnswerSetToDataReturn() {
+    this.dataReturn.exerciseSet.push({id: null, answerSet: []});
+    this.dataReturn.exerciseSet[this.indexQuestionnaire].id = this.simulation.exerciseSet[this.indexQuestionnaire].id;
   }
 }

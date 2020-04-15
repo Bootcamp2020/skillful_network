@@ -2,14 +2,17 @@ import {Injectable} from '@angular/core';
 import {ApiHelperService} from './api-helper.service';
 import {ExerciceSet} from '../models/exerciceSet';
 import {MOCK_EXERCICE_SET} from '../models/mock.exerciceSet';
-import {ReturnExerciceSet} from '../models/return-exerciceSet';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ExerciceSetService {
     public exercicesSet: ExerciceSet[];
-    public returnExercicesSet: ReturnExerciceSet;
+
+    public returnExercicesSet: any;
+
+    public userId:number;
+    // userId: any;
 
     constructor(private api: ApiHelperService) {
         this.exercicesSet = [];
@@ -30,7 +33,7 @@ export class ExerciceSetService {
 // Import depuis le Backend
     public findAll(): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: '/simulation' })
+            this.api.post({ endpoint: '/simulations/user' })
                 .then(
                     res => {
                         resolve(res);
@@ -45,9 +48,9 @@ export class ExerciceSetService {
     }
 
 // Envoi au Backend
-    public export(returnExercicesSet): Promise<any> {
+    public export(idexam, returnExercicesSet): Promise<any> {
         let promise = new Promise((resolve, reject) => {
-            this.api.post({ endpoint: '/simulations/:id/answer'})
+            this.api.post({ endpoint: '/simulations/' + idexam + '/answer', data: returnExercicesSet})
                 .then(
                     res => {
                         resolve(res);

@@ -1,15 +1,15 @@
 <div class="card_dashboard mat-elevation-z4">
     <mat-card >
         <mat-card-header id="title">
-            <mat-card-title id="title_police">Candidature </mat-card-title>
+            <mat-card-title id="title_police">Candidatures</mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content fxLayout="column" fxLayoutAlign="space-between start" class="tailleCard">
+        <mat-card-content fxLayout="column" class="tailleCard">
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
-                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.jobOffer.company}}</p>
-                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="30"> {{post.jobOffer.name}} </p>
+                <p class="Company" fxLayout="row"  fxFlex="30"> {{post.jobOffer.company}}</p>
+                <p class="Job" fxLayout="row"  fxFlex="30"> {{post.jobOffer.name}} </p>
 
-                <span fxFlex="20" fxLayout="row" fxLayoutAlign="start start" class="icon-candidature">
+                <span fxFlex="20" fxLayout="row"  fxLayoutAlign="center center" class="icon-candidature">
                     <span *ngIf ="post.status ==='ACCEPTED'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
                     </span>
@@ -20,7 +20,7 @@
                         <mat-icon aria-hidden="false" aria-label="Example home icon">hourglass_empty</mat-icon>
                     </span>
                 </span>
-                <a fxFlex="20" fxLayout="row" fxLayoutAlign="start start" href="{{post.details}}" target="_blank"> <button mat-button color="primary" id="bouton-details-candidature">Details</button>
+                <a fxFlex="20" fxLayout="row"  href="{{post.details}}" target="_blank"> <button mat-button color="primary" id="bouton-details-candidature">Details</button>
                 </a>
             </div>
             <div *ngIf="listCandidature === null" >

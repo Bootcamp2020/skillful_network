@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user';
 import { Subscription } from 'rxjs';
+import {Candidature} from "../../shared/models/candidature";
+import {ApiHelperService} from "../../shared/services/api-helper.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile-conf',
@@ -15,17 +18,21 @@ export class ProfileConfComponent {
   userLogged: User;
   userLSubscription: Subscription;
   parentGroup: FormGroup;
-
-  constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
+  public listCandidature: Candidature[];
+  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.userLSubscription = this.userService.userLoggedSubject.subscribe(
       (userTemp: User) => {
         this.userLogged = userTemp;
       });
     this.userService.emitUsers();
     this.createForm();
+    this.api.get({endpoint: `/applications/jobs/user/1`})
+        .then(data => {
+          this.listCandidature = data;
+        });
   }
 
   createForm() {
@@ -38,21 +45,20 @@ export class ProfileConfComponent {
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
         'careerGoal': [this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)]]
       }),
-      
+
       formSkillInfos: this.formBuilder.group({
-        // 'skillSet': this.userLogged.skillSet,
-        'skillSet': '',
-        'skillUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.skillSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formQualInfos: this.formBuilder.group({
-        'qualificationSet': this.userLogged.qualificationSet,
-        'qualifUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.qualificationSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formSubscriptInfos: this.formBuilder.group({
-        'subscriptionSet': this.userLogged.subscriptionSet,
-        'subscriptUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.subscriptionSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       })
     });
   }
@@ -81,7 +87,7 @@ export class ProfileConfComponent {
       this.userLogged.qualificationSet = formValueQ['qualificationSet'];
     }
 
-    // partie Skill /!\ cette partie du formulaire est vide si rien n'est touché
+    // partie Subscr /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueSu = this.parentGroup.get('formSubscriptInfos').value;
     this.monI = formValueSu['subscriptionSet'].length;
     if (this.monI > 0) { 

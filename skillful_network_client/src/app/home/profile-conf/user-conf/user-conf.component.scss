@@ -1,9 +1,41 @@
-.card_dashboard{
-    padding: 0;
-    margin-bottom: 40px;
-    margin-top: 20px;
-  }
+mat-card{
+  min-height: 300px;
+}
+button{
+  height: 50px;
+}
+.card_profil{
+  padding: 0;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.tailleCard{
+  margin-top: 3%;
+  margin-left: 10%;
+}
+
 
 .tabelement {
-    width: 80%;
+    width: 90%;
+
 }
+// #mydatePicker{
+//   display: flex !important; 
+//   height: 16px;  
+// }
+// .mat-datepicker-toggle{
+//   color:rgba(0,0,0,.87);
+  
+  
+// }
+// #icone{
+//   text-align: right!important;
+//   width:30px;
+  
+  
+// }
+// .mat-datepicker-content{
+//   margin-left: 70%!important;
+// }
+

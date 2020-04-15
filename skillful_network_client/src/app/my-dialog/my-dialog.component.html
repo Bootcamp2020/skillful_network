@@ -1,0 +1,21 @@
+<div>
+
+    <mat-card-title>
+        <div class='title'>Email déjà enregistré !</div><i class="material-icons">
+        <button id="crossButton" md-raised-button (click)="onCloseConfirm()" type="submit" mat-raised-button color="primary" >X</button>
+        
+      </i></mat-card-title>
+    <hr>
+    <mat-dialog-content>
+        {{data}}<br>
+
+        <div class="messageLien">Veuillez entrer une adresse différente, ou modifier votre mot de passe avec le lien ci-dessous.</div>
+    </mat-dialog-content>
+    <hr>
+    <div class="lien">
+        <mat-dialog-actions>
+            <a class="motDePasseOublieLink" routerLink="/passwordForgotten" md-raised-button (click)="onCloseConfirm()"> Mot de passe oublié?</a>
+
+        </mat-dialog-actions>
+    </div>
+</div>

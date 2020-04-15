@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.tools.json.ExerciseAdapter;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
+import fr.uca.cdr.skillful_network.tools.json.UserAdapter;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,19 +13,29 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import fr.uca.cdr.skillful_network.model.entities.Role;
+import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.JobOffer;
 import fr.uca.cdr.skillful_network.model.entities.Training;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Choice;
+import fr.uca.cdr.skillful_network.model.repositories.AnswerFormRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ChoiceRepository;
+import fr.uca.cdr.skillful_network.model.repositories.ExerciseFormRepository;
 import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
 import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
 import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.model.repositories.ResultRepository;
 import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
+import fr.uca.cdr.skillful_network.model.repositories.SimulationFormRepository;
+import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
 import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
 import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
+import fr.uca.cdr.skillful_network.request.AnswerForm;
+import fr.uca.cdr.skillful_network.request.ExerciseForm;
+import fr.uca.cdr.skillful_network.request.SimulationForm;
 
 @SpringBootApplication
 @EnableAsync
@@ -35,7 +46,15 @@ public class Application {
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);
 	}
-
+	@Bean
+	@Profile({"dev", "test"})
+	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
+		return args -> {
+			if (choiceRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
+			}
+		};
+	}
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
@@ -45,7 +64,7 @@ public class Application {
 			}
 		};
 	}
-
+	
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
@@ -72,8 +91,13 @@ public class Application {
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/users.json", User[].class, userRepository)
-						.load();
+				new JSONLoader<>(
+						"src/main/resources/data/users.json", 
+						User[].class,
+						User.class,
+						userRepository,
+						new UserAdapter()
+						).load();
 				
 			}
 		};
@@ -89,17 +113,6 @@ public class Application {
 		};
 	}
 
-
-	
-	@Bean
-	@Profile({"dev", "test"})
-	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
-		return args -> {
-			if (choiceRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/choices.json", Choice[].class, choiceRepository).load();
-			}
-		};
-	}
 	@Bean
 	@Profile({"dev", "test"})
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
@@ -115,6 +128,25 @@ public class Application {
 			}
 		};
 	}
+	
+	@Bean
+	@Profile({"dev", "test"})
+	ApplicationRunner initSimulationRepository(SimulationRepository simulationRepository) {
+		return args -> {
+			if (simulationRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/simulation.json", Simulation[].class, simulationRepository).load();
+			}
+		};
+	}
 
+	@Bean
+	@Profile({"dev", "test"})
+	ApplicationRunner initResultRepository(ResultRepository resultRepository) {
+		return args -> {
+			if (resultRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/results.json", Result[].class, resultRepository).load();
+			}
+		};
+	}
 }
 

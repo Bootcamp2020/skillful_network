@@ -2,9 +2,30 @@
 img {
     margin-top: 7px;
     width: 90%;
-    border: 3px solid #f5f5f5;
+    border: 1px solid #f5f5f5;
     border-radius:50%;
-    margin-left: 1.7%;
+}
+.vertical-menu {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.vertical-menu a {
+  background-color: #5b7787;
+  color: gray;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50; /* Add a green color to the "active/current" link */
+  color: white;
 }
 .image {
     opacity: 1;
@@ -33,10 +54,10 @@ img {
   }
   
   .text {
-    background-color: #0480a2;
+
     color: white;
     font-size: 16px;
-    padding: 16px 32px;
+
     border-radius: 5px 5px 5px 5px;
   }
 .iconsProfile{
@@ -46,31 +67,34 @@ img {
   margin-top: 20px;
 }
 .menuProfile{
-  //margin-top: 20px;  
+
   display: flex;
   justify-content: center;
   font-size: 2em;
+
 
 
 }
  .divIcons{
    display: none;
  }
-.photoProfile, .lienProfile{
+
+.photoProfile{
       display: block;
       border-radius: 50%;
       margin-bottom: 25px;
 }
 .lienProfile{
-  margin-left: 3.5%;
+  margin-top: 25px;
 }
     
 .lienProfile a{
 
     text-decoration: none;
     margin: auto;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-style: italic;
+    font-weight: 500;
     color: white;
 
 }
@@ -86,8 +110,64 @@ img {
     margin-bottom: 30px;
     text-decoration: none;
   }
-  .photoProfile, .lienProfile{
+  .photoProfile, .lienProfile, .vertical-menu{
     display: none;
     margin-bottom: 0;
   }
 }
+/* ================= effet upload image ===============*/
+
+.profilePhoto {
+  margin: 20px auto;
+  max-width:200px;
+  position: relative;
+  border-radius: 50%;
+  &:hover {
+    .overlay {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      background-color: rgba(0,0,0,0);
+      p {
+        display: block;
+      }
+    }
+  }
+  .effetImage {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    height: auto;
+  }
+  .overlay {
+    position: absolute;
+    width: 80%;
+   
+    overflow: hidden;
+    height:80%;
+    border-radius:50%;
+
+    input {
+      width:100%;
+      position:absolute;
+      opacity:0;
+      bottom:20px;
+      z-index:2;
+
+    }
+    .appPhoto{
+      font-size: 50px;
+    }
+    .upIMG {
+      position: absolute;
+      bottom:50px;
+      font-weight: bold;
+      margin-bottom: 0;
+      color:#fff;
+      width:70%;
+      display: none;
+    }
+  }
+
+}
+

@@ -1,0 +1,32 @@
+mat-card {
+    min-height: 400px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 5px;
+    padding-top: 10px;
+    line-height: 2;
+    text-align: center;
+  }
+  li{
+    font-size: 0.9em;
+  }
+  p{
+    color:rgb(41, 41, 160);
+  }
+
+  @media screen and (max-width: 817px){
+    li{
+      font-size: 0.7em;
+    }
+  }
+
+  .progressBarDiv {
+    margin-top: 12%;
+  }
+  
+  .loading_mat_spinner {
+    margin:0 auto;
+    float: none
+  }
