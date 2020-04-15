@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
         this.stillLogged = true
         this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
           data=>{
-            this.userService.updateUser(data);
+            this.userService.updateUser(data,false);
             this.stillLogged = false
           }
           )
