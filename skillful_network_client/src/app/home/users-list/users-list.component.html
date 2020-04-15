@@ -1,5 +1,5 @@
 
-<div class ="user-list" class = "mat-elevation-z8">
+<div class ="user-list">
     <mat-card>
 
         <mat-card-header id="title">
@@ -7,7 +7,7 @@
         </mat-card-header>
 
         <div class="recherche" *ngIf="!isLoading">
-            <div >
+            <div>
                 <form [formGroup]="search" (ngSubmit)=" onSearchByFirstNameOrLastName() "
                       class="form-group">
                     <div fxLayout="row ">
@@ -72,7 +72,6 @@
                 </div>
             </div>
         </mat-card-content>
+        <div class="progressBarDiv" *ngIf="isLoading" fxLayoutAlign="center center" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
     </mat-card>
-    
 </div>
-<div class="progressBarDiv" *ngIf="isLoading" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
