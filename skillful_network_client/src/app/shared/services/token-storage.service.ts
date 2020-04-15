@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../models/user';
 
 // Ce service permettra de manipuler les données relatives au token/utilisateur de la session
 
@@ -8,7 +9,7 @@ const LOCAL_STORAGE = 'local';
 const AUTHORITIES_KEY = 'authorities';
 const IS_LOGGED_IN = 'isLoggedIn';
 const IS_LOGGED = 'true';
-
+const LOGGED_USER_KEY = "loggedUser";
 
 
 @Injectable({
@@ -27,6 +28,14 @@ export class TokenStorageService {
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.setItem(TOKEN_KEY, token);
     console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
+  }
+
+  public saveLoggedUser(user : User){
+    localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(user));
+  }
+
+  public getLoggedUser(){
+    localStorage.getItem(JSON.parse(LOGGED_USER_KEY));
   }
 
   public saveTokenAndCurrentUsername(token: string, username: string , authorities: string[], storage: string) {
