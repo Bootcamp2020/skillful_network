@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit {
         if (data.username === null) {
           this.error = true;
         } else {
-            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
+            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , '');
             //  this.userService.actualUser = new User({id});//lien a modifie
             this.isLoggedIn = 'true';
             this.router.navigate(['/home']);
