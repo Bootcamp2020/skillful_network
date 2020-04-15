@@ -86,9 +86,9 @@
                     <button type="button" (click)="register();tooltip.show()" class="button-code-return" mat-button>Recevoir à
                         nouveau un code de confirmation
                     </button>
-                    <a routerLink="/password">
-                        <button type="submit" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
-                    </a>
+
+                    <button type="submit" (onclick)="codeValidation()" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
+     
               </form>
             </td>
           </tr>
