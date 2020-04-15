@@ -1,44 +1,27 @@
 .card_dashboard{
-    padding: 0;
-    margin-bottom: 0px;
-  width: auto;
+ height: 90%;
     
     .example-form {
       min-width: 150px;
-      max-width: 500px;
-      width: 100%;
-  }
-  
-  .simulation {
-      padding-top: 10px;
+      max-width: 250px;
+      width: 90%;
   }
 
-  .card_dashboard{
-      padding: 0;
-      margin-bottom: 40px;
-      margin-top: 20px;
-    }
+
   mat-card{
-      min-height: 500px;
+      min-height: 95%;
   }
 
-  padding: 0;
-  margin-bottom: 20px;
 }
 
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
+#position_button{
+  display: flex;
+  justify-content: center;
+  margin-top: 110px;
 
-.simulation {
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
-
 mat-card{
-  padding-bottom: 60px;
+ // padding-bottom: 60px;
   //min-height: 515px;
 }
 
@@ -79,7 +62,6 @@ table {
     text-align: center;
   }
   .mat-card-content {
-    padding-top: 0px;
     border-collapse: collapse;
   }
 

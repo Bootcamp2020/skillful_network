@@ -194,7 +194,7 @@ public class UserController {
 	@SuppressWarnings("resource")
 	@PreAuthorize("hasRole('USER')")
 	@Transactional
-	@RequestMapping(value = "/users/uploadImage", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public ResponseEntity<Boolean> fileUpload(@AuthenticationPrincipal User user,
 			@RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
 

@@ -1,7 +1,12 @@
+mat-card{
+  min-height: 300px;
+}
+button{
+  height: 50px;
+}
 .card_profil{
-  padding: 0;
   margin-bottom: 40px;
-  margin-top: 20px;
+
 }
 
 .slop-display-container {
@@ -15,7 +20,7 @@
 }
 
 .candidature {
-    padding-top: 10px;
+   // padding-top: 10px;
 }
 
 .Company,
@@ -23,7 +28,6 @@
     margin-left: 40px;
 }
 .card_dashboard{
-    padding: 0;
     margin-bottom: 40px;
     margin-top: 20px;
   }
@@ -36,8 +40,7 @@
 .column {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
+
   margin: 15px;
 }
 

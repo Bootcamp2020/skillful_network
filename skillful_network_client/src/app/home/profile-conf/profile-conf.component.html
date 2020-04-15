@@ -1,38 +1,37 @@
-<div class="gestionCard" fxFlexAlign="stretch">
-    <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">
+<!--<div class="gestionCard" fxFlexAlign="stretch">
+    <div fxLayout.gt-sm="column" fxFlex="100" class="modifCard">-->
+        <!--
         <mat-card-header id="title">
             <mat-card-title fxLayoutAlign="center center" id="montitre">Profil</mat-card-title>
-        </mat-card-header>
+        </mat-card-header>-->
 
          <!-- ligne 0 debug
          <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
             <app-userlist></app-userlist>
         </div> -->
         <form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
-            <!-- ligne 1 -->
-            <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
-                <!-- colon 1 -->
-                <div fxFlex="45">
-                    <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
-                    <app-candidature></app-candidature>
-                    <app-simulation></app-simulation>
-                </div>
-                <!-- colon 2 -->
-                <div fxFlex="45">
-                    <app-qualif-conf [qualifInfoGroup]="parentGroup.get('formQualInfos')" [userQualList]="userLogged.qualificationSet"></app-qualif-conf>                
-                    <app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf>
-                    <app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf>
-                    <app-new-password></app-new-password>
-                    <div fxLayoutAlign="center center" novalidate>
-                        <div class="btn-profil">
+
+            <div class="parent" >
+                <div class="div1" ><app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf> </div>
+                <div class="div2" ><app-qualif-conf [qualifInfoGroup]="parentGroup.get('formQualInfos')" [userQualList]="userLogged.qualificationSet"></app-qualif-conf> </div>
+                <div class="div3"><app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf></div>
+                <div class="div4"><app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf> </div>
+                <div class="div5"> <app-simulation></app-simulation></div>
+                <div class="div6"> <app-candidatures-user [listCandidature]="listCandidature"></app-candidatures-user> </div>
+                <div class="div7"> <app-new-password></app-new-password></div>
+                <div class="div8">
+                    <div fxLayout="row" fxLayoutAlign="center center" novalidate>
+                        <div class="btn-profil" >
                             <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
                         </div>
                         <div class="btn-profil" >
-                            <button type="reset" class="btn-profil" mat-raised-button color="primary">Annuler</button>
+                            <button type="reset" class="btn-profil" mat-raised-button color="warn">Annuler</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </form>    
-    </div>
-</div>
+
+
+

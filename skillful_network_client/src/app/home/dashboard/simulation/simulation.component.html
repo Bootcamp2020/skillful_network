@@ -60,12 +60,13 @@
         </mat-card-content>
 
         <mat-card-content *ngIf="isLoaded && ! listSimulation">
-            <h1>Aucune simulation trouvée</h1>
+            <h3><p>Vous n'avez aucune simulation en cours ! </p>
+                <p> Pour lancer une nouvelle simulation, veuillez cliquer sur le bouton démarrer</p></h3>
         </mat-card-content>
 
-        <mat-card-content *ngIf="isLoaded">
+        <div *ngIf="isLoaded" id="position_button">
             <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="openDialog()">Démarrer</button>
-        </mat-card-content>
+        </div>
         <div class="progressBarDiv" *ngIf="!isLoaded">
             <mat-spinner class="loading_mat_spinner" color="primary" ></mat-spinner>
         </div>

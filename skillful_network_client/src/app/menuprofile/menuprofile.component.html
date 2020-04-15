@@ -1,9 +1,6 @@
 <div class="menuprofile">
-
-    
-    
     <div class="lienProfile"  fxLayout="column">
-        <div class="photoProfile container profilePhoto">
+        <div fxlayout="row" fxLayoutAlign="center center" class="photoProfile container profilePhoto">
             <!--<img [src]="userService.userLogged.photoProfile" alt="Avatar" class="image" />
             <div class="middle">
                 <div class="text" cursor="none" (click)="openModalProfile()" ><strong><i>Mise à jour </i></strong> </div>
@@ -16,12 +13,14 @@
                 </i></p>
             </div>
         </div>
-        <p><a [routerLink]="['/home/profile']" class="lienProfile" href="https://www.google.com/">Profil</a></p>
-        <p><a [routerLink]="['/home']" class="lienProfile" href="https://www.google.com/">Candidatures</a></p>
-        <p><a [routerLink]="['/home/users-list']" class="lienProfile" href="https://www.google.com/">Utilisateurs</a></p>
-        <p><a [routerLink]="['/home/job-offer-list']" class="lienProfile" href="https://www.google.com/">Offres d'emploi</a></p>
-        <p><a [routerLink]="['/home/formation-list']" class="lienProfile" href="https://www.google.com/">Offres de formation</a></p>
-        <p><a [routerLink]="['/home']" class="lienProfile" href="https://www.google.com/">Contact</a></p>
+        <div class="vertical-menu">
+            <p><a [routerLink]="['/home/profile']" class="lienProfile" >Profil</a></p>
+            <p><a [routerLink]="['/home']" class="lienProfile" >Candidatures</a></p>
+            <p><a [routerLink]="['/home/users-list']" class="lienProfile">Utilisateurs</a></p>
+            <p><a [routerLink]="['/home/job-offer-list']" class="lienProfile" >Offres d'emploi</a></p>
+            <p><a [routerLink]="['/home/formation-list']" class="lienProfile" >Offres de formation</a></p>
+            <p><a [routerLink]="['/home']" class="lienProfile">Contact</a></p>
+        </div>
     </div>
 </div>
 <div class="divIcons" fxLayout="column">

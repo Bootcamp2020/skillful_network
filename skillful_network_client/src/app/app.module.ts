@@ -42,7 +42,7 @@ import {UserService} from './shared/services/user.service';
 import {DetailsUserComponent} from './home/user/details-user/details-user.component';
 import {SubscriptComponent} from './home/user/subscript/subscript.component';
 import {QualificationsComponent} from './home/user/qualifications/qualifications.component';
-import {CandidaturesComponent} from './home/user/candidatures/candidatures.component';
+import {CandidaturesUserComponent} from './home/user/candidatures/candidatures-user.component';
 import {SkillsComponent} from './home/user/skills/skills.component';
 import {FormationsAssocieesComponent} from './home/offre/formations-associees/formations-associees.component';
 import {ExigencesComponent} from './home/offre/exigences/exigences.component';
@@ -97,7 +97,7 @@ import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/si
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
-        CandidaturesComponent,
+        CandidaturesUserComponent,
         SkillsComponent,
         FormationsAssocieesComponent,
         ExigencesComponent,

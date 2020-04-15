@@ -4,12 +4,12 @@
             <mat-card-title id="title_police">Candidature </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content fxLayout="column" fxLayoutAlign="space-between start" class="tailleCard">
+        <mat-card-content fxLayout="column"  class="tailleCard">
 
             <div *ngFor="let post of listCandidature" fxLayout="row" fxFlex="100" class="candidature">
 
-                <p class="Company" fxLayout="row" fxLayoutAlign="start start" fxFlex="35"> {{post.jobOffer.company}}</p>
-                <p class="Job" fxLayout="row" fxLayoutAlign="start start" fxFlex="40"> {{post.jobOffer.name}} </p>
+                <p class="Company" fxLayout="row"  fxFlex="35"> {{post.jobOffer.company}}</p>
+                <p class="Job" fxLayout="row"  fxFlex="40"> {{post.jobOffer.name}} </p>
                 <span fxFlex="10" fxLayout="row" fxLayoutAlign="center start" class="icon-candidature">
                     <span *ngIf ="post.status ==='ACCEPTED'">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: seagreen">done</mat-icon>
@@ -22,8 +22,9 @@
                     </span>
                 </span>
 
-                <a fxFlex="15" fxLayout="row" fxLayoutAlign="end start" href="{{post.jobOffer.details}}" target="_blank" style="color: peru"> Details</a>
+                <a fxFlex="15" fxLayout="row" fxLayoutAlign="end start" href="{{post.jobOffer.details}}"  style="color: peru">Details</a>
             </div>
+
 
         </mat-card-content>
     </mat-card>
