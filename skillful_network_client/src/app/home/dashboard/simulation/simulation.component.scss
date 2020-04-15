@@ -1,3 +1,12 @@
+.centerSim{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+
+}
+
 .card_dashboard{
     padding: 0;
     margin-bottom: 0px;
@@ -21,9 +30,6 @@
   mat-card{
       min-height: 500px;
   }
-
-  padding: 0;
-  margin-bottom: 20px;
 }
 
 .example-form {
@@ -123,11 +129,11 @@ td, th {
 }
 
 .button_simulation {
-  width: 30%;
+
   padding: 7px;
   margin-bottom: 18px;
   margin-left: 5px;
-  float: right;
+
 }
 
 .progressBarDiv {

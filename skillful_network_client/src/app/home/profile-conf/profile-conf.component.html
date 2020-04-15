@@ -13,9 +13,9 @@
             <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around start">
                 <!-- colon 1 -->
                 <div fxFlex="45">
-                    <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
-                    <app-candidature></app-candidature>
-                    <app-simulation></app-simulation>
+                    <div><app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf></div>
+                    <div><app-candidature></app-candidature></div>
+                    <div class="padSim"><app-simulation></app-simulation></div>
                 </div>
                 <!-- colon 2 -->
                 <div fxFlex="45">
@@ -23,13 +23,21 @@
                     <app-skill-conf [skillInfoGroup]="parentGroup.get('formSkillInfos')" [userSkilList]="userLogged.skillSet"></app-skill-conf>
                     <app-subscript-conf [subscriptInfoGroup]="parentGroup.get('formSubscriptInfos')" [userSubscriptList]="userLogged.subscriptionSet"></app-subscript-conf>
                     <app-new-password></app-new-password>
-                    <div fxLayoutAlign="center center" novalidate>
-                        <div class="btn-profil">
-                            <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
-                        </div>
-                        <div class="btn-profil" >
-                            <button type="reset" class="btn-profil" mat-raised-button color="primary">Annuler</button>
-                        </div>
+                    <div novalidate>
+                        <mat-card class="boutCard mat-elevation-z4">
+                            <div class="jarre">
+                                <mat-card-content>
+                                    <div>
+                                        <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]="parentGroup.invalid">Sauvegarder</button>
+                                    </div>
+                                    <div>
+                                        <button type="reset" class="btn-profil" mat-raised-button color="warn">Annuler</button>
+                                    </div>
+                                </mat-card-content>
+                            </div>
+                        </mat-card>
+
+
                     </div>
                 </div>
             </div>

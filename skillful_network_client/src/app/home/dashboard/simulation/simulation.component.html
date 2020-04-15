@@ -59,13 +59,15 @@
             </div>  
         </mat-card-content>
 
-        <mat-card-content *ngIf="isLoaded && ! listSimulation">
-            <h1>Aucune simulation trouvée</h1>
-        </mat-card-content>
+        <div class="centerSim">
+            <mat-card-content class="ctrS" *ngIf="isLoaded && ! listSimulation">
+                <h1>Aucune simulation trouvée</h1>
+            </mat-card-content>
 
-        <mat-card-content *ngIf="isLoaded">
-            <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="openDialog()">Démarrer</button>
-        </mat-card-content>
+            <mat-card-content class="ctrS" *ngIf="isLoaded">
+                <button type="button" mat-raised-button color="primary"  class="button_simulation" (click)="openDialog()">Démarrer</button>
+            </mat-card-content>
+        </div>
         <div class="progressBarDiv" *ngIf="!isLoaded">
             <mat-spinner class="loading_mat_spinner" color="primary" ></mat-spinner>
         </div>
