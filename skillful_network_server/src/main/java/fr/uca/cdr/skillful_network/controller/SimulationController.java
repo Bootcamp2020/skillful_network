@@ -1,47 +1,23 @@
 package fr.uca.cdr.skillful_network.controller;
 
-import fr.uca.cdr.skillful_network.model.entities.JobOffer;
-import fr.uca.cdr.skillful_network.model.entities.Simulation;
 
+import fr.uca.cdr.skillful_network.model.entities.Simulation;
 import fr.uca.cdr.skillful_network.model.entities.User;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Question;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.QuestionSet;
-import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
-import fr.uca.cdr.skillful_network.model.services.ExamService;
 import fr.uca.cdr.skillful_network.model.services.ExerciseService;
-import fr.uca.cdr.skillful_network.model.services.JobOfferService;
-
-import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
-
 import fr.uca.cdr.skillful_network.model.services.SimulationService;
-import fr.uca.cdr.skillful_network.model.services.SimulationServiceImpl;
-import fr.uca.cdr.skillful_network.model.services.UserService;
-import fr.uca.cdr.skillful_network.request.ExerciseForm;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-
-import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
 
 @CrossOrigin("*")
@@ -51,20 +27,10 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationService simulationService;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private JobOfferService jobOfferService;
 
-	@Autowired
-	private ExerciseService exerciseService;
-	@Autowired
-	private KeywordRepository keywordRepository;
-
-	private SimulationRepository simulationRepository;
 	
 	@Autowired
-	private ExamService examService;
+	private ExerciseService exerciseService;
 
 
 	// #########################################################################
@@ -152,7 +118,7 @@ public class SimulationController {
 	@PostMapping(value = "/{id}/answer")
 	public ResponseEntity<Simulation> simulationResult(@PathVariable(value = "id") Long examId,
 			@Valid @RequestBody SimulationForm simulationForm) {
-		Simulation simulation = simulationService.evaluateSimulation(simulationForm.getExerciseSet(), examId)
+		Simulation simulation = simulationService.evaluateSimulation(simulationForm, examId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Une erreur est survenue pendant l'évaluation de la simulation."));
 		return new ResponseEntity<>(simulation, HttpStatus.OK);

@@ -7,6 +7,7 @@ import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
 import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
 import fr.uca.cdr.skillful_network.request.ExerciseForm;
+import fr.uca.cdr.skillful_network.request.SimulationForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,7 @@ public interface SimulationService {
 	Optional<Keyword> getKeyWordExoById(Long id);
 	List<Keyword> findAllKeyWordExo();
 	ArrayList<Keyword> exerciceMachJoboffer(ArrayList<Keyword> keyExo, ArrayList<String> keyJob);
-
-	Optional<Simulation> evaluateSimulation(Set<ExerciseForm> exercises, Long examId);
+    Optional<Simulation> evaluateSimulation(SimulationForm simulationForm, Long examId);
 
 
 }

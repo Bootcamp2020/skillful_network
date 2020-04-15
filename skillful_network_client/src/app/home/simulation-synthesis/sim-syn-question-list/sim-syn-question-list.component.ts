@@ -8,7 +8,7 @@ import { Simulation } from 'src/app/shared/models/simulation';
 })
 
 export class SimSynQuestionListComponent implements OnInit {
-
+  
   panelOpenState = false;
   public componentName: String = "app-sim-syn-question-list";
   @Input() public simulation: Simulation;
@@ -38,5 +38,3 @@ export class SimSynQuestionListComponent implements OnInit {
     console.log(info);
   }
 }
-   
-    
