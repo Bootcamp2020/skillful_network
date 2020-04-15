@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Skill } from 'src/app/shared/models/skill';
+import { ChipValue } from 'src/app/shared/models/chip-value';
 
 @Component({
   selector: 'app-skills',
@@ -7,7 +7,7 @@ import { Skill } from 'src/app/shared/models/skill';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-    @Input()public listSkill: Skill[];
+    @Input()public listSkill: ChipValue[];
   constructor() {
 
   }

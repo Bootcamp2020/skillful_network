@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SkillConfComponent } from './skill-conf.component';
+import { ChipConfComponent } from './chip-conf.component';
 
-describe('SkillConfComponent', () => {
-  let component: SkillConfComponent;
-  let fixture: ComponentFixture<SkillConfComponent>;
+describe('ChipConfComponent', () => {
+  let component: ChipConfComponent;
+  let fixture: ComponentFixture<ChipConfComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SkillConfComponent ]
+      declarations: [ ChipConfComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SkillConfComponent);
+    fixture = TestBed.createComponent(ChipConfComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
