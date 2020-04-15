@@ -22,7 +22,7 @@ export class UsersListComponent implements OnInit {
   private keyword = '';
   private pageIndex = 1;
   private field: string;
-  private pageSize = 10;
+  public pageSize = 10;
   pageSizeOptions: number[] = [10, 25, 50, 100];
   length: number;
   hidePageSize = false;
