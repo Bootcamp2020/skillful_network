@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
                 }
                 console.log(this.user.photo);
                 if (this.user.photo) {
-                    this.http.get(environment.base_url + `users/image/${id}`, {responseType: 'blob'})
+                    this.http.get(environment.base_url + `/users/image/${this.user.id}`, {responseType: 'blob'})
                         .subscribe(dataBlob => {
                             const objectURL = URL.createObjectURL(dataBlob);
                             this.image_user = this.sanitizer.bypassSecurityTrustUrl(objectURL);
