@@ -80,7 +80,7 @@ export class UserService {
     this.userLoggedSubject.next(this.userLogged);
   }
 
-  updateUser(user: User) {
+  updateUser(user: User , sendToBack: boolean=true) {
     this.userLogged.firstName = user.firstName;
     this.userLogged.lastName = user.lastName;
     this.userLogged.birthDate = user.birthDate;
@@ -92,8 +92,10 @@ export class UserService {
     this.userLogged.subscriptionSet = user.subscriptionSet;
 
     // envoie vers le back
-    this.api.put({ endpoint: '/users', data: this.userLogged });
-    this.emitUsers();
+    if(sendToBack){
+      this.api.put({ endpoint: '/users', data: this.userLogged });
+      this.emitUsers();
+    }  
   }
 
   public findById(id: number): User {
