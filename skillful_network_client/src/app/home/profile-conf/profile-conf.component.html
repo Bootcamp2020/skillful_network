@@ -11,10 +11,10 @@
         </div> -->
         <form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
             <div class="parent" >
-                <div class="div1" ><app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf> </div>
-                <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification" [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet" ></app-chip-conf>
-                <app-chip-conf title="Compétences" label="Nouvelle compétence" detail="compétence" [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf>
-                <app-chip-conf title="Abonnements" label="Nouvel abonnement" detail="abonnement" [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" userChipName="subscriptUnit" [userChipList]="userLogged.subscriptionSet" ></app-chip-conf>
+                <div class="div1"> <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf> </div>
+                <div class="div2"> <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification" [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet" ></app-chip-conf> </div>
+                <div class="div3"> <app-chip-conf class="div3" title="Compétences" label="Nouvelle compétence" detail="compétence" [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet"></app-chip-conf> </div>
+                <div class="div4"> <app-chip-conf class="div4" title="Abonnements" label="Nouvel abonnement" detail="abonnement" [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" userChipName="subscriptUnit" [userChipList]="userLogged.subscriptionSet" ></app-chip-conf> </div>
                 <div class="div5"> <app-simulation></app-simulation></div>
                 <div class="div6"> <app-candidatures-user [listCandidature]="listCandidature"></app-candidatures-user> </div>
                 <div class="div7"> <app-new-password></app-new-password></div>
@@ -30,7 +30,7 @@
 
                 </div>
             </div>
-        </form>    
+        </form>
 
 
 
