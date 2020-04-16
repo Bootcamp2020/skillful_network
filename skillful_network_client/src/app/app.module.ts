@@ -64,6 +64,7 @@ import { SimulationSynthesisComponent } from './home/simulation-synthesis/simula
 import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
 import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
 import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.component';
+import { ModalResultComponent } from './home/questionnaire/modal-result/modal-result.component';
 
 
 
@@ -112,6 +113,7 @@ import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.compo
         SimSynQuestionListComponent,
         SimSynInfoComponent,
         ChipConfComponent,
+        ModalResultComponent,
         ],
 
     imports: [

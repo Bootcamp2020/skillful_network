@@ -1,0 +1,29 @@
+<div *ngIf="data.jobAccess">
+    <div>
+        <h3 class="titre-modal">Résultat de la simulation</h3>
+        <hr>
+        <p class="phrase-modal">
+            Félicitation, vous avez réussi, voici l'offre d'emploi adaptée :
+        </p>
+        <p class="offre-nom-modal">
+            {{data.jobOfferName}}
+        </p>
+        <br>
+        <div class="button-modal">
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/home/offre/', data.jobOfferId]" (click)="onClick()">Consulter</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="!data.jobAccess">
+    <div>
+        <h3 class="titre-modal">Résultat de la simulation</h3>
+        <hr>
+        <p class="phrase-modal">
+            Nous n'avons pas trouvé une offre adaptée à votre profil, veuillez en relancer une nouvelle à partir de votre dashbord.
+        </p>
+        <br>
+        <div class="button-modal">
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/home']" (click)="onClick()">Dashboard</button>
+        </div>
+    </div>
+</div>
