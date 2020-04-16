@@ -11,12 +11,14 @@
             <mat-form-field class="tabelement">
               <mat-label>Nom</mat-label>
               <input formControlName="lastName" matInput placeholder="Votre nom" class="form-control">
+              <mat-hint align="end">Entre 2 et 20 caractères</mat-hint>
               <mat-icon matSuffix>account_box</mat-icon>
             </mat-form-field>
         
             <mat-form-field class="tabelement">
               <mat-label>Prénom</mat-label>
               <input formControlName="firstName" matInput placeholder="Votre prénom" class="form-control">
+              <mat-hint align="end">Entre 2 et 20 caractères</mat-hint>
               <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>       
 
@@ -33,18 +35,21 @@
             <mat-form-field class="tabelement">
               <mat-label>Email</mat-label>
               <input formControlName="email" matInput placeholder="Votre email" class="form-control">
+              <mat-hint align="end">Email non-nul et valide</mat-hint>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
         
             <mat-form-field class="tabelement">
               <mat-label>Mobile</mat-label>
               <input formControlName="mobileNumber" matInput placeholder="Votre numéro de portable" class="form-control">
+              <mat-hint align="end">10 chiffres</mat-hint>
               <mat-icon matSuffix>local_phone</mat-icon>
             </mat-form-field>
         
             <mat-form-field class="tabelement">
               <mat-label>Objectif de carrière</mat-label>
               <input formControlName="careerGoal" matInput placeholder="Votre objectif de carrière" class="form-control">
+              <mat-hint align="end">Entre 2 et 40 caractères</mat-hint>
               <mat-icon matSuffix>business_center</mat-icon>
             </mat-form-field>
         
