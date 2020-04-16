@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {  
         
         this.urlActual = location.pathname.toString()
-        if(!(this.urlActual.includes("login") || this.urlActual.includes("password") || this.urlActual.includes("passwordForgotten"))){
+        if(!(this.urlActual== "/" || this.urlActual.includes("login") || this.urlActual.includes("password") || this.urlActual.includes("passwordForgotten"))){
           this.stillLogged = true
           this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
             data=>{
