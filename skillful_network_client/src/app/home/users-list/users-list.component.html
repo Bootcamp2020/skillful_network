@@ -1,32 +1,33 @@
 
-<div class ="user-list">
+
+<div class ="user-list" class = "mat-elevation-z8">
     <mat-card>
 
         <mat-card-header id="title">
-            <mat-card-title id="title_police">Liste des utilisateurs</mat-card-title>
+            <div fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="70%">
+                    <mat-card-title id="title_police" layout-align="start center">Liste des utilisateurs</mat-card-title>
+                </div>
+                <div fxFlex="30%">
+                    <div class="recherche" *ngIf="!isLoading">
+
+                        <form [formGroup]="search" (ngSubmit)=" onSearchByFirstNameOrLastName() "
+                              class="form-group">
+                            <mat-form-field appearance="legacy">
+                                <mat-label>Recherche par Nom ou Prénom</mat-label>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <input formControlName="keyword" type="textarea" matInput
+                                       placeholder="Recherche" >                                        >
+                                <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr>
         </mat-card-header>
 
-        <div class="recherche" *ngIf="!isLoading">
-            <div>
-                <form [formGroup]="search" (ngSubmit)=" onSearchByFirstNameOrLastName() "
-                      class="form-group">
-                    <div fxLayout="row ">
 
-                        <mat-form-field appearance="legacy">
-
-                            <mat-label>Recherche par Nom ou Prénom</mat-label>
-                            <mat-icon matSuffix>search</mat-icon>
-                            <input formControlName="keyword" type="text" matInput placeholder="Recherche"
-                                   class="form-control">
-                            <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
-                        </mat-form-field>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <hr>
      
         <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
@@ -72,6 +73,8 @@
                 </div>
             </div>
         </mat-card-content>
-        <div class="progressBarDiv" *ngIf="isLoading" fxLayoutAlign="center center" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
     </mat-card>
+    
 </div>
+<div class="progressBarDiv" *ngIf="isLoading" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
+
