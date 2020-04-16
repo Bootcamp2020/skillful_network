@@ -1,3 +1,4 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -19,20 +20,22 @@ export class ProfileConfComponent {
   userLSubscription: Subscription;
   parentGroup: FormGroup;
   public listCandidature: Candidature[];
-  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute, private ts: TokenStorageService) { }
 
   ngOnInit() {
-
-    this.userLSubscription = this.userService.userLoggedSubject.subscribe(
-      (userTemp: User) => {
-        this.userLogged = userTemp;
+    this.api.get({endpoint: `/authentication/user`})
+                  .then(data => {
+                  console.log(data);
+                  this.userLogged = data;
+                  this.createForm();
+                  this.api.get({endpoint: `/applications/jobs/user/` + data.id})
+                  .then(candidatures => {
+                    this.listCandidature = candidatures;
+                  })
+                  })
+                  .catch((error) => {
+                      console.log(error);
       });
-    this.userService.emitUsers();
-    this.createForm();
-    this.api.get({endpoint: `/applications/jobs/user/1`})
-        .then(data => {
-          this.listCandidature = data;
-        });
   }
 
   createForm() {
@@ -45,21 +48,20 @@ export class ProfileConfComponent {
         'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
         'careerGoal': [this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)]]
       }),
-      
+
       formSkillInfos: this.formBuilder.group({
-        // 'skillSet': this.userLogged.skillSet,
-        'skillSet': '',
-        'skillUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.skillSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formQualInfos: this.formBuilder.group({
-        'qualificationSet': this.userLogged.qualificationSet,
-        'qualifUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.qualificationSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       }),
 
       formSubscriptInfos: this.formBuilder.group({
-        'subscriptionSet': this.userLogged.subscriptionSet,
-        'subscriptUnit': [null, [Validators.minLength(2), Validators.maxLength(20)]]
+        'chipValues': this.userLogged.subscriptionSet,
+        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
       })
     });
   }
@@ -88,7 +90,7 @@ export class ProfileConfComponent {
       this.userLogged.qualificationSet = formValueQ['qualificationSet'];
     }
 
-    // partie Skill /!\ cette partie du formulaire est vide si rien n'est touché
+    // partie Subscr /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueSu = this.parentGroup.get('formSubscriptInfos').value;
     this.monI = formValueSu['subscriptionSet'].length;
     if (this.monI > 0) { 

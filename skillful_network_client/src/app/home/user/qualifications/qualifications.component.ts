@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder} from '@angular/forms';
-import { Qualif } from 'src/app/shared/models/qualif';
+import { ChipValue } from 'src/app/shared/models/chip-value';
 import {ApiHelperService} from '../../../shared/services/api-helper.service';
 import {ActivatedRoute} from '@angular/router';
 
@@ -10,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./qualifications.component.scss']
 })
 export class QualificationsComponent implements OnInit {
-  @Input() public listQualif: Qualif[];
+  @Input() public listQualif: ChipValue[];
   constructor(private formBuilder: FormBuilder,  private api: ApiHelperService,  private route: ActivatedRoute) {
 
   }

@@ -6,9 +6,7 @@ import {ApiHelperService} from '../../shared/services/api-helper.service';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 
-import {Qualif} from '../../shared/models/qualif';
-import {Skill} from '../../shared/models/skill';
-import {Subscript} from '../../shared/models/subscript';
+import {ChipValue} from '../../shared/models/chip-value';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Candidature} from "../../shared/models/candidature";
 
@@ -20,9 +18,9 @@ import {Candidature} from "../../shared/models/candidature";
 export class UserComponent implements OnInit {
 
     public user: User;
-    public listQualif: Qualif[];
-    public listSkill: Skill[];
-    public listSubscript: Subscript[];
+    public listQualif: ChipValue[];
+    public listSkill: ChipValue[];
+    public listSubscript: ChipValue[];
     public listCandidature: Candidature[];
     public statusUser: string;
     public loading: boolean;
@@ -61,7 +59,7 @@ export class UserComponent implements OnInit {
                 }
                 console.log(this.user.photo);
                 if (this.user.photo) {
-                    this.http.get(environment.base_url + `users/image/${id}`, {responseType: 'blob'})
+                    this.http.get(environment.base_url + `/users/image/${this.user.id}`, {responseType: 'blob'})
                         .subscribe(dataBlob => {
                             const objectURL = URL.createObjectURL(dataBlob);
                             this.image_user = this.sanitizer.bypassSecurityTrustUrl(objectURL);
