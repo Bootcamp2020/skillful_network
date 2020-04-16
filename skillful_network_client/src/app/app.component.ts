@@ -19,10 +19,10 @@ export class AppComponent implements OnInit{
   constructor(private tokenStorageService: TokenStorageService, private snackBar: MatSnackBar,private router: Router , private api:ApiHelperService , private userService : UserService) {
     
   }
-  ngOnInit(): void {  
-        
+  ngOnInit(): void {          
         this.urlActual = location.pathname.toString()
-        if(!(this.urlActual.includes("login") || this.urlActual.includes("password") || this.urlActual.includes("passwordForgotten"))){
+        console.log(this.urlActual)
+        if(!( this.urlActual == "/" || this.urlActual.includes("login") || this.urlActual.includes("password") || this.urlActual.includes("passwordForgotten"))){
           this.stillLogged = true
           this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
             data=>{
@@ -37,8 +37,7 @@ export class AppComponent implements OnInit{
                 duration: 5000,
              });
               this.stillLogged = false
-            })
-        
+            })    
         }
         else {
           if(this.tokenStorageService.getToken()!= null){
