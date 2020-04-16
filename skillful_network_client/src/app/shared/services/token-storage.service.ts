@@ -30,14 +30,6 @@ export class TokenStorageService {
     console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
   }
 
-  public saveLoggedUser(user : User){
-    localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(user));
-  }
-
-  public getLoggedUser(){
-    localStorage.getItem(JSON.parse(LOGGED_USER_KEY));
-  }
-
   public saveTokenAndCurrentUsername(token: string, username: string , authorities: string[], storage: string) {
     // On enlève toutes les infos dans les storage
     localStorage.removeItem(TOKEN_KEY);

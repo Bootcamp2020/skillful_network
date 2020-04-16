@@ -26,7 +26,6 @@ export class ProfileConfComponent {
     this.api.get({endpoint: `/authentication/user`})
                   .then(data => {
                   console.log(data);
-                  this.ts.saveLoggedUser(data);
                   this.userLogged = data;
                   this.createForm();
                   this.api.get({endpoint: `/applications/jobs/user/` + data.id})
@@ -37,12 +36,6 @@ export class ProfileConfComponent {
                   .catch((error) => {
                       console.log(error);
       });
-
-    
-     /* this.api.get({endpoint: `/applications/jobs/user/1`})
-        .then(data => {
-          this.listCandidature = data;
-        });*/
   }
 
   createForm() {
