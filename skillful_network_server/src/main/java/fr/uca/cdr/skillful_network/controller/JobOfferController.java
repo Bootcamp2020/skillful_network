@@ -41,7 +41,7 @@ public class JobOfferController {
 		return jobOfferService.getAllJobOffer();
 	}
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/")
 	public ResponseEntity<Page<JobOffer>> getOffersPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {

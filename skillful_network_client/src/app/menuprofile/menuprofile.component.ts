@@ -36,7 +36,7 @@ export class MenuprofileComponent implements OnInit {
         console.log(this.user.photo);
         console.log(this.user.id)
         if (this.user.photo) {
-            this.http.get(environment.base_url + `/image/${this.user.id}`, {responseType: 'blob'})
+            this.http.get(environment.base_url + `/users/image/${this.user.id}`, {responseType: 'blob'})
                 .subscribe(dataBlob => {
                     const objectURL = URL.createObjectURL(dataBlob);
 

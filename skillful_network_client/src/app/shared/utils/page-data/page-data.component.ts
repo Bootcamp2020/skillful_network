@@ -1,5 +1,5 @@
 import { TrainingService } from './../../services/training.service';
-import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, HostListener} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -8,6 +8,9 @@ import { UserService } from '../../services/user.service';
 import { CandidatureService } from '../../services/candidature.service';
 import { JobOfferService } from '../../services/job-offer.service';
 import { Training } from '../../models/training';
+import {NgForm} from '@angular/forms';
+import { JobOffer } from '../../models/job-offer';
+
 
 
 @Component({
@@ -38,15 +41,21 @@ export class PageDataComponent implements OnInit {
      // MatPaginator Output
      pageEvent: PageEvent;
 
+     keyEvent: boolean = false;
+     keyword: string;
+     form: NgForm;
+     
     @Input() entityIn: String;
   
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+
   constructor(private trainingService: TrainingService, 
     private userService: UserService, 
     public candidatureService: CandidatureService, 
     public jobOfferService: JobOfferService) { }
+    
 
   ngOnInit(): void {
      const sortState: Sort = {active: 'name', direction: 'desc'};
@@ -71,15 +80,30 @@ export class PageDataComponent implements OnInit {
 
   }
 
+  search(form: NgForm) {
+    if (this.keyEvent) {
+      this.keyword = form.value.keyword;
+    }else{
+      this.keyword = "";
+    }
+    return this.keyword;
+  }
+  
+  @HostListener('document:keyup', ['$event']) handleKeyboardEvent(event: KeyboardEvent) {
+    this.keyEvent = true;
+  }
+
   dataHandler(entityIn:String){
     switch (entityIn) {
       case "training":
+       this.onSearch (this.form);
        this.findformationByPage(this.pageIndex, this.pageRow, this.sortOrder, this.fieldName);
        this.displayedColumns = this.displayedTrainingColumns;
       break;
     
       case "job":
-       this.findJobByPage(this.pageIndex, this.pageRow, this.sortOrder, this.fieldName);
+       this.searchByKeyword(this.form);
+       //this.findJobByPage(this.pageIndex, this.pageRow, this.sortOrder, this.fieldName);
        this.displayedColumns = this.displayedJobColumns;
       break;
 
@@ -113,5 +137,40 @@ export class PageDataComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Training>(res.content);
       this.dataSource.sort = this.sort;
     })
+  }
+  
+  onSearch(form: NgForm){
+    switch (this.entityIn) {
+      case "training":
+        this.trainingService.getTrainingBySearch(this.search(form), this.pageIndex, this.pageSize, this.sortOrder, this.fieldName).then(res => {
+          this.length = res.totalElements;
+          this.dataSource = new MatTableDataSource<Training>(res.content);
+        });
+      break;
+    
+      case "user":
+        this.userService.getUsersBySearch(this.search(form), this.pageIndex, this.pageSize, this.sortOrder, this.fieldName).then(res => {
+          this.length = res.totalElements;
+          this.dataSource = new MatTableDataSource<Training>(res.content);
+        });
+      break;
+
+      case "job":
+        this.jobOfferService.getOffersBySearch(this.search(form), this.pageIndex, this.pageSize, this.sortOrder, this.fieldName).then(res => {
+          this.length = res.totalElements;
+          this.dataSource = new MatTableDataSource<Training>(res.content);
+        });
+      break;
+
+      default:
+        break;
+    }
+  }
+
+  searchByKeyword(form: NgForm) {
+    this.jobOfferService.getOffersBySearch(this.search(form), this.pageIndex, this.pageSize, this.sortOrder, this.fieldName).then(res => {
+      this.length = res.totalElements;
+      this.dataSource = new MatTableDataSource<JobOffer>(res.content);
+    });
   }
 }

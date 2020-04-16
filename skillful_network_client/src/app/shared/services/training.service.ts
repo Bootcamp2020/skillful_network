@@ -56,4 +56,21 @@ export class TrainingService {
           return promise;
     }
 
+    public getTrainingBySearch(keyword: string, page: number, size: number, order: string, field: string): Promise<any> {
+        let promise = new Promise((resolve, reject) => {
+            this.api.get({ endpoint: `/trainings/search`, queryParams: { keyword: keyword, page: page, size: size, sortOrder: order, field: field } })
+                .then(
+                    res => {
+                        resolve(res);
+                    },
+                    msg => {
+                        reject(msg);
+                    }
+                ).catch((error) => {
+                    console.log("request not found")
+                });
+        });
+        return promise;
+    }
+
 }
