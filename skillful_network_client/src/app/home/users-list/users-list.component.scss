@@ -1,65 +1,57 @@
-h1 {
-  text-align: center;
+.user-list{
+  width: 85%;
+  margin: auto;
+  padding-top: 60px;
 }
+h1{
+    text-align: center;
+  }
+  
+  table {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
 
-table {
-  width: 100%;
-  text-align: center;
-}
-
-mat-header-cell, mat-cell {
-  justify-content: center;
-}
-
-a {
-  color: black;
-}
-
-.mat-card-header {
-
-  display: block;
-}
-
-.mat-card-title {
-  text-align: center;
-  margin-left: 30%;
-  margin-top: 1rem;
-}
+  mat-header-cell, mat-cell {
+    justify-content: center;
+  }
+  
+  a {
+    color:black;
+  }
 
 .mat-form-field {
   font-size: 14px;
-  width: 300px;
+  padding: 10px;
+  width: 400px;
 }
-
-td, th {
-  width: 20%;
-}
-
-.btnIcon {
-  color: black;
-  margin-top: 7px;
-}
-
-.table-container {
-  width: 80%;
-}
+  
+  td, th {
+    width: 20%;
+  }
+  .btnIcon {
+    color:black;
+    margin-top: 7px;
+  }
+  
+  .table-container {
+    width: 80%;
+  }
 
 .cursor {
-  cursor: pointer;
-}
+    cursor: pointer;
+  }
 
-.boutonSearch {
-  display: none;
-}
-
-.progressBarDiv {
-  margin-top: 12%;
-}
-
-.is-loading {
-  margin: 0 auto;
-}
-
+.boutonSearch{
+    display: none;
+  }
+  .progressBarDiv {
+    margin-top: 12%;
+  }
+  .is-loading{
+    margin:0 auto;
+  }
 @media screen and (max-width: 640px) {
 
   .mat-form-field {

@@ -1,5 +1,4 @@
 
-
 <div class ="user-list" class = "mat-elevation-z8">
     <mat-card>
 
@@ -17,7 +16,7 @@
                                 <mat-label>Recherche par Nom ou Prénom</mat-label>
                                 <mat-icon matSuffix>search</mat-icon>
                                 <input formControlName="keyword" type="textarea" matInput
-                                       placeholder="Recherche" >                                        >
+                                       placeholder="Recherche" >
                                 <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
                             </mat-form-field>
                         </form>
@@ -28,13 +27,13 @@
         </mat-card-header>
 
 
-     
+
         <mat-card-content *ngIf="!isLoading">
             <div fxLayoutAlign="center center">
                 <div class="mat-elevation-z3 table-container">
                     <table mat-table [dataSource]="dataSource"  (matSortChange)="change($event)" matSort>
 
-                    <!-- Name Column -->
+                        <!-- Name Column -->
 
                         <ng-container matColumnDef="firstName">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
@@ -59,7 +58,7 @@
                         </ng-container>
 
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </table>
                     <mat-paginator
                             [pageSize]="pageSize"
@@ -74,7 +73,7 @@
             </div>
         </mat-card-content>
     </mat-card>
-    
+
 </div>
 <div class="progressBarDiv" *ngIf="isLoading" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
 
