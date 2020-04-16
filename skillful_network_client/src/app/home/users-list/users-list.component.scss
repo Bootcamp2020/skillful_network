@@ -15,7 +15,14 @@ h1{
   a {
     color:black;
   }
-
+.mat-card-header {
+  display: block;
+}
+.mat-card-title {
+  text-align: center;
+  margin-left: 30%;
+  margin-top: 1rem;
+}
 .mat-form-field {
   font-size: 14px;
   padding: 10px;
