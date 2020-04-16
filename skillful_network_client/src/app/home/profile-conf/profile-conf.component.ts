@@ -1,3 +1,4 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -19,20 +20,22 @@ export class ProfileConfComponent {
   userLSubscription: Subscription;
   parentGroup: FormGroup;
   public listCandidature: Candidature[];
-  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService,private api: ApiHelperService,private route: ActivatedRoute, private ts: TokenStorageService) { }
 
   ngOnInit() {
-
-    this.userLSubscription = this.userService.userLoggedSubject.subscribe(
-      (userTemp: User) => {
-        this.userLogged = userTemp;
+    this.api.get({endpoint: `/authentication/user`})
+                  .then(data => {
+                  console.log(data);
+                  this.userLogged = data;
+                  this.createForm();
+                  this.api.get({endpoint: `/applications/jobs/user/` + data.id})
+                  .then(candidatures => {
+                    this.listCandidature = candidatures;
+                  })
+                  })
+                  .catch((error) => {
+                      console.log(error);
       });
-    this.userService.emitUsers();
-    this.createForm();
-    this.api.get({endpoint: `/applications/jobs/user/1`})
-        .then(data => {
-          this.listCandidature = data;
-        });
   }
 
   createForm() {

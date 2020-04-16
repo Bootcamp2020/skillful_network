@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 // Ce service permettra de manipuler les données relatives au token/utilisateur de la session
 
 const TOKEN_KEY = 'token';
@@ -8,8 +7,6 @@ const LOCAL_STORAGE = 'local';
 const AUTHORITIES_KEY = 'authorities';
 const IS_LOGGED_IN = 'isLoggedIn';
 const IS_LOGGED = 'true';
-
-
 
 @Injectable({
   providedIn: 'root'
