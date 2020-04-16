@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciceSetService} from '../../shared/services/exerciceSet.service';
+import {MatDialog} from "@angular/material/dialog";
+import {ModalResultComponent} from "./modal-result/modal-result.component";
 
 @Component({
   selector: 'app-questionnaire',
@@ -21,7 +23,7 @@ export class QuestionnaireComponent implements OnInit {
 //  public simulation = this.sim.findAllMock();
   public simulation: any;
 
-constructor(public sim: ExerciceSetService) {
+constructor(public dialog: MatDialog, public sim: ExerciceSetService) {
   }
 
   ngOnInit(): void {
@@ -116,6 +118,13 @@ next() {
 //    console.log(JSON.stringify(this.dataReturn));
     this.sim.export(this.simulation.id, this.dataReturn).then(res => {
       console.log(res);
+      this.openDialog(res);
+    });
+  }
+
+  openDialog(modalResult): void {
+    const dialogRef = this.dialog.open(ModalResultComponent, {
+      data: { jobOfferId: modalResult.jobOffer.id, jobOfferName: modalResult.jobOffer.name, jobAccess: modalResult.jobAccess, training: modalResult.training},
     });
   }
 

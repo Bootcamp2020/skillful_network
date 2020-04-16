@@ -1,4 +1,4 @@
-.formation-list-container{
+.offer-list-container {
   width: 85%;
   margin: auto;
   padding-top: 60px;
@@ -7,24 +7,33 @@ table {
   width: 100%;
   min-width: 600px;
 }
-
 .mat-form-field {
-  font-size: 14px;
-  width: 100%;
+  width: 80%;
 }
-
 .btnIcon {
   color: black;
   margin-top: 7px;
 }
-
+a {
+  color: black;
+}
 .table-container {
   overflow: auto;
 }
-
 .mat-header-cell {
   flex-direction: column;
   justify-content: center;
+}
+.mat-card-title {
+  text-align: center;
+  margin-left: 30%;
+  margin-top: 1rem;
+}
+.mat-card-content {
+  margin: 3rem;
+}
+.mat-card-header {
+  display: block;
 }
 
 @media screen and (max-width: 960px) {
@@ -32,30 +41,29 @@ table {
     padding-left: 5px !important;
   }
 }
-@media screen  and (max-width: 856px) {
+@media screen and (max-width: 856px) {
   .noneOffre {
     display: none;
   }
+  .mat-card-title {
+    margin-left:0;
+  }
 }
-@media screen  and (max-width: 594px) {
-  .offreRecherche{
+@media screen and (max-width: 594px) {
+  .offreRecherche {
     width: 200px !important;
   }
   .noneType {
     display: none;
   }
-  .formation-list-container{
-    width: 95%;
+  .offer-list-container {
+    width: 100%;
   }
-
-}
-
-.mat-card-content {
-  margin: 3rem;
-}
-
-.mat-form-field {
-  width: 300px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  .mat-card-content {
+    margin: 0;
+  }
+  .formSearch{
+    display:block;
+    margin:auto;
+  }
 }

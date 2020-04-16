@@ -59,19 +59,19 @@ export class LoginComponent implements OnInit {
     // Permet de vider le local storage
     // tslint:disable-next-line: max-line-length
     localStorage.clear(); // Plus d'infos sur le local storage ici : https://www.alsacreations.com/article/lire/1402-web-storage-localstorage-sessionstorage.html
+    sessionStorage.clear();
     this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
         .then((data) => {
             console.log('token' + data.accessToken);
-            console.log('user id : ' + data.username);
-            if (data.username==null) {
+            console.log('user email : ' + data.username);
+            if (data.username == null) {
                 this.error = true;
             } else if (this.isChecked) {
               this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities , 'local');          
             } else {
-              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities,''  );
-            }   
+              this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, data.username, data.authorities, ''  );
+            }
             this.isLoggedIn = 'true';
-           // localStorage.setItem('isLoggedIn', this.isLoggedIn);
             this.router.navigate(['/home']);
           })
         .catch((error) => {
@@ -102,11 +102,10 @@ export class LoginComponent implements OnInit {
       .then((response) => {
         console.log("ok", response);
       // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
-      this.router.navigate(['/login']);
-      console.log(this.inscriptionFormGroup.value.emailInscription +  ' existe déjà ! ');
-    this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription +'   que vous avez insérée existe déjà.');
+        this.router.navigate(['/login']);
+        console.log(this.inscriptionFormGroup.value.emailInscription +  ' existe déjà ! ');
+        this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription +'   que vous avez insérée existe déjà.');
       }).catch((error) => {
-       
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
         this.doDisplayCodeVerif = true;
       });
@@ -121,18 +120,16 @@ export class LoginComponent implements OnInit {
     console.log(this.inscriptionFormGroup.value.emailInscription);
 
     localStorage.clear();
-    // Commenté en attendant la liaison avec le back
+    sessionStorage.clear();
     this.authService.login({ emailLogin: this.inscriptionFormGroup.value.emailInscription, password: this.codeForm.value.code  })
       .then((data) => {
         console.log('token' + data.accessToken);
-        console.log('username : ' + data.username);
+        console.log('user email : ' + data.username);
         if (data.username === null) {
           this.error = true;
         } else {
-            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , 'local');
-            //  this.userService.actualUser = new User({id});//lien a modifie
+            this.tokenStorage.saveTokenAndCurrentUsername(data.accessToken, JSON.stringify(data.username), data.authorities , '');
             this.isLoggedIn = 'true';
-            localStorage.setItem('isLoggedIn', this.isLoggedIn);
             this.router.navigate(['/password']);
           }
         // SI on rentre là, ça veut dire que l'user a déjà un compte, faut le rediriger vers l'autre onglet
